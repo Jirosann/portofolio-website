@@ -4,6 +4,7 @@ import { useState, useEffect, useLayoutEffect, useRef, useMemo, MouseEvent as Re
 import { createPortal } from 'react-dom';
 import type { GitHubContributions } from '@/lib/content/github';
 import { useTranslation } from '@/components/providers/LanguageProvider';
+import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 
 interface GitHubHeatmapProps {
   data: GitHubContributions;
@@ -230,7 +231,7 @@ export function GitHubHeatmap({ data }: GitHubHeatmapProps) {
 
   return (
     <section className="py-16 md:py-24 github-heatmap-section">
-      <div className="max-w-content mx-auto px-5">
+      <ScrollReveal className="max-w-content mx-auto px-5">
         <div className="github-heatmap-header">
           <div>
             <h2 className="github-heatmap-title">{t.heatmap.title}</h2>
@@ -294,7 +295,7 @@ export function GitHubHeatmap({ data }: GitHubHeatmapProps) {
                     data-week={weekIndex}
                     data-day={dayIndex}
                     aria-label={ariaLabel}
-                    className={`github-heatmap-cell github-heatmap-cell--level-${day.level}`}
+                    className={`github-heatmap-cell github-heatmap-cell--level-${day.level} hover:scale-[1.3] transition-transform duration-200 hover:z-20 hover:shadow-[0_0_12px_color-mix(in_srgb,var(--color-highlight)_50%,transparent)] relative`}
                     style={{ gridRow: dayIndex + 2, gridColumn: weekIndex + 2 }}
                     onMouseEnter={(e) => handleMouseEnter(e, day.count, day.date)}
                     onMouseLeave={hideTooltip}
@@ -320,7 +321,7 @@ export function GitHubHeatmap({ data }: GitHubHeatmapProps) {
             <span>{t.heatmap.more}</span>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
 
       {/* Tooltip Portal */}
       {typeof window !== 'undefined' && tooltip.visible && createPortal(
