@@ -1,0 +1,14 @@
+{
+  "id": "kasirai",
+  "slug": "kasirai",
+  "title": "KasirAI",
+  "summary": "Problem: Manual inventory tracking. Solution: Built AI POS using GenAI, FastAPI & React for predictive analytics. Impact: Streamlined SMB operations & enabled real-time WhatsApp stock alerts.",
+  "role": "Operations Lead (Academic Project)",
+  "technologies": ["FastAPI", "React"],
+  "projectStatus": "in-progress",
+  "order": 3,
+  "published": true,
+  "techInsight": "Leveraging generative AI for WhatsApp chatbot and real-time anomaly detection.",
+  "thumbnail": "/images/projects/ecommerce-api/thumbnail.webp",
+  "thumbnailAlt": "KasirAI POS Interface"
+}

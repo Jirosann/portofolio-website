@@ -1,0 +1,74 @@
+[
+  {
+    "id": "kasirai-cofounder",
+    "type": "ACADEMIC PROJECT",
+    "role": "Chief Operating Officer (Project Role)",
+    "organization": "KasirAI",
+    "period": "2026 – Present",
+    "description": "Managed operations and product strategy for a university team project developing an AI-powered point-of-sale system for Indonesian SMBs.",
+    "highlights": [],
+    "tags": ["AI", "Product Strategy", "Project Management", "Leadership"],
+    "order": 1,
+    "visible": true
+  },
+  {
+    "id": "bnec-hrd",
+    "type": "ORGANIZATION",
+    "role": "Member, Human Resources (HRD) Division",
+    "organization": "BNEC, BINUS University Student Activity Unit (UKM)",
+    "period": "2025 – 2026",
+    "description": "Member of the Human Resources division of BNEC, a student activity unit at BINUS University.",
+    "highlights": [],
+    "tags": ["HRD", "Organization"],
+    "order": 2,
+    "visible": true
+  },
+  {
+    "id": "advanced-tech-ai-workshops",
+    "type": "WORKSHOP",
+    "role": "Advanced Technology & AI Workshops Participant",
+    "organization": "School of Computer Science & DSAI",
+    "period": "Nov 2024 – Jun 2026",
+    "description": "Attended sessions on Generative AI in industry, data hunting, enterprise AI use cases, threat modelling, and Golang microservices.",
+    "highlights": [],
+    "tags": ["Generative AI", "Data Science", "Threat Modelling", "Golang"],
+    "order": 3,
+    "visible": true
+  },
+  {
+    "id": "bncc-bnec-committee",
+    "type": "ORGANIZATION",
+    "role": "Committee Member",
+    "organization": "Bina Nusantara Computer Club (BNCC) & BNEC",
+    "period": "Feb 2025 – Nov 2025",
+    "description": "Served as a committee member for the 32nd BNEC Cadre Forming event and took part in the BNCC Corporate Social Responsibility (CSR) program, building leadership and team coordination skills.",
+    "highlights": [],
+    "tags": ["Leadership", "Teamwork", "CSR"],
+    "order": 4,
+    "visible": true
+  },
+  {
+    "id": "agile-software-design",
+    "type": "SEMINAR",
+    "role": "Agile & Software Design Participant",
+    "organization": "Student Support Office Bekasi",
+    "period": "May 2025",
+    "description": "Studied structured development methodologies in the Agile, Low Code and AI Software Design and Development seminar.",
+    "highlights": [],
+    "tags": ["Agile", "Low Code"],
+    "order": 5,
+    "visible": true
+  },
+  {
+    "id": "global-strategy-seminars",
+    "type": "SEMINAR",
+    "role": "Global Strategy & Business Management Seminars",
+    "organization": "BINUS International Office & IMCB",
+    "period": "Sep 2024 – Feb 2025",
+    "description": "Attended seminars on sustainability strategies, international business management, and the automotive industry in Indonesia.",
+    "highlights": [],
+    "tags": ["Business", "Sustainability"],
+    "order": 6,
+    "visible": true
+  }
+]

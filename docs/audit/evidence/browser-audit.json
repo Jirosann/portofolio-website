@@ -1,0 +1,3186 @@
+{
+ "runs": [
+  {
+   "theme": "light",
+   "url": "http://localhost:3100/",
+   "viewport": "1440x900",
+   "pairs": [
+    {
+     "pair": "text on bg",
+     "ratio": 16.17
+    },
+    {
+     "pair": "text on surface",
+     "ratio": 18.14
+    },
+    {
+     "pair": "text-muted on bg",
+     "ratio": 5.1
+    },
+    {
+     "pair": "text-muted on surface",
+     "ratio": 5.72
+    },
+    {
+     "pair": "highlight on bg",
+     "ratio": 4.3
+    },
+    {
+     "pair": "highlight on surface",
+     "ratio": 4.82
+    },
+    {
+     "pair": "burgundy-hover on bg",
+     "ratio": 9
+    },
+    {
+     "pair": "link on bg",
+     "ratio": 5.27
+    },
+    {
+     "pair": "link on surface",
+     "ratio": 5.91
+    },
+    {
+     "pair": "text on navy",
+     "ratio": 1.63
+    },
+    {
+     "pair": "border on bg",
+     "ratio": 1.28
+    },
+    {
+     "pair": "white on highlight",
+     "ratio": 4.82
+    },
+    {
+     "pair": "white/F1ECE8 on burgundy-hover",
+     "ratio": 10.09
+    },
+    {
+     "pair": "bg on highlight",
+     "ratio": 4.3
+    }
+   ],
+   "contrastFails": [
+    {
+     "text": "React",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "FastAPI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "PostgreSQL",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "TypeScript",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Computer Vision",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "TensorFlow",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "scikit-learn",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "UI/UX",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Figma",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Frontend",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "AI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Product Strategy",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Project Management",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Leadership",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "HRD",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Organization",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Generative AI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Data Science",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Threat Modelling",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Golang",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Teamwork",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "CSR",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Agile",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Low Code",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Business",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Sustainability",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "On Progress",
+     "fg": "#B06000",
+     "bg": "#FEF7E0",
+     "ratio": 4.34,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    }
+   ],
+   "overflow": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "offenders": []
+   },
+   "a11y": {
+    "lang": "en",
+    "themeColorMeta": [],
+    "imgsNoAlt": [],
+    "headings": [
+     "H1:Muhammad Nabil Al Qadri",
+     "H2:Software Engineering Student ✦",
+     "H2:About Me.",
+     "H2:Experience.",
+     "H3:Full-Stack Development",
+     "H3:Intelligent Systems",
+     "H3:Product Interfaces",
+     "H3:Chief Operating Officer (Proje",
+     "H3:Member, Human Resources (HRD) ",
+     "H3:Advanced Technology & AI Works",
+     "H3:Committee Member",
+     "H3:Agile & Software Design Partic",
+     "H3:Global Strategy & Business Man",
+     "H2:Technology Stack.",
+     "H3:Development Tools",
+     "H2:GitHub Contributions",
+     "H2:Featured Projects",
+     "H3:Completed",
+     "H3:TB Detector",
+     "H3:Clash Of Bang",
+     "H3:Fakenews Detector",
+     "H3:On Progress",
+     "H3:Face Attend",
+     "H2:Let's Connect."
+    ],
+    "unnamedButtons": [],
+    "blankNoRel": [],
+    "duplicateIds": [
+     "Nextjs-a",
+     "Nextjs-b",
+     "Kotlin-a",
+     "Golang-go-original-a",
+     "Golang-go-original-b",
+     "NodeJS-a",
+     "NodeJS-b",
+     "NodeJS-c",
+     "Python-python-original-a",
+     "Python-python-original-b",
+     "Python-python-original-c"
+    ]
+   },
+   "inventory": [
+    {
+     "color": "#000000",
+     "palette": "",
+     "count": 868,
+     "props": "fill",
+     "sample": "div.fixed.inset-0.z-[-1]"
+    },
+    {
+     "color": "#171519",
+     "palette": "text",
+     "count": 704,
+     "props": "color,stroke,backgroundColor,fill",
+     "sample": "div.fixed.inset-0.z-[-1]"
+    },
+    {
+     "color": "#DED6D1",
+     "palette": "border",
+     "count": 450,
+     "props": "backgroundColor,borderTopColor",
+     "sample": "div.w-px.h-5.mx-2"
+    },
+    {
+     "color": "#555555",
+     "palette": "",
+     "count": 136,
+     "props": "color",
+     "sample": "a.rounded-full.px-4.py-1.5"
+    },
+    {
+     "color": "#FFFFFF",
+     "palette": "surface",
+     "count": 67,
+     "props": "backgroundColor,color,stroke",
+     "sample": "button.marquee-item."
+    },
+    {
+     "color": "#A65F49",
+     "palette": "highlight",
+     "count": 35,
+     "props": "backgroundColor,color",
+     "sample": "span.w-2.h-2.rounded-full"
+    },
+    {
+     "color": "#EEE2DD",
+     "palette": "",
+     "count": 28,
+     "props": "backgroundColor",
+     "sample": "span.tag-pill"
+    },
+    {
+     "color": "#A55F4B a=0.20",
+     "palette": "",
+     "count": 28,
+     "props": "borderTopColor",
+     "sample": "span.tag-pill"
+    },
+    {
+     "color": "#141414 a=0.05",
+     "palette": "",
+     "count": 19,
+     "props": "backgroundColor",
+     "sample": "div.inline-flex.items-center.gap-2"
+    },
+    {
+     "color": "#F6F1ED",
+     "palette": "bg",
+     "count": 19,
+     "props": "color,stroke",
+     "sample": "a.group.relative.px-8"
+    },
+    {
+     "color": "#702C29",
+     "palette": "burgundy-hover",
+     "count": 14,
+     "props": "color,borderTopColor",
+     "sample": "a.rounded-full.px-4.py-1.5"
+    },
+    {
+     "color": "#000000 a=0.02",
+     "palette": "",
+     "count": 11,
+     "props": "backgroundColor",
+     "sample": "div.experience-status-card"
+    },
+    {
+     "color": "#1A1A1A a=0.08",
+     "palette": "",
+     "count": 11,
+     "props": "borderTopColor",
+     "sample": "div.experience-status-card"
+    },
+    {
+     "color": "#DED7D2 a=0.40",
+     "palette": "",
+     "count": 9,
+     "props": "borderTopColor",
+     "sample": "div.relative.overflow-hidden.rounded-[2rem]"
+    },
+    {
+     "color": "#E9DDD9",
+     "palette": "",
+     "count": 6,
+     "props": "backgroundColor",
+     "sample": "span.experience-work-type-badge"
+    },
+    {
+     "color": "#FFFFFF a=0.20",
+     "palette": "surface",
+     "count": 4,
+     "props": "backgroundColor",
+     "sample": "div.flex-[2].group.relative"
+    },
+    {
+     "color": "#FFFFFF a=0.60",
+     "palette": "surface",
+     "count": 4,
+     "props": "backgroundColor",
+     "sample": "div.group.relative.flex"
+    },
+    {
+     "color": "#D0B8AF",
+     "palette": "",
+     "count": 3,
+     "props": "backgroundColor",
+     "sample": "div.github-heatmap-cell.github-heatmap-cell--level-1.cursor-pointer"
+    },
+    {
+     "color": "#137333",
+     "palette": "",
+     "count": 3,
+     "props": "color",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    },
+    {
+     "color": "#E6F4EA",
+     "palette": "",
+     "count": 3,
+     "props": "backgroundColor",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    },
+    {
+     "color": "#CEEAD6",
+     "palette": "",
+     "count": 3,
+     "props": "borderTopColor",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    },
+    {
+     "color": "#B06000",
+     "palette": "",
+     "count": 3,
+     "props": "color,backgroundColor",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    },
+    {
+     "color": "#C29A8D",
+     "palette": "",
+     "count": 2,
+     "props": "backgroundColor",
+     "sample": "div.github-heatmap-cell.github-heatmap-cell--level-2.cursor-pointer"
+    },
+    {
+     "color": "#FFFFFF a=0.85",
+     "palette": "surface",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "header.sticky.top-0.z-50"
+    },
+    {
+     "color": "#732626 a=0.08",
+     "palette": "",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "a.rounded-full.px-4.py-1.5"
+    },
+    {
+     "color": "#6E2D28 a=0.20",
+     "palette": "",
+     "count": 1,
+     "props": "borderTopColor",
+     "sample": "a.rounded-full.px-4.py-1.5"
+    },
+    {
+     "color": "#FFFFFF a=0.10",
+     "palette": "surface",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "button.w-full.text-left.px-4"
+    },
+    {
+     "color": "#FFFFFF a=0.30",
+     "palette": "surface",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "div.relative.overflow-hidden.rounded-[2rem]"
+    },
+    {
+     "color": "#B47D6B",
+     "palette": "",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "div.github-heatmap-legend-cell.github-heatmap-cell--level-3"
+    },
+    {
+     "color": "#FEF7E0",
+     "palette": "",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    },
+    {
+     "color": "#FEEFC3",
+     "palette": "",
+     "count": 1,
+     "props": "borderTopColor",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    }
+   ],
+   "dataTheme": "light"
+  },
+  {
+   "theme": "light",
+   "url": "http://localhost:3100/",
+   "viewport": "1024x768",
+   "pairs": [
+    {
+     "pair": "text on bg",
+     "ratio": 16.17
+    },
+    {
+     "pair": "text on surface",
+     "ratio": 18.14
+    },
+    {
+     "pair": "text-muted on bg",
+     "ratio": 5.1
+    },
+    {
+     "pair": "text-muted on surface",
+     "ratio": 5.72
+    },
+    {
+     "pair": "highlight on bg",
+     "ratio": 4.3
+    },
+    {
+     "pair": "highlight on surface",
+     "ratio": 4.82
+    },
+    {
+     "pair": "burgundy-hover on bg",
+     "ratio": 9
+    },
+    {
+     "pair": "link on bg",
+     "ratio": 5.27
+    },
+    {
+     "pair": "link on surface",
+     "ratio": 5.91
+    },
+    {
+     "pair": "text on navy",
+     "ratio": 1.63
+    },
+    {
+     "pair": "border on bg",
+     "ratio": 1.28
+    },
+    {
+     "pair": "white on highlight",
+     "ratio": 4.82
+    },
+    {
+     "pair": "white/F1ECE8 on burgundy-hover",
+     "ratio": 10.09
+    },
+    {
+     "pair": "bg on highlight",
+     "ratio": 4.3
+    }
+   ],
+   "contrastFails": [
+    {
+     "text": "React",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "FastAPI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "PostgreSQL",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "TypeScript",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Computer Vision",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "TensorFlow",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "scikit-learn",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "UI/UX",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Figma",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Frontend",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "AI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Product Strategy",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Project Management",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Leadership",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "HRD",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Organization",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Generative AI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Data Science",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Threat Modelling",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Golang",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Teamwork",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "CSR",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Agile",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Low Code",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Business",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Sustainability",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "On Progress",
+     "fg": "#B06000",
+     "bg": "#FEF7E0",
+     "ratio": 4.34,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    }
+   ],
+   "overflow": {
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "offenders": []
+   },
+   "a11y": {
+    "lang": "en",
+    "themeColorMeta": [],
+    "imgsNoAlt": [],
+    "headings": [
+     "H1:Muhammad Nabil Al Qadri",
+     "H2:Software Engineering Student ✦",
+     "H2:About Me.",
+     "H2:Experience.",
+     "H3:Full-Stack Development",
+     "H3:Intelligent Systems",
+     "H3:Product Interfaces",
+     "H3:Chief Operating Officer (Proje",
+     "H3:Member, Human Resources (HRD) ",
+     "H3:Advanced Technology & AI Works",
+     "H3:Committee Member",
+     "H3:Agile & Software Design Partic",
+     "H3:Global Strategy & Business Man",
+     "H2:Technology Stack.",
+     "H3:Development Tools",
+     "H2:GitHub Contributions",
+     "H2:Featured Projects",
+     "H3:Completed",
+     "H3:TB Detector",
+     "H3:Clash Of Bang",
+     "H3:Fakenews Detector",
+     "H3:On Progress",
+     "H3:Face Attend",
+     "H2:Let's Connect."
+    ],
+    "unnamedButtons": [],
+    "blankNoRel": [],
+    "duplicateIds": [
+     "Nextjs-a",
+     "Nextjs-b",
+     "Kotlin-a",
+     "Golang-go-original-a",
+     "Golang-go-original-b",
+     "NodeJS-a",
+     "NodeJS-b",
+     "NodeJS-c",
+     "Python-python-original-a",
+     "Python-python-original-b",
+     "Python-python-original-c"
+    ]
+   },
+   "dataTheme": "light"
+  },
+  {
+   "theme": "light",
+   "url": "http://localhost:3100/",
+   "viewport": "768x1024",
+   "pairs": [
+    {
+     "pair": "text on bg",
+     "ratio": 16.17
+    },
+    {
+     "pair": "text on surface",
+     "ratio": 18.14
+    },
+    {
+     "pair": "text-muted on bg",
+     "ratio": 5.1
+    },
+    {
+     "pair": "text-muted on surface",
+     "ratio": 5.72
+    },
+    {
+     "pair": "highlight on bg",
+     "ratio": 4.3
+    },
+    {
+     "pair": "highlight on surface",
+     "ratio": 4.82
+    },
+    {
+     "pair": "burgundy-hover on bg",
+     "ratio": 9
+    },
+    {
+     "pair": "link on bg",
+     "ratio": 5.27
+    },
+    {
+     "pair": "link on surface",
+     "ratio": 5.91
+    },
+    {
+     "pair": "text on navy",
+     "ratio": 1.63
+    },
+    {
+     "pair": "border on bg",
+     "ratio": 1.28
+    },
+    {
+     "pair": "white on highlight",
+     "ratio": 4.82
+    },
+    {
+     "pair": "white/F1ECE8 on burgundy-hover",
+     "ratio": 10.09
+    },
+    {
+     "pair": "bg on highlight",
+     "ratio": 4.3
+    }
+   ],
+   "contrastFails": [
+    {
+     "text": "React",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "FastAPI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "PostgreSQL",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "TypeScript",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Computer Vision",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "TensorFlow",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "scikit-learn",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "UI/UX",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Figma",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Frontend",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "AI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Product Strategy",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Project Management",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Leadership",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "HRD",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Organization",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Generative AI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Data Science",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Threat Modelling",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Golang",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Teamwork",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "CSR",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Agile",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Low Code",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Business",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Sustainability",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "On Progress",
+     "fg": "#B06000",
+     "bg": "#FEF7E0",
+     "ratio": 4.34,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    }
+   ],
+   "overflow": {
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "offenders": []
+   },
+   "a11y": {
+    "lang": "en",
+    "themeColorMeta": [],
+    "imgsNoAlt": [],
+    "headings": [
+     "H1:Muhammad Nabil Al Qadri",
+     "H2:Software Engineering Student ✦",
+     "H2:About Me.",
+     "H2:Experience.",
+     "H3:Full-Stack Development",
+     "H3:Intelligent Systems",
+     "H3:Product Interfaces",
+     "H3:Chief Operating Officer (Proje",
+     "H3:Member, Human Resources (HRD) ",
+     "H3:Advanced Technology & AI Works",
+     "H3:Committee Member",
+     "H3:Agile & Software Design Partic",
+     "H3:Global Strategy & Business Man",
+     "H2:Technology Stack.",
+     "H3:Development Tools",
+     "H2:GitHub Contributions",
+     "H2:Featured Projects",
+     "H3:Completed",
+     "H3:TB Detector",
+     "H3:Clash Of Bang",
+     "H3:Fakenews Detector",
+     "H3:On Progress",
+     "H3:Face Attend",
+     "H2:Let's Connect."
+    ],
+    "unnamedButtons": [],
+    "blankNoRel": [],
+    "duplicateIds": [
+     "Nextjs-a",
+     "Nextjs-b",
+     "Kotlin-a",
+     "Golang-go-original-a",
+     "Golang-go-original-b",
+     "NodeJS-a",
+     "NodeJS-b",
+     "NodeJS-c",
+     "Python-python-original-a",
+     "Python-python-original-b",
+     "Python-python-original-c"
+    ]
+   },
+   "dataTheme": "light"
+  },
+  {
+   "theme": "light",
+   "url": "http://localhost:3100/",
+   "viewport": "390x844",
+   "pairs": [
+    {
+     "pair": "text on bg",
+     "ratio": 16.17
+    },
+    {
+     "pair": "text on surface",
+     "ratio": 18.14
+    },
+    {
+     "pair": "text-muted on bg",
+     "ratio": 5.1
+    },
+    {
+     "pair": "text-muted on surface",
+     "ratio": 5.72
+    },
+    {
+     "pair": "highlight on bg",
+     "ratio": 4.3
+    },
+    {
+     "pair": "highlight on surface",
+     "ratio": 4.82
+    },
+    {
+     "pair": "burgundy-hover on bg",
+     "ratio": 9
+    },
+    {
+     "pair": "link on bg",
+     "ratio": 5.27
+    },
+    {
+     "pair": "link on surface",
+     "ratio": 5.91
+    },
+    {
+     "pair": "text on navy",
+     "ratio": 1.63
+    },
+    {
+     "pair": "border on bg",
+     "ratio": 1.28
+    },
+    {
+     "pair": "white on highlight",
+     "ratio": 4.82
+    },
+    {
+     "pair": "white/F1ECE8 on burgundy-hover",
+     "ratio": 10.09
+    },
+    {
+     "pair": "bg on highlight",
+     "ratio": 4.3
+    }
+   ],
+   "contrastFails": [
+    {
+     "text": "React",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "FastAPI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "PostgreSQL",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "TypeScript",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Computer Vision",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "TensorFlow",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "scikit-learn",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "UI/UX",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Figma",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Frontend",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "AI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Product Strategy",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Project Management",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Leadership",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "HRD",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Organization",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Generative AI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Data Science",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Threat Modelling",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Golang",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Teamwork",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "CSR",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Agile",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Low Code",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Business",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Sustainability",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "On Progress",
+     "fg": "#B06000",
+     "bg": "#FEF7E0",
+     "ratio": 4.34,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    }
+   ],
+   "overflow": {
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "offenders": []
+   },
+   "a11y": {
+    "lang": "en",
+    "themeColorMeta": [],
+    "imgsNoAlt": [],
+    "headings": [
+     "H1:Muhammad Nabil Al Qadri",
+     "H2:Software Engineering Student ✦",
+     "H2:About Me.",
+     "H2:Experience.",
+     "H3:Full-Stack Development",
+     "H3:Intelligent Systems",
+     "H3:Product Interfaces",
+     "H3:Chief Operating Officer (Proje",
+     "H3:Member, Human Resources (HRD) ",
+     "H3:Advanced Technology & AI Works",
+     "H3:Committee Member",
+     "H3:Agile & Software Design Partic",
+     "H3:Global Strategy & Business Man",
+     "H2:Technology Stack.",
+     "H3:Development Tools",
+     "H2:GitHub Contributions",
+     "H2:Featured Projects",
+     "H3:Completed",
+     "H3:TB Detector",
+     "H3:Clash Of Bang",
+     "H3:Fakenews Detector",
+     "H3:On Progress",
+     "H3:Face Attend",
+     "H2:Let's Connect."
+    ],
+    "unnamedButtons": [],
+    "blankNoRel": [],
+    "duplicateIds": [
+     "Nextjs-a",
+     "Nextjs-b",
+     "Kotlin-a",
+     "Golang-go-original-a",
+     "Golang-go-original-b",
+     "NodeJS-a",
+     "NodeJS-b",
+     "NodeJS-c",
+     "Python-python-original-a",
+     "Python-python-original-b",
+     "Python-python-original-c"
+    ]
+   },
+   "dataTheme": "light"
+  },
+  {
+   "theme": "light",
+   "url": "http://localhost:3100/",
+   "viewport": "360x740",
+   "pairs": [
+    {
+     "pair": "text on bg",
+     "ratio": 16.17
+    },
+    {
+     "pair": "text on surface",
+     "ratio": 18.14
+    },
+    {
+     "pair": "text-muted on bg",
+     "ratio": 5.1
+    },
+    {
+     "pair": "text-muted on surface",
+     "ratio": 5.72
+    },
+    {
+     "pair": "highlight on bg",
+     "ratio": 4.3
+    },
+    {
+     "pair": "highlight on surface",
+     "ratio": 4.82
+    },
+    {
+     "pair": "burgundy-hover on bg",
+     "ratio": 9
+    },
+    {
+     "pair": "link on bg",
+     "ratio": 5.27
+    },
+    {
+     "pair": "link on surface",
+     "ratio": 5.91
+    },
+    {
+     "pair": "text on navy",
+     "ratio": 1.63
+    },
+    {
+     "pair": "border on bg",
+     "ratio": 1.28
+    },
+    {
+     "pair": "white on highlight",
+     "ratio": 4.82
+    },
+    {
+     "pair": "white/F1ECE8 on burgundy-hover",
+     "ratio": 10.09
+    },
+    {
+     "pair": "bg on highlight",
+     "ratio": 4.3
+    }
+   ],
+   "contrastFails": [
+    {
+     "text": "React",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "FastAPI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "PostgreSQL",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "TypeScript",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Computer Vision",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "TensorFlow",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "scikit-learn",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "UI/UX",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Figma",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Frontend",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "AI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Product Strategy",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Project Management",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Leadership",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "HRD",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Organization",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Generative AI",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Data Science",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Threat Modelling",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Golang",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Teamwork",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "CSR",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Agile",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Low Code",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Business",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "Sustainability",
+     "fg": "#A65F49",
+     "bg": "#EEE2DD",
+     "ratio": 3.8,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    },
+    {
+     "text": "On Progress",
+     "fg": "#B06000",
+     "bg": "#FEF7E0",
+     "ratio": 4.34,
+     "need": 4.5,
+     "size": 12,
+     "el": "span"
+    }
+   ],
+   "overflow": {
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "offenders": []
+   },
+   "a11y": {
+    "lang": "en",
+    "themeColorMeta": [],
+    "imgsNoAlt": [],
+    "headings": [
+     "H1:Muhammad Nabil Al Qadri",
+     "H2:Software Engineering Student ✦",
+     "H2:About Me.",
+     "H2:Experience.",
+     "H3:Full-Stack Development",
+     "H3:Intelligent Systems",
+     "H3:Product Interfaces",
+     "H3:Chief Operating Officer (Proje",
+     "H3:Member, Human Resources (HRD) ",
+     "H3:Advanced Technology & AI Works",
+     "H3:Committee Member",
+     "H3:Agile & Software Design Partic",
+     "H3:Global Strategy & Business Man",
+     "H2:Technology Stack.",
+     "H3:Development Tools",
+     "H2:GitHub Contributions",
+     "H2:Featured Projects",
+     "H3:Completed",
+     "H3:TB Detector",
+     "H3:Clash Of Bang",
+     "H3:Fakenews Detector",
+     "H3:On Progress",
+     "H3:Face Attend",
+     "H2:Let's Connect."
+    ],
+    "unnamedButtons": [],
+    "blankNoRel": [],
+    "duplicateIds": [
+     "Nextjs-a",
+     "Nextjs-b",
+     "Kotlin-a",
+     "Golang-go-original-a",
+     "Golang-go-original-b",
+     "NodeJS-a",
+     "NodeJS-b",
+     "NodeJS-c",
+     "Python-python-original-a",
+     "Python-python-original-b",
+     "Python-python-original-c"
+    ]
+   },
+   "dataTheme": "light"
+  },
+  {
+   "theme": "dark",
+   "url": "http://localhost:3100/",
+   "viewport": "1440x900",
+   "pairs": [
+    {
+     "pair": "text on bg",
+     "ratio": 16.88
+    },
+    {
+     "pair": "text on surface",
+     "ratio": 15.88
+    },
+    {
+     "pair": "text-muted on bg",
+     "ratio": 9.48
+    },
+    {
+     "pair": "text-muted on surface",
+     "ratio": 8.92
+    },
+    {
+     "pair": "highlight on bg",
+     "ratio": 6.33
+    },
+    {
+     "pair": "highlight on surface",
+     "ratio": 5.95
+    },
+    {
+     "pair": "burgundy-hover on bg",
+     "ratio": 1.86
+    },
+    {
+     "pair": "link on bg",
+     "ratio": 4.08
+    },
+    {
+     "pair": "link on surface",
+     "ratio": 3.84
+    },
+    {
+     "pair": "text on navy",
+     "ratio": 9.47
+    },
+    {
+     "pair": "border on bg",
+     "ratio": 1.37
+    },
+    {
+     "pair": "white on highlight",
+     "ratio": 3.13
+    },
+    {
+     "pair": "white/F1ECE8 on burgundy-hover",
+     "ratio": 9.09
+    },
+    {
+     "pair": "bg on highlight",
+     "ratio": 6.33
+    }
+   ],
+   "contrastFails": [
+    {
+     "text": "View GitHub →",
+     "fg": "#6B2925",
+     "bg": "#0D090A",
+     "ratio": 1.86,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    },
+    {
+     "text": "Live Demo",
+     "fg": "#FFFFFF",
+     "bg": "#C38268",
+     "ratio": 3.13,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    },
+    {
+     "text": "Face Attend",
+     "fg": "#6B2925",
+     "bg": "#0D090A",
+     "ratio": 1.86,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    }
+   ],
+   "overflow": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "offenders": []
+   },
+   "a11y": {
+    "lang": "en",
+    "themeColorMeta": [],
+    "imgsNoAlt": [],
+    "headings": [
+     "H1:Muhammad Nabil Al Qadri",
+     "H2:Software Engineering Student ✦",
+     "H2:About Me.",
+     "H2:Experience.",
+     "H3:Full-Stack Development",
+     "H3:Intelligent Systems",
+     "H3:Product Interfaces",
+     "H3:Chief Operating Officer (Proje",
+     "H3:Member, Human Resources (HRD) ",
+     "H3:Advanced Technology & AI Works",
+     "H3:Committee Member",
+     "H3:Agile & Software Design Partic",
+     "H3:Global Strategy & Business Man",
+     "H2:Technology Stack.",
+     "H3:Development Tools",
+     "H2:GitHub Contributions",
+     "H2:Featured Projects",
+     "H3:Completed",
+     "H3:TB Detector",
+     "H3:Clash Of Bang",
+     "H3:Fakenews Detector",
+     "H3:On Progress",
+     "H3:Face Attend",
+     "H2:Let's Connect."
+    ],
+    "unnamedButtons": [],
+    "blankNoRel": [],
+    "duplicateIds": [
+     "Nextjs-a",
+     "Nextjs-b",
+     "Kotlin-a",
+     "Golang-go-original-a",
+     "Golang-go-original-b",
+     "NodeJS-a",
+     "NodeJS-b",
+     "NodeJS-c",
+     "Python-python-original-a",
+     "Python-python-original-b",
+     "Python-python-original-c"
+    ]
+   },
+   "inventory": [
+    {
+     "color": "#000000",
+     "palette": "",
+     "count": 868,
+     "props": "fill",
+     "sample": "div.fixed.inset-0.z-[-1]"
+    },
+    {
+     "color": "#F1ECE8",
+     "palette": "text",
+     "count": 704,
+     "props": "color,stroke,backgroundColor,fill",
+     "sample": "div.fixed.inset-0.z-[-1]"
+    },
+    {
+     "color": "#332628",
+     "palette": "border",
+     "count": 450,
+     "props": "backgroundColor,borderTopColor",
+     "sample": "div.w-px.h-5.mx-2"
+    },
+    {
+     "color": "#B9B2B0",
+     "palette": "text-muted",
+     "count": 136,
+     "props": "color",
+     "sample": "a.rounded-full.px-4.py-1.5"
+    },
+    {
+     "color": "#181112",
+     "palette": "surface",
+     "count": 63,
+     "props": "backgroundColor",
+     "sample": "button.marquee-item."
+    },
+    {
+     "color": "#C38268",
+     "palette": "highlight",
+     "count": 47,
+     "props": "color,backgroundColor,borderTopColor",
+     "sample": "a.rounded-full.px-4.py-1.5"
+    },
+    {
+     "color": "#1F1513",
+     "palette": "",
+     "count": 28,
+     "props": "backgroundColor",
+     "sample": "span.tag-pill"
+    },
+    {
+     "color": "#C38269 a=0.20",
+     "palette": "",
+     "count": 28,
+     "props": "borderTopColor",
+     "sample": "span.tag-pill"
+    },
+    {
+     "color": "#EBEBEB a=0.05",
+     "palette": "",
+     "count": 19,
+     "props": "backgroundColor",
+     "sample": "div.inline-flex.items-center.gap-2"
+    },
+    {
+     "color": "#0D090A",
+     "palette": "bg",
+     "count": 19,
+     "props": "color,stroke",
+     "sample": "a.group.relative.px-8"
+    },
+    {
+     "color": "#FFFFFF a=0.02",
+     "palette": "",
+     "count": 11,
+     "props": "backgroundColor",
+     "sample": "div.experience-status-card"
+    },
+    {
+     "color": "#F2F2E6 a=0.08",
+     "palette": "",
+     "count": 11,
+     "props": "borderTopColor",
+     "sample": "div.experience-status-card"
+    },
+    {
+     "color": "#322528 a=0.40",
+     "palette": "",
+     "count": 9,
+     "props": "borderTopColor",
+     "sample": "div.relative.overflow-hidden.rounded-[2rem]"
+    },
+    {
+     "color": "#2D1F1C",
+     "palette": "",
+     "count": 6,
+     "props": "backgroundColor",
+     "sample": "span.experience-work-type-badge"
+    },
+    {
+     "color": "#190F14 a=0.20",
+     "palette": "",
+     "count": 4,
+     "props": "backgroundColor",
+     "sample": "div.flex-[2].group.relative"
+    },
+    {
+     "color": "#171112 a=0.60",
+     "palette": "",
+     "count": 4,
+     "props": "backgroundColor",
+     "sample": "div.group.relative.flex"
+    },
+    {
+     "color": "#FFFFFF",
+     "palette": "",
+     "count": 4,
+     "props": "color,stroke",
+     "sample": "a.group/btn.relative.flex-1"
+    },
+    {
+     "color": "#573D38",
+     "palette": "",
+     "count": 3,
+     "props": "backgroundColor",
+     "sample": "div.github-heatmap-cell.github-heatmap-cell--level-1.cursor-pointer"
+    },
+    {
+     "color": "#81C995",
+     "palette": "",
+     "count": 3,
+     "props": "color",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    },
+    {
+     "color": "#147332 a=0.20",
+     "palette": "",
+     "count": 3,
+     "props": "backgroundColor",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    },
+    {
+     "color": "#147332 a=0.40",
+     "palette": "",
+     "count": 3,
+     "props": "borderTopColor",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    },
+    {
+     "color": "#FDE293",
+     "palette": "",
+     "count": 3,
+     "props": "color,backgroundColor",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    },
+    {
+     "color": "#6B2925",
+     "palette": "burgundy-hover",
+     "count": 2,
+     "props": "color",
+     "sample": "a.github-heatmap-link"
+    },
+    {
+     "color": "#7B5448",
+     "palette": "",
+     "count": 2,
+     "props": "backgroundColor",
+     "sample": "div.github-heatmap-cell.github-heatmap-cell--level-2.cursor-pointer"
+    },
+    {
+     "color": "#181012 a=0.85",
+     "palette": "",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "header.sticky.top-0.z-50"
+    },
+    {
+     "color": "#C5846B a=0.12",
+     "palette": "",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "a.rounded-full.px-4.py-1.5"
+    },
+    {
+     "color": "#C38167 a=0.30",
+     "palette": "",
+     "count": 1,
+     "props": "borderTopColor",
+     "sample": "a.rounded-full.px-4.py-1.5"
+    },
+    {
+     "color": "#FFFFFF a=0.10",
+     "palette": "",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "button.w-full.text-left.px-4"
+    },
+    {
+     "color": "#171111 a=0.30",
+     "palette": "",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "div.relative.overflow-hidden.rounded-[2rem]"
+    },
+    {
+     "color": "#9F6B58",
+     "palette": "",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "div.github-heatmap-legend-cell.github-heatmap-cell--level-3"
+    },
+    {
+     "color": "#AF5F00 a=0.20",
+     "palette": "",
+     "count": 1,
+     "props": "backgroundColor",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    },
+    {
+     "color": "#AF5F00 a=0.40",
+     "palette": "",
+     "count": 1,
+     "props": "borderTopColor",
+     "sample": "span.inline-flex.items-center.px-2.5"
+    }
+   ],
+   "dataTheme": "dark"
+  },
+  {
+   "theme": "dark",
+   "url": "http://localhost:3100/",
+   "viewport": "1024x768",
+   "pairs": [
+    {
+     "pair": "text on bg",
+     "ratio": 16.88
+    },
+    {
+     "pair": "text on surface",
+     "ratio": 15.88
+    },
+    {
+     "pair": "text-muted on bg",
+     "ratio": 9.48
+    },
+    {
+     "pair": "text-muted on surface",
+     "ratio": 8.92
+    },
+    {
+     "pair": "highlight on bg",
+     "ratio": 6.33
+    },
+    {
+     "pair": "highlight on surface",
+     "ratio": 5.95
+    },
+    {
+     "pair": "burgundy-hover on bg",
+     "ratio": 1.86
+    },
+    {
+     "pair": "link on bg",
+     "ratio": 4.08
+    },
+    {
+     "pair": "link on surface",
+     "ratio": 3.84
+    },
+    {
+     "pair": "text on navy",
+     "ratio": 9.47
+    },
+    {
+     "pair": "border on bg",
+     "ratio": 1.37
+    },
+    {
+     "pair": "white on highlight",
+     "ratio": 3.13
+    },
+    {
+     "pair": "white/F1ECE8 on burgundy-hover",
+     "ratio": 9.09
+    },
+    {
+     "pair": "bg on highlight",
+     "ratio": 6.33
+    }
+   ],
+   "contrastFails": [
+    {
+     "text": "View GitHub →",
+     "fg": "#6B2925",
+     "bg": "#0D090A",
+     "ratio": 1.86,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    },
+    {
+     "text": "Live Demo",
+     "fg": "#FFFFFF",
+     "bg": "#C38268",
+     "ratio": 3.13,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    },
+    {
+     "text": "Face Attend",
+     "fg": "#6B2925",
+     "bg": "#0D090A",
+     "ratio": 1.86,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    }
+   ],
+   "overflow": {
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "offenders": []
+   },
+   "a11y": {
+    "lang": "en",
+    "themeColorMeta": [],
+    "imgsNoAlt": [],
+    "headings": [
+     "H1:Muhammad Nabil Al Qadri",
+     "H2:Software Engineering Student ✦",
+     "H2:About Me.",
+     "H2:Experience.",
+     "H3:Full-Stack Development",
+     "H3:Intelligent Systems",
+     "H3:Product Interfaces",
+     "H3:Chief Operating Officer (Proje",
+     "H3:Member, Human Resources (HRD) ",
+     "H3:Advanced Technology & AI Works",
+     "H3:Committee Member",
+     "H3:Agile & Software Design Partic",
+     "H3:Global Strategy & Business Man",
+     "H2:Technology Stack.",
+     "H3:Development Tools",
+     "H2:GitHub Contributions",
+     "H2:Featured Projects",
+     "H3:Completed",
+     "H3:TB Detector",
+     "H3:Clash Of Bang",
+     "H3:Fakenews Detector",
+     "H3:On Progress",
+     "H3:Face Attend",
+     "H2:Let's Connect."
+    ],
+    "unnamedButtons": [],
+    "blankNoRel": [],
+    "duplicateIds": [
+     "Nextjs-a",
+     "Nextjs-b",
+     "Kotlin-a",
+     "Golang-go-original-a",
+     "Golang-go-original-b",
+     "NodeJS-a",
+     "NodeJS-b",
+     "NodeJS-c",
+     "Python-python-original-a",
+     "Python-python-original-b",
+     "Python-python-original-c"
+    ]
+   },
+   "dataTheme": "dark"
+  },
+  {
+   "theme": "dark",
+   "url": "http://localhost:3100/",
+   "viewport": "768x1024",
+   "pairs": [
+    {
+     "pair": "text on bg",
+     "ratio": 16.88
+    },
+    {
+     "pair": "text on surface",
+     "ratio": 15.88
+    },
+    {
+     "pair": "text-muted on bg",
+     "ratio": 9.48
+    },
+    {
+     "pair": "text-muted on surface",
+     "ratio": 8.92
+    },
+    {
+     "pair": "highlight on bg",
+     "ratio": 6.33
+    },
+    {
+     "pair": "highlight on surface",
+     "ratio": 5.95
+    },
+    {
+     "pair": "burgundy-hover on bg",
+     "ratio": 1.86
+    },
+    {
+     "pair": "link on bg",
+     "ratio": 4.08
+    },
+    {
+     "pair": "link on surface",
+     "ratio": 3.84
+    },
+    {
+     "pair": "text on navy",
+     "ratio": 9.47
+    },
+    {
+     "pair": "border on bg",
+     "ratio": 1.37
+    },
+    {
+     "pair": "white on highlight",
+     "ratio": 3.13
+    },
+    {
+     "pair": "white/F1ECE8 on burgundy-hover",
+     "ratio": 9.09
+    },
+    {
+     "pair": "bg on highlight",
+     "ratio": 6.33
+    }
+   ],
+   "contrastFails": [
+    {
+     "text": "View GitHub →",
+     "fg": "#6B2925",
+     "bg": "#0D090A",
+     "ratio": 1.86,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    },
+    {
+     "text": "Live Demo",
+     "fg": "#FFFFFF",
+     "bg": "#C38268",
+     "ratio": 3.13,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    },
+    {
+     "text": "Face Attend",
+     "fg": "#6B2925",
+     "bg": "#0D090A",
+     "ratio": 1.86,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    }
+   ],
+   "overflow": {
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "offenders": []
+   },
+   "a11y": {
+    "lang": "en",
+    "themeColorMeta": [],
+    "imgsNoAlt": [],
+    "headings": [
+     "H1:Muhammad Nabil Al Qadri",
+     "H2:Software Engineering Student ✦",
+     "H2:About Me.",
+     "H2:Experience.",
+     "H3:Full-Stack Development",
+     "H3:Intelligent Systems",
+     "H3:Product Interfaces",
+     "H3:Chief Operating Officer (Proje",
+     "H3:Member, Human Resources (HRD) ",
+     "H3:Advanced Technology & AI Works",
+     "H3:Committee Member",
+     "H3:Agile & Software Design Partic",
+     "H3:Global Strategy & Business Man",
+     "H2:Technology Stack.",
+     "H3:Development Tools",
+     "H2:GitHub Contributions",
+     "H2:Featured Projects",
+     "H3:Completed",
+     "H3:TB Detector",
+     "H3:Clash Of Bang",
+     "H3:Fakenews Detector",
+     "H3:On Progress",
+     "H3:Face Attend",
+     "H2:Let's Connect."
+    ],
+    "unnamedButtons": [],
+    "blankNoRel": [],
+    "duplicateIds": [
+     "Nextjs-a",
+     "Nextjs-b",
+     "Kotlin-a",
+     "Golang-go-original-a",
+     "Golang-go-original-b",
+     "NodeJS-a",
+     "NodeJS-b",
+     "NodeJS-c",
+     "Python-python-original-a",
+     "Python-python-original-b",
+     "Python-python-original-c"
+    ]
+   },
+   "dataTheme": "dark"
+  },
+  {
+   "theme": "dark",
+   "url": "http://localhost:3100/",
+   "viewport": "390x844",
+   "pairs": [
+    {
+     "pair": "text on bg",
+     "ratio": 16.88
+    },
+    {
+     "pair": "text on surface",
+     "ratio": 15.88
+    },
+    {
+     "pair": "text-muted on bg",
+     "ratio": 9.48
+    },
+    {
+     "pair": "text-muted on surface",
+     "ratio": 8.92
+    },
+    {
+     "pair": "highlight on bg",
+     "ratio": 6.33
+    },
+    {
+     "pair": "highlight on surface",
+     "ratio": 5.95
+    },
+    {
+     "pair": "burgundy-hover on bg",
+     "ratio": 1.86
+    },
+    {
+     "pair": "link on bg",
+     "ratio": 4.08
+    },
+    {
+     "pair": "link on surface",
+     "ratio": 3.84
+    },
+    {
+     "pair": "text on navy",
+     "ratio": 9.47
+    },
+    {
+     "pair": "border on bg",
+     "ratio": 1.37
+    },
+    {
+     "pair": "white on highlight",
+     "ratio": 3.13
+    },
+    {
+     "pair": "white/F1ECE8 on burgundy-hover",
+     "ratio": 9.09
+    },
+    {
+     "pair": "bg on highlight",
+     "ratio": 6.33
+    }
+   ],
+   "contrastFails": [
+    {
+     "text": "View GitHub →",
+     "fg": "#6B2925",
+     "bg": "#0D090A",
+     "ratio": 1.86,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    },
+    {
+     "text": "Live Demo",
+     "fg": "#FFFFFF",
+     "bg": "#C38268",
+     "ratio": 3.13,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    },
+    {
+     "text": "Face Attend",
+     "fg": "#6B2925",
+     "bg": "#0D090A",
+     "ratio": 1.86,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    }
+   ],
+   "overflow": {
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "offenders": []
+   },
+   "a11y": {
+    "lang": "en",
+    "themeColorMeta": [],
+    "imgsNoAlt": [],
+    "headings": [
+     "H1:Muhammad Nabil Al Qadri",
+     "H2:Software Engineering Student ✦",
+     "H2:About Me.",
+     "H2:Experience.",
+     "H3:Full-Stack Development",
+     "H3:Intelligent Systems",
+     "H3:Product Interfaces",
+     "H3:Chief Operating Officer (Proje",
+     "H3:Member, Human Resources (HRD) ",
+     "H3:Advanced Technology & AI Works",
+     "H3:Committee Member",
+     "H3:Agile & Software Design Partic",
+     "H3:Global Strategy & Business Man",
+     "H2:Technology Stack.",
+     "H3:Development Tools",
+     "H2:GitHub Contributions",
+     "H2:Featured Projects",
+     "H3:Completed",
+     "H3:TB Detector",
+     "H3:Clash Of Bang",
+     "H3:Fakenews Detector",
+     "H3:On Progress",
+     "H3:Face Attend",
+     "H2:Let's Connect."
+    ],
+    "unnamedButtons": [],
+    "blankNoRel": [],
+    "duplicateIds": [
+     "Nextjs-a",
+     "Nextjs-b",
+     "Kotlin-a",
+     "Golang-go-original-a",
+     "Golang-go-original-b",
+     "NodeJS-a",
+     "NodeJS-b",
+     "NodeJS-c",
+     "Python-python-original-a",
+     "Python-python-original-b",
+     "Python-python-original-c"
+    ]
+   },
+   "dataTheme": "dark"
+  },
+  {
+   "theme": "dark",
+   "url": "http://localhost:3100/",
+   "viewport": "360x740",
+   "pairs": [
+    {
+     "pair": "text on bg",
+     "ratio": 16.88
+    },
+    {
+     "pair": "text on surface",
+     "ratio": 15.88
+    },
+    {
+     "pair": "text-muted on bg",
+     "ratio": 9.48
+    },
+    {
+     "pair": "text-muted on surface",
+     "ratio": 8.92
+    },
+    {
+     "pair": "highlight on bg",
+     "ratio": 6.33
+    },
+    {
+     "pair": "highlight on surface",
+     "ratio": 5.95
+    },
+    {
+     "pair": "burgundy-hover on bg",
+     "ratio": 1.86
+    },
+    {
+     "pair": "link on bg",
+     "ratio": 4.08
+    },
+    {
+     "pair": "link on surface",
+     "ratio": 3.84
+    },
+    {
+     "pair": "text on navy",
+     "ratio": 9.47
+    },
+    {
+     "pair": "border on bg",
+     "ratio": 1.37
+    },
+    {
+     "pair": "white on highlight",
+     "ratio": 3.13
+    },
+    {
+     "pair": "white/F1ECE8 on burgundy-hover",
+     "ratio": 9.09
+    },
+    {
+     "pair": "bg on highlight",
+     "ratio": 6.33
+    }
+   ],
+   "contrastFails": [
+    {
+     "text": "View GitHub →",
+     "fg": "#6B2925",
+     "bg": "#0D090A",
+     "ratio": 1.86,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    },
+    {
+     "text": "Live Demo",
+     "fg": "#FFFFFF",
+     "bg": "#C38268",
+     "ratio": 3.13,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    },
+    {
+     "text": "Face Attend",
+     "fg": "#6B2925",
+     "bg": "#0D090A",
+     "ratio": 1.86,
+     "need": 4.5,
+     "size": 14,
+     "el": "a"
+    }
+   ],
+   "overflow": {
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "offenders": []
+   },
+   "a11y": {
+    "lang": "en",
+    "themeColorMeta": [],
+    "imgsNoAlt": [],
+    "headings": [
+     "H1:Muhammad Nabil Al Qadri",
+     "H2:Software Engineering Student ✦",
+     "H2:About Me.",
+     "H2:Experience.",
+     "H3:Full-Stack Development",
+     "H3:Intelligent Systems",
+     "H3:Product Interfaces",
+     "H3:Chief Operating Officer (Proje",
+     "H3:Member, Human Resources (HRD) ",
+     "H3:Advanced Technology & AI Works",
+     "H3:Committee Member",
+     "H3:Agile & Software Design Partic",
+     "H3:Global Strategy & Business Man",
+     "H2:Technology Stack.",
+     "H3:Development Tools",
+     "H2:GitHub Contributions",
+     "H2:Featured Projects",
+     "H3:Completed",
+     "H3:TB Detector",
+     "H3:Clash Of Bang",
+     "H3:Fakenews Detector",
+     "H3:On Progress",
+     "H3:Face Attend",
+     "H2:Let's Connect."
+    ],
+    "unnamedButtons": [],
+    "blankNoRel": [],
+    "duplicateIds": [
+     "Nextjs-a",
+     "Nextjs-b",
+     "Kotlin-a",
+     "Golang-go-original-a",
+     "Golang-go-original-b",
+     "NodeJS-a",
+     "NodeJS-b",
+     "NodeJS-c",
+     "Python-python-original-a",
+     "Python-python-original-b",
+     "Python-python-original-c"
+    ]
+   },
+   "dataTheme": "dark"
+  }
+ ],
+ "console": [],
+ "failedRequests": [],
+ "routes": {
+  "/projects/kasirai": {
+   "status": 200,
+   "contentType": "text/html; charset=utf-8",
+   "title": "KasirAI — Muhammad Nabil Al Qadri — Software Engineering Student",
+   "h1": "KasirAI"
+  },
+  "/projects/faceattend": {
+   "status": 200,
+   "contentType": "text/html; charset=utf-8",
+   "title": "FaceAttend — Muhammad Nabil Al Qadri — Software Engineering Student",
+   "h1": "FaceAttend"
+  },
+  "/projects/tb-detector": {
+   "status": 404,
+   "contentType": "text/html; charset=utf-8",
+   "title": "Project Not Found",
+   "h1": "Halaman ini belum di-deploy."
+  },
+  "/this-does-not-exist": {
+   "status": 404,
+   "contentType": "text/html; charset=utf-8",
+   "title": "404 — Page Not Found",
+   "h1": "Halaman ini belum di-deploy."
+  },
+  "/og-image.png": {
+   "status": 404,
+   "contentType": "text/html; charset=utf-8",
+   "title": "404 — Page Not Found",
+   "h1": "Halaman ini belum di-deploy."
+  },
+  "/sitemap.xml": {
+   "status": 200,
+   "contentType": "application/xml",
+   "title": "",
+   "h1": ""
+  },
+  "/robots.txt": {
+   "status": 404,
+   "contentType": "text/html; charset=utf-8",
+   "title": "404 — Page Not Found",
+   "h1": "Halaman ini belum di-deploy."
+  },
+  "/cv/Muhammad-Nabil-Al-Qadri-CV.pdf": {
+   "status": 200,
+   "contentType": "application/pdf",
+   "length": "100018",
+   "title": "",
+   "h1": ""
+  },
+  "/icon.jpg": {
+   "status": 200,
+   "contentType": "image/jpeg",
+   "title": "icon.jpg (2854×1472)",
+   "h1": ""
+  }
+ },
+ "hover": {
+  "light": {
+   "popover": true,
+   "opacity": "1",
+   "visibility": "visible",
+   "rect": [
+    78,
+    124,
+    444,
+    330
+   ],
+   "inViewport": true,
+   "overlapsButton": false,
+   "btnBg": "rgb(166, 95, 73)",
+   "btnColor": "rgb(255, 255, 255)"
+  },
+  "dark": {
+   "popover": true,
+   "opacity": "0",
+   "visibility": "visible",
+   "rect": [
+    90,
+    137,
+    431,
+    329
+   ],
+   "inViewport": true,
+   "overlapsButton": false,
+   "btnBg": "rgb(195, 130, 104)",
+   "btnColor": "rgb(255, 255, 255)"
+  }
+ },
+ "misc": {
+  "focus-light": [
+   "a \"View code for TB Detector\" outline=auto/3px/rgb(23, 21, 25) shadow=none",
+   "a \"View code for Clash Of Ba\" outline=auto/3px/rgb(23, 21, 25) shadow=none",
+   "a \"View code for Fakenews De\" outline=auto/3px/rgb(23, 21, 25) shadow=none",
+   "a \"View code for Face Attend\" outline=auto/3px/rgb(23, 21, 25) shadow=none",
+   "a \"✉alqadri.muhammad.nabil@g\" outline=none/3px/rgb(112, 44, 41) shadow=yes",
+   "a \"LinkedIn (opens in new ta\" outline=none/3px/rgb(23, 21, 25) shadow=yes",
+   "a \"GitHub (opens in new tab)\" outline=none/3px/rgb(23, 21, 25) shadow=yes",
+   "a \"WhatsApp (opens in new ta\" outline=none/3px/rgb(23, 21, 25) shadow=yes",
+   "a \"Resume (opens in new tab)\" outline=none/3px/rgb(23, 21, 25) shadow=yes",
+   "a \"Face Attend\" outline=none/1px/rgb(16, 16, 16) shadow=yes",
+   "a \"Email (opens in new tab)\" outline=none/1px/rgb(85, 85, 85) shadow=yes",
+   "a \"LinkedIn (opens in new ta\" outline=none/1px/rgb(85, 85, 85) shadow=yes",
+   "a \"GitHub (opens in new tab)\" outline=none/1px/rgb(85, 85, 85) shadow=yes",
+   "a \"WhatsApp (opens in new ta\" outline=none/1px/rgb(85, 85, 85) shadow=yes"
+  ],
+  "focus-dark": [
+   "a \"View code for TB Detector\" outline=auto/2px/rgb(241, 236, 232) shadow=none",
+   "a \"View code for Clash Of Ba\" outline=auto/3px/rgb(241, 236, 232) shadow=none",
+   "a \"View code for Fakenews De\" outline=auto/3px/rgb(241, 236, 232) shadow=none",
+   "a \"View code for Face Attend\" outline=auto/3px/rgb(241, 236, 232) shadow=none",
+   "a \"✉alqadri.muhammad.nabil@g\" outline=none/3px/rgb(195, 130, 104) shadow=yes",
+   "a \"LinkedIn (opens in new ta\" outline=none/2px/rgb(241, 236, 232) shadow=yes",
+   "a \"GitHub (opens in new tab)\" outline=none/3px/rgb(241, 236, 232) shadow=yes",
+   "a \"WhatsApp (opens in new ta\" outline=none/3px/rgb(241, 236, 232) shadow=yes",
+   "a \"Resume (opens in new tab)\" outline=none/3px/rgb(241, 236, 232) shadow=yes",
+   "a \"Face Attend\" outline=none/1px/rgb(238, 238, 238) shadow=yes",
+   "a \"Email (opens in new tab)\" outline=none/1px/rgb(185, 178, 176) shadow=yes",
+   "a \"LinkedIn (opens in new ta\" outline=none/1px/rgb(185, 178, 176) shadow=yes",
+   "a \"GitHub (opens in new tab)\" outline=none/1px/rgb(185, 178, 176) shadow=yes",
+   "a \"WhatsApp (opens in new ta\" outline=none/1px/rgb(185, 178, 176) shadow=yes"
+  ],
+  "downloads": [
+   {
+    "text": "Download CV",
+    "href": "/cv/Muhammad-Nabil-Al-Qadri-CV.pdf",
+    "download": "MUHAMMAD NABIL AL QADRI - CV.pdf"
+   },
+   {
+    "text": "ResumeDownload PDF",
+    "href": "/cv/Muhammad-Nabil-Al-Qadri-CV.pdf",
+    "download": "MUHAMMAD NABIL AL QADRI - CV.pdf"
+   },
+   {
+    "text": "Resume / CV",
+    "href": "/cv/Muhammad-Nabil-Al-Qadri-CV.pdf",
+    "download": "MUHAMMAD NABIL AL QADRI - CV.pdf"
+   }
+  ],
+  "head": {
+   "title": "Muhammad Nabil Al Qadri — Software Engineering Student",
+   "description": "Portfolio of Muhammad Nabil Al Qadri, a Software Engineering Student focusing on AI Applications and Software Development.",
+   "canonical": null,
+   "og": [
+    "og:title=Muhammad Nabil Al Qadri — Software Engineering Student",
+    "og:description=Portfolio of Muhammad Nabil Al Qadri, a Software Engineering Student focusing on AI Applications and Software Development.",
+    "og:locale=id",
+    "og:image=https://nabilalqadri.dev/og-image.png",
+    "og:type=website"
+   ],
+   "twitter": [
+    "twitter:card=summary_large_image",
+    "twitter:title=Muhammad Nabil Al Qadri — Software Engineering Student",
+    "twitter:description=Portfolio of Muhammad Nabil Al Qadri, a Software Engineering Student focusing on AI Applications and Software Development.",
+    "twitter:image=https://nabilalqadri.dev/og-image.png"
+   ],
+   "icons": [
+    "http://localhost:3100/icon.jpg?icon.1c_71tabc1jc1.jpg 2854x1472"
+   ],
+   "robotsMeta": null,
+   "themeColor": [],
+   "externalScripts": [],
+   "externalStyles": [
+    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+   ],
+   "externalLinks": [
+    "https://github.com/Jirosann",
+    "https://project-ai-front-end.vercel.app/",
+    "https://github.com/Jirosann/TBC-Detector",
+    "https://github.com/Jirosann/Clash-Of-Bang",
+    "https://github.com/Jirosann/Fakenews-MLOps-Pipeline",
+    "https://github.com/Jirosann/Face-Attend",
+    "https://mail.google.com/mail/u/0/#inbox",
+    "https://www.linkedin.com/in/muhammad-nabil-al-qadri-a91787316",
+    "https://wa.me/6289516001562"
+   ]
+  },
+  "langId": {
+   "htmlLang": "id",
+   "nav": [
+    "Al-Qadri.my",
+    "Tentang",
+    "Pengalaman",
+    "Keahlian",
+    "Proyek",
+    "Kontak"
+   ],
+   "sectionHeadings": [
+    "Software Engineering Student ✦ AI Applic",
+    "Tentang Saya.",
+    "Pengalaman.",
+    "Full-Stack Development",
+    "Intelligent Systems",
+    "Product Interfaces",
+    "Chief Operating Officer (Project Role)",
+    "Member, Human Resources (HRD) Division",
+    "Advanced Technology & AI Workshops Parti",
+    "Committee Member",
+    "Agile & Software Design Participant",
+    "Global Strategy & Business Management Se",
+    "Tumpukan Teknologi.",
+    "Alat Pengembangan",
+    "Kontribusi GitHub",
+    "Proyek Unggulan",
+    "Completed",
+    "TB Detector",
+    "Clash Of Bang",
+    "Fakenews Detector",
+    "On Progress",
+    "Face Attend",
+    "Mari Terhubung."
+   ],
+   "footer": "Currently building: Face Attend\nEmail\nLinkedIn\nGitHub\nWhatsApp\nResume / CV\n\n© 2026 Muhammad Nabil Al Qadri — Software Engineering Student. Hak cipta dilindungi."
+  }
+ }
+}

@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "about": "Tentang",
+    "experience": "Pengalaman",
+    "skills": "Keahlian",
+    "projects": "Proyek",
+    "contact": "Kontak",
+    "changeLanguage": "Ganti bahasa",
+    "toggleMenu": "Buka menu navigasi",
+    "openMenu": "Buka menu",
+    "closeMenu": "Tutup menu"
+  },
+  "hero": {
+    "available": "Terbuka untuk Peluang Kerja",
+    "viewProjects": "Lihat Proyek",
+    "contactMe": "Hubungi saya",
+    "downloadCV": "Unduh CV",
+    "description": "Mahasiswa S1 BINUS University dengan fokus pada arsitektur perangkat lunak, data science, dan aplikasi AI."
+  },
+  "about": {
+    "title": "Tentang Saya.",
+    "description": "Saya adalah mahasiswa S1 Rekayasa Perangkat Lunak di Universitas BINUS (Kampus Bekasi), angkatan 2028. Studi saya berfokus pada arsitektur perangkat lunak, ilmu data, dan aplikasi AI, dan saya senang mewujudkan ide-ide machine learning menjadi perangkat lunak yang dapat digunakan oleh orang banyak.\n\nDi luar kelas, saya mengikuti workshop mengenai Generative AI, ilmu data, threat modelling, dan microservices Golang, serta telah membangun kemampuan kepemimpinan dan koordinasi tim melalui BNEC."
+  },
+  "experience": {
+    "title": "Pengalaman.",
+    "currentStatus": "Status Saat Ini",
+    "whatIBuild": "Apa yang Saya Buat",
+    "education": "Pendidikan",
+    "projectsAndOrgs": "Proyek & Organisasi",
+    "workshops": "Workshop & Seminar"
+  },
+  "skills": {
+    "title": "Tumpukan Teknologi.",
+    "subtitle": "Bahasa pemrograman, framework, dan tools yang pernah saya gunakan. Arahkan kursor atau ketuk ikon untuk menyalakannya.",
+    "techStack": "Tumpukan Teknologi & Lainnya",
+    "developmentTools": "DEVELOPMENT TOOLS"
+  },
+  "projects": {
+    "title": "Proyek Unggulan",
+    "subtitle": "Koleksi terpilih dari sistem perangkat lunak dan aplikasi interaktif yang telah saya kembangkan.",
+    "filterAll": "Semua",
+    "filterSoftware": "Rekayasa Perangkat Lunak",
+    "filterCreative": "Karya Kreatif"
+  },
+  "heatmap": {
+    "title": "Kontribusi GitHub",
+    "contributionsInYear": "kontribusi dalam setahun terakhir",
+    "viewGithub": "Lihat GitHub →",
+    "less": "Lebih Sedikit",
+    "more": "Lebih Banyak",
+    "noContributions": "Tidak ada kontribusi",
+    "contribution": "kontribusi",
+    "contributions": "kontribusi",
+    "on": "pada",
+    "noContributionsOn": "Tidak ada kontribusi pada {date}",
+    "contributionOn": "{count} kontribusi pada {date}",
+    "contributionsOn": "{count} kontribusi pada {date}",
+    "errorMsg": "Data kontribusi sedang tidak tersedia."
+  },
+  "contact": {
+    "title": "Mari Terhubung.",
+    "description": "Secara aktif mencari peluang magang di bidang IT dan Rekayasa Perangkat Lunak. Terbuka untuk mendiskusikan proyek, kolaborasi, atau bagaimana keahlian saya dapat berkontribusi pada tim Anda."
+  },
+  "footer": {
+    "handcraftedBy": "Dibuat dengan sepenuh hati oleh",
+    "allRightsReserved": "Hak cipta dilindungi.",
+    "backToTop": "Kembali ke atas"
+  },
+  "projectDetail": {
+    "backToProjects": "← Kembali ke Proyek",
+    "viewLiveDemo": "Lihat Live Demo",
+    "viewRepository": "Lihat Repositori",
+    "privateRepository": "🔒 Repositori Privat",
+    "technologiesUsed": "Teknologi yang digunakan",
+    "repositoryFor": "Repositori untuk",
+    "liveDemoFor": "Demo langsung untuk",
+    "opensInNewTab": "(buka di tab baru)",
+    "liveDemo": "Demo Langsung",
+    "repository": "Repositori"
+  },
+  "status": {
+    "completed": "Selesai",
+    "onProgress": "Sedang Berjalan"
+  },
+  "contactLabel": {
+    "opensInNewTab": "(buka di tab baru)"
+  }
+}

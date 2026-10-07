@@ -1,0 +1,15 @@
+{
+  "id": "faceattend",
+  "slug": "faceattend",
+  "title": "FaceAttend",
+  "summary": "Problem: Proxy attendance risk. Solution: Built real-time smile-trigger liveness detection using InsightFace, MediaPipe, FastAPI & Supabase. Impact: 100% prevented static photo spoofing.",
+  "role": "Solo Developer",
+  "technologies": ["InsightFace (Buffalo_L)", "MediaPipe", "FastAPI", "React", "Supabase"],
+  "projectStatus": "completed",
+  "featured": true,
+  "order": 1,
+  "published": true,
+  "techInsight": "Used smile-trigger liveness detection to prevent proxy check-ins",
+  "thumbnail": "/images/projects/ecommerce-api/thumbnail.webp",
+  "thumbnailAlt": "FaceAttend architecture"
+}

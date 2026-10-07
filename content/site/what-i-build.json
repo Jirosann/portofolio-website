@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Full-Stack Development",
+    "description": "Building end-to-end web applications with modern frameworks and scalable databases.",
+    "tags": ["React", "FastAPI", "PostgreSQL", "TypeScript"]
+  },
+  {
+    "title": "Intelligent Systems",
+    "description": "Integrating machine learning and computer vision into functional software to solve practical challenges.",
+    "tags": ["Computer Vision", "TensorFlow", "scikit-learn", "FastAPI"]
+  },
+  {
+    "title": "Product Interfaces",
+    "description": "Designing intuitive user interfaces that bridge the gap between complex systems and user experience.",
+    "tags": ["UI/UX", "Figma", "Frontend"]
+  }
+]

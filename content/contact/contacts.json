@@ -1,0 +1,42 @@
+[
+  {
+    "type": "email",
+    "label": "Email",
+    "value": "alqadri.muhammad.nabil@gmail.com",
+    "order": 1,
+    "visible": true,
+    "url": "mailto:alqadri.muhammad.nabil@gmail.com"
+  },
+  {
+    "type": "linkedin",
+    "label": "LinkedIn",
+    "value": "Muhammad Nabil Al Qadri",
+    "order": 2,
+    "visible": true,
+    "url": "https://www.linkedin.com/in/muhammad-nabil-al-qadri-a91787316"
+  },
+  {
+    "type": "github",
+    "label": "GitHub",
+    "value": "Jirosann",
+    "order": 3,
+    "visible": true,
+    "url": "https://github.com/Jirosann"
+  },
+  {
+    "type": "whatsapp",
+    "label": "WhatsApp",
+    "value": "+62 895-1600-1562",
+    "order": 4,
+    "visible": true,
+    "url": "https://wa.me/6289516001562"
+  },
+  {
+    "type": "resume",
+    "label": "Resume / CV",
+    "value": "Download PDF",
+    "order": 5,
+    "visible": true,
+    "url": "/cv/Muhammad-Nabil-Al-Qadri-CV.pdf"
+  }
+]

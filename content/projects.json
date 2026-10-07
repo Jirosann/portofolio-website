@@ -1,0 +1,41 @@
+[
+  {
+    "slug": "tb-detector",
+    "title": "TB Detector",
+    "status": "completed",
+    "description": "A deep learning system for Tuberculosis (TBC) detection from lung X-ray images using the EfficientNetB0 architecture.",
+    "tags": ["Python", "TensorFlow", "Keras", "FastAPI", "EfficientNetB0"],
+    "repoUrl": "https://github.com/Jirosann/TBC-Detector",
+    "liveUrl": "https://project-ai-front-end.vercel.app",
+    "preview": {
+      "src": "/projects/tb-detector/preview.webp",
+      "alt": "Screenshot of the TB Detector web app",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  {
+    "slug": "clash-of-bang",
+    "title": "Clash Of Bang",
+    "status": "completed",
+    "description": "A fan community website based on a dark fantasy strategy game theme, featuring community info, visual gallery, troops data, and a member registration form.",
+    "tags": ["HTML", "CSS", "JavaScript"],
+    "repoUrl": "https://github.com/Jirosann/Clash-Of-Bang"
+  },
+  {
+    "slug": "fakenews-detector",
+    "title": "Fakenews Detector",
+    "status": "completed",
+    "description": "An end-to-end fake news detection system built with MLOps approaches, covering data research, model training, and containerized web service deployment.",
+    "tags": ["Python", "Flask", "Scikit-Learn", "Docker", "Tailwind CSS"],
+    "repoUrl": "https://github.com/Jirosann/Fakenews-MLOps-Pipeline"
+  },
+  {
+    "slug": "face-attend",
+    "title": "Face Attend",
+    "status": "in-progress",
+    "description": "An automated class attendance system based on facial recognition using React, FastAPI, and Supabase.",
+    "tags": ["React", "FastAPI", "Supabase", "InsightFace", "ArcFace"],
+    "repoUrl": "https://github.com/Jirosann/Face-Attend"
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "title": "Muhammad Nabil Al Qadri | Software Engineer & AI Specialist",
+  "description": "Full-Stack Software Engineer specializing in Data Analytics, AI Applications, Intelligent Systems, and enterprise Software Development.",
+  "language": "en",
+  "analytics": {
+    "enabled": false
+  },
+  "currentlyBuilding": {
+    "enabled": true,
+    "projectName": "Face Attend",
+    "projectUrl": "https://github.com/Jirosann/Face-Attend",
+    "updatedAt": "2026-10-04"
+  }
+}

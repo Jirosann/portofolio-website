@@ -1,0 +1,13 @@
+[
+  {"id": "ui-ux", "name": "UI/UX", "order": 1, "visible": true},
+  {"id": "frontend", "name": "Frontend", "order": 2, "visible": true},
+  {"id": "backend", "name": "Backend", "order": 3, "visible": true},
+  {"id": "database", "name": "Database", "order": 4, "visible": true},
+  {"id": "version-control", "name": "Version Control & Collaboration", "order": 5, "visible": true},
+  {"id": "testing", "name": "Testing & Quality Assurance", "order": 6, "visible": true},
+  {"id": "devops", "name": "DevOps & Infrastructure", "order": 7, "visible": true},
+  {"id": "cloud", "name": "Cloud & Deployment", "order": 8, "visible": false},
+  {"id": "api-security", "name": "API & Security", "order": 9, "visible": true},
+  {"id": "mobile", "name": "Mobile Development", "order": 10, "visible": true},
+  {"id": "ai-ml", "name": "AI/ML", "order": 11, "visible": true}
+]

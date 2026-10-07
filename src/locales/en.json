@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact",
+    "changeLanguage": "Change language",
+    "toggleMenu": "Toggle navigation menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "available": "Open to Work",
+    "viewProjects": "View Projects",
+    "contactMe": "Contact me",
+    "downloadCV": "Download CV",
+    "description": "Undergraduate at BINUS University focused on software architecture, data science, and AI applications."
+  },
+  "about": {
+    "title": "About Me.",
+    "description": "I am an undergraduate Software Engineering student at BINUS University (Bekasi Campus), expected to graduate in 2028. My studies focus on software architecture, data science, and AI applications, and I enjoy turning machine learning ideas into software that people can actually use.\n\nOutside class, I attend workshops on Generative AI, data science, threat modelling, and Golang microservices, and I've built leadership and team coordination skills through BNEC."
+  },
+  "experience": {
+    "title": "Experience.",
+    "currentStatus": "Current Status",
+    "whatIBuild": "What I Build",
+    "education": "Education",
+    "projectsAndOrgs": "Projects & Organizations",
+    "workshops": "Workshops & Seminars"
+  },
+  "skills": {
+    "title": "Technology Stack.",
+    "subtitle": "Languages, frameworks, and tools I have worked with. Hover or tap an icon to light it up.",
+    "techStack": "Tech Stack & Others",
+    "developmentTools": "DEVELOPMENT TOOLS"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "A curated collection of software systems and interactive applications I have developed.",
+    "filterAll": "All",
+    "filterSoftware": "Software Engineering",
+    "filterCreative": "Creative Works"
+  },
+  "heatmap": {
+    "title": "GitHub Contributions",
+    "contributionsInYear": "contributions in the last year",
+    "viewGithub": "View GitHub →",
+    "less": "Less",
+    "more": "More",
+    "noContributions": "No contributions",
+    "contribution": "contribution",
+    "contributions": "contributions",
+    "on": "on",
+    "noContributionsOn": "No contributions on {date}",
+    "contributionOn": "{count} contribution on {date}",
+    "contributionsOn": "{count} contributions on {date}",
+    "errorMsg": "Contribution data is unavailable right now."
+  },
+  "contact": {
+    "title": "Let's Connect.",
+    "description": "Actively seeking IT and Software Engineering internship opportunities. Open to discussing projects, collaborations, or how my skills can contribute to your team."
+  },
+  "footer": {
+    "handcraftedBy": "Handcrafted by",
+    "allRightsReserved": "All rights reserved.",
+    "backToTop": "Back to top"
+  },
+  "projectDetail": {
+    "backToProjects": "← Back to Projects",
+    "viewLiveDemo": "View Live Demo",
+    "viewRepository": "View Repository",
+    "privateRepository": "🔒 Private Repository",
+    "technologiesUsed": "Technologies used",
+    "repositoryFor": "Repository for",
+    "liveDemoFor": "Live demo for",
+    "opensInNewTab": "(opens in new tab)",
+    "liveDemo": "Live Demo",
+    "repository": "Repository"
+  },
+  "status": {
+    "completed": "Completed",
+    "onProgress": "On Progress"
+  },
+  "contactLabel": {
+    "opensInNewTab": "(opens in new tab)"
+  }
+}
