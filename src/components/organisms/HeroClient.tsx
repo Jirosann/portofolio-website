@@ -42,9 +42,8 @@ export function HeroClient({ profile }: { profile: Profile }) {
       ref={containerRef}
       className="relative overflow-hidden rounded-[2rem] p-8 md:p-16 border animate-fade-in-up"
       style={{
-        background: 'color-mix(in srgb, var(--color-surface) 30%, transparent)',
+        background: 'color-mix(in srgb, var(--color-surface) 60%, transparent)',
         borderColor: 'color-mix(in srgb, var(--color-border) 40%, transparent)',
-        backdropFilter: 'blur(20px)',
       }}
     >
       {/* Mouse Spotlight */}
