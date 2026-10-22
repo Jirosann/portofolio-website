@@ -184,6 +184,22 @@ html {
   contain-intrinsic-size: auto 600px;
 }
 
+/* Estimasi tinggi per section (tinggi render asli dikurangi padding vertikal), supaya
+   placeholder content-visibility tidak jauh dari tinggi sebenarnya dan scroll ke anchor tidak meleset.
+   Keyword `auto` tetap menyimpan tinggi asli setelah section pernah dirender. */
+#experience.content-visibility-auto { contain-intrinsic-size: auto 3840px; }
+#skills.content-visibility-auto { contain-intrinsic-size: auto 1120px; }
+#contact.content-visibility-auto { contain-intrinsic-size: auto 860px; }
+@media (min-width: 768px) {
+  #experience.content-visibility-auto { contain-intrinsic-size: auto 3100px; }
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 980px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 616px; }
+}
+@media (min-width: 1024px) {
+  #experience.content-visibility-auto { contain-intrinsic-size: auto 1900px; }
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 956px; }
+}
+
 /* =====================================================
    SKILLS BENTO GRID (kept for non-marquee categories)
    ===================================================== */
