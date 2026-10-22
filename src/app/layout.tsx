@@ -74,14 +74,14 @@ export default async function RootLayout({
             {/* Ambient Glow Background - Cinematic Lighting Effect */}
             <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden" aria-hidden="true">
               {/* Massive center glow, matching the picture's lighting behind the hero */}
-              <div className="absolute top-[5%] left-1/2 -translate-x-1/2 w-[80vw] h-[800px] rounded-[100%] opacity-40 dark:opacity-20 blur-[120px] mix-blend-normal" 
+              <div className="absolute top-[5%] left-1/2 -translate-x-1/2 w-[80vw] h-[800px] rounded-[100%] scale-[1.75] opacity-[0.14] md:scale-125 md:opacity-[0.29]" 
                    style={{ 
-                     background: 'radial-gradient(ellipse at center, var(--color-burgundy-accent) 0%, transparent 70%)',
+                     background: 'radial-gradient(ellipse closest-side at center, var(--color-burgundy-accent) 0%, transparent 100%)',
                    }} />
               
               {/* Subtle secondary glow at bottom right */}
-              <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full opacity-30 dark:opacity-10 blur-[140px]" 
-                   style={{ background: 'radial-gradient(circle, var(--color-highlight) 0%, transparent 70%)' }} />
+              <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full scale-[1.75] opacity-[0.105] md:scale-125 md:opacity-[0.22]" 
+                   style={{ background: 'radial-gradient(circle closest-side at center, var(--color-highlight) 0%, transparent 100%)' }} />
             </div>
             <div className="flex-1 flex flex-col mx-auto w-full relative z-0">
               {children}

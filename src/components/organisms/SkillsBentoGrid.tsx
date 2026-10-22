@@ -105,7 +105,7 @@ export async function SkillsBentoGrid() {
                 <div
                   key={category.id}
                   className={cn(
-                    "bg-[rgb(var(--bg-card)/0.65)] backdrop-blur-[16px] border border-[var(--border-color)] rounded-3xl p-6 lg:p-8 transition-all duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 flex flex-col",
+                    "bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 lg:p-8 transition-[border-color,translate] duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 flex flex-col",
                     isPrimary
                       ? "md:col-span-2 lg:col-span-2 lg:row-span-2"
                       : "col-span-1",

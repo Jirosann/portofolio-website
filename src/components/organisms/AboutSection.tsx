@@ -19,15 +19,15 @@ export async function AboutSection({ profile }: AboutSectionProps) {
       <Container>
         <div className="flex flex-col md:flex-row gap-6">
           {/* Main About Card */}
-          <div className="flex-[2] group relative p-8 md:p-12 rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-none"
+          <div className="flex-[2] group relative p-8 md:p-12 rounded-[2rem] overflow-hidden transition-[translate,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-none"
                style={{
                  background: 'var(--color-surface)',
                  borderColor: 'var(--color-border)',
                  borderWidth: '1px',
                }}>
             {/* Glowing orb behind text */}
-            <div className="absolute -top-32 -left-32 w-64 h-64 rounded-full opacity-0 group-hover:opacity-10 transition-opacity duration-700 blur-[60px] pointer-events-none"
-                 style={{ background: 'var(--color-highlight)' }} />
+            <div className="absolute -top-32 -left-32 w-64 h-64 rounded-full scale-150 opacity-0 group-hover:opacity-[0.12] transition-opacity duration-700 pointer-events-none"
+                 style={{ background: 'radial-gradient(circle closest-side at center, var(--color-highlight) 0%, transparent 100%)' }} />
             
             <h2 className="text-3xl md:text-5xl font-extrabold mb-6 tracking-tight"
                 style={{ color: 'var(--color-text)' }}>
@@ -44,7 +44,7 @@ export async function AboutSection({ profile }: AboutSectionProps) {
           {/* Stats Bento Column */}
           <div className="flex-[1] flex flex-col gap-6">
             {/* Stat 1 */}
-            <div className="flex-1 group relative p-8 rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-none flex flex-col justify-center items-center text-center"
+            <div className="flex-1 group relative p-8 rounded-[2rem] overflow-hidden transition-[translate,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-none flex flex-col justify-center items-center text-center"
                  style={{
                    background: 'var(--color-surface)',
                    borderColor: 'var(--color-border)',
@@ -59,7 +59,7 @@ export async function AboutSection({ profile }: AboutSectionProps) {
             </div>
 
             {/* Stat 2 */}
-            <div className="flex-1 group relative p-8 rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-none flex flex-col justify-center items-center text-center"
+            <div className="flex-1 group relative p-8 rounded-[2rem] overflow-hidden transition-[translate,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-none flex flex-col justify-center items-center text-center"
                  style={{
                    background: 'var(--color-surface)',
                    borderColor: 'var(--color-border)',

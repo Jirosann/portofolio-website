@@ -88,7 +88,7 @@ export function ProjectsGrid({ softwareProjects, creativeWorks }: ProjectsGridPr
 
   return (
     <section id="projects" className="py-24 relative overflow-hidden content-visibility-auto">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 rounded-full opacity-10 dark:opacity-5 blur-[120px] pointer-events-none" style={{ background: 'var(--color-burgundy)' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 rounded-full scale-[2] opacity-10 dark:opacity-5 pointer-events-none" style={{ background: 'radial-gradient(ellipse closest-side at center, var(--color-burgundy) 0%, transparent 100%)' }} />
       
       <div className="max-w-content mx-auto px-5 relative z-10">
         <ScrollReveal>
@@ -106,15 +106,14 @@ export function ProjectsGrid({ softwareProjects, creativeWorks }: ProjectsGridPr
           {/* Sleek Floating Filter Pills */}
           <div className="flex relative p-1 rounded-full overflow-hidden shadow-sm"
                style={{
-                 background: 'color-mix(in srgb, var(--color-surface) 40%, transparent)',
-                 backdropFilter: 'blur(16px)',
+                 background: 'color-mix(in srgb, var(--color-surface) 70%, transparent)',
                  border: '1px solid color-mix(in srgb, var(--color-border) 40%, transparent)',
                }}
                role="group" aria-label="Filter projects">
             
             {/* Sliding Jelly Background */}
             <div 
-              className="absolute top-1 bottom-1 left-0 rounded-full z-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              className="absolute top-1 bottom-1 left-0 rounded-full z-0 transition-[transform,width,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
               style={{
                 transform: `translate3d(${indicatorStyle.left}px, 0, 0)`,
                 width: indicatorStyle.width,

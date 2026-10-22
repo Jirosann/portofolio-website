@@ -22,7 +22,7 @@ export function ProjectCard({ project }: { project: Project }) {
   };
 
   return (
-    <div className="group relative flex flex-col h-full bg-[color-mix(in_srgb,var(--color-surface)_60%,transparent)] backdrop-blur-xl border border-[var(--color-border)] dark:border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] shadow-[0_1px_2px_color-mix(in_srgb,var(--color-text)_5%,transparent),0_4px_12px_color-mix(in_srgb,var(--color-text)_5%,transparent)] dark:shadow-none rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_color-mix(in_srgb,var(--color-text)_10%,transparent)] dark:hover:shadow-none hover:border-[var(--color-highlight)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+    <div className="group relative flex flex-col h-full bg-[color-mix(in_srgb,var(--color-surface)_85%,transparent)] border border-[var(--color-border)] dark:border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] shadow-[0_1px_2px_color-mix(in_srgb,var(--color-text)_5%,transparent),0_4px_12px_color-mix(in_srgb,var(--color-text)_5%,transparent)] dark:shadow-none rounded-2xl p-6 transition-[translate,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_color-mix(in_srgb,var(--color-text)_10%,transparent)] dark:hover:shadow-none hover:border-[var(--color-highlight)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
       
       {/* Static thumbnail for mobile (Touch device fallback) */}
       {project.preview && (

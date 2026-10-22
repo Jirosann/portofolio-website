@@ -204,7 +204,6 @@ html {
 
 .skill-category-box {
   background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  backdrop-filter: blur(16px);
   border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
   border-radius: var(--radius-card);
   padding: 20px;
@@ -726,7 +725,6 @@ div[data-lit="true"] .tools-row-icon {
 
 .experience-status-card {
   background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  backdrop-filter: blur(16px);
   border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
   border-radius: var(--radius-card);
   padding: 24px;
@@ -788,7 +786,6 @@ div[data-lit="true"] .tools-row-icon {
 
 .experience-build-card {
   background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  backdrop-filter: blur(16px);
   border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
   border-radius: var(--radius-card);
   padding: 24px;
@@ -868,7 +865,6 @@ div[data-lit="true"] .tools-row-icon {
 /* 5.4 Work / Organization cards */
 .experience-work-card {
   background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  backdrop-filter: blur(16px);
   border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
   border-radius: var(--radius-card);
   padding: 24px;
@@ -1004,7 +1000,6 @@ div[data-lit="true"] .tools-row-icon {
 
 .project-card {
   background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  backdrop-filter: blur(16px);
   border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
   border-radius: var(--radius-card);
   overflow: hidden;
@@ -1051,7 +1046,6 @@ div[data-lit="true"] .tools-row-icon {
   left: 0;
   right: 0;
   background: rgba(13, 9, 10, 0.88);
-  backdrop-filter: blur(4px);
   padding: 12px 16px;
   transform: translateY(100%);
   transition: transform var(--transition-base);
@@ -1244,7 +1238,6 @@ div[data-lit="true"] .tools-row-icon {
   background: rgba(13, 9, 10, 0.75);
   color: var(--color-border);
   border-radius: 6px;
-  backdrop-filter: blur(4px);
 }
 
 .creative-card-body {
@@ -1797,5 +1790,18 @@ div[data-lit="true"] .tools-row-icon {
 @layer utilities {
   .glyph-disambiguate {
     font-feature-settings: "cv05" 1;
+  }
+}
+
+/* Header: kaca blur hanya di desktop (pointer halus, tanpa reduced-motion);
+   selain itu latar hampir solid tanpa backdrop-filter. */
+.site-header {
+  background: color-mix(in srgb, var(--color-bg) 96%, transparent);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .site-header {
+    background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
   }
 }

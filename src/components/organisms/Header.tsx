@@ -88,11 +88,8 @@ export function Header({ navLinks }: HeaderProps) {
   return (
     <header
       ref={headerRef}
-      className="sticky top-0 z-50 border-b animate-slide-down"
+      className="site-header sticky top-0 z-50 border-b animate-slide-down"
       style={{
-        background: 'color-mix(in srgb, var(--color-bg) 85%, transparent)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
         borderColor: 'var(--color-border)',
       }}
     >

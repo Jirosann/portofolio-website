@@ -21,7 +21,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
   return (
     <article
       className={cn(
-        "project-card bg-[rgb(var(--bg-card)/0.65)] backdrop-blur-md border border-[var(--border-color)] rounded-2xl flex flex-col h-full overflow-hidden transition-all duration-300 hover:border-[var(--color-highlight)] hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)]",
+        "project-card bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-2xl flex flex-col h-full overflow-hidden transition-[border-color,box-shadow] duration-300 hover:border-[var(--color-highlight)] hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)]",
         className,
       )}
       aria-label={project.title}
