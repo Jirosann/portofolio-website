@@ -1805,3 +1805,14 @@ div[data-lit="true"] .tools-row-icon {
     backdrop-filter: blur(12px);
   }
 }
+
+/* ScrollReveal: sekali jalan, hanya opacity + transform, tanpa will-change */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(32px) scale(0.95);
+}
+.reveal-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 700ms ease-out, transform 700ms ease-out;
+}

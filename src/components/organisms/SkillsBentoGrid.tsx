@@ -46,7 +46,8 @@ export async function SkillsBentoGrid() {
       id="skills"
       className="py-16 md:py-24 overflow-x-hidden content-visibility-auto"
     >
-      <ScrollReveal className="max-w-content mx-auto px-5">
+      <div className="max-w-content mx-auto px-5">
+        <ScrollReveal>
         <div className="mb-16">
           <h2
             className="text-4xl md:text-6xl font-black mb-4 tracking-tighter"
@@ -62,6 +63,7 @@ export async function SkillsBentoGrid() {
             {t.skills.subtitle}
           </p>
         </div>
+        </ScrollReveal>
 
         {/* Marquee rows for combined categories */}
         {marqueeCategories.length > 0 && (
@@ -140,7 +142,7 @@ export async function SkillsBentoGrid() {
         )}
 
         {toolSkills.length > 0 && <ToolsRow tools={toolSkills} />}
-      </ScrollReveal>
+      </div>
       <SkillsTooltip />
     </section>
   );
