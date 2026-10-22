@@ -20,7 +20,7 @@ function getRotation(): number {
   return 0; // User requested: "jangan miring miring gitu banget lurus aja"
 }
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function SkillsMarquee({
   categoryName,
@@ -29,16 +29,43 @@ export function SkillsMarquee({
   speed = 1,
 }: SkillsMarqueeProps) {
   const [litSkills, setLitSkills] = useState<Set<string>>(new Set());
+  const sectionRef = useRef<HTMLDivElement>(null);
+  // Set kedua (untuk loop mulus) dirender setelah mount agar HTML/DOM awal tidak menggandakan ~25 ikon per baris.
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setReady(true);
+  }, []);
+
+  // Jeda animasi saat marquee di luar layar atau tab tersembunyi (lewat atribut DOM, tanpa re-render).
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    let inView = true;
+    const sync = () => {
+      el.dataset.paused = !inView || document.hidden ? 'true' : 'false';
+    };
+    const observer = new IntersectionObserver((entries) => {
+      inView = entries[entries.length - 1].isIntersecting;
+      sync();
+    });
+    observer.observe(el);
+    document.addEventListener('visibilitychange', sync);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', sync);
+    };
+  }, []);
 
   // Duplicate array for infinite scroll illusion
-  const doubled = [...skills, ...skills];
+  const doubled = ready ? [...skills, ...skills] : skills;
   const duration = Math.max(20, skills.length * 4) / speed;
 
   return (
-    <div className="marquee-section">
+    <div ref={sectionRef} className="marquee-section">
       <div className="marquee-section-label">{categoryName}</div>
       <div className="marquee-track-wrapper">
         <div
+          data-ready={ready ? 'true' : 'false'}
           className={`marquee-track ${reverse ? 'marquee-track--reverse' : ''}`}
           style={{ '--marquee-duration': `${duration}s` } as React.CSSProperties}
         >

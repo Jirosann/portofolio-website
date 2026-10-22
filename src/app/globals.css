@@ -350,6 +350,8 @@ html {
   animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
 }
 
+.marquee-track[data-ready="false"],
+.marquee-section[data-paused="true"] .marquee-track,
 .marquee-section:focus-within .marquee-track,
 .marquee-section:has(.marquee-item:hover) .marquee-track {
   animation-play-state: paused;
