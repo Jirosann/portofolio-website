@@ -161,11 +161,9 @@ html {
 
 @keyframes fade-in-up {
   from {
-    opacity: 0;
     transform: translateY(20px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
@@ -176,7 +174,6 @@ html {
 
 .animate-fade-in-up {
   animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0; /* Starts invisible */
 }
 
 /* =====================================================
@@ -185,6 +182,22 @@ html {
 .content-visibility-auto {
   content-visibility: auto;
   contain-intrinsic-size: auto 600px;
+}
+
+/* Estimasi tinggi per section (tinggi render asli dikurangi padding vertikal), supaya
+   placeholder content-visibility tidak jauh dari tinggi sebenarnya dan scroll ke anchor tidak meleset.
+   Keyword `auto` tetap menyimpan tinggi asli setelah section pernah dirender. */
+#experience.content-visibility-auto { contain-intrinsic-size: auto 3840px; }
+#skills.content-visibility-auto { contain-intrinsic-size: auto 1120px; }
+#contact.content-visibility-auto { contain-intrinsic-size: auto 860px; }
+@media (min-width: 768px) {
+  #experience.content-visibility-auto { contain-intrinsic-size: auto 3100px; }
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 980px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 616px; }
+}
+@media (min-width: 1024px) {
+  #experience.content-visibility-auto { contain-intrinsic-size: auto 1900px; }
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 956px; }
 }
 
 /* =====================================================
@@ -204,7 +217,6 @@ html {
 
 .skill-category-box {
   background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  backdrop-filter: blur(16px);
   border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
   border-radius: var(--radius-card);
   padding: 20px;
@@ -354,6 +366,8 @@ html {
   animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
 }
 
+.marquee-track[data-ready="false"],
+.marquee-section[data-paused="true"] .marquee-track,
 .marquee-section:focus-within .marquee-track,
 .marquee-section:has(.marquee-item:hover) .marquee-track {
   animation-play-state: paused;
@@ -726,7 +740,6 @@ div[data-lit="true"] .tools-row-icon {
 
 .experience-status-card {
   background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  backdrop-filter: blur(16px);
   border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
   border-radius: var(--radius-card);
   padding: 24px;
@@ -788,7 +801,6 @@ div[data-lit="true"] .tools-row-icon {
 
 .experience-build-card {
   background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  backdrop-filter: blur(16px);
   border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
   border-radius: var(--radius-card);
   padding: 24px;
@@ -868,7 +880,6 @@ div[data-lit="true"] .tools-row-icon {
 /* 5.4 Work / Organization cards */
 .experience-work-card {
   background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  backdrop-filter: blur(16px);
   border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
   border-radius: var(--radius-card);
   padding: 24px;
@@ -1004,7 +1015,6 @@ div[data-lit="true"] .tools-row-icon {
 
 .project-card {
   background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  backdrop-filter: blur(16px);
   border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
   border-radius: var(--radius-card);
   overflow: hidden;
@@ -1051,7 +1061,6 @@ div[data-lit="true"] .tools-row-icon {
   left: 0;
   right: 0;
   background: rgba(13, 9, 10, 0.88);
-  backdrop-filter: blur(4px);
   padding: 12px 16px;
   transform: translateY(100%);
   transition: transform var(--transition-base);
@@ -1244,7 +1253,6 @@ div[data-lit="true"] .tools-row-icon {
   background: rgba(13, 9, 10, 0.75);
   color: var(--color-border);
   border-radius: 6px;
-  backdrop-filter: blur(4px);
 }
 
 .creative-card-body {
@@ -1798,4 +1806,28 @@ div[data-lit="true"] .tools-row-icon {
   .glyph-disambiguate {
     font-feature-settings: "cv05" 1;
   }
+}
+
+/* Header: kaca blur hanya di desktop (pointer halus, tanpa reduced-motion);
+   selain itu latar hampir solid tanpa backdrop-filter. */
+.site-header {
+  background: color-mix(in srgb, var(--color-bg) 96%, transparent);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .site-header {
+    background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* ScrollReveal: sekali jalan, hanya opacity + transform, tanpa will-change */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(32px) scale(0.95);
+}
+.reveal-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 700ms ease-out, transform 700ms ease-out;
 }

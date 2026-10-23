@@ -81,7 +81,7 @@ export async function ExperienceSection({
             className="col-span-1 lg:col-span-4 flex flex-col gap-6"
             delay={100}
           >
-            <div className="bg-[rgb(var(--bg-card)/0.65)] backdrop-blur-[16px] border border-[var(--border-color)] rounded-3xl p-6 transition-all duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] flex flex-col justify-center flex-1 min-h-[180px]">
+            <div className="bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 transition-[border-color,translate,box-shadow] duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] flex flex-col justify-center flex-1 min-h-[180px]">
               <div className="text-xs font-bold tracking-widest mb-3 text-[var(--color-highlight)] uppercase">
                 {t.experience.currentStatus}
               </div>
@@ -93,7 +93,7 @@ export async function ExperienceSection({
               </div>
             </div>
 
-            <div className="bg-[rgb(var(--bg-card)/0.65)] backdrop-blur-[16px] border border-[var(--border-color)] rounded-3xl p-6 transition-all duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] flex flex-col justify-center items-center text-center flex-1 min-h-[160px]">
+            <div className="bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 transition-[border-color,translate,box-shadow] duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] flex flex-col justify-center items-center text-center flex-1 min-h-[160px]">
               <div className="text-xs font-bold tracking-widest mb-2 text-[var(--color-highlight)] uppercase">
                 BUILT
               </div>
@@ -112,7 +112,7 @@ export async function ExperienceSection({
               className="col-span-1 lg:col-span-8 flex flex-col"
               delay={200}
             >
-              <div className="bg-[rgb(var(--bg-card)/0.65)] backdrop-blur-[16px] border border-[var(--border-color)] rounded-3xl p-6 md:p-8 transition-all duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] flex flex-col flex-grow">
+              <div className="bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 md:p-8 transition-[border-color,translate,box-shadow] duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] flex flex-col flex-grow">
                 <div className="text-xs font-bold tracking-widest mb-6 text-[var(--color-highlight)] uppercase">
                   {t.experience.whatIBuild}
                 </div>
@@ -145,7 +145,7 @@ export async function ExperienceSection({
           {/* Block 3: Education */}
           {profile.education && profile.education.length > 0 && (
             <ScrollReveal className="col-span-1 lg:col-span-12" delay={300}>
-              <div className="bg-[rgb(var(--bg-card)/0.65)] backdrop-blur-[16px] border border-[var(--border-color)] rounded-3xl p-6 md:p-8 transition-all duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)]">
+              <div className="bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 md:p-8 transition-[border-color,translate,box-shadow] duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)]">
                 <div className="text-xs font-bold tracking-widest mb-6 text-[var(--color-highlight)] uppercase">
                   {t.experience.education}
                 </div>
@@ -189,7 +189,7 @@ export async function ExperienceSection({
               className="col-span-1 lg:col-span-6 flex flex-col"
               delay={(4 + idx) * 100}
             >
-              <div className="bg-[rgb(var(--bg-card)/0.65)] backdrop-blur-[16px] border border-[var(--border-color)] rounded-3xl p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] hover:border-[var(--color-highlight)] flex flex-col flex-grow">
+              <div className="bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 md:p-8 transition-[border-color,translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] hover:border-[var(--color-highlight)] flex flex-col flex-grow">
                 <div className="flex justify-between items-start mb-5">
                   <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full bg-[color-mix(in_srgb,var(--color-highlight)15%,transparent)] text-[var(--color-highlight)]">
                     {exp.type}

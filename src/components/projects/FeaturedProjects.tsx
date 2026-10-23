@@ -18,10 +18,11 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
   const inProgressProjects = projects.filter(p => p.status === 'in-progress');
 
   return (
-    <section id="projects" className="py-24 relative">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 rounded-full opacity-10 dark:opacity-5 blur-[120px] pointer-events-none" style={{ background: 'var(--color-burgundy)' }} />
+    <section id="projects" className="py-24 relative overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 rounded-full scale-[2] opacity-10 dark:opacity-5 pointer-events-none" style={{ background: 'radial-gradient(ellipse closest-side at center, var(--color-burgundy) 0%, transparent 100%)' }} />
       
-      <ScrollReveal className="max-w-content mx-auto px-5 relative z-10">
+      <div className="max-w-content mx-auto px-5 relative z-10">
+        <ScrollReveal>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div>
             <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter" style={{ color: 'var(--color-text)' }}>
@@ -33,6 +34,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
             </p>
           </div>
         </div>
+        </ScrollReveal>
 
         {completedProjects.length > 0 && (
           <div className="mb-16">
@@ -59,7 +61,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
             </div>
           </div>
         )}
-      </ScrollReveal>
+      </div>
     </section>
   );
 }

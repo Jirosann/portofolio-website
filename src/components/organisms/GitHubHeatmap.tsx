@@ -231,7 +231,8 @@ export function GitHubHeatmap({ data }: GitHubHeatmapProps) {
 
   return (
     <section className="py-16 md:py-24 github-heatmap-section">
-      <ScrollReveal className="max-w-content mx-auto px-5">
+      <div className="max-w-content mx-auto px-5">
+        <ScrollReveal>
         <div className="github-heatmap-header">
           <div>
             <h2 className="github-heatmap-title">{t.heatmap.title}</h2>
@@ -243,6 +244,7 @@ export function GitHubHeatmap({ data }: GitHubHeatmapProps) {
             {t.heatmap.viewGithub}
           </a>
         </div>
+        </ScrollReveal>
 
         <div className="github-heatmap-grid-wrapper" ref={scrollRef}>
           <div 
@@ -321,7 +323,7 @@ export function GitHubHeatmap({ data }: GitHubHeatmapProps) {
             <span>{t.heatmap.more}</span>
           </div>
         </div>
-      </ScrollReveal>
+      </div>
 
       {/* Tooltip Portal */}
       {typeof window !== 'undefined' && tooltip.visible && createPortal(

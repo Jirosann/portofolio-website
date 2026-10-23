@@ -42,7 +42,7 @@ export async function ContactSection({ contacts }: ContactSectionProps) {
       <Container>
         <ScrollReveal>
           <div 
-            className="group relative p-8 md:p-12 rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-none"
+            className="group relative p-8 md:p-12 rounded-[2rem] overflow-hidden transition-[translate,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-none"
             style={{
               background: 'var(--color-surface)',
               borderColor: 'var(--color-border)',
@@ -50,8 +50,8 @@ export async function ContactSection({ contacts }: ContactSectionProps) {
             }}
           >
             {/* Glowing orb behind text */}
-            <div className="absolute -top-32 -left-32 w-64 h-64 rounded-full opacity-0 group-hover:opacity-10 transition-opacity duration-700 blur-[60px] pointer-events-none"
-                 style={{ background: 'var(--color-highlight)' }} />
+            <div className="absolute -top-32 -left-32 w-64 h-64 rounded-full scale-150 opacity-0 group-hover:opacity-[0.12] transition-opacity duration-700 pointer-events-none"
+                 style={{ background: 'radial-gradient(circle closest-side at center, var(--color-highlight) 0%, transparent 100%)' }} />
             
             <div className="relative z-10">
               <div className="max-w-2xl mb-16">

@@ -46,7 +46,8 @@ export async function SkillsBentoGrid() {
       id="skills"
       className="py-16 md:py-24 overflow-x-hidden content-visibility-auto"
     >
-      <ScrollReveal className="max-w-content mx-auto px-5">
+      <div className="max-w-content mx-auto px-5">
+        <ScrollReveal>
         <div className="mb-16">
           <h2
             className="text-4xl md:text-6xl font-black mb-4 tracking-tighter"
@@ -62,6 +63,7 @@ export async function SkillsBentoGrid() {
             {t.skills.subtitle}
           </p>
         </div>
+        </ScrollReveal>
 
         {/* Marquee rows for combined categories */}
         {marqueeCategories.length > 0 && (
@@ -105,7 +107,7 @@ export async function SkillsBentoGrid() {
                 <div
                   key={category.id}
                   className={cn(
-                    "bg-[rgb(var(--bg-card)/0.65)] backdrop-blur-[16px] border border-[var(--border-color)] rounded-3xl p-6 lg:p-8 transition-all duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 flex flex-col",
+                    "bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 lg:p-8 transition-[border-color,translate] duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 flex flex-col",
                     isPrimary
                       ? "md:col-span-2 lg:col-span-2 lg:row-span-2"
                       : "col-span-1",
@@ -140,7 +142,7 @@ export async function SkillsBentoGrid() {
         )}
 
         {toolSkills.length > 0 && <ToolsRow tools={toolSkills} />}
-      </ScrollReveal>
+      </div>
       <SkillsTooltip />
     </section>
   );
