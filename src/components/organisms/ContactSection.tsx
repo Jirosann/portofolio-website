@@ -25,7 +25,7 @@ const contactLabels: Record<Contact['type'], string> = {
   github: 'GitHub',
   instagram: 'Instagram',
   whatsapp: 'WhatsApp',
-  resume: 'Resume',
+  resume: 'CV',
 };
 
 export async function ContactSection({ contacts }: ContactSectionProps) {
@@ -95,7 +95,7 @@ export async function ContactSection({ contacts }: ContactSectionProps) {
                   </span>
                   <div className="contact-link-info">
                     <span className="contact-link-type">{contactLabels[contact.type]}</span>
-                    <span className="contact-link-value">{contact.value}</span>
+                    <span className="contact-link-value">{contact.type === 'resume' ? t.contact.downloadPdf : contact.value}</span>
                   </div>
                   <span className="sr-only">{t.contactLabel.opensInNewTab}</span>
                 </a>

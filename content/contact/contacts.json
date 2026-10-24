@@ -33,7 +33,7 @@
   },
   {
     "type": "resume",
-    "label": "Resume / CV",
+    "label": "CV",
     "value": "Download PDF",
     "order": 5,
     "visible": true,
