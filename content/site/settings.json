@@ -1,6 +1,6 @@
 {
-  "title": "Muhammad Nabil Al Qadri | Software Engineer & AI Specialist",
-  "description": "Full-Stack Software Engineer specializing in Data Analytics, AI Applications, Intelligent Systems, and enterprise Software Development.",
+  "title": "Muhammad Nabil Al Qadri | Software Engineering Student",
+  "description": "Software Engineering student at BINUS University building full-stack, data and AI projects with React, FastAPI and Go. Open to IT internships.",
   "language": "en",
   "analytics": {
     "enabled": false
@@ -8,7 +8,7 @@
   "currentlyBuilding": {
     "enabled": true,
     "projectName": "Face Attend",
-    "projectUrl": "https://github.com/Jirosann/Face-Attend",
+    "projectUrl": "https://github.com/ghanisiapfullstack/Face-Attend",
     "updatedAt": "2026-10-04"
   }
 }
