@@ -7,6 +7,7 @@ import { ScrollToTop } from "@/components/atoms/ScrollToTop";
 import { dictionaries, resolveLocale } from "@/lib/i18n";
 import { getSiteUrl } from "@/lib/constants";
 import localFont from 'next/font/local';
+import { Newsreader } from 'next/font/google';
 import "./globals.css";
 
 const inter = localFont({
@@ -15,6 +16,16 @@ const inter = localFont({
   display: 'swap',
   variable: '--font-inter',
   adjustFontFallback: 'Arial',
+});
+
+// Serif hanya untuk nama di hero: satu bobot, subset latin, di-host sendiri saat build.
+// Tanpa preload: diukur, LCP mobile lebih baik daripada dipreload bersama Inter.
+const newsreader = Newsreader({
+  weight: '600',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-newsreader',
+  preload: false,
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -94,7 +105,7 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      <body className={`min-h-screen flex flex-col font-sans ${inter.variable}`} suppressHydrationWarning>
+      <body className={`min-h-screen flex flex-col font-sans ${inter.variable} ${newsreader.variable}`} suppressHydrationWarning>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(lang)).replace(/</g, '\\u003c') }}

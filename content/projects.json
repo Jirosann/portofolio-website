@@ -16,7 +16,7 @@
   },
   {
     "slug": "clash-of-bang",
-    "title": "Clash Of Bang",
+    "title": "Clash of Bang",
     "status": "completed",
     "description": "A fan community website based on a dark fantasy strategy game theme, featuring community info, visual gallery, troops data, and a member registration form.",
     "tags": ["HTML", "CSS", "JavaScript"],
@@ -24,7 +24,7 @@
   },
   {
     "slug": "fakenews-detector",
-    "title": "Fakenews Detector",
+    "title": "Fake News Detector",
     "status": "completed",
     "description": "An end-to-end fake news detection system built with MLOps approaches, covering data research, model training, and containerized web service deployment.",
     "tags": ["Python", "Flask", "Scikit-Learn", "Docker", "Tailwind CSS"],

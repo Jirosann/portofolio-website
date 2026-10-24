@@ -68,6 +68,11 @@
   --max-width-content: 1152px;
 }
 
+/* inline: --font-newsreader baru ada di <body> (kelas next/font), jadi tidak bisa di-resolve di :root */
+@theme inline {
+  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+}
+
 /* Dark mode overrides via data-theme (set by next-themes) */
 [data-theme="dark"] {
   --color-bg: #0D090A;
@@ -1851,17 +1856,9 @@ html {
   }
 }
 
-/* Header: kaca blur hanya di desktop (pointer halus, tanpa reduced-motion);
-   selain itu latar hampir solid tanpa backdrop-filter. */
+/* Header: latar hampir solid di semua perangkat, tanpa backdrop-filter. */
 .site-header {
   background: color-mix(in srgb, var(--color-bg) 96%, transparent);
-}
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .site-header {
-    background: color-mix(in srgb, var(--color-bg) 85%, transparent);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-  }
 }
 
 /* ScrollReveal: sekali jalan, hanya opacity + transform, tanpa will-change */
