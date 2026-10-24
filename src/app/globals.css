@@ -593,7 +593,7 @@ div[data-lit="true"] .tools-row-icon {
 .github-heatmap-link {
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-burgundy-accent);
+  color: var(--color-eyebrow);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -603,6 +603,11 @@ div[data-lit="true"] .tools-row-icon {
 
 .github-heatmap-link:hover {
   color: var(--color-highlight-text);
+}
+
+/* Dark: warna diam sudah sama dengan warna hover, jadi hover ditandai underline (seperti .footer-link). */
+[data-theme='dark'] .github-heatmap-link:hover {
+  text-decoration: underline;
 }
 
 .github-heatmap-grid-wrapper {

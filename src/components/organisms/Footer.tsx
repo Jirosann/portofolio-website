@@ -40,16 +40,16 @@ export async function Footer({ settings, contacts }: FooterProps) {
                     href={settings.currentlyBuilding.projectUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="footer-link hover:underline focus:outline-none focus:ring-2 rounded"
-                    style={{ color: 'var(--color-burgundy-accent)' }}
+                    className="footer-link underline underline-offset-4 decoration-1 focus:outline-none focus:ring-2 rounded"
+                    style={{ color: 'var(--color-eyebrow)' }}
                   >
                     {settings.currentlyBuilding.projectName}
                   </a>
                 ) : settings.currentlyBuilding.projectSlug ? (
                   <Link
                     href={`/projects/${settings.currentlyBuilding.projectSlug}`}
-                    className="footer-link hover:underline focus:outline-none focus:ring-2 rounded"
-                    style={{ color: 'var(--color-burgundy-accent)' }}
+                    className="footer-link underline underline-offset-4 decoration-1 focus:outline-none focus:ring-2 rounded"
+                    style={{ color: 'var(--color-eyebrow)' }}
                   >
                     {settings.currentlyBuilding.projectName}
                   </Link>

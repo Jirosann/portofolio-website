@@ -88,6 +88,7 @@ export function SkillsMarquee({
                 transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
               }}
               aria-label={skill.name}
+              aria-hidden={isDuplicate ? true : undefined}
               type="button"
               tabIndex={isDuplicate ? -1 : 0}
               onMouseEnter={(e) => {
