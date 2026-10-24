@@ -1,6 +1,12 @@
 import { ImageResponse } from 'next/og';
 
-export function getOGImage() {
+export function getOGImage(opts: { title?: string; subtitle?: string; footer?: string } = {}) {
+  const {
+    title = 'Muhammad Nabil Al Qadri',
+    subtitle = 'Software Engineering Student',
+    footer = 'Al-Qadri',
+  } = opts;
+
   return new ImageResponse(
     (
       <div
@@ -31,7 +37,7 @@ export function getOGImage() {
               color: '#F1ECE8',
             }}
           >
-            Muhammad Nabil Al Qadri
+            {title}
           </div>
           <div
             style={{
@@ -39,7 +45,7 @@ export function getOGImage() {
               color: '#C38268',
             }}
           >
-            Software Engineering Student
+            {subtitle}
           </div>
         </div>
         <div
@@ -50,7 +56,7 @@ export function getOGImage() {
             color: '#B9B2B0',
           }}
         >
-          Al-Qadri
+          {footer}
         </div>
       </div>
     ),
