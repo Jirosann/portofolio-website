@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { cn } from '@/lib/utils/cn';
 import { getIcon } from '@/icons';
+import { useTransientTip } from '@/lib/hooks/useTransientTip';
 import type { Skill } from '@/types';
 
 interface ToolsRowProps {
@@ -19,6 +20,8 @@ export function ToolsRow({ tools }: ToolsRowProps) {
 
   // State to track which tools have been hovered (illuminated)
   const [litTools, setLitTools] = useState<Set<string>>(new Set());
+  // Label nama saat tap (layar sentuh); terpisah dari litTools agar warna tetap bertahan.
+  const { tipId, showTip } = useTransientTip();
 
   return (
     <div className="flex flex-col items-center mt-24 mb-8">
@@ -41,11 +44,15 @@ export function ToolsRow({ tools }: ToolsRowProps) {
           return (
             <div
               key={tool.id}
-              className="relative group hover:z-20 -ml-3 md:-ml-5 first:ml-0 md:first:ml-0 transition-transform duration-300 ease-out"
+              className="relative group hover:z-20 has-[:focus-visible]:z-20 -ml-3 md:-ml-5 first:ml-0 md:first:ml-0 transition-transform duration-300 ease-out"
             >
-              <div
+              <button
+                type="button"
+                aria-label={tool.name}
+                data-tip-host=""
+                onPointerDown={(e) => showTip(tool.id, e.pointerType)}
                 className={cn(
-                  'tools-row-box w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-[24px] flex items-center justify-center',
+                  'tools-row-box cursor-default w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-[24px] flex items-center justify-center',
                   'transition-all duration-300 ease-out group-hover:rotate-0 group-hover:scale-110 group-hover:-translate-y-6',
                   rotation
                 )}
@@ -65,11 +72,13 @@ export function ToolsRow({ tools }: ToolsRowProps) {
                 <Icon
                   className="tools-row-icon w-8 h-8 md:w-10 md:h-10 transition-all duration-300"
                 />
-              </div>
+              </button>
 
               {/* Tooltip */}
               <div
-                className="absolute -top-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap pointer-events-none drop-shadow-md z-30"
+                aria-hidden="true"
+                data-show={tipId === tool.id ? 'true' : undefined}
+                className="absolute -top-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-has-[:focus-visible]:opacity-100 data-[show=true]:opacity-100 transition-opacity text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap pointer-events-none drop-shadow-md z-30"
                 style={{
                   background: 'var(--color-text)',
                   color: 'var(--color-bg)',

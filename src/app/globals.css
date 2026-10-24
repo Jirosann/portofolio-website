@@ -407,7 +407,7 @@ html {
 }
 
 .marquee-item:focus-visible {
-  outline: 2px solid var(--color-burgundy-accent);
+  outline: 2px solid var(--color-eyebrow);
   outline-offset: 2px;
 }
 
@@ -455,24 +455,28 @@ html {
   border-color: color-mix(in srgb, var(--tool-brand-color) 40%, transparent);
   box-shadow: 0 20px 40px -10px color-mix(in srgb, var(--tool-brand-color) 40%, transparent);
 }
+.tools-row-box:focus-visible {
+  outline: 2px solid var(--color-eyebrow);
+  outline-offset: 3px;
+}
 .tools-row-icon {
   filter: grayscale(1) opacity(0.7) brightness(var(--idle-brightness, 1)) invert(var(--idle-invert, 0));
 }
 
 .group:hover .tools-row-icon,
-div[data-lit="true"] .tools-row-icon {
+[data-lit="true"] .tools-row-icon {
   filter: grayscale(0) opacity(1) brightness(1) !important;
 }
 
-[data-theme='dark'] div[data-tech-id='github'] .tools-row-icon,
-[data-theme='dark'] div[data-tech-id='nextjs'] .tools-row-icon {
+[data-theme='dark'] [data-tech-id='github'] .tools-row-icon,
+[data-theme='dark'] [data-tech-id='nextjs'] .tools-row-icon {
   --idle-invert: 1;
   transition: filter 0s !important;
 }
 
-[data-theme='dark'] div[data-tech-id='java'] .tools-row-icon,
-[data-theme='dark'] div[data-tech-id='linux'] .tools-row-icon,
-[data-theme='dark'] div[data-tech-id='sass'] .tools-row-icon {
+[data-theme='dark'] [data-tech-id='java'] .tools-row-icon,
+[data-theme='dark'] [data-tech-id='linux'] .tools-row-icon,
+[data-theme='dark'] [data-tech-id='sass'] .tools-row-icon {
   --idle-brightness: 2;
 }
 
@@ -603,6 +607,23 @@ div[data-lit="true"] .tools-row-icon {
 
 .github-heatmap-link:hover {
   color: var(--color-highlight-text);
+}
+
+/* Footer: area klik minimal 44 px tanpa mengubah tampilan (vertikal diperluas; horizontal hanya 6 px karena jarak antar tautan 16 px). */
+.footer-social-link,
+.footer-link {
+  position: relative;
+}
+.footer-social-link::after {
+  content: '';
+  position: absolute;
+  inset: -9px -6px;
+}
+/* Tautan sebaris di kalimat (tinggi 17 px) butuh perluasan vertikal lebih besar. */
+.footer-link::after {
+  content: '';
+  position: absolute;
+  inset: -14px -6px;
 }
 
 /* Dark: warna diam sudah sama dengan warna hover, jadi hover ditandai underline (seperti .footer-link). */
@@ -1748,6 +1769,14 @@ div[data-lit="true"] .tools-row-icon {
   border-color: var(--color-accent-hover);
 }
 
+/* Tablet (md sampai sebelum lg): garis indikator mengikuti padding link yang lebih rapat */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .nav-link-normal::after {
+    left: 0.625rem;
+    right: 0.625rem;
+  }
+}
+
 /* Mobile Nav Contact */
 .mobile-nav-contact {
   color: var(--color-on-primary);
@@ -1805,6 +1834,15 @@ div[data-lit="true"] .tools-row-icon {
 }
 .nav-tool-btn:focus-visible {
   box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-link-text);
+}
+/* Area sentuh minimal 44x44 tanpa mengubah ukuran/tata letak visual: perluasan hanya pada sisi yang kurang dari 44 px. */
+.nav-tool-btn::after {
+  content: '';
+  position: absolute;
+  top: min(0px, calc((100% - 44px) / 2));
+  bottom: min(0px, calc((100% - 44px) / 2));
+  left: min(0px, calc((100% - 44px) / 2));
+  right: min(0px, calc((100% - 44px) / 2));
 }
 
 @layer utilities {

@@ -81,7 +81,7 @@ export async function ExperienceSection({
             delay={100}
           >
             <div className="bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 transition-[border-color,translate,box-shadow] duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] flex flex-col justify-center flex-1 min-h-[180px]">
-              <div className="text-xs font-bold tracking-widest mb-3 text-[var(--color-highlight)] uppercase">
+              <div className="text-xs font-bold tracking-widest mb-3 text-[var(--color-eyebrow)] uppercase">
                 {t.experience.currentStatus}
               </div>
               <div className="text-xl font-bold text-[var(--color-text)]">
@@ -93,7 +93,7 @@ export async function ExperienceSection({
             </div>
 
             <div className="bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 transition-[border-color,translate,box-shadow] duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] flex flex-col justify-center items-center text-center flex-1 min-h-[160px]">
-              <div className="text-xs font-bold tracking-widest mb-2 text-[var(--color-highlight)] uppercase">
+              <div className="text-xs font-bold tracking-widest mb-2 text-[var(--color-eyebrow)] uppercase">
                 {t.experience.built}
               </div>
               <div className="text-6xl font-black text-[var(--color-text)] tracking-tighter">
@@ -112,7 +112,7 @@ export async function ExperienceSection({
               delay={200}
             >
               <div className="bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 md:p-8 transition-[border-color,translate,box-shadow] duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] flex flex-col flex-grow">
-                <div className="text-xs font-bold tracking-widest mb-6 text-[var(--color-highlight)] uppercase">
+                <div className="text-xs font-bold tracking-widest mb-6 text-[var(--color-eyebrow)] uppercase">
                   {t.experience.whatIBuild}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 flex-grow">
@@ -145,7 +145,7 @@ export async function ExperienceSection({
           {profile.education && profile.education.length > 0 && (
             <ScrollReveal className="col-span-1 lg:col-span-12" delay={300}>
               <div className="bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 md:p-8 transition-[border-color,translate,box-shadow] duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)]">
-                <div className="text-xs font-bold tracking-widest mb-6 text-[var(--color-highlight)] uppercase">
+                <div className="text-xs font-bold tracking-widest mb-6 text-[var(--color-eyebrow)] uppercase">
                   {t.experience.education}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -190,7 +190,7 @@ export async function ExperienceSection({
             >
               <div className="bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 md:p-8 transition-[border-color,translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] hover:border-[var(--color-highlight)] flex flex-col flex-grow">
                 <div className="flex justify-between items-start mb-5">
-                  <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full bg-[color-mix(in_srgb,var(--color-highlight)15%,transparent)] text-[var(--color-highlight)]">
+                  <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full bg-[color-mix(in_srgb,var(--color-highlight)15%,transparent)] text-[var(--color-eyebrow)]">
                     {exp.type}
                   </span>
                   <span className="text-sm font-mono text-[var(--color-text-secondary)] text-right">

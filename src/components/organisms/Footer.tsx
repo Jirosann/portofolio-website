@@ -74,7 +74,7 @@ export async function Footer({ settings, contacts }: FooterProps) {
                   download={contact.type === 'resume' ? "MUHAMMAD NABIL AL QADRI - CV.pdf" : undefined}
                   className="footer-social-link transition-colors focus:outline-none focus:ring-2 rounded"
                   style={{ color: 'var(--color-text-secondary)' }}
-                  aria-label={`${contact.label} ${t.contactLabel.opensInNewTab}`}
+                  aria-label={contact.type === 'email' ? undefined : `${contact.label} ${t.contactLabel.opensInNewTab}`}
                 >
                   {contact.label}
                 </a>
