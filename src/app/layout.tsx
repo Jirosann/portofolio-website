@@ -58,15 +58,6 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      <head>
-        <link
-          rel="preload"
-          href="/fonts/jetbrains-mono-500.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-      </head>
       <body className={`min-h-screen flex flex-col font-sans ${inter.variable}`} suppressHydrationWarning>
         <ScrollToTop />
         <LanguageProvider lang={lang}>

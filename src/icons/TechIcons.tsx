@@ -212,9 +212,16 @@ export function JUnit({ className, style }: { className?: string, style?: React.
   );
 }
 
-export function Linux({ className, style }: { className?: string, style?: React.CSSProperties }) {
+export function Linux({ className }: { className?: string, style?: React.CSSProperties }) {
   // Ikon besar (712 path) dipindah ke aset statis /icons/linux.svg: tidak ikut HTML, payload RSC, bundel JS, dan DOM.
-  return <img src="/icons/linux.svg" alt="" className={className} style={style} />;
+  // Dirender sebagai markup mentah agar React tidak menambah preload `Link:` untuk gambar di bawah fold
+  // (preload itu berebut bandwidth dengan jalur render kritis). `style` diabaikan: warna tidak berpengaruh pada <img>.
+  return (
+    <span
+      style={{ display: 'contents' }}
+      dangerouslySetInnerHTML={{ __html: `<img src="/icons/linux.svg" alt="" class="${className ?? ''}">` }}
+    />
+  );
 }
 
 export function GNUBash({ className, style }: { className?: string, style?: React.CSSProperties }) {
