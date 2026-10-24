@@ -33,6 +33,7 @@ export const ExperienceSchema = z.object({
   organization: z.string().min(1),
   period: z.string().min(1),
   description: z.string().max(300).optional(),
+  descriptionId: z.string().max(300).optional(),   // Indonesian variant
   highlights: z.array(z.string().max(160)).max(5).default([]),
   tags: z.array(z.string()).max(6).default([]),
   order: z.number(),
@@ -67,11 +68,13 @@ export const ProjectSoftwareSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/, "Slug must be URL-safe (lowercase, numbers, hyphens)"),
   title: z.string().min(1, "Title is required"),
   summary: z.string().max(200, "Summary must be 200 characters or less"),
+  summaryId: z.string().max(200).optional(),   // Indonesian variant
   thumbnail: z.string().min(1, "Thumbnail path is required"),
   thumbnailAlt: z.string().min(1, "Thumbnail alt text is required"),
   role: z.string().min(1, "Role is required"),
-  technologies: z.array(z.string()).min(1, "At least one technology is required"),
-  projectStatus: z.enum(['in-progress', 'completed', 'archived']),
+  roleId: z.string().optional(),               // Indonesian variant
+  technologies: z.array(z.string()).default([]),
+  projectStatus: z.enum(['concept', 'in-progress', 'completed', 'archived']),
   featured: z.boolean().default(false),
   order: z.number(),
   published: z.boolean(),
@@ -147,6 +150,7 @@ export const ProjectSchema = z
     title: z.string().min(1),
     status: z.enum(["completed", "in-progress"]),
     description: z.string().min(1),          // English, 1-2 kalimat
+    descriptionId: z.string().optional(),    // Indonesian variant
     tags: z.array(z.string()).default([]),    // contoh: ["Python", "TensorFlow"]
     repoUrl: z.string().url(),                // wajib untuk semua status
     liveUrl: z.string().url().optional(),     // hanya boleh untuk completed

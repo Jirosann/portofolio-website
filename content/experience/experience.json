@@ -5,11 +5,12 @@
     "role": "Chief Operating Officer (Project Role)",
     "organization": "KasirAI",
     "period": "2026 – Present",
-    "description": "Managed operations and product strategy for a university team project developing an AI-powered point-of-sale system for Indonesian SMBs.",
+    "description": "Operations and product strategy for a university team project: a concept for an AI-powered point-of-sale system for Indonesian SMBs.",
     "highlights": [],
     "tags": ["AI", "Product Strategy", "Project Management", "Leadership"],
     "order": 1,
-    "visible": true
+    "visible": true,
+    "descriptionId": "Operasional dan strategi produk untuk proyek tim kuliah: konsep sistem kasir berbasis AI untuk UMKM Indonesia."
   },
   {
     "id": "bnec-hrd",

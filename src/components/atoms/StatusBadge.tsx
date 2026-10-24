@@ -1,13 +1,20 @@
 import { cn } from '@/lib/utils/cn';
 
 interface StatusBadgeProps {
-  status: 'in-progress' | 'completed' | 'archived';
+  status: 'concept' | 'in-progress' | 'completed' | 'archived';
   className?: string;
+  label?: string;
 }
 
 const statusConfig: Record<string, { label: string; bg: string; text: string; border: string }> = {
+  'concept': {
+    label: 'Concept',
+    bg: 'var(--color-border)',
+    text: 'var(--color-text-secondary)',
+    border: 'var(--color-border)',
+  },
   'in-progress': {
-    label: 'In Progress',
+    label: 'In Development',
     bg: 'color-mix(in srgb, var(--color-highlight) 12%, var(--color-bg))',
     text: 'var(--color-highlight)',
     border: 'color-mix(in srgb, var(--color-highlight) 25%, transparent)',
@@ -26,7 +33,7 @@ const statusConfig: Record<string, { label: string; bg: string; text: string; bo
   },
 };
 
-export function StatusBadge({ status, className }: StatusBadgeProps) {
+export function StatusBadge({ status, className, label }: StatusBadgeProps) {
   const config = statusConfig[status];
   
   return (
@@ -42,7 +49,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
         border: `1px solid ${config.border}`,
       }}
     >
-      {config.label}
+      {label ?? config.label}
     </span>
   );
 }

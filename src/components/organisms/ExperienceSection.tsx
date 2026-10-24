@@ -70,8 +70,7 @@ export async function ExperienceSection({
             className="text-lg md:text-xl font-medium"
             style={{ color: "var(--color-text-secondary)" }}
           >
-            Highlighting my engineering journey, technical projects, and
-            collaborative experiences.
+            {t.experience.subtitle}
           </p>
         </div>
 
@@ -86,7 +85,7 @@ export async function ExperienceSection({
                 {t.experience.currentStatus}
               </div>
               <div className="text-xl font-bold text-[var(--color-text)]">
-                Software Engineering Student, BINUS University
+                {t.experience.currentStatusRole}
               </div>
               <div className="text-sm mt-2 text-[var(--color-text-secondary)]">
                 Sep 2024 — Expected 2028
@@ -95,13 +94,13 @@ export async function ExperienceSection({
 
             <div className="bg-[rgb(var(--bg-card)/0.82)] border border-[var(--border-color)] rounded-3xl p-6 transition-[border-color,translate,box-shadow] duration-300 hover:border-[var(--color-highlight)] hover:-translate-y-1 hover:shadow-[0_8px_30px_color-mix(in_srgb,var(--color-highlight)_15%,transparent)] flex flex-col justify-center items-center text-center flex-1 min-h-[160px]">
               <div className="text-xs font-bold tracking-widest mb-2 text-[var(--color-highlight)] uppercase">
-                BUILT
+                {t.experience.built}
               </div>
               <div className="text-6xl font-black text-[var(--color-text)] tracking-tighter">
                 {publishedCount}
               </div>
               <div className="text-sm mt-1 text-[var(--color-text-secondary)] font-medium uppercase tracking-widest">
-                Completed Project{publishedCount !== 1 ? "s" : ""}
+                {publishedCount !== 1 ? t.experience.completedProjects : t.experience.completedProject}
               </div>
             </div>
           </ScrollReveal>
@@ -207,7 +206,7 @@ export async function ExperienceSection({
 
                 {exp.description && (
                   <p className="leading-relaxed text-[var(--color-text-secondary)] mb-5">
-                    {exp.description}
+                    {(lang === 'id' && exp.descriptionId) || exp.description}
                   </p>
                 )}
 
