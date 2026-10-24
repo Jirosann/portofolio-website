@@ -15,11 +15,14 @@
     "viewProjects": "Lihat Proyek",
     "contactMe": "Hubungi saya",
     "downloadCV": "Unduh CV",
-    "description": "Mahasiswa S1 BINUS University dengan fokus pada arsitektur perangkat lunak, data science, dan aplikasi AI."
+    "description": "Mahasiswa S1 BINUS University dengan fokus pada arsitektur perangkat lunak, data science, dan aplikasi AI.",
+    "position": "Mahasiswa Rekayasa Perangkat Lunak"
   },
   "about": {
     "title": "Tentang Saya.",
-    "description": "Saya adalah mahasiswa S1 Rekayasa Perangkat Lunak di Universitas BINUS (Kampus Bekasi), angkatan 2028. Studi saya berfokus pada arsitektur perangkat lunak, ilmu data, dan aplikasi AI, dan saya senang mewujudkan ide-ide machine learning menjadi perangkat lunak yang dapat digunakan oleh orang banyak.\n\nDi luar kelas, saya mengikuti workshop mengenai Generative AI, ilmu data, threat modelling, dan microservices Golang, serta telah membangun kemampuan kepemimpinan dan koordinasi tim melalui BNEC."
+    "description": "Saya adalah mahasiswa S1 Rekayasa Perangkat Lunak di Universitas BINUS (Kampus Bekasi), dengan target lulus pada 2028. Studi saya berfokus pada arsitektur perangkat lunak, ilmu data, dan aplikasi AI, dan saya senang mewujudkan ide-ide machine learning menjadi perangkat lunak yang dapat digunakan oleh orang banyak.\n\nDi luar kelas, saya mengikuti workshop mengenai Generative AI, ilmu data, threat modelling, dan microservices Golang, serta telah membangun kemampuan kepemimpinan dan koordinasi tim melalui BNEC.",
+    "technologies": "Teknologi",
+    "expectedGraduation": "Target Lulus"
   },
   "experience": {
     "title": "Pengalaman.",
@@ -27,20 +30,30 @@
     "whatIBuild": "Apa yang Saya Buat",
     "education": "Pendidikan",
     "projectsAndOrgs": "Proyek & Organisasi",
-    "workshops": "Workshop & Seminar"
+    "workshops": "Workshop & Seminar",
+    "subtitle": "Perjalanan rekayasa perangkat lunak, proyek teknis, dan pengalaman kolaboratif saya.",
+    "currentStatusRole": "Mahasiswa Rekayasa Perangkat Lunak, BINUS University",
+    "built": "DIBUAT",
+    "completedProject": "Proyek Selesai",
+    "completedProjects": "Proyek Selesai"
   },
   "skills": {
     "title": "Tumpukan Teknologi.",
     "subtitle": "Bahasa pemrograman, framework, dan tools yang pernah saya gunakan. Arahkan kursor atau ketuk ikon untuk menyalakannya.",
     "techStack": "Tumpukan Teknologi & Lainnya",
-    "developmentTools": "DEVELOPMENT TOOLS"
+    "developmentTools": "TOOLS PENGEMBANGAN",
+    "toolsSubtitle": "Tools yang saya gunakan untuk desain, version control, pengujian, dan deployment."
   },
   "projects": {
     "title": "Proyek Unggulan",
     "subtitle": "Koleksi terpilih dari sistem perangkat lunak dan aplikasi interaktif yang telah saya kembangkan.",
     "filterAll": "Semua",
     "filterSoftware": "Rekayasa Perangkat Lunak",
-    "filterCreative": "Karya Kreatif"
+    "filterCreative": "Karya Kreatif",
+    "liveDemo": "Demo Langsung",
+    "viewCode": "Lihat Kode",
+    "liveDemoFor": "Demo langsung {title}",
+    "viewCodeFor": "Lihat kode {title} di GitHub"
   },
   "heatmap": {
     "title": "Kontribusi GitHub",
@@ -59,12 +72,14 @@
   },
   "contact": {
     "title": "Mari Terhubung.",
-    "description": "Secara aktif mencari peluang magang di bidang IT dan Rekayasa Perangkat Lunak. Terbuka untuk mendiskusikan proyek, kolaborasi, atau bagaimana keahlian saya dapat berkontribusi pada tim Anda."
+    "description": "Terbuka untuk magang, posisi junior, maupun peran full-time di bidang software engineering dan IT. Mari berdiskusi tentang proyek, kolaborasi, atau bagaimana saya bisa berkontribusi di tim Anda.",
+    "downloadPdf": "Unduh PDF"
   },
   "footer": {
     "handcraftedBy": "Dibuat dengan sepenuh hati oleh",
     "allRightsReserved": "Hak cipta dilindungi.",
-    "backToTop": "Kembali ke atas"
+    "backToTop": "Kembali ke atas",
+    "currentlyBuilding": "Sedang berkontribusi di:"
   },
   "projectDetail": {
     "backToProjects": "← Kembali ke Proyek",
@@ -76,13 +91,25 @@
     "liveDemoFor": "Demo langsung untuk",
     "opensInNewTab": "(buka di tab baru)",
     "liveDemo": "Demo Langsung",
-    "repository": "Repositori"
+    "repository": "Repositori",
+    "plannedStackTbd": "Stack rencana: belum diputuskan"
   },
   "status": {
     "completed": "Selesai",
-    "onProgress": "Sedang Berjalan"
+    "onProgress": "Dalam Pengembangan",
+    "concept": "Konsep"
   },
   "contactLabel": {
     "opensInNewTab": "(buka di tab baru)"
+  },
+  "notFound": {
+    "title": "Halaman tidak ditemukan.",
+    "description": "Halaman yang Anda cari tidak ada.",
+    "backHome": "← Kembali ke Beranda"
+  },
+  "meta": {
+    "title": "Muhammad Nabil Al Qadri | Software Engineering Student",
+    "description": "Mahasiswa Rekayasa Perangkat Lunak BINUS University yang membangun proyek full-stack, data, dan AI. Terbuka untuk magang, junior, dan full-time.",
+    "ogLocale": "id_ID"
   }
 }

@@ -15,11 +15,14 @@
     "viewProjects": "View Projects",
     "contactMe": "Contact me",
     "downloadCV": "Download CV",
-    "description": "Undergraduate at BINUS University focused on software architecture, data science, and AI applications."
+    "description": "Undergraduate at BINUS University focused on software architecture, data science, and AI applications.",
+    "position": "Software Engineering Student"
   },
   "about": {
     "title": "About Me.",
-    "description": "I am an undergraduate Software Engineering student at BINUS University (Bekasi Campus), expected to graduate in 2028. My studies focus on software architecture, data science, and AI applications, and I enjoy turning machine learning ideas into software that people can actually use.\n\nOutside class, I attend workshops on Generative AI, data science, threat modelling, and Golang microservices, and I've built leadership and team coordination skills through BNEC."
+    "description": "I am an undergraduate Software Engineering student at BINUS University (Bekasi Campus), expected to graduate in 2028. My studies focus on software architecture, data science, and AI applications, and I enjoy turning machine learning ideas into software that people can actually use.\n\nOutside class, I attend workshops on Generative AI, data science, threat modelling, and Golang microservices, and I've built leadership and team coordination skills through BNEC.",
+    "technologies": "Technologies",
+    "expectedGraduation": "Expected Graduation"
   },
   "experience": {
     "title": "Experience.",
@@ -27,20 +30,30 @@
     "whatIBuild": "What I Build",
     "education": "Education",
     "projectsAndOrgs": "Projects & Organizations",
-    "workshops": "Workshops & Seminars"
+    "workshops": "Workshops & Seminars",
+    "subtitle": "Highlighting my engineering journey, technical projects, and collaborative experiences.",
+    "currentStatusRole": "Software Engineering Student, BINUS University",
+    "built": "BUILT",
+    "completedProject": "Completed Project",
+    "completedProjects": "Completed Projects"
   },
   "skills": {
     "title": "Technology Stack.",
     "subtitle": "Languages, frameworks, and tools I have worked with. Hover or tap an icon to light it up.",
     "techStack": "Tech Stack & Others",
-    "developmentTools": "DEVELOPMENT TOOLS"
+    "developmentTools": "DEVELOPMENT TOOLS",
+    "toolsSubtitle": "Tools I use for design, version control, testing, and deployment."
   },
   "projects": {
     "title": "Featured Projects",
     "subtitle": "A curated collection of software systems and interactive applications I have developed.",
     "filterAll": "All",
     "filterSoftware": "Software Engineering",
-    "filterCreative": "Creative Works"
+    "filterCreative": "Creative Works",
+    "liveDemo": "Live Demo",
+    "viewCode": "View Code",
+    "liveDemoFor": "Live Demo for {title}",
+    "viewCodeFor": "View code for {title} on GitHub"
   },
   "heatmap": {
     "title": "GitHub Contributions",
@@ -59,12 +72,14 @@
   },
   "contact": {
     "title": "Let's Connect.",
-    "description": "Actively seeking IT and Software Engineering internship opportunities. Open to discussing projects, collaborations, or how my skills can contribute to your team."
+    "description": "Open to internships, junior roles, and full-time opportunities in software engineering and IT. Let's talk about projects, collaboration, or how I can contribute to your team.",
+    "downloadPdf": "Download PDF"
   },
   "footer": {
     "handcraftedBy": "Handcrafted by",
     "allRightsReserved": "All rights reserved.",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "currentlyBuilding": "Currently contributing to:"
   },
   "projectDetail": {
     "backToProjects": "← Back to Projects",
@@ -76,13 +91,25 @@
     "liveDemoFor": "Live demo for",
     "opensInNewTab": "(opens in new tab)",
     "liveDemo": "Live Demo",
-    "repository": "Repository"
+    "repository": "Repository",
+    "plannedStackTbd": "Planned stack: to be decided"
   },
   "status": {
     "completed": "Completed",
-    "onProgress": "On Progress"
+    "onProgress": "In Development",
+    "concept": "Concept"
   },
   "contactLabel": {
     "opensInNewTab": "(opens in new tab)"
+  },
+  "notFound": {
+    "title": "Page not found.",
+    "description": "The page you are looking for does not exist.",
+    "backHome": "← Back to Home"
+  },
+  "meta": {
+    "title": "Muhammad Nabil Al Qadri | Software Engineering Student",
+    "description": "Software Engineering student at BINUS University building full-stack, data and AI projects. Open to internships, junior and full-time roles.",
+    "ogLocale": "en_US"
   }
 }

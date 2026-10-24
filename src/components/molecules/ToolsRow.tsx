@@ -26,7 +26,7 @@ export function ToolsRow({ tools }: ToolsRowProps) {
         {t.skills.developmentTools}
       </h3>
       <p className="mb-12 text-center" style={{ color: 'var(--color-text-secondary)' }}>
-        Tools I use for design, version control, testing, and deployment.
+        {t.skills.toolsSubtitle}
       </p>
 
       <div className="flex flex-wrap items-center justify-center gap-y-12">

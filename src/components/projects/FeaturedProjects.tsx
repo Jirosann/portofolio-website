@@ -38,7 +38,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
 
         {completedProjects.length > 0 && (
           <div className="mb-16">
-            <h3 className="text-2xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>Completed</h3>
+            <h3 className="text-2xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>{t.status.completed}</h3>
             <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {completedProjects.map((project) => (
                 <div key={project.slug} className="h-full">
@@ -51,7 +51,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
 
         {inProgressProjects.length > 0 && (
           <div>
-            <h3 className="text-2xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>On Progress</h3>
+            <h3 className="text-2xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>{t.status.onProgress}</h3>
             <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {inProgressProjects.map((project) => (
                 <div key={project.slug} className="h-full">
