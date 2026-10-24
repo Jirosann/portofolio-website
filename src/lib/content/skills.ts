@@ -61,3 +61,8 @@ export function getSkills(): SkillCategoryWithSkills[] {
   // Filter out empty categories (no visible skills)
   return result.filter(cat => cat.skills.length > 0);
 }
+
+/** Number of distinct visible skills shown on the site (duplicates across categories counted once). */
+export function getUniqueSkillCount(): number {
+  return new Set(getSkills().flatMap((cat) => cat.skills.map((skill) => skill.name))).size;
+}
