@@ -284,7 +284,8 @@ export function GitHubHeatmap({ data }: GitHubHeatmapProps) {
 
             {/* Grid Cells */}
             {weeks.map((week, weekIndex) => (
-              week.days.map((day, dayIndex) => {
+              <div key={`week-${weekIndex}`} role="row" className="contents">
+              {week.days.map((day, dayIndex) => {
                 if (!day.date) return null; // padding
                 const isFocusable = activeCell?.week === weekIndex && activeCell?.day === dayIndex;
                 const ariaLabel = formatTooltipText(day.count, day.date);
@@ -308,7 +309,8 @@ export function GitHubHeatmap({ data }: GitHubHeatmapProps) {
                     }}
                   />
                 );
-              })
+              })}
+              </div>
             ))}
           </div>
 

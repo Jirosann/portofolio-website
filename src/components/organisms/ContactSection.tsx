@@ -77,7 +77,7 @@ export async function ContactSection({ contacts }: ContactSectionProps) {
           )}
 
           {/* Other contact channels */}
-          <div className="contact-links-grid" role="list" aria-label="Contact channels">
+          <div className="contact-links-grid" role="group" aria-label="Contact channels">
             {contacts
               .filter((c) => c.type !== 'email')
               .map((contact) => (
@@ -88,8 +88,6 @@ export async function ContactSection({ contacts }: ContactSectionProps) {
                   rel="noopener noreferrer"
                   download={contact.type === 'resume' ? "MUHAMMAD NABIL AL QADRI - CV.pdf" : undefined}
                   className="contact-link focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-xl"
-                  aria-label={`${contactLabels[contact.type]} ${t.contactLabel.opensInNewTab}`}
-                  role="listitem"
                   id={`contact-${contact.type}`}
                 >
                   <span className="contact-link-icon" aria-hidden="true">
@@ -99,6 +97,7 @@ export async function ContactSection({ contacts }: ContactSectionProps) {
                     <span className="contact-link-type">{contactLabels[contact.type]}</span>
                     <span className="contact-link-value">{contact.value}</span>
                   </div>
+                  <span className="sr-only">{t.contactLabel.opensInNewTab}</span>
                 </a>
               ))}
             </div>
