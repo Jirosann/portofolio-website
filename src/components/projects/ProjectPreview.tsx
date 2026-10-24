@@ -8,16 +8,20 @@ type ProjectPreviewProps = {
   id: string;
   preview: Project['preview'];
   position: 'top' | 'bottom';
+  align?: 'center' | 'start' | 'end';
 };
 
-export function ProjectPreview({ id, preview, position }: ProjectPreviewProps) {
+export function ProjectPreview({ id, preview, position, align = 'center' }: ProjectPreviewProps) {
   if (!preview) return null;
 
   return (
     <div 
       id={id}
       className={cn(
-        "absolute left-1/2 -translate-x-1/2 w-[360px] aspect-video z-50",
+        "absolute w-[360px] aspect-video z-50",
+        align === 'center' && "left-1/2 -translate-x-1/2",
+        align === 'start' && "left-0",
+        align === 'end' && "right-0",
         position === 'top' ? "bottom-[calc(100%_+_10px)]" : "top-[calc(100%_+_10px)]",
         "opacity-0 scale-95 pointer-events-none transition-all duration-200 delay-150 ease-out",
         "group-hover/btn:opacity-100 group-hover/btn:scale-100 group-focus-within/btn:opacity-100 group-focus-within/btn:scale-100",

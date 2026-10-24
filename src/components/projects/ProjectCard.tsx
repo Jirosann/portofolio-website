@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { Project } from '@/lib/validation/schemas';
 import { StatusBadge } from './StatusBadge';
 import { ProjectPreview } from './ProjectPreview';
@@ -9,9 +9,23 @@ import { useTranslation } from '@/components/providers/LanguageProvider';
 export function ProjectCard({ project }: { project: Project }) {
   const { t, lang } = useTranslation();
   const [previewPos, setPreviewPos] = useState<'top' | 'bottom'>('top');
+  const [previewAlign, setPreviewAlign] = useState<'center' | 'start' | 'end'>('center');
   const btnRef = useRef<HTMLAnchorElement>(null);
+  // Kartu tetap di atas kartu lain sampai pratinjau selesai memudar (delay 150 ms + durasi 200 ms),
+  // juga bila kursor langsung pindah ke kartu lain yang sedang di-hover (z-10).
+  const [lifted, setLifted] = useState(false);
+  const liftTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => { if (liftTimer.current) clearTimeout(liftTimer.current); }, []);
+
+  const handleLeave = () => {
+    if (liftTimer.current) clearTimeout(liftTimer.current);
+    liftTimer.current = setTimeout(() => setLifted(false), 350);
+  };
 
   const handleMouseEnter = () => {
+    if (liftTimer.current) clearTimeout(liftTimer.current);
+    // Pratinjau hanya muncul di perangkat dengan hover; di layar sentuh kartu tidak perlu diangkat.
+    if (window.matchMedia('(hover: hover)').matches) setLifted(true);
     if (btnRef.current) {
       const rect = btnRef.current.getBoundingClientRect();
       // If there is less than 250px space above the button, flip to bottom
@@ -20,11 +34,21 @@ export function ProjectCard({ project }: { project: Project }) {
       } else {
         setPreviewPos('top');
       }
+      // Pratinjau selebar 360 px berpusat di tombol; rapatkan ke tepi tombol bila akan keluar layar
+      const centerX = rect.left + rect.width / 2;
+      const viewportW = document.documentElement.clientWidth;
+      if (centerX - 180 < 16) {
+        setPreviewAlign('start');
+      } else if (centerX + 180 > viewportW - 16) {
+        setPreviewAlign('end');
+      } else {
+        setPreviewAlign('center');
+      }
     }
   };
 
   return (
-    <div className="group relative flex flex-col h-full bg-[color-mix(in_srgb,var(--color-surface)_85%,transparent)] border border-[var(--color-border)] dark:border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] shadow-[0_1px_2px_color-mix(in_srgb,var(--color-text)_5%,transparent),0_4px_12px_color-mix(in_srgb,var(--color-text)_5%,transparent)] dark:shadow-none rounded-2xl p-6 transition-[translate,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_color-mix(in_srgb,var(--color-text)_10%,transparent)] dark:hover:shadow-none hover:border-[var(--color-highlight)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+    <div className={`group relative ${lifted ? 'z-20 ' : ''}flex flex-col h-full bg-[color-mix(in_srgb,var(--color-surface)_85%,transparent)] border border-[var(--color-border)] dark:border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] shadow-[0_1px_2px_color-mix(in_srgb,var(--color-text)_5%,transparent),0_4px_12px_color-mix(in_srgb,var(--color-text)_5%,transparent)] dark:shadow-none rounded-2xl p-6 transition-[translate,box-shadow,border-color] duration-200 hover:z-10 focus-within:z-10 hover:-translate-y-1 hover:shadow-[0_8px_24px_color-mix(in_srgb,var(--color-text)_10%,transparent)] dark:hover:shadow-none hover:border-[var(--color-highlight)] motion-reduce:transition-none motion-reduce:hover:translate-y-0`}>
       
       {/* Static thumbnail for mobile (Touch device fallback) */}
       {project.preview && (
@@ -76,6 +100,8 @@ export function ProjectCard({ project }: { project: Project }) {
             aria-describedby={project.preview ? `preview-${project.slug}` : undefined}
             onMouseEnter={handleMouseEnter}
             onFocus={handleMouseEnter}
+            onMouseLeave={handleLeave}
+            onBlur={handleLeave}
             className="group/btn relative flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[var(--color-burgundy-accent)] text-white dark:text-[#F1ECE8] font-bold text-sm transition-all hover:scale-[1.02] hover:bg-[var(--color-burgundy)] dark:hover:bg-[color-mix(in_srgb,var(--color-burgundy-accent)_80%,var(--color-highlight)_20%)] active:scale-95"
 
           >
@@ -92,6 +118,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 id={`preview-${project.slug}`}
                 preview={project.preview} 
                 position={previewPos} 
+                align={previewAlign}
               />
             )}
           </a>
