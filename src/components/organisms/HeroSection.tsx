@@ -41,7 +41,7 @@ export async function HeroSection({ profile }: HeroSectionProps) {
   const availability = t.contact.description.split(/(?<=\.)\s/)[0];
 
   return (
-    <Section className="pt-8 md:pt-14 pb-12 md:pb-16">
+    <Section className="pt-8 md:pt-14 lg:pt-10 pb-12 md:pb-16">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 md:gap-4">
           <div className={`${card} lg:col-span-8 p-6 md:p-10 lg:p-12`}>

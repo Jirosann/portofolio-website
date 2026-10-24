@@ -19,13 +19,13 @@
     "position": "Mahasiswa Rekayasa Perangkat Lunak"
   },
   "about": {
-    "title": "Tentang Saya.",
+    "title": "Tentang Saya",
     "description": "Saya adalah mahasiswa S1 Rekayasa Perangkat Lunak di Universitas BINUS (Kampus Bekasi), dengan target lulus pada 2028. Studi saya berfokus pada arsitektur perangkat lunak, ilmu data, dan aplikasi AI, dan saya senang mewujudkan ide-ide machine learning menjadi perangkat lunak yang dapat digunakan oleh orang banyak.\n\nDi luar kelas, saya mengikuti workshop mengenai Generative AI, ilmu data, threat modelling, dan microservices Golang, serta telah membangun kemampuan kepemimpinan dan koordinasi tim melalui BNEC.",
     "technologies": "Teknologi",
     "expectedGraduation": "Target Lulus"
   },
   "experience": {
-    "title": "Pengalaman.",
+    "title": "Pengalaman",
     "currentStatus": "Status Saat Ini",
     "whatIBuild": "Apa yang Saya Buat",
     "education": "Pendidikan",
@@ -38,13 +38,14 @@
     "completedProjects": "Proyek Selesai"
   },
   "skills": {
-    "title": "Tumpukan Teknologi.",
+    "title": "Tumpukan Teknologi",
     "subtitle": "Bahasa pemrograman, framework, dan tools yang pernah saya gunakan. Arahkan kursor atau ketuk ikon untuk menyalakannya.",
     "techStack": "Tumpukan Teknologi & Lainnya",
     "developmentTools": "TOOLS PENGEMBANGAN",
     "toolsSubtitle": "Tools yang saya gunakan untuk desain, version control, pengujian, dan deployment."
   },
   "projects": {
+    "sectionTitle": "Karya pilihan",
     "title": "Proyek Unggulan",
     "subtitle": "Koleksi terpilih dari sistem perangkat lunak dan aplikasi interaktif yang telah saya kembangkan.",
     "filterAll": "Semua",
@@ -71,7 +72,7 @@
     "errorMsg": "Data kontribusi sedang tidak tersedia."
   },
   "contact": {
-    "title": "Mari Terhubung.",
+    "title": "Mari Terhubung",
     "description": "Terbuka untuk magang, posisi junior, maupun peran full-time di bidang software engineering dan IT. Mari berdiskusi tentang proyek, kolaborasi, atau bagaimana saya bisa berkontribusi di tim Anda.",
     "downloadPdf": "Unduh PDF"
   },

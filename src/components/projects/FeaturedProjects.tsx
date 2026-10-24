@@ -3,8 +3,7 @@
 import React from 'react';
 import type { Project } from '@/lib/validation/schemas';
 import { ProjectCard } from './ProjectCard';
-import { ScrollReveal } from '@/components/atoms/ScrollReveal';
-import { AnimatedUnderline } from '@/components/atoms/AnimatedUnderline';
+import { SectionHeading } from '@/components/molecules/SectionHeading';
 import { useTranslation } from '@/components/providers/LanguageProvider';
 
 interface FeaturedProjectsProps {
@@ -18,23 +17,11 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
   const inProgressProjects = projects.filter(p => p.status === 'in-progress');
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
+    <section id="projects" className="section-y relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 rounded-full scale-[2] opacity-10 dark:opacity-5 pointer-events-none" style={{ background: 'radial-gradient(ellipse closest-side at center, var(--color-burgundy) 0%, transparent 100%)' }} />
       
       <div className="max-w-content mx-auto px-5 relative z-10">
-        <ScrollReveal>
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-          <div>
-            <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter" style={{ color: 'var(--color-text)' }}>
-              {t.projects.title || 'Featured Projects'}
-            </h2>
-            <AnimatedUnderline className="w-16 h-1 rounded-full mb-6 bg-accent dark:bg-highlight" />
-            <p className="text-lg md:text-xl font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-              {t.projects.subtitle || 'Some of my recent work'}
-            </p>
-          </div>
-        </div>
-        </ScrollReveal>
+        <SectionHeading section="projects" label={t.nav.projects} title={t.projects.sectionTitle} description={t.projects.subtitle} />
 
         {completedProjects.length > 0 && (
           <div className="mb-16">

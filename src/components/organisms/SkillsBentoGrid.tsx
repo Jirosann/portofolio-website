@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils/cn";
 import { SkillCard } from "@/components/molecules/SkillCard";
-import { ScrollReveal } from "@/components/atoms/ScrollReveal";
-import { AnimatedUnderline } from "@/components/atoms/AnimatedUnderline";
+import { SectionHeading } from "@/components/molecules/SectionHeading";
 import { SkillsMarquee } from "@/components/molecules/SkillsMarquee";
 import { getSkills } from "@/lib/content/skills";
 import { ToolsRow } from "@/components/molecules/ToolsRow";
@@ -44,26 +43,10 @@ export async function SkillsBentoGrid() {
   return (
     <section
       id="skills"
-      className="py-16 md:py-24 overflow-x-hidden content-visibility-auto"
+      className="section-y overflow-x-hidden content-visibility-auto"
     >
       <div className="max-w-content mx-auto px-5">
-        <ScrollReveal>
-        <div className="mb-16">
-          <h2
-            className="text-4xl md:text-6xl font-black mb-4 tracking-tighter"
-            style={{ color: "var(--color-text)" }}
-          >
-            {t.skills.title}
-          </h2>
-          <AnimatedUnderline className="w-16 h-1 rounded-full mb-6 bg-accent dark:bg-highlight" />
-          <p
-            className="text-lg md:text-xl font-medium"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            {t.skills.subtitle}
-          </p>
-        </div>
-        </ScrollReveal>
+        <SectionHeading section="skills" label={t.nav.skills} title={t.skills.title} description={t.skills.subtitle} />
 
         {/* Marquee rows for combined categories */}
         {marqueeCategories.length > 0 && (

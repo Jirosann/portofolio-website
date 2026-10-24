@@ -1,6 +1,6 @@
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
-import { AnimatedUnderline } from '@/components/atoms/AnimatedUnderline';
+import { SectionHeading } from '@/components/molecules/SectionHeading';
 import type { Profile } from '@/types';
 import { cookies } from 'next/headers';
 import { dictionaries, resolveLocale } from '@/lib/i18n';
@@ -30,12 +30,8 @@ export async function AboutSection({ profile }: AboutSectionProps) {
             <div className="absolute -top-32 -left-32 w-64 h-64 rounded-full scale-150 opacity-0 group-hover:opacity-[0.12] transition-opacity duration-700 pointer-events-none"
                  style={{ background: 'radial-gradient(circle closest-side at center, var(--color-highlight) 0%, transparent 100%)' }} />
             
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-6 tracking-tight"
-                style={{ color: 'var(--color-text)' }}>
-              {t.about.title}
-            </h2>
-            <AnimatedUnderline className="w-16 h-1 mb-8 rounded-full bg-accent dark:bg-highlight" />
-            
+            <SectionHeading section="about" label={t.nav.about} title={t.about.title} className="relative z-10 mb-8" />
+
             <p className="text-lg md:text-xl leading-relaxed relative z-10 whitespace-pre-line"
                style={{ color: 'var(--color-text-secondary)' }}>
               {t.about.description || profile.about}

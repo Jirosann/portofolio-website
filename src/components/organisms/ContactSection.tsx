@@ -1,7 +1,7 @@
 import { Container } from '@/components/layout/Container';
 import { getContactUrl } from '@/lib/content/contact';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
-import { AnimatedUnderline } from '@/components/atoms/AnimatedUnderline';
+import { SectionHeading } from '@/components/molecules/SectionHeading';
 import { ContactIcon } from '@/components/atoms/ContactIcon';
 import type { Contact } from '@/types';
 import { cookies } from 'next/headers';
@@ -30,7 +30,7 @@ export async function ContactSection({ contacts }: ContactSectionProps) {
   const emailContact = contacts.find((c) => c.type === 'email');
 
   return (
-    <section id="contact" className="py-16 md:py-24 border-t border-border content-visibility-auto">
+    <section id="contact" className="section-y border-t border-border content-visibility-auto">
       <Container>
         <ScrollReveal>
           <div 
@@ -46,15 +46,13 @@ export async function ContactSection({ contacts }: ContactSectionProps) {
                  style={{ background: 'radial-gradient(circle closest-side at center, var(--color-highlight) 0%, transparent 100%)' }} />
             
             <div className="relative z-10">
-              <div className="max-w-2xl mb-16">
-                <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter" style={{ color: 'var(--color-text)' }}>
-                  {t.contact.title}
-                </h2>
-                <AnimatedUnderline className="w-16 h-1 rounded-full mb-6 bg-accent dark:bg-highlight" />
-                <p className="text-lg md:text-xl font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-                  {t.contact.description}
-                </p>
-              </div>
+              <SectionHeading
+                section="contact"
+                label={t.nav.contact}
+                title={t.contact.title}
+                description={t.contact.description}
+                className="max-w-2xl mb-16 md:mb-16"
+              />
 
               {/* Email as primary CTA */}
           {emailContact && (

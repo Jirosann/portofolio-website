@@ -88,17 +88,17 @@ export function Header({ navLinks }: HeaderProps) {
   return (
     <header
       ref={headerRef}
-      className="site-header sticky top-0 z-50 border-b animate-slide-down"
-      style={{
-        borderColor: 'var(--color-border)',
-      }}
+      className="sticky top-0 z-50 animate-slide-down lg:py-3 lg:pointer-events-none"
     >
-      <Container>
-        <nav className="flex items-center justify-between h-16">
+      {/* < 1024: bar solid selebar layar. >= 1024: wrapper transparan, <nav> jadi pill kaca melayang. */}
+      <div className="site-header border-b lg:border-b-0" style={{ borderColor: 'var(--color-border)' }}>
+      {/* < 360 px: padding lebih rapat agar logo + bahasa + tema + menu muat di 320 px */}
+      <Container className="max-[359px]:px-4">
+        <nav className="nav-pill flex items-center justify-between h-16 lg:h-14 lg:w-fit lg:mx-auto lg:gap-6 lg:pl-4 lg:pr-2 lg:rounded-full lg:pointer-events-auto">
           {/* Logo / Name */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 transition-opacity hover:opacity-80"
+            className="flex items-center gap-2.5 min-h-11 transition-opacity hover:opacity-80"
             aria-label="Al-Qadri"
           >
             <div className="w-[30px] h-[30px] rounded-lg overflow-hidden flex-shrink-0">
@@ -128,7 +128,7 @@ export function Header({ navLinks }: HeaderProps) {
                   aria-current={active ? 'true' : undefined}
                   data-text={link.label}
                   className={cn(
-                    'nav-link-base rounded-full px-4 md:max-lg:px-2.5 py-1.5 text-sm font-medium',
+                    'nav-link-base inline-flex items-center justify-center min-h-11 rounded-full px-4 md:max-lg:px-2.5 py-1.5 text-sm font-medium',
                     link.href === '#contact' ? 'nav-link-contact' : 'nav-link-normal',
                     active && 'active'
                   )}
@@ -164,14 +164,13 @@ export function Header({ navLinks }: HeaderProps) {
             </button>
           </div>
         </nav>
-        
-        {/* Mobile Menu */}
+      </Container>
+      </div>
+
+        {/* Mobile Menu: panel solid melayang di atas konten (tidak mendorong halaman) */}
         {mobileMenuOpen && (
-          <div id="mobile-menu" className="md:hidden pt-4 pb-[calc(16px+env(safe-area-inset-bottom))]" style={{ 
-            borderTop: '1px solid var(--color-border)',
-            background: 'color-mix(in srgb, var(--color-bg) 95%, var(--color-surface))'
-          }}>
-            <div className="flex flex-col gap-4">
+          <div id="mobile-menu" className="md:hidden absolute inset-x-3 top-full mt-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg px-4 pt-4 pb-[calc(16px+env(safe-area-inset-bottom))]">
+            <div className="flex flex-col gap-2">
               {navLinks.map((link) => {
                 const active = activeSection === link.href;
                 if (link.href === '#contact') {
@@ -197,7 +196,7 @@ export function Header({ navLinks }: HeaderProps) {
                     onClick={() => setMobileMenuOpen(false)}
                     aria-current={active ? 'true' : undefined}
                     className={cn(
-                      'mobile-nav-normal rounded-full px-4 py-2 text-base font-medium text-center',
+                      'mobile-nav-normal min-h-11 rounded-full px-4 py-2 text-base font-medium text-center',
                       active && 'active'
                     )}
                   >
@@ -208,7 +207,6 @@ export function Header({ navLinks }: HeaderProps) {
             </div>
           </div>
         )}
-      </Container>
     </header>
   );
 }

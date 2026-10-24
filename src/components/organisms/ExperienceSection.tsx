@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { Container } from "@/components/layout/Container";
-import { AnimatedUnderline } from "@/components/atoms/AnimatedUnderline";
+import { SectionHeading } from "@/components/molecules/SectionHeading";
 import { ScrollReveal } from "@/components/atoms/ScrollReveal";
 import { getProfile } from "@/lib/content/profile";
 import { getCompletedProjectsCount } from "@/lib/content/projects";
@@ -56,23 +56,10 @@ export async function ExperienceSection({
   const publishedCount = getCompletedProjectsCount();
 
   return (
-    <section id="experience" className="py-16 md:py-24 content-visibility-auto">
+    <section id="experience" className="section-y content-visibility-auto">
       <Container>
-        <div className="pt-12 md:pt-16 mb-16">
-          <h2
-            className="text-4xl md:text-6xl font-black mb-4 tracking-tighter"
-            style={{ color: "var(--color-text)" }}
-          >
-            {t.experience.title}
-          </h2>
-          <AnimatedUnderline className="w-16 h-1 rounded-full mb-6 bg-accent dark:bg-highlight" />
-          <p
-            className="text-lg md:text-xl font-medium"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            {t.experience.subtitle}
-          </p>
-        </div>
+        {/* experience.subtitle tidak ditampilkan: memuat kata terlarang (redesign-v2 bagian 9); ditulis ulang di sesi 7 */}
+        <SectionHeading section="experience" label={t.nav.experience} title={t.experience.title} />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Block 1: Current Status (col-span-4) */}
