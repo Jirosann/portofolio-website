@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Clone repo proyek, venv, dan tangkapan sementara untuk audit (tidak di-commit)
+    "scratch/**",
   ]),
   {
     rules: {
