@@ -1,6 +1,7 @@
 'use client';
 
 import { getIcon } from '@/icons';
+import { useTransientTip } from '@/lib/hooks/useTransientTip';
 import { brandColors } from '@/lib/utils/colors';
 import type { Skill } from '@/types';
 
@@ -29,6 +30,8 @@ export function SkillsMarquee({
   speed = 1,
 }: SkillsMarqueeProps) {
   const [litSkills, setLitSkills] = useState<Set<string>>(new Set());
+  // Label nama saat tap (layar sentuh); terpisah dari litSkills agar warna tetap bertahan.
+  const { tipId, showTip } = useTransientTip();
   const sectionRef = useRef<HTMLDivElement>(null);
   // Set kedua (untuk loop mulus) dirender setelah mount agar HTML/DOM awal tidak menggandakan ~25 ikon per baris.
   const [ready, setReady] = useState(false);
@@ -91,6 +94,8 @@ export function SkillsMarquee({
               aria-hidden={isDuplicate ? true : undefined}
               type="button"
               tabIndex={isDuplicate ? -1 : 0}
+              data-tip-host=""
+              onPointerDown={(e) => showTip(`${skill.id}-${index}`, e.pointerType)}
               onMouseEnter={(e) => {
                 setLitSkills((prev) => new Set(prev).add(skill.id));
                 e.currentTarget.style.background = `color-mix(in srgb, ${brandColor} 15%, var(--color-surface))`;
@@ -128,7 +133,9 @@ export function SkillsMarquee({
               )}
               {/* Tooltip */}
               <div
-                className="absolute -top-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap pointer-events-none drop-shadow-md z-30"
+                aria-hidden="true"
+                data-show={tipId === `${skill.id}-${index}` ? 'true' : undefined}
+                className="absolute -top-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 data-[show=true]:opacity-100 transition-opacity text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap pointer-events-none drop-shadow-md z-30"
                 style={{
                   background: 'var(--color-text)',
                   color: 'var(--color-bg)',

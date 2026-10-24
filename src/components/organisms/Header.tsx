@@ -128,7 +128,7 @@ export function Header({ navLinks }: HeaderProps) {
                   aria-current={active ? 'true' : undefined}
                   data-text={link.label}
                   className={cn(
-                    'nav-link-base rounded-full px-4 py-1.5 text-sm font-medium',
+                    'nav-link-base rounded-full px-4 md:max-lg:px-2.5 py-1.5 text-sm font-medium',
                     link.href === '#contact' ? 'nav-link-contact' : 'nav-link-normal',
                     active && 'active'
                   )}

@@ -76,7 +76,7 @@ export function LanguageSwitcher() {
           <button
             onClick={() => switchLanguage('en')}
             className={cn(
-              "w-full text-left px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[color-mix(in_srgb,var(--color-text)_8%,transparent)]",
+              "w-full min-h-11 text-left px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[color-mix(in_srgb,var(--color-text)_8%,transparent)]",
               lang === 'en' && "bg-[color-mix(in_srgb,var(--color-text)_8%,transparent)]"
             )}
             style={{ color: 'var(--color-text)' }}
@@ -87,7 +87,7 @@ export function LanguageSwitcher() {
           <button
             onClick={() => switchLanguage('id')}
             className={cn(
-              "w-full text-left px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[color-mix(in_srgb,var(--color-text)_8%,transparent)]",
+              "w-full min-h-11 text-left px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[color-mix(in_srgb,var(--color-text)_8%,transparent)]",
               lang === 'id' && "bg-[color-mix(in_srgb,var(--color-text)_8%,transparent)]"
             )}
             style={{ color: 'var(--color-text)' }}
