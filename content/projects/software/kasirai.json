@@ -2,13 +2,14 @@
   "id": "kasirai",
   "slug": "kasirai",
   "title": "KasirAI",
-  "summary": "Problem: Manual inventory tracking. Solution: Built AI POS using GenAI, FastAPI & React for predictive analytics. Impact: Streamlined SMB operations & enabled real-time WhatsApp stock alerts.",
-  "role": "Operations Lead (Academic Project)",
-  "technologies": ["FastAPI", "React"],
-  "projectStatus": "in-progress",
+  "summary": "Concept for an AI-powered point-of-sale system for Indonesian small businesses, aimed at easier inventory tracking and sales insights. Academic team project; not yet built.",
+  "role": "Chief Operating Officer (Academic Project)",
+  "technologies": [],
+  "projectStatus": "concept",
   "order": 3,
   "published": true,
-  "techInsight": "Leveraging generative AI for WhatsApp chatbot and real-time anomaly detection.",
   "thumbnail": "/images/projects/ecommerce-api/thumbnail.webp",
-  "thumbnailAlt": "KasirAI POS Interface"
+  "thumbnailAlt": "KasirAI POS Interface",
+  "roleId": "Chief Operating Officer (Proyek Akademik)",
+  "summaryId": "Konsep sistem kasir (point-of-sale) berbasis AI untuk UMKM Indonesia, bertujuan mempermudah pencatatan stok dan wawasan penjualan. Proyek tim akademik; belum dibangun."
 }

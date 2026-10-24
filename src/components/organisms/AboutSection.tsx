@@ -4,6 +4,7 @@ import { AnimatedUnderline } from '@/components/atoms/AnimatedUnderline';
 import type { Profile } from '@/types';
 import { cookies } from 'next/headers';
 import { dictionaries, resolveLocale } from '@/lib/i18n';
+import { getUniqueSkillCount } from '@/lib/content/skills';
 
 interface AboutSectionProps {
   profile: Profile;
@@ -51,10 +52,10 @@ export async function AboutSection({ profile }: AboutSectionProps) {
                    borderWidth: '1px',
                  }}>
               <div className="text-5xl md:text-6xl font-black mb-2 tracking-tighter" style={{ color: 'var(--color-highlight)' }}>
-                10+
+                {getUniqueSkillCount()}
               </div>
               <div className="text-sm font-bold tracking-widest uppercase text-[var(--color-eyebrow)]">
-                Technologies
+                {t.about.technologies}
               </div>
             </div>
 
@@ -69,7 +70,7 @@ export async function AboutSection({ profile }: AboutSectionProps) {
                 2028
               </div>
               <div className="text-sm font-bold tracking-widest uppercase text-[var(--color-eyebrow)]">
-                Expected Graduation
+                {t.about.expectedGraduation}
               </div>
             </div>
           </div>

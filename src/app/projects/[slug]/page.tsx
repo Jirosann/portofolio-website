@@ -30,14 +30,17 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
     return { title: 'Project Not Found' };
   }
 
+  const metaLang = resolveLocale((await cookies()).get('NEXT_LOCALE')?.value);
+  const summary = (metaLang === 'id' && project.summaryId) || project.summary;
+
 
   return {
     title: project.title,
-    description: project.summary,
+    description: summary,
+    robots: { index: false, follow: true },
     openGraph: {
       title: project.title,
-      description: project.summary,
-      images: [project.thumbnail],
+      description: summary,
       type: 'article',
     },
     alternates: {
@@ -105,19 +108,26 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
             {/* Header */}
             <header className="project-detail-header">
               <div className="project-detail-meta">
-                <StatusBadge status={project.projectStatus} />
-                <span className="project-detail-role">{project.role}</span>
+                <StatusBadge
+                  status={project.projectStatus}
+                  label={project.projectStatus === 'concept' ? t.status.concept : project.projectStatus === 'in-progress' ? t.status.onProgress : project.projectStatus === 'completed' ? t.status.completed : undefined}
+                />
+                <span className="project-detail-role">{(lang === 'id' && project.roleId) || project.role}</span>
               </div>
 
               <h1 className="project-detail-title">{project.title}</h1>
-              <p className="project-detail-summary">{project.summary}</p>
+              <p className="project-detail-summary">{(lang === 'id' && project.summaryId) || project.summary}</p>
 
               {/* Technologies */}
-              <div className="project-detail-tech" role="list" aria-label={t.projectDetail.technologiesUsed}>
-                {project.technologies.map((tech) => (
-                  <TechTag key={tech} label={tech} role="listitem" />
-                ))}
-              </div>
+              {project.technologies.length > 0 ? (
+                <div className="project-detail-tech" role="list" aria-label={t.projectDetail.technologiesUsed}>
+                  {project.technologies.map((tech) => (
+                    <TechTag key={tech} label={tech} role="listitem" />
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>{t.projectDetail.plannedStackTbd}</p>
+              )}
 
               {/* Action links */}
               <div className="project-detail-links">

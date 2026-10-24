@@ -2,7 +2,7 @@
   "id": "clash-of-bang",
   "slug": "clash-of-bang",
   "title": "Clash of Bang",
-  "summary": "Problem: Bloated load times from heavy frameworks. Solution: Built a responsive, interactive app using pure vanilla HTML, CSS, and JS. Impact: Achieved max performance with zero dependencies.",
+  "summary": "Fan community website with a dark fantasy strategy game theme, built with vanilla HTML, CSS, and JavaScript without any framework. Individual university assignment.",
   "role": "Solo Developer",
   "technologies": ["HTML", "CSS", "JavaScript"],
   "projectStatus": "completed",
@@ -10,7 +10,8 @@
   "published": true,
   "repoUrl": "https://github.com/Jirosann/Clash-Of-Bang",
   "repoVisibility": "public",
-  "techInsight": "Built with pure vanilla HTML, CSS, and JS for maximum performance.",
+  "techInsight": "Built with vanilla HTML, CSS, and JS, no framework.",
   "thumbnail": "/images/projects/ecommerce-api/thumbnail.webp",
-  "thumbnailAlt": "Clash of Bang game screenshot"
+  "thumbnailAlt": "Clash of Bang game screenshot",
+  "summaryId": "Situs komunitas penggemar bertema dark fantasy strategy game, dibangun dengan HTML, CSS, dan JavaScript vanilla tanpa framework. Tugas kuliah individu."
 }

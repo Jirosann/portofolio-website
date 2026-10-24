@@ -34,7 +34,7 @@ export async function Footer({ settings, contacts }: FooterProps) {
                 style={{ background: 'var(--color-highlight)' }}
               ></span>
               <span className="text-sm">
-                Currently building:{' '}
+                {t.footer.currentlyBuilding}{' '}
                 {settings.currentlyBuilding.projectUrl ? (
                   <a
                     href={settings.currentlyBuilding.projectUrl}
@@ -85,7 +85,7 @@ export async function Footer({ settings, contacts }: FooterProps) {
           {/* Copyright */}
           <div className="pt-6 flex justify-between items-center" style={{ borderTop: '1px solid var(--color-border)' }}>
             <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-              © {currentYear} {settings.title}. {t.footer.allRightsReserved}
+              © {currentYear} Muhammad Nabil Al Qadri. {t.footer.allRightsReserved}
             </p>
           </div>
         </div>

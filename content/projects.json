@@ -34,8 +34,9 @@
     "slug": "face-attend",
     "title": "Face Attend",
     "status": "in-progress",
-    "description": "An automated class attendance system based on facial recognition using React, FastAPI, and Supabase.",
+    "description": "Team class-attendance system using face recognition (React, FastAPI, InsightFace). As a contributor, I experiment with integrating multiple InsightFace models in the API and frontend on separate, unmerged branches.",
     "tags": ["React", "FastAPI", "Supabase", "InsightFace", "ArcFace"],
-    "repoUrl": "https://github.com/Jirosann/Face-Attend"
+    "repoUrl": "https://github.com/ghanisiapfullstack/Face-Attend",
+    "descriptionId": "Sistem presensi kelas berbasis pengenalan wajah buatan tim (React, FastAPI, InsightFace). Sebagai kontributor, saya bereksperimen mengintegrasikan beberapa model InsightFace di API dan frontend pada branch terpisah yang belum di-merge."
   }
 ]

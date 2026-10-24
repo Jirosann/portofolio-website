@@ -1,12 +1,21 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
+import { dictionaries, resolveLocale } from '@/lib/i18n';
 
-export const metadata: Metadata = {
-  title: '404 — Page Not Found',
-  description: 'The page you are looking for does not exist.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const t = dictionaries[resolveLocale(cookieStore.get('NEXT_LOCALE')?.value)];
+  return {
+    title: `404 — ${t.notFound.title}`,
+    description: t.notFound.description,
+  };
+}
 
-export default function NotFound() {
+export default async function NotFound() {
+  const cookieStore = await cookies();
+  const t = dictionaries[resolveLocale(cookieStore.get('NEXT_LOCALE')?.value)];
+
   return (
     <main className="flex-1 flex flex-col items-center justify-center px-5 py-24">
       <div className="text-center max-w-md">
@@ -14,10 +23,10 @@ export default function NotFound() {
           404
         </p>
         <h1 className="text-2xl font-bold text-text mb-3 tracking-tight">
-          Halaman ini belum di-deploy.
+          {t.notFound.title}
         </h1>
         <p className="text-text-secondary mb-10">
-          (atau memang tidak pernah ada)
+          {t.notFound.description}
         </p>
         <Link
           href="/"
@@ -25,7 +34,7 @@ export default function NotFound() {
 
           id="back-to-home"
         >
-          ← Back to Home
+          {t.notFound.backHome}
         </Link>
       </div>
     </main>

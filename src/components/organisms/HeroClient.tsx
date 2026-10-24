@@ -83,9 +83,9 @@ export function HeroClient({ profile }: { profile: Profile }) {
             <span className="whitespace-nowrap">Al Qadri</span>
           </h1>
           
-          <h2 className="text-2xl md:text-4xl font-bold mb-6 tracking-tight" style={{ color: 'var(--color-text-secondary)' }}>
-            {profile.position}
-          </h2>
+          <p className="text-2xl md:text-4xl font-bold mb-6 tracking-tight" style={{ color: 'var(--color-text-secondary)' }}>
+            {t.hero.position || profile.position}
+          </p>
 
           <p className="text-lg md:text-xl leading-relaxed mb-10 max-w-2xl" style={{ color: 'var(--color-text-secondary)' }}>
             {t.hero.description}

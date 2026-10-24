@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
-import { getSiteSettings } from "@/lib/content/site";
+import { getContacts, getContactUrl } from "@/lib/content/contact";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
 import { ScrollToTop } from "@/components/atoms/ScrollToTop";
-import { resolveLocale } from "@/lib/i18n";
+import { dictionaries, resolveLocale } from "@/lib/i18n";
 import { getSiteUrl } from "@/lib/constants";
 import localFont from 'next/font/local';
 import "./globals.css";
@@ -17,29 +17,65 @@ const inter = localFont({
   adjustFontFallback: 'Arial',
 });
 
-const settings = getSiteSettings();
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const lang = resolveLocale(cookieStore.get('NEXT_LOCALE')?.value);
+  const { meta } = dictionaries[lang];
 
-export const metadata: Metadata = {
-  metadataBase: new URL(getSiteUrl()),
-  title: {
-    default: settings.title,
-    template: "%s | Muhammad Nabil Al Qadri"
-  },
-  description: settings.description,
-  keywords: ["Data Analytics", "AI Applications", "Intelligent Systems", "Software Development", "Full-Stack", "Machine Learning", "Golang", "Next.js"],
-  openGraph: {
+  return {
+    metadataBase: new URL(getSiteUrl()),
     title: {
-      default: settings.title,
+      default: meta.title,
       template: "%s | Muhammad Nabil Al Qadri"
     },
-    description: settings.description,
-    locale: settings.language,
-    type: 'website',
-  },
-  alternates: {
-    canonical: '/',
-  }
-};
+    description: meta.description,
+    openGraph: {
+      title: {
+        default: meta.title,
+        template: "%s | Muhammad Nabil Al Qadri"
+      },
+      description: meta.description,
+      locale: meta.ogLocale,
+      type: 'website',
+    },
+    alternates: {
+      canonical: '/',
+    }
+  };
+}
+
+function buildJsonLd(lang: 'en' | 'id') {
+  const siteUrl = getSiteUrl();
+  const { meta } = dictionaries[lang];
+  const sameAs = getContacts()
+    .filter((c) => c.type === 'linkedin' || c.type === 'github')
+    .map((c) => getContactUrl(c));
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Person',
+        '@id': `${siteUrl}/#person`,
+        name: 'Muhammad Nabil Al Qadri',
+        jobTitle: 'Software Engineering Student',
+        description: meta.description,
+        url: siteUrl,
+        affiliation: { '@type': 'CollegeOrUniversity', name: 'BINUS University' },
+        address: { '@type': 'PostalAddress', addressLocality: 'Bekasi', addressRegion: 'West Java', addressCountry: 'ID' },
+        sameAs,
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${siteUrl}/#website`,
+        url: siteUrl,
+        name: 'Muhammad Nabil Al Qadri',
+        inLanguage: lang,
+        publisher: { '@id': `${siteUrl}/#person` },
+      },
+    ],
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: [
@@ -59,6 +95,10 @@ export default async function RootLayout({
   return (
     <html lang={lang} suppressHydrationWarning>
       <body className={`min-h-screen flex flex-col font-sans ${inter.variable}`} suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(lang)).replace(/</g, '\\u003c') }}
+        />
         <ScrollToTop />
         <LanguageProvider lang={lang}>
           <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false} storageKey="theme">

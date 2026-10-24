@@ -1,10 +1,14 @@
+'use client';
+
 import React from 'react';
+import { useTranslation } from '@/components/providers/LanguageProvider';
 
 type StatusBadgeProps = {
   status: 'completed' | 'in-progress';
 };
 
 export function StatusBadge({ status }: StatusBadgeProps) {
+  const { t } = useTranslation();
   const isCompleted = status === 'completed';
   
   return (
@@ -20,10 +24,10 @@ export function StatusBadge({ status }: StatusBadgeProps) {
         borderColor: 'var(--color-badge-progress-border)'
       }}
     >
-      {isCompleted ? 'Completed' : (
+      {isCompleted ? t.status.completed : (
         <>
           <span className="w-1.5 h-1.5 rounded-full bg-current mr-1.5 animate-pulse motion-reduce:animate-none" aria-hidden="true" />
-          On Progress
+          {t.status.onProgress}
         </>
       )}
     </span>
