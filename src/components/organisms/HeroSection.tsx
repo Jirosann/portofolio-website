@@ -121,14 +121,15 @@ export async function HeroSection({ profile }: HeroSectionProps) {
                       href={getContactUrl(contact)}
                       target={external ? '_blank' : undefined}
                       rel={external ? 'noopener noreferrer' : undefined}
-                      aria-label={`${label} ${contact.value}${external ? ` ${t.contactLabel.opensInNewTab}` : ''}`}
                       className={`group flex items-center justify-center lg:justify-start gap-3 w-11 h-11 lg:w-auto lg:h-auto lg:min-h-11 lg:px-3 lg:py-2 rounded-xl border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:border-[var(--color-eyebrow)] ${focusRing}`}
                     >
                       <ContactIcon type={contact.type} className="w-5 h-5 shrink-0 text-[var(--color-eyebrow)]" />
-                      <span className="hidden lg:flex lg:flex-col lg:min-w-0">
-                        <span className="text-sm font-semibold leading-tight">{label}</span>
+                      {/* Nama aksesibel dari isi: "Label nilai" (spasi nyata), di bawah lg tetap terbaca lewat sr-only */}
+                      <span className="sr-only lg:not-sr-only lg:flex lg:flex-col lg:min-w-0">
+                        <span className="text-sm font-semibold leading-tight">{label}</span>{' '}
                         <span className="text-sm leading-tight truncate" style={{ color: 'var(--color-text-secondary)' }}>{contact.value}</span>
                       </span>
+                      {external && <span className="sr-only"> {t.contactLabel.opensInNewTab}</span>}
                     </a>
                   </li>
                 );
