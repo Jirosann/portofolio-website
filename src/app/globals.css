@@ -47,12 +47,6 @@
   --color-link-text: var(--color-blue-accent);
   --color-border: #DED6D1;
   --color-border-light: #EBE6E2;
-  --color-badge-completed-bg: #E6F4EA;
-  --color-badge-completed-text: #137333;
-  --color-badge-completed-border: #CEEAD6;
-  --color-badge-progress-bg: #FEF7E0;
-  --color-badge-progress-text: #965200;
-  --color-badge-progress-border: #FEEFC3;
   --color-nav-active-text: var(--color-highlight-text);
   --color-nav-active-bg: color-mix(in srgb, var(--color-burgundy) 7%, transparent);
   --color-nav-active-border: transparent;
@@ -94,12 +88,6 @@
   --color-border: #332628;
   --color-border-light: #2A2022;
   --color-on-primary: #F1ECE8;
-  --color-badge-completed-bg: rgba(19, 115, 51, 0.2);
-  --color-badge-completed-text: #81C995;
-  --color-badge-completed-border: rgba(19, 115, 51, 0.4);
-  --color-badge-progress-bg: rgba(176, 96, 0, 0.2);
-  --color-badge-progress-text: #FDE293;
-  --color-badge-progress-border: rgba(176, 96, 0, 0.4);
   --color-nav-active-text: var(--color-highlight-text);
   --color-nav-active-bg: color-mix(in srgb, var(--color-burgundy) 40%, transparent);
   --color-nav-active-border: transparent;
@@ -1930,6 +1918,122 @@ html {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-eyebrow);
+}
+
+/* Model card: reveal gambar scroll-driven (progressive enhancement, tanpa JS).
+   Section Selected work jauh di bawah layar pertama, jadi tidak menyentuh elemen LCP. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+@keyframes reveal {
+  from { opacity: .001; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Model card: metadata, chip, spesifikasi <dl>, tautan. Kelas pendek, bukan utilitas Tailwind,
+   karena ModelCard dirender server dan setiap className ikut di HTML dan payload RSC. */
+.mc-id {
+  margin-right: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1rem;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+}
+.mc-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.mc-chip--live {
+  border-color: color-mix(in srgb, var(--color-eyebrow) 45%, transparent);
+  color: var(--color-eyebrow);
+}
+.mc-specs { border-top: var(--hairline); }
+.mc-specs > div {
+  display: grid;
+  gap: 0.25rem;
+  border-bottom: var(--hairline);
+  padding-block: 0.75rem;
+}
+@media (min-width: 40rem) {
+  .mc-specs > div { grid-template-columns: 7rem minmax(0, 1fr); gap: 1rem; }
+}
+.mc-specs dt {
+  padding-top: 0.125rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-eyebrow);
+}
+.mc-specs dd {
+  font-size: 15px;
+  line-height: 1.625;
+  color: var(--color-text);
+}
+.mc-link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.375rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding-inline: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  color: var(--color-text);
+  transition: background-color 150ms, border-color 150ms;
+}
+.mc-link:hover { border-color: var(--color-text-secondary); }
+.mc-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-link-text);
+}
+.mc-link--primary {
+  border-color: transparent;
+  background: var(--color-burgundy-accent);
+  color: #fff;
+}
+.mc-link--primary:hover { border-color: transparent; background: var(--color-burgundy); }
+[data-theme="dark"] .mc-link--primary { color: #F1ECE8; }
+@media (prefers-reduced-motion: reduce) {
+  .mc-link { transition: none; }
+}
+
+/* Hover: bingkai gambar naik 2px dan border dipertegas, tanpa glow. Transform di bingkai,
+   bukan di <figure>, agar tidak bentrok dengan animasi reveal. */
+.model-card-frame {
+  transition: translate 200ms ease-out, border-color 200ms ease-out;
+}
+@media (hover: hover) {
+  .model-card:hover .model-card-frame {
+    translate: 0 -2px;
+    border-color: var(--color-text-secondary);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .model-card-frame { transition: none; }
+  .model-card:hover .model-card-frame { translate: none; }
 }
 
 /* ScrollReveal: sekali jalan, hanya opacity + transform, tanpa will-change */

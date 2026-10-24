@@ -47,7 +47,7 @@
   "projects": {
     "sectionTitle": "Karya pilihan",
     "title": "Proyek Unggulan",
-    "subtitle": "Koleksi terpilih dari sistem perangkat lunak dan aplikasi interaktif yang telah saya kembangkan.",
+    "subtitle": "Dua sistem computer vision, satu pengklasifikasi NLP, dan satu situs tanpa framework, lengkap dengan data, pendekatan, dan peran saya di tiap proyek.",
     "filterAll": "Semua",
     "filterSoftware": "Rekayasa Perangkat Lunak",
     "filterCreative": "Karya Kreatif",
@@ -55,6 +55,24 @@
     "viewCode": "Lihat Kode",
     "liveDemoFor": "Demo langsung {title}",
     "viewCodeFor": "Lihat kode {title} di GitHub"
+  },
+  "modelCard": {
+    "fields": {
+      "problem": "Masalah",
+      "data": "Data",
+      "approach": "Pendekatan",
+      "result": "Hasil",
+      "role": "Peran",
+      "stack": "Teknologi"
+    },
+    "chips": {
+      "live": "Live",
+      "completed": "Selesai",
+      "in-progress": "Sedang berjalan",
+      "coursework": "Tugas kuliah",
+      "concept": "Konsep"
+    },
+    "fig": "Gbr."
   },
   "heatmap": {
     "title": "Kontribusi GitHub",

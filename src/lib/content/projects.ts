@@ -106,6 +106,11 @@ export function getFeaturedProjects(): Project[] {
   return result.data;
 }
 
+// URL demo yang boleh ditautkan: ada liveUrl dan demo tidak dinonaktifkan lewat demoAvailable.
+export function activeDemoUrl(project: Project): string | undefined {
+  return project.demoAvailable ? project.liveUrl : undefined;
+}
+
 export function getCompletedProjectsCount(): number {
   const featured = getFeaturedProjects();
   return featured.filter((p) => p.status === 'completed').length;

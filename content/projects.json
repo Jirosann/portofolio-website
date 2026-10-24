@@ -7,11 +7,50 @@
     "tags": ["Python", "TensorFlow", "Keras", "FastAPI", "EfficientNetB0"],
     "repoUrl": "https://github.com/Jirosann/TBC-Detector",
     "liveUrl": "https://project-ai-front-end.vercel.app",
-    "preview": {
-      "src": "/projects/tb-detector/preview.webp",
-      "alt": "Screenshot of the TB Detector web app",
-      "width": 1280,
-      "height": 720
+    "demoAvailable": false,
+    "card": {
+      "order": 1,
+      "featured": true,
+      "chips": ["completed", "coursework"],
+      "problem": {
+        "en": "Classifies chest X-ray images as Normal or Tuberculosis.",
+        "id": "Mengklasifikasikan citra X-ray dada sebagai Normal atau Tuberkulosis.",
+        "source": "TBC-Detector README.md:3, README.md:94"
+      },
+      "data": {
+        "en": "4,203 chest X-rays in the repo: 3,502 normal and 701 tuberculosis, split 80/20 for training and validation.",
+        "id": "4.203 X-ray dada di repo: 3.502 normal dan 701 tuberkulosis, dibagi 80/20 untuk latih dan validasi.",
+        "source": "git ls-files Training/dataset/normal (3502), Training/dataset/tuberculosis (701); Training/train.py:18"
+      },
+      "approach": {
+        "en": "EfficientNetB0 with ImageNet weights, fine-tuned as a binary classifier on 224 px images. A FastAPI /predict endpoint labels Tuberculosis above a 0.3 threshold.",
+        "id": "EfficientNetB0 berbobot ImageNet, di-fine-tune sebagai klasifikasi biner pada gambar 224 px. Endpoint FastAPI /predict memberi label Tuberkulosis di atas ambang 0,3.",
+        "source": "Training/train.py:4,12,67-68,80; Backend/main.py:37,51; README.md:92-95"
+      },
+      "role": {
+        "en": "Team project, AI course (semester 3).",
+        "id": "Proyek kelompok, mata kuliah AI (semester 3).",
+        "source": "README.md:107 (Kelompok 1 - Mata Kuliah Artificial Intelligence Semester 3)"
+      },
+      "stack": {
+        "items": ["Python", "TensorFlow", "Keras", "FastAPI", "Docker"],
+        "source": "README.md:41-44; Backend/Dockerfile; docker-compose.yml"
+      },
+      "image": {
+        "src": "/projects/tb-detector/fig-1",
+        "widths": [640, 1200],
+        "width": 1200,
+        "height": 750,
+        "alt": {
+          "en": "TB Detector web app: X-ray analysis form with the sample file Tuberculosis-560.png selected.",
+          "id": "Aplikasi web TB Detector: formulir analisis X-ray dengan berkas contoh Tuberculosis-560.png terpilih."
+        },
+        "caption": {
+          "en": "Upload form of the web app, with a sample X-ray from the repo selected.",
+          "id": "Formulir unggah aplikasi web, dengan contoh X-ray dari repo terpilih."
+        },
+        "source": "Playwright 1440x900, project-ai-front-end.vercel.app, 2026-10-24; Sample Demo/Tuberculosis-560.png dipilih, tidak terkirim (API tidak ter-resolve)"
+      }
     }
   },
   {
@@ -20,7 +59,45 @@
     "status": "completed",
     "description": "A fan community website based on a dark fantasy strategy game theme, featuring community info, visual gallery, troops data, and a member registration form.",
     "tags": ["HTML", "CSS", "JavaScript"],
-    "repoUrl": "https://github.com/Jirosann/Clash-Of-Bang"
+    "repoUrl": "https://github.com/Jirosann/Clash-Of-Bang",
+    "card": {
+      "order": 4,
+      "chips": ["completed", "coursework"],
+      "problem": {
+        "en": "Five-page fan-community website for a fictional dark-fantasy strategy game.",
+        "id": "Situs komunitas penggemar lima halaman untuk game strategi dark fantasy fiktif.",
+        "source": "Clash-Of-Bang README.md:3, README.md:9-15"
+      },
+      "approach": {
+        "en": "Plain HTML, CSS and JavaScript with no framework or build step. Includes a looping carousel and client-side form validation.",
+        "id": "HTML, CSS, dan JavaScript murni tanpa framework atau build step. Berisi carousel yang berputar dan validasi formulir di sisi klien.",
+        "source": "README.md:3, README.md:19, README.md:21"
+      },
+      "role": {
+        "en": "Solo, individual web programming course assignment.",
+        "id": "Solo, tugas individu mata kuliah pemrograman web.",
+        "source": "README.md:5; pemilik (prompt sesi 6 §1.3)"
+      },
+      "stack": {
+        "items": ["HTML", "CSS", "JavaScript"],
+        "source": "README.md:3"
+      },
+      "image": {
+        "src": "/projects/clash-of-bang/fig-1",
+        "widths": [640, 1200],
+        "width": 1200,
+        "height": 750,
+        "alt": {
+          "en": "Clash of Bang home page: navigation bar and hero panel with a Discover More button.",
+          "id": "Beranda Clash of Bang: bilah navigasi dan panel hero dengan tombol Discover More."
+        },
+        "caption": {
+          "en": "Home page, run locally from the repo's index.html.",
+          "id": "Halaman beranda, dijalankan lokal dari index.html di repo."
+        },
+        "source": "Playwright 1440x900, file:// clone Clash-Of-Bang/index.html, 2026-10-24"
+      }
+    }
   },
   {
     "slug": "fakenews-detector",
@@ -28,15 +105,85 @@
     "status": "completed",
     "description": "An end-to-end fake news detection system built with MLOps approaches, covering data research, model training, and containerized web service deployment.",
     "tags": ["Python", "Flask", "Scikit-Learn", "Docker", "Tailwind CSS"],
-    "repoUrl": "https://github.com/Jirosann/Fakenews-MLOps-Pipeline"
+    "repoUrl": "https://github.com/Jirosann/Fakenews-MLOps-Pipeline",
+    "card": {
+      "order": 2,
+      "chips": ["completed", "coursework"],
+      "problem": {
+        "en": "Labels English news articles as real or fake from their title and body text.",
+        "id": "Melabeli artikel berita berbahasa Inggris sebagai asli atau palsu dari judul dan isi teksnya.",
+        "source": "Fakenews-MLOps-Pipeline Readme.md:8; Jupyter/AOL_ML_FakeNews_Research.ipynb sel 3 (full_text = title + text)"
+      },
+      "data": {
+        "en": "ISOT dataset: 44,898 articles (21,417 real, 23,481 fake), 39,105 after removing duplicates.",
+        "id": "Dataset ISOT: 44.898 artikel (21.417 asli, 23.481 palsu), 39.105 setelah duplikat dihapus.",
+        "source": "Readme.md:23; notebook sel 3 (value_counts, 44898 entries), sel 4 (drop_duplicates), sel 9 (31284 + 7821)"
+      },
+      "approach": {
+        "en": "NLTK stopword removal, TF-IDF with 5,000 features and Logistic Regression in one scikit-learn pipeline. Served by Flask inside Docker.",
+        "id": "Penghapusan stopword NLTK, TF-IDF 5.000 fitur, dan Logistic Regression dalam satu pipeline scikit-learn. Disajikan oleh Flask di dalam Docker.",
+        "source": "notebook sel 6, sel 10, sel 12 (pickle pipeline_model); Readme.md:16,18,29,32,35"
+      },
+      "result": {
+        "value": { "en": "98.58%", "id": "98,58%" },
+        "label": { "en": "accuracy", "id": "akurasi" },
+        "context": {
+          "en": "on the 20% test split (7,821 articles)",
+          "id": "pada data uji 20% (7.821 artikel)"
+        },
+        "source": "notebook sel 10 output (Akurasi 98.58%, support 7821); sel 9 (test_size=0.2); Readme.md:37"
+      },
+      "stack": {
+        "items": ["Python", "scikit-learn", "NLTK", "Flask", "Docker", "Tailwind CSS"],
+        "source": "Readme.md:79-83"
+      }
+    }
   },
   {
     "slug": "face-attend",
     "title": "Face Attend",
     "status": "in-progress",
-    "description": "Team class-attendance system using face recognition (React, FastAPI, InsightFace). As a contributor, I experiment with integrating multiple InsightFace models in the API and frontend on separate, unmerged branches.",
+    "description": "Class-attendance system using face recognition (React, FastAPI, InsightFace), built by a team of 3. As a contributor, I handled InsightFace integration, the React frontend and API integration.",
     "tags": ["React", "FastAPI", "Supabase", "InsightFace", "ArcFace"],
     "repoUrl": "https://github.com/ghanisiapfullstack/Face-Attend",
-    "descriptionId": "Sistem presensi kelas berbasis pengenalan wajah buatan tim (React, FastAPI, InsightFace). Sebagai kontributor, saya bereksperimen mengintegrasikan beberapa model InsightFace di API dan frontend pada branch terpisah yang belum di-merge."
+    "descriptionId": "Sistem presensi kelas berbasis pengenalan wajah (React, FastAPI, InsightFace) buatan tim 3 orang. Sebagai kontributor, saya mengerjakan integrasi InsightFace, frontend React, dan integrasi API.",
+    "card": {
+      "order": 3,
+      "chips": ["in-progress"],
+      "problem": {
+        "en": "Records class attendance when a student faces the webcam.",
+        "id": "Mencatat kehadiran kelas saat mahasiswa menghadap webcam.",
+        "source": "Face-Attend README.md:3-4"
+      },
+      "approach": {
+        "en": "InsightFace Buffalo_L (ArcFace) embeddings matched by cosine similarity at a 0.4 threshold. A MediaPipe smile check triggers each capture.",
+        "id": "Embedding InsightFace Buffalo_L (ArcFace) dicocokkan dengan cosine similarity pada ambang 0,4. Deteksi senyum MediaPipe memicu setiap pengambilan gambar.",
+        "source": "README.md:31-32; ml_model/README_ML.md:5,8,61"
+      },
+      "role": {
+        "en": "Contributor in a team of 3, all full-stack. My part: InsightFace integration, the React frontend and API integration.",
+        "id": "Kontributor dalam tim 3 orang, semuanya full-stack. Bagian saya: integrasi InsightFace, frontend React, dan integrasi API.",
+        "source": "pemilik (prompt sesi 6 §1.3)"
+      },
+      "stack": {
+        "items": ["React", "FastAPI", "Supabase", "InsightFace", "MediaPipe"],
+        "source": "README.md:6-8, README.md:31-32"
+      },
+      "image": {
+        "src": "/projects/face-attend/fig-1",
+        "widths": [640, 1200],
+        "width": 1200,
+        "height": 750,
+        "alt": {
+          "en": "Face Attend login screen: email and password form beside a dark product panel.",
+          "id": "Layar masuk Face Attend: formulir email dan kata sandi di samping panel produk gelap."
+        },
+        "caption": {
+          "en": "Login screen of the team's React frontend, run locally from the main branch without the backend.",
+          "id": "Layar masuk frontend React tim, dijalankan lokal dari branch main tanpa backend."
+        },
+        "source": "Playwright 1440x900, vite dev frontend/ dari clone branch main, 2026-10-24; dipotong 1184x740 (x=140, y=0) agar baris avatar '+2k' tidak terlihat"
+      }
+    }
   }
 ]

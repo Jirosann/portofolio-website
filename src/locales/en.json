@@ -47,7 +47,7 @@
   "projects": {
     "sectionTitle": "Selected work",
     "title": "Featured Projects",
-    "subtitle": "A curated collection of software systems and interactive applications I have developed.",
+    "subtitle": "Two computer vision systems, one NLP classifier and one framework-free website, with the data, approach and my role for each.",
     "filterAll": "All",
     "filterSoftware": "Software Engineering",
     "filterCreative": "Creative Works",
@@ -55,6 +55,24 @@
     "viewCode": "View Code",
     "liveDemoFor": "Live Demo for {title}",
     "viewCodeFor": "View code for {title} on GitHub"
+  },
+  "modelCard": {
+    "fields": {
+      "problem": "Problem",
+      "data": "Data",
+      "approach": "Approach",
+      "result": "Result",
+      "role": "Role",
+      "stack": "Stack"
+    },
+    "chips": {
+      "live": "Live",
+      "completed": "Completed",
+      "in-progress": "In progress",
+      "coursework": "Coursework",
+      "concept": "Concept"
+    },
+    "fig": "Fig."
   },
   "heatmap": {
     "title": "GitHub Contributions",
