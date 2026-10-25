@@ -108,11 +108,15 @@
   /* Tinggi area navigasi; dipakai scroll-margin-top anchor section */
   --nav-offset: 64px;
 
-  /* Kaca navigasi. Alpha dari uji kontras piksel teks pill sepanjang halaman (1440, en/id):
-     72% lolos dengan margin 0,08 (min 4,58); 80% memberi min 4,89 (terang) / 4,99 (gelap). */
-  --nav-glass-alpha: 80%;
+  /* Kaca navigasi bergradasi (redesign-v2 §13, playable-sesi-10.md): tepi pill tembus 58%; lapisan dalam 55% di belakang
+     teks logo dan deretan tautan. Uji kontras piksel (1440, en/id): 55% terendah yang lolos dengan margin (gelap 5,09;
+     50% hanya 4,66). Pil aktif opak, jadi kontrasnya tidak bergantung latar di balik kaca. */
+  --nav-glass-alpha: 58%;
+  --nav-inner-alpha: 55%;
   --nav-glass-border: color-mix(in oklab, var(--color-border) 80%, transparent);
-  --nav-glass-shadow: inset 0 1px 0 color-mix(in oklab, white 60%, transparent), 0 8px 24px rgb(23 21 25 / 0.10);
+  --nav-glass-shadow: inset 0 1px 0 color-mix(in oklab, white 90%, transparent), 0 8px 24px rgb(23 21 25 / 0.10);
+  --nav-active-bg: #fff;
+  --nav-active-shadow: 0 1px 3px rgb(23 21 25 / 0.12), inset 0 0 0 1px color-mix(in oklab, var(--color-border) 70%, transparent);
 
   /* Border chip status: opaque, kontras non-teks >= 3:1 terhadap latar terburuk (pusat glow terang ~rgb(218 200 197)). */
   --color-chip-border: var(--color-text-secondary);
@@ -121,9 +125,12 @@
   --color-badge-progress: color-mix(in srgb, var(--color-highlight) 70%, var(--color-text));
 }
 [data-theme="dark"] {
-  --nav-glass-alpha: 80%;
+  --nav-glass-alpha: 58%;
+  --nav-inner-alpha: 55%;
   --nav-glass-border: color-mix(in oklab, white 14%, transparent);
-  --nav-glass-shadow: inset 0 1px 0 color-mix(in oklab, white 12%, transparent), 0 8px 24px rgb(0 0 0 / 0.28);
+  --nav-glass-shadow: inset 0 1px 0 color-mix(in oklab, white 24%, transparent), 0 8px 24px rgb(0 0 0 / 0.28);
+  --nav-active-bg: color-mix(in srgb, white 12%, var(--color-surface));
+  --nav-active-shadow: 0 1px 3px rgb(0 0 0 / 0.3), inset 0 0 0 1px color-mix(in oklab, white 10%, transparent);
   --color-chip-border: color-mix(in srgb, var(--color-text-secondary) 55%, var(--color-border));
   --color-chip-live-border: color-mix(in srgb, var(--color-eyebrow) 75%, var(--color-border));
   --color-badge-progress: var(--color-highlight);
@@ -671,10 +678,39 @@ html {
   }
   .nav-pill {
     background: color-mix(in oklab, var(--color-surface) var(--nav-glass-alpha), transparent);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    backdrop-filter: blur(22px) saturate(180%);
     border: 1px solid var(--nav-glass-border);
     box-shadow: var(--nav-glass-shadow);
+  }
+  /* Lapisan dalam: kapsul di belakang teks logo dan di belakang tautan, bahasa, dan tema. Ditumpuk di atas kaca luar,
+     jadi kerapatan efektifnya 1 - (1 - luar)(1 - dalam). Tepinya memudar lewat bayangan berwarna sama (gradasi ke kaca luar). */
+  .nav-pill .nav-brand,
+  .nav-pill .nav-links {
+    --nav-inner: color-mix(in oklab, var(--color-surface) var(--nav-inner-alpha), transparent);
+    border-radius: 999px;
+    background: var(--nav-inner);
+    box-shadow: 0 0 10px 4px var(--nav-inner);
+  }
+  /* Item aktif: teks --color-text di atas pil terang opak (kontras tidak bergantung latar di balik kaca).
+     Aksen tembaga pindah ke garis pendek di bawah teks: indikator non-teks, bukan warna teks. */
+  .nav-pill .nav-link-normal.active,
+  .nav-pill .nav-link-normal.active:hover {
+    color: var(--color-text);
+    background: var(--nav-active-bg);
+    box-shadow: var(--nav-active-shadow);
+  }
+  .nav-pill .nav-link-normal.active::after {
+    left: 50%;
+    right: auto;
+    bottom: 5px;
+    width: 0.875rem;
+    translate: -50% 0;
+  }
+  /* Contact gelap: campuran opak dengan permukaan (warna sama seperti di atas permukaan solid),
+     supaya latar yang lewat di belakang kaca tidak menurunkan kontras teksnya. */
+  [data-theme="dark"] .nav-pill .nav-link-contact:not(:hover):not(:focus-visible):not(.active) {
+    background: color-mix(in srgb, var(--color-burgundy) 40%, var(--color-surface));
   }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .nav-pill { background: var(--color-surface); }
