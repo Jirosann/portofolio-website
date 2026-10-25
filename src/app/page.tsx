@@ -1,7 +1,7 @@
 import { Header } from '@/components/organisms/Header';
 import { HeroSection } from '@/components/organisms/HeroSection';
 import { AboutSection } from '@/components/organisms/AboutSection';
-import { SkillsBentoGrid } from '@/components/organisms/SkillsBentoGrid';
+import { StackSection } from '@/components/organisms/StackSection';
 import { FeaturedProjects } from '@/components/projects/FeaturedProjects';
 import { ContactSection } from '@/components/organisms/ContactSection';
 import { Footer } from '@/components/organisms/Footer';
@@ -43,7 +43,7 @@ export default async function Home() {
         <HeroSection profile={profile} />
         <AboutSection profile={profile} />
         {hasExperience && <ExperienceSection experiences={experiences} />}
-        <SkillsBentoGrid />
+        <StackSection projects={featuredProjects} />
         <FeaturedProjects projects={featuredProjects} />
         <ContactSection contacts={contacts} />
       </main>

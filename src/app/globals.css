@@ -129,6 +129,10 @@
 main section[id] {
   scroll-margin-top: var(--nav-offset);
 }
+/* Target tautan "used in" di section Stack (#project-<slug>); jarak ekstra agar metadata P-NN tidak menempel di nav. */
+.model-card {
+  scroll-margin-top: calc(var(--nav-offset) + 16px);
+}
 
 /* =====================================================
    BASE STYLES
@@ -211,379 +215,15 @@ html {
    placeholder content-visibility tidak jauh dari tinggi sebenarnya dan scroll ke anchor tidak meleset.
    Keyword `auto` tetap menyimpan tinggi asli setelah section pernah dirender. */
 #experience.content-visibility-auto { contain-intrinsic-size: auto 940px; }
-#skills.content-visibility-auto { contain-intrinsic-size: auto 1120px; }
+#skills.content-visibility-auto { contain-intrinsic-size: auto 1760px; }
 #contact.content-visibility-auto { contain-intrinsic-size: auto 860px; }
 @media (min-width: 768px) {
   #experience.content-visibility-auto { contain-intrinsic-size: auto 700px; }
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 980px; }
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 1010px; }
   #contact.content-visibility-auto { contain-intrinsic-size: auto 616px; }
 }
-@media (min-width: 1024px) {
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 956px; }
-}
-
-/* =====================================================
-   SKILLS BENTO GRID (kept for non-marquee categories)
-   ===================================================== */
-
-.skills-bento-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.skill-category-box--primary {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.skill-category-box {
-  background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
-  border-radius: 16px;
-  padding: 20px;
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-}
-
-.skill-category-box:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px color-mix(in srgb, var(--color-highlight) 15%, transparent);
-  border-color: var(--color-highlight-text);
-}
-
-.skill-category-name {
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-text-secondary);
-  margin-bottom: 12px;
-  font-family: ui-monospace, "JetBrains Mono", Menlo, monospace;
-}
-
-.skill-cards-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.skill-card {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 9999px;
-  font-size: 14px;
-  color: var(--color-text);
-  transition: all var(--transition-fast);
-}
-
-.skill-card--primary {
-  background: color-mix(in srgb, var(--color-burgundy-accent) 8%, var(--color-bg));
-  border-color: color-mix(in srgb, var(--color-burgundy-accent) 25%, transparent);
-  color: var(--color-burgundy-accent);
-  font-weight: 600;
-}
-
-.skill-card:hover {
-  border-color: var(--color-highlight-text);
-  transform: translateY(-1px);
-}
-
-.skill-card--primary:hover {
-  background: color-mix(in srgb, var(--color-burgundy-accent) 14%, var(--color-bg));
-  border-color: var(--color-burgundy-accent);
-}
-
-.skill-card-icon {
-  display: flex;
-  align-items: center;
-  color: inherit;
-}
-
-.skill-card-monogram {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  font-family: ui-monospace, Menlo, monospace;
-  background: var(--color-border);
-  color: var(--color-text-secondary);
-  border-radius: 4px;
-}
-
-.skill-card--primary .skill-card-monogram {
-  background: color-mix(in srgb, var(--color-burgundy-accent) 20%, transparent);
-  color: var(--color-burgundy-accent);
-}
-
-.skill-card-name {
-  line-height: 1;
-}
-
-@media (max-width: 767px) {
-  .skills-bento-grid {
-    grid-template-columns: 1fr;
-  }
-  .skill-category-box--primary {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .skills-bento-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .skill-category-box--primary {
-    grid-column: span 2;
-    grid-row: span 1;
-  }
-}
-
-/* =====================================================
-   SKILLS MARQUEE (PRD v1.2 Section 3)
-   6 categories: Frontend, Backend, Database, API & Security, Mobile, AI/ML
-   ===================================================== */
-
-.marquee-section {
-  margin-bottom: 8px;
-  padding-top: 32px;
-  padding-bottom: 32px;
-  position: relative;
-}
-
-.marquee-track-wrapper {
-  padding-top: 100px;
-  padding-bottom: 100px;
-  margin-top: -100px;
-  margin-bottom: -100px;
-  overflow-x: clip;
-  overflow-y: visible;
-  position: relative;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-
-.marquee-section-label {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-text-secondary);
-  margin-bottom: 32px;
-  font-family: ui-monospace, "JetBrains Mono", Menlo, monospace;
-  padding-left: 4px;
-}
-
-.marquee-track {
-  display: flex;
-  gap: 16px;
-  width: max-content;
-  animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
-}
-
-.marquee-track[data-ready="false"],
-.marquee-section[data-paused="true"] .marquee-track,
-.marquee-section:focus-within .marquee-track,
-.marquee-section:has(.marquee-item:hover) .marquee-track {
-  animation-play-state: paused;
-}
-
-.marquee-track--reverse {
-  animation-direction: reverse;
-}
-
-.marquee-track:hover,
-.marquee-track:focus-within {
-  animation-play-state: paused;
-}
-
-@keyframes marquee-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.marquee-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.6s ease, border-color 0.6s ease;
-  flex-shrink: 0;
-}
-
-.marquee-item:focus-visible {
-  outline: 2px solid var(--color-eyebrow);
-  outline-offset: 2px;
-}
-
-.marquee-item-icon {
-  width: 44px;
-  height: 44px;
-  color: var(--color-text-secondary);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  filter: grayscale(1) opacity(0.65) brightness(var(--idle-brightness, 1)) invert(var(--idle-invert, 0));
-}
-
-.marquee-item[data-lit="true"] .marquee-item-icon {
-  color: var(--color-text);
-  filter: grayscale(0) opacity(1) brightness(1) !important;
-}
-
-[data-theme='dark'] .marquee-item[data-tech-id='github'] .marquee-item-icon,
-[data-theme='dark'] .marquee-item[data-tech-id='nextjs'] .marquee-item-icon {
-  --idle-invert: 1;
-  transition: filter 0s !important;
-}
-
-
-
-[data-theme='dark'] .marquee-item[data-tech-id='java'] .marquee-item-icon,
-[data-theme='dark'] .marquee-item[data-tech-id='linux'] .marquee-item-icon,
-[data-theme='dark'] .marquee-item[data-tech-id='sass'] .marquee-item-icon {
-  --idle-brightness: 2;
-}
-
-[data-theme='light'] .marquee-item[data-tech-id='linux'] .marquee-item-icon,
-[data-theme='light'] .marquee-item[data-tech-id='javascript'] .marquee-item-icon {
-  --idle-brightness: 0.5;
-}
-
-/* Tool icon logic (ToolsRow) */
-.tools-row-box {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-}
-
-.group:hover .tools-row-box {
-  background: color-mix(in srgb, var(--tool-brand-color) 15%, var(--color-surface));
-  border-color: color-mix(in srgb, var(--tool-brand-color) 40%, transparent);
-  box-shadow: 0 20px 40px -10px color-mix(in srgb, var(--tool-brand-color) 40%, transparent);
-}
-.tools-row-box:focus-visible {
-  outline: 2px solid var(--color-eyebrow);
-  outline-offset: 3px;
-}
-.tools-row-icon {
-  filter: grayscale(1) opacity(0.7) brightness(var(--idle-brightness, 1)) invert(var(--idle-invert, 0));
-}
-
-.group:hover .tools-row-icon,
-[data-lit="true"] .tools-row-icon {
-  filter: grayscale(0) opacity(1) brightness(1) !important;
-}
-
-[data-theme='dark'] [data-tech-id='github'] .tools-row-icon,
-[data-theme='dark'] [data-tech-id='nextjs'] .tools-row-icon {
-  --idle-invert: 1;
-  transition: filter 0s !important;
-}
-
-[data-theme='dark'] [data-tech-id='java'] .tools-row-icon,
-[data-theme='dark'] [data-tech-id='linux'] .tools-row-icon,
-[data-theme='dark'] [data-tech-id='sass'] .tools-row-icon {
-  --idle-brightness: 2;
-}
-
-/* Tooltip above icon */
-.marquee-tooltip {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) translateY(6px) scale(0.95);
-  background: var(--color-text);
-  color: var(--color-bg);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 8px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 30;
-}
-
-.marquee-tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 5px solid transparent;
-  border-top-color: var(--color-text);
-}
-
-.marquee-item[data-lit="true"] .marquee-tooltip {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0) scale(1);
-}
-
-.marquee-tooltip-status {
-  font-size: 10px;
-  opacity: 0.7;
-  text-transform: capitalize;
-  display: block;
-  margin-top: 1px;
-}
-
-/* Reduced motion fallback: static grid */
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none !important;
-    flex-wrap: wrap;
-    width: auto;
-    gap: 12px;
-  }
-  .marquee-item {
-    transform: none !important;
-    transition: none !important;
-  }
-  .marquee-item-icon {
-    transition: none !important;
-  }
-  .marquee-tooltip {
-    transition: none !important;
-  }
-  .marquee-item-duplicate {
-    display: none;
-  }
-  .marquee-tooltip {
-    position: static;
-    opacity: 1;
-    transform: none;
-    background: transparent;
-    color: var(--color-text-secondary);
-    padding: 2px 0 0;
-    font-size: 11px;
-  }
-  .marquee-tooltip::after {
-    display: none;
-  }
-  .marquee-item {
-    flex-direction: column;
-    width: auto;
-    height: auto;
-    padding: 12px 16px;
-    gap: 6px;
-  }
+@media (min-width: 1280px) {
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 725px; }
 }
 
 /* Footer: area klik minimal 44 px tanpa mengubah tampilan (vertikal diperluas; horizontal hanya 6 px karena jarak antar tautan 16 px). */
@@ -1739,6 +1379,101 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   font-size: 0.875rem;
   line-height: 1.5;
   color: var(--color-text-secondary);
+}
+
+/* Stack berbasis bukti (redesign-v2 §6.4): kolom hairline, nama sebagai teks, tautan ke model card.
+   Kelas pendek, alasan sama dengan .mc-*. */
+/* Mobile satu kolom; 768–1279 multi-column dua kolom (kelompok utuh mengalir dan menyeimbangkan tinggi;
+   tiga kolom terukur menyisakan > 300 px di kolom tengah); >= 1280 grid lima kolom. */
+.st-grid {
+  display: grid;
+  gap: 2rem;
+}
+@media (min-width: 48rem) {
+  .st-grid { display: block; columns: 2; column-gap: 2.5rem; }
+  .st-col { break-inside: avoid; margin-bottom: 2rem; }
+}
+@media (min-width: 80rem) {
+  .st-grid { display: grid; columns: auto; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .st-col { align-self: start; margin-bottom: 0; }
+}
+.st-col {
+  border-top: var(--hairline);
+  padding-top: 1rem;
+}
+.st-col-label {
+  margin-bottom: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-eyebrow);
+}
+.st-entry { padding-top: 0.5rem; }
+.st-entry + .st-entry { border-top: var(--hairline); }
+.st-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  color: var(--color-text);
+}
+.st-used {
+  padding-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: var(--color-text-secondary);
+}
+/* Terbungkus seperti teks biasa. inline-block setinggi line-height (24 px = target minimum WCAG 2.5.8)
+   dan judul proyek tidak terpotong di tengah saat baris dipecah. */
+.st-link {
+  display: inline-block;
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-text-secondary);
+}
+.st-link:hover { text-decoration-color: var(--color-text); }
+.st-link:focus-visible {
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-link-text);
+}
+/* "Also worked with": satu baris redup (lebih kecil, warna sekunder; bukan opacity agar kontras AA tetap terjaga). */
+.st-also {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  margin-top: 2.5rem;
+  border-top: var(--hairline);
+  padding-top: 1rem;
+}
+.st-also-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.st-also ul {
+  display: flex;
+  flex: 1 1 20rem;
+  flex-wrap: wrap;
+  gap: 0 0.375rem;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: var(--color-text-secondary);
+}
+/* Koma di akhir item (bukan pemisah di awal), supaya baris yang terbungkus tidak dibuka dengan tanda baca. */
+.st-also li:not(:last-child)::after {
+  content: ",";
+  content: "," / "";
 }
 
 /* ScrollReveal: sekali jalan, hanya opacity + transform, tanpa will-change */

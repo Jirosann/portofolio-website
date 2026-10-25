@@ -62,7 +62,6 @@ export const SkillSchema = z.object({
   description: z.string().optional(),
   status: z.enum(['used', 'learning']).optional(),
   primaryFocus: z.boolean().default(false),
-  relatedProjects: z.array(z.string()).default([]),
   order: z.number(),
   visible: z.boolean(),
 });

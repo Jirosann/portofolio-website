@@ -34,10 +34,16 @@
   },
   "skills": {
     "title": "Technology Stack",
-    "subtitle": "Languages, frameworks, and tools I have worked with. Hover or tap an icon to light it up.",
-    "techStack": "Tech Stack & Others",
-    "developmentTools": "DEVELOPMENT TOOLS",
-    "toolsSubtitle": "Tools I use for design, version control, testing, and deployment."
+    "subtitle": "Grouped by area. Each entry links to the projects on this page that use it.",
+    "usedIn": "used in",
+    "alsoWorkedWith": "Also worked with",
+    "columns": {
+      "languages": "Languages",
+      "web": "Web",
+      "backend": "Backend & data",
+      "ai": "AI & ML",
+      "tools": "Tools"
+    }
   },
   "projects": {
     "sectionTitle": "Selected work",

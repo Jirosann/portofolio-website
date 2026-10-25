@@ -34,10 +34,16 @@
   },
   "skills": {
     "title": "Tumpukan Teknologi",
-    "subtitle": "Bahasa pemrograman, framework, dan tools yang pernah saya gunakan. Arahkan kursor atau ketuk ikon untuk menyalakannya.",
-    "techStack": "Tumpukan Teknologi & Lainnya",
-    "developmentTools": "TOOLS PENGEMBANGAN",
-    "toolsSubtitle": "Tools yang saya gunakan untuk desain, version control, pengujian, dan deployment."
+    "subtitle": "Dikelompokkan per bidang. Setiap entri menautkan ke proyek di halaman ini yang memakainya.",
+    "usedIn": "dipakai di",
+    "alsoWorkedWith": "Juga pernah memakai",
+    "columns": {
+      "languages": "Bahasa",
+      "web": "Web",
+      "backend": "Backend & data",
+      "ai": "AI & ML",
+      "tools": "Tools"
+    }
   },
   "projects": {
     "sectionTitle": "Karya pilihan",
