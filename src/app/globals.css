@@ -350,19 +350,34 @@ html {
   contain-intrinsic-size: auto 600px;
 }
 
-/* Estimasi tinggi per section (tinggi render asli dikurangi padding vertikal), supaya
-   placeholder content-visibility tidak jauh dari tinggi sebenarnya dan scroll ke anchor tidak meleset.
-   Keyword `auto` tetap menyimpan tinggi asli setelah section pernah dirender. */
-#experience.content-visibility-auto { contain-intrinsic-size: auto 940px; }
-#skills.content-visibility-auto { contain-intrinsic-size: auto 1760px; }
-#contact.content-visibility-auto { contain-intrinsic-size: auto 440px; }
-@media (min-width: 768px) {
-  #experience.content-visibility-auto { contain-intrinsic-size: auto 700px; }
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 1010px; }
-  #contact.content-visibility-auto { contain-intrinsic-size: auto 340px; }
+/* Tinggi isi per section (tinggi render asli dikurangi padding dan border vertikal), supaya placeholder
+   content-visibility sama dengan tinggi sebenarnya dan lompatan ke anchor dari atas tidak meleset (selisih di section
+   atas langsung menggeser target). Diukur di 390/768/1024/1280/1440 (1280 = 1440: lebar konten dibatasi); en sebagai
+   dasar, :lang(id) hanya di tempat teks Indonesia mengubah tinggi. Selektor id lebih spesifik, jadi setiap breakpoint
+   yang punya nilai en juga mengulang nilai id-nya. Keyword `auto` menyimpan tinggi asli setelah section pernah dirender.
+   Ukur ulang bila isi section berubah. */
+#experience.content-visibility-auto { contain-intrinsic-size: auto 943px; }
+#skills.content-visibility-auto { contain-intrinsic-size: auto 2242px; }
+#contact.content-visibility-auto { contain-intrinsic-size: auto 403px; }
+:root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 918px; }
+:root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 2271px; }
+@media (min-width: 48rem) {
+  #experience.content-visibility-auto { contain-intrinsic-size: auto 703px; }
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 1623px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 332px; }
+  :root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 703px; }
+  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1652px; }
 }
-@media (min-width: 1280px) {
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 725px; }
+@media (min-width: 64rem) {
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 1311px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 339px; }
+  :root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 678px; }
+  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1341px; }
+}
+@media (min-width: 80rem) {
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 1170px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 347px; }
+  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1199px; }
 }
 
 /* Garis bawah yang meluncur dari kiri (sesi 12): ::after 1px di bawah baris teks, scaleX 0 -> 1 saat hover/fokus.
