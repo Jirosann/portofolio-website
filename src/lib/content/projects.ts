@@ -111,9 +111,4 @@ export function activeDemoUrl(project: Project): string | undefined {
   return project.demoAvailable ? project.liveUrl : undefined;
 }
 
-export function getCompletedProjectsCount(): number {
-  const featured = getFeaturedProjects();
-  return featured.filter((p) => p.status === 'completed').length;
-}
-
 // force reload

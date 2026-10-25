@@ -1,10 +1,8 @@
 import { Container } from '@/components/layout/Container';
-import { Section } from '@/components/layout/Section';
 import { SectionHeading } from '@/components/molecules/SectionHeading';
 import type { Profile } from '@/types';
 import { cookies } from 'next/headers';
 import { dictionaries, resolveLocale } from '@/lib/i18n';
-import { getUniqueSkillCount } from '@/lib/content/skills';
 
 interface AboutSectionProps {
   profile: Profile;
@@ -16,62 +14,35 @@ export async function AboutSection({ profile }: AboutSectionProps) {
   const t = dictionaries[lang];
 
   return (
-    <Section id="about" className="relative">
+    <section id="about" className="section-y">
       <Container>
-        <div className="flex flex-col md:flex-row gap-6">
-          {/* Main About Card */}
-          <div className="flex-[2] group relative p-8 md:p-12 rounded-[2rem] overflow-hidden transition-[translate,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-none"
-               style={{
-                 background: 'var(--color-surface)',
-                 borderColor: 'var(--color-border)',
-                 borderWidth: '1px',
-               }}>
-            {/* Glowing orb behind text */}
-            <div className="absolute -top-32 -left-32 w-64 h-64 rounded-full scale-150 opacity-0 group-hover:opacity-[0.12] transition-opacity duration-700 pointer-events-none"
-                 style={{ background: 'radial-gradient(circle closest-side at center, var(--color-highlight) 0%, transparent 100%)' }} />
-            
-            <SectionHeading section="about" label={t.nav.about} title={t.about.title} className="relative z-10 mb-8" />
+        <SectionHeading section="about" label={t.nav.about} title={t.about.title} className="mb-8" />
 
-            <p className="text-lg md:text-xl leading-relaxed relative z-10 whitespace-pre-line"
-               style={{ color: 'var(--color-text-secondary)' }}>
-              {t.about.description || profile.about}
-            </p>
-          </div>
+        <div className="max-w-3xl">
+          <p className="text-lg md:text-xl leading-relaxed text-[var(--color-text-secondary)]">
+            {t.about.description || (lang === 'id' && profile.aboutId) || profile.about}
+          </p>
 
-          {/* Stats Bento Column */}
-          <div className="flex-[1] flex flex-col gap-6">
-            {/* Stat 1 */}
-            <div className="flex-1 group relative p-8 rounded-[2rem] overflow-hidden transition-[translate,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-none flex flex-col justify-center items-center text-center"
-                 style={{
-                   background: 'var(--color-surface)',
-                   borderColor: 'var(--color-border)',
-                   borderWidth: '1px',
-                 }}>
-              <div className="text-5xl md:text-6xl font-black mb-2 tracking-tighter" style={{ color: 'var(--color-highlight)' }}>
-                {getUniqueSkillCount()}
+          {/* Fakta bersumber CV (lokasi, studi, bahasa); label dan nilai dari locale.
+              Rentang tahun tidak dipotong; " ·" menempel ke kata sebelumnya (NBSP) agar baris baru tidak diawali pemisah. */}
+          <dl className="mc-specs mt-8">
+            {t.about.facts.map((fact) => (
+              <div key={fact.label}>
+                <dt>{fact.label}</dt>
+                <dd>
+                  {fact.value}
+                  {'period' in fact && (
+                    <>
+                      {' · '}
+                      <span className="whitespace-nowrap">{fact.period}</span>
+                    </>
+                  )}
+                </dd>
               </div>
-              <div className="text-sm font-bold tracking-widest uppercase text-[var(--color-eyebrow)]">
-                {t.about.technologies}
-              </div>
-            </div>
-
-            {/* Stat 2 */}
-            <div className="flex-1 group relative p-8 rounded-[2rem] overflow-hidden transition-[translate,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-none flex flex-col justify-center items-center text-center"
-                 style={{
-                   background: 'var(--color-surface)',
-                   borderColor: 'var(--color-border)',
-                   borderWidth: '1px',
-                 }}>
-              <div className="text-5xl md:text-6xl font-black mb-2 tracking-tighter" style={{ color: 'var(--color-highlight)' }}>
-                2028
-              </div>
-              <div className="text-sm font-bold tracking-widest uppercase text-[var(--color-eyebrow)]">
-                {t.about.expectedGraduation}
-              </div>
-            </div>
-          </div>
+            ))}
+          </dl>
         </div>
       </Container>
-    </Section>
+    </section>
   );
 }

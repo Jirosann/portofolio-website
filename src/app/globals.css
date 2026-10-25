@@ -210,16 +210,15 @@ html {
 /* Estimasi tinggi per section (tinggi render asli dikurangi padding vertikal), supaya
    placeholder content-visibility tidak jauh dari tinggi sebenarnya dan scroll ke anchor tidak meleset.
    Keyword `auto` tetap menyimpan tinggi asli setelah section pernah dirender. */
-#experience.content-visibility-auto { contain-intrinsic-size: auto 3840px; }
+#experience.content-visibility-auto { contain-intrinsic-size: auto 940px; }
 #skills.content-visibility-auto { contain-intrinsic-size: auto 1120px; }
 #contact.content-visibility-auto { contain-intrinsic-size: auto 860px; }
 @media (min-width: 768px) {
-  #experience.content-visibility-auto { contain-intrinsic-size: auto 3100px; }
+  #experience.content-visibility-auto { contain-intrinsic-size: auto 700px; }
   #skills.content-visibility-auto { contain-intrinsic-size: auto 980px; }
   #contact.content-visibility-auto { contain-intrinsic-size: auto 616px; }
 }
 @media (min-width: 1024px) {
-  #experience.content-visibility-auto { contain-intrinsic-size: auto 1900px; }
   #skills.content-visibility-auto { contain-intrinsic-size: auto 956px; }
 }
 
@@ -587,51 +586,6 @@ html {
   }
 }
 
-/* =====================================================
-   GITHUB CONTRIBUTIONS HEATMAP (PRD v1.2 Section 4)
-   ===================================================== */
-
-.github-heatmap-section {
-  padding: 0;
-}
-
-.github-heatmap-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.github-heatmap-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 0;
-}
-
-.github-heatmap-count {
-  font-size: 14px;
-  color: var(--color-text-secondary);
-  margin-top: 4px;
-}
-
-.github-heatmap-link {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-eyebrow);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  transition: color var(--transition-fast);
-}
-
-.github-heatmap-link:hover {
-  color: var(--color-highlight-text);
-}
-
 /* Footer: area klik minimal 44 px tanpa mengubah tampilan (vertikal diperluas; horizontal hanya 6 px karena jarak antar tautan 16 px). */
 .footer-social-link,
 .footer-link {
@@ -647,353 +601,6 @@ html {
   content: '';
   position: absolute;
   inset: -14px -6px;
-}
-
-/* Dark: warna diam sudah sama dengan warna hover, jadi hover ditandai underline (seperti .footer-link). */
-[data-theme='dark'] .github-heatmap-link:hover {
-  text-decoration: underline;
-}
-
-.github-heatmap-grid-wrapper {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  padding: 24px;
-  overflow-x: auto;
-  /* Make variables for levels available globally or just here */
-  --github-level-0: color-mix(in srgb, var(--color-text) 8%, var(--color-surface));
-  --github-level-1: color-mix(in srgb, var(--color-highlight) 40%, var(--color-surface));
-  --github-level-2: color-mix(in srgb, var(--color-highlight) 65%, var(--color-surface));
-  --github-level-3: color-mix(in srgb, var(--color-highlight) 85%, var(--color-surface));
-  --github-level-4: var(--color-highlight);
-}
-
-.github-heatmap-grid {
-  display: grid;
-  grid-template-columns: max-content repeat(var(--week-count, 53), minmax(10px, 1fr));
-  grid-template-rows: 20px repeat(7, 1fr);
-  gap: 3px;
-  outline: none;
-}
-
-.github-heatmap-cell {
-  aspect-ratio: 1;
-  width: 100%;
-  border-radius: 2px;
-  background: var(--github-level-0);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
-  z-index: 10;
-  cursor: pointer;
-  outline: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .github-heatmap-cell {
-    transition: none;
-  }
-}
-
-.github-heatmap-cell:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 0 1px var(--color-highlight);
-  z-index: 11;
-}
-@media (prefers-reduced-motion: reduce) {
-  .github-heatmap-cell:hover {
-    transform: none;
-  }
-}
-
-.github-heatmap-cell:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-link-text);
-  z-index: 12;
-}
-
-.github-heatmap-cell--level-0 { background: var(--github-level-0); }
-.github-heatmap-cell--level-1 { background: var(--github-level-1); }
-.github-heatmap-cell--level-2 { background: var(--github-level-2); }
-.github-heatmap-cell--level-3 { background: var(--github-level-3); }
-.github-heatmap-cell--level-4 { background: var(--github-level-4); }
-
-.github-heatmap-legend {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 16px;
-  font-size: 12px;
-  color: var(--color-text-secondary);
-  justify-content: flex-end;
-}
-
-.github-heatmap-legend-cell {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
-}
-
-.github-heatmap-tooltip {
-  background: var(--color-text);
-  color: var(--color-surface);
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  pointer-events: none;
-  z-index: 100;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  white-space: nowrap;
-}
-
-.github-heatmap-tooltip-arrow {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: var(--color-text);
-}
-
-/* =====================================================
-   EXPERIENCE SECTION — PRD v1.2 Section 5 (reworked)
-   4 blocks: Current Status, What I Build, Education, Work
-   ===================================================== */
-
-.experience-block {
-  margin-bottom: 48px;
-}
-
-.experience-block:last-child {
-  margin-bottom: 0;
-}
-
-.experience-block-label {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--color-text-secondary);
-  font-family: ui-monospace, "JetBrains Mono", Menlo, monospace;
-  margin-bottom: 16px;
-}
-
-/* 5.1 Current Status — 2 cards side by side */
-.experience-status-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-@media (max-width: 640px) {
-  .experience-status-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.experience-status-card {
-  background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
-  border-radius: 16px;
-  padding: 24px;
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-}
-
-.experience-status-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px color-mix(in srgb, var(--color-highlight) 15%, transparent);
-  border-color: var(--color-highlight-text);
-}
-
-.experience-status-number {
-  font-size: 12px;
-  font-weight: 700;
-  font-family: ui-monospace, "JetBrains Mono", Menlo, monospace;
-  color: var(--color-text-secondary);
-  margin-bottom: 8px;
-}
-
-.experience-status-value {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-text);
-  line-height: 1.3;
-}
-
-.experience-status-value-large {
-  font-size: 36px;
-  font-weight: 800;
-  color: var(--color-burgundy-accent);
-  line-height: 1;
-}
-
-[data-theme="dark"] .experience-status-value-large {
-  color: var(--color-highlight-text);
-}
-
-.experience-status-suffix {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  display: block;
-  margin-top: 4px;
-}
-
-/* 5.2 What I Build — 3 category cards */
-.experience-build-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-@media (max-width: 768px) {
-  .experience-build-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.experience-build-card {
-  background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
-  border-radius: 16px;
-  padding: 24px;
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-}
-
-.experience-build-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px color-mix(in srgb, var(--color-highlight) 15%, transparent);
-  border-color: var(--color-highlight-text);
-}
-
-.experience-build-title {
-  font-size: 16px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--color-text);
-  margin: 0 0 8px;
-}
-
-.experience-build-description {
-  font-size: 14px;
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-  margin: 0 0 16px;
-}
-
-.experience-build-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-/* Tag pills used across Experience section */
-.tag-pill {
-  display: inline-block;
-  padding: 4px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 9999px;
-  background: color-mix(in srgb, var(--color-navy) 10%, var(--color-bg));
-  color: var(--color-navy);
-  border: 1px solid color-mix(in srgb, var(--color-navy) 20%, transparent);
-  transition: background var(--transition-fast), color var(--transition-fast);
-}
-
-.tag-pill:hover {
-  background: color-mix(in srgb, var(--color-navy) 18%, var(--color-bg));
-}
-
-[data-theme="dark"] .tag-pill {
-  background: var(--color-navy);
-  color: var(--color-text);
-  border: 1px solid transparent;
-}
-
-[data-theme="dark"] .tag-pill:hover {
-  background: color-mix(in srgb, var(--color-navy) 80%, var(--color-surface));
-}
-
-/* 5.3 Education */
-.experience-education-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  padding: 24px;
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-}
-
-.experience-education-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px color-mix(in srgb, var(--color-highlight) 15%, transparent);
-  border-color: var(--color-highlight-text);
-}
-
-/* 5.4 Work / Organization cards */
-.experience-work-card {
-  background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
-  border-radius: 16px;
-  padding: 24px;
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-  margin-bottom: 16px;
-}
-
-.experience-work-card:last-child {
-  margin-bottom: 0;
-}
-
-.experience-work-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px color-mix(in srgb, var(--color-highlight) 15%, transparent);
-  border-color: var(--color-highlight-text);
-}
-
-.experience-work-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.experience-work-role {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 0;
-}
-
-.experience-work-period {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  font-family: ui-monospace, "JetBrains Mono", Menlo, monospace;
-  white-space: nowrap;
-}
-
-.experience-work-org {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  margin: 0 0 4px;
-}
-
-.experience-work-type-badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 3px 10px;
-  background: color-mix(in srgb, var(--color-burgundy-accent) 10%, var(--color-bg));
-  color: var(--color-burgundy-accent);
-  border-radius: 6px;
-  font-family: ui-monospace, Menlo, monospace;
-  margin-bottom: 12px;
-}
-
-[data-theme="dark"] .experience-work-type-badge {
-  background: color-mix(in srgb, var(--color-highlight) 12%, var(--color-surface));
-  color: var(--color-highlight-text);
 }
 
 /* =====================================================
@@ -2034,6 +1641,104 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .model-card-frame { transition: none; }
   .model-card:hover .model-card-frame { translate: none; }
+}
+
+/* Experience: linimasa hairline (redesign-v2 §6.3). Tanggal mono di kiri (>= 768) atau di atas.
+   Kelas pendek, alasan sama dengan .mc-*. */
+.xp-list { border-top: var(--hairline); }
+.xp-list > li { border-bottom: var(--hairline); }
+.xp-row {
+  display: grid;
+  gap: 0.25rem;
+  padding-block: 1.25rem;
+}
+@media (min-width: 48rem) {
+  .xp-row { grid-template-columns: 10rem minmax(0, 1fr); gap: 1.5rem; padding-block: 1.5rem; }
+}
+.xp-date {
+  padding-top: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+}
+.xp-role {
+  /* Sama dengan utilitas font-serif; --font-serif (@theme inline) tidak ada sebagai variabel runtime */
+  font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+  text-wrap: balance;
+}
+.xp-org {
+  margin-top: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.625rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+.xp-desc {
+  margin-top: 0.5rem;
+  max-width: 42rem;
+  font-size: 15px;
+  line-height: 1.625;
+  color: var(--color-text);
+}
+
+/* Workshop & seminar: <details> native (status expanded diumumkan pembaca layar) */
+.xp-summary {
+  cursor: pointer;
+  list-style: none;
+  border-radius: 0.5rem;
+  /* Ruang untuk cincin fokus tanpa menggeser perataan teks */
+  margin-inline: -0.5rem;
+  padding-inline: 0.5rem;
+}
+.xp-summary::-webkit-details-marker { display: none; }
+.xp-summary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-link-text);
+}
+.xp-summary .xp-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+@media (hover: hover) {
+  .xp-summary:hover .xp-role { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+}
+.xp-chevron {
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+  transition: rotate 200ms ease-out;
+}
+details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
+@media (prefers-reduced-motion: reduce) {
+  .xp-chevron { transition: none; }
+}
+.xp-sub {
+  display: grid;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+}
+@media (min-width: 48rem) {
+  .xp-sub { margin-left: 11.5rem; }
+}
+.xp-sub-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+.xp-sub-meta {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
 }
 
 /* ScrollReveal: sekali jalan, hanya opacity + transform, tanpa will-change */

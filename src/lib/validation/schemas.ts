@@ -7,6 +7,7 @@ export const ProfileSchema = z.object({
   focus: z.string().min(1, "Focus is required"),
   heroDescription: z.string().min(1, "Hero description is required"),
   about: z.string().min(80, "About must be at least 80 characters").max(1000, "About must be less than 1000 characters"),
+  aboutId: z.string().min(80).max(1000).optional(),   // Indonesian variant
   photo: z.string().optional(),
   photoAlt: z.string().optional(),
   cv: z.string().optional(),
@@ -30,8 +31,12 @@ export const ExperienceSchema = z.object({
   id: z.string(),
   type: z.enum(['organization', 'work', 'startup', 'academic', 'competition', 'other', 'ORGANIZATION', 'ACADEMIC PROJECT', 'WORKSHOP', 'SEMINAR']),
   role: z.string().min(1),
+  roleId: z.string().optional(),                   // Indonesian variant
   organization: z.string().min(1),
+  organizationId: z.string().optional(),           // Indonesian variant
   period: z.string().min(1),
+  periodId: z.string().optional(),                 // Indonesian variant
+  chip: z.enum(['concept']).optional(),            // label dari modelCard.chips
   description: z.string().max(300).optional(),
   descriptionId: z.string().max(300).optional(),   // Indonesian variant
   highlights: z.array(z.string().max(160)).max(5).default([]),

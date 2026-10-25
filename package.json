@@ -6,7 +6,6 @@
     "dev": "next dev",
     "validate": "tsx scripts/validate-content.ts",
     "optimize-images": "tsx scripts/optimize-images.ts",
-    "fetch-github": "tsx scripts/fetch-github-contributions.ts",
     "prebuild": "npm run validate && npm run optimize-images",
     "build": "next build",
     "start": "next start",
