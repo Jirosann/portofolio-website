@@ -117,6 +117,8 @@
   /* Border chip status: opaque, kontras non-teks >= 3:1 terhadap latar terburuk (pusat glow terang ~rgb(218 200 197)). */
   --color-chip-border: var(--color-text-secondary);
   --color-chip-live-border: color-mix(in srgb, var(--color-eyebrow) 75%, var(--color-border));
+  /* StatusBadge "In Development" (halaman detail): teks + border; tembaga murni di latar terang hanya ~3,8:1 */
+  --color-badge-progress: color-mix(in srgb, var(--color-highlight) 70%, var(--color-text));
 }
 [data-theme="dark"] {
   --nav-glass-alpha: 80%;
@@ -124,6 +126,7 @@
   --nav-glass-shadow: inset 0 1px 0 color-mix(in oklab, white 12%, transparent), 0 8px 24px rgb(0 0 0 / 0.28);
   --color-chip-border: color-mix(in srgb, var(--color-text-secondary) 55%, var(--color-border));
   --color-chip-live-border: color-mix(in srgb, var(--color-eyebrow) 75%, var(--color-border));
+  --color-badge-progress: var(--color-highlight);
 }
 @media (min-width: 768px) {
   :root { --space-section: 6rem; }
