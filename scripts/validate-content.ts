@@ -4,6 +4,7 @@ import {
   ProfileSchema,
   SkillCategorySchema,
   SkillSchema,
+  ToolSchema,
   ProjectSoftwareSchema,
   CreativeWorkSchema,
   ContactSchema,
@@ -109,7 +110,33 @@ function validate() {
   } else {
     errors.push({ file: skillsPath, message: 'File not found' });
   }
-  
+
+  // Validate tools (opsional: sub-bagian Tools I use tidak dirender bila berkas tidak ada)
+  const toolsPath = 'content/tools/tools.json';
+  if (fs.existsSync(toolsPath)) {
+    try {
+      const tools = JSON.parse(fs.readFileSync(toolsPath, 'utf-8'));
+      if (!Array.isArray(tools)) {
+        errors.push({ file: toolsPath, message: 'Must be an array' });
+      } else {
+        tools.forEach((tool, idx) => {
+          const result = ToolSchema.safeParse(tool);
+          if (!result.success) {
+            result.error.issues.forEach(issue => {
+              errors.push({
+                file: toolsPath,
+                field: `[${idx}].${issue.path.join('.')}`,
+                message: issue.message,
+              });
+            });
+          }
+        });
+      }
+    } catch (err: any) {
+      errors.push({ file: toolsPath, message: `Parse error: ${err.message}` });
+    }
+  }
+
   // Validate projects (software)
   const softwareDir = 'content/projects/software';
   const projectIds = new Set<string>();

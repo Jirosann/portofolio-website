@@ -98,7 +98,7 @@ export function Header({ navLinks }: HeaderProps) {
           {/* Logo / Name */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 min-h-11 transition-opacity hover:opacity-80"
+            className="nav-brand flex items-center gap-2.5 min-h-11 transition-opacity hover:opacity-80"
             aria-label="Al-Qadri"
           >
             <div className="w-[30px] h-[30px] rounded-lg overflow-hidden flex-shrink-0">
@@ -118,7 +118,7 @@ export function Header({ navLinks }: HeaderProps) {
           </Link>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="nav-links hidden md:flex items-center gap-2">
             {navLinks.map((link) => {
               const active = activeSection === link.href;
               return (

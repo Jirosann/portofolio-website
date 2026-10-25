@@ -1,9 +1,9 @@
 import type { Project, ModelCard } from '@/lib/validation/schemas';
 import { getSkills } from '@/lib/content/skills';
 
-// Tools di posisi 3 (bukan 5 seperti §6.4, keputusan pemilik sesi 8): di 768–1279 multi-column dua kolom
-// menjadi [Languages, Web, Tools] | [Backend & data, AI & ML] dengan tinggi hampir sama.
-export const STACK_COLUMNS = ['languages', 'web', 'tools', 'backend', 'ai'] as const;
+// Urutan baris kartu di #skills. Kolom "Tools" dihapus di sesi 10 (keputusan pemilik): alat harian tampil di
+// Tools I use, dan kategori alat/infra masuk "Backend & infra" (Docker satu-satunya yang punya proyek).
+export const STACK_COLUMNS = ['languages', 'web', 'backend', 'ai'] as const;
 export type StackColumnId = (typeof STACK_COLUMNS)[number];
 
 // Kolom bawaan per kategori data; OVERRIDES memindahkan skill tertentu (mis. bahasa yang dicatat di kategori backend).
@@ -14,10 +14,10 @@ const CATEGORY_COLUMN: Record<string, StackColumnId> = {
   database: 'backend',
   'api-security': 'backend',
   'ai-ml': 'ai',
-  'ui-ux': 'tools',
-  'version-control': 'tools',
-  testing: 'tools',
-  devops: 'tools',
+  'ui-ux': 'backend',
+  'version-control': 'backend',
+  testing: 'backend',
+  devops: 'backend',
 };
 const OVERRIDES: Record<string, StackColumnId> = {
   python: 'languages',
@@ -54,7 +54,9 @@ export interface StackProjectRef {
   title: string;
 }
 export interface StackEntry {
+  id: string; // id skill pertama dengan nama ini (dipakai untuk id elemen kartu)
   name: string;
+  icon?: string; // kunci getIcon; tanpa ikon -> monogram
   projects: StackProjectRef[];
 }
 export interface StackColumn {
@@ -94,11 +96,11 @@ export function getStack(projects: Project[]) {
   // Satu entri per nama per kolom (Java dan Java mobile digabung).
   const byColumn = new Map<StackColumnId, StackEntry[]>(STACK_COLUMNS.map((id) => [id, []]));
   for (const s of skills) {
-    const column = OVERRIDES[s.id] ?? CATEGORY_COLUMN[s.categoryId] ?? 'tools';
+    const column = OVERRIDES[s.id] ?? CATEGORY_COLUMN[s.categoryId] ?? 'backend';
     const entries = byColumn.get(column)!;
     const k = normalizeTech(s.name);
     if (entries.some((e) => normalizeTech(e.name) === k)) continue;
-    entries.push({ name: s.name, projects: usedBy.get(k) ?? [] });
+    entries.push({ id: s.id, name: s.name, icon: s.icon, projects: usedBy.get(k) ?? [] });
   }
 
   // Bukti terbanyak dulu; sort stabil, jadi seri tetap mengikuti urutan data.
@@ -109,7 +111,7 @@ export function getStack(projects: Project[]) {
       .filter((e) => e.projects.length > 0)
       .sort((a, b) => b.projects.length - a.projects.length),
   })).filter((c) => c.entries.length > 0);
-  const also = STACK_COLUMNS.flatMap((id) => byColumn.get(id)!.filter((e) => e.projects.length === 0).map((e) => e.name));
+  const also = STACK_COLUMNS.flatMap((id) => byColumn.get(id)!.filter((e) => e.projects.length === 0));
 
   return { columns, also, matches };
 }

@@ -9,7 +9,9 @@ import {
   Kotlin, Swift,
   TensorFlow, Scikitlearn,
   OpenAPI, Figma,
-  ReactIcon as React, TypeScript
+  ReactIcon as React, TypeScript,
+  Keras, Flask, Supabase,
+  VSCode, Postman, GoogleColab, Vercel
 } from './TechIcons';
 
 export const icons: Record<string, React.ComponentType<{ className?: string, style?: React.CSSProperties }>> = {
@@ -31,10 +33,12 @@ export const icons: Record<string, React.ComponentType<{ className?: string, sty
   Java,
   SpringBoot,
   FastAPI,
+  Flask,
 
   // Database
   PostgreSQL,
   MongoDB,
+  Supabase,
 
   // Version Control
   Git,
@@ -59,12 +63,19 @@ export const icons: Record<string, React.ComponentType<{ className?: string, sty
   // AI/ML
   TensorFlow,
   Scikitlearn,
+  Keras,
 
   // API & Security
   OpenAPI,
 
   // UI/UX
   Figma,
+
+  // Tools harian (content/tools/tools.json)
+  VSCode,
+  Postman,
+  GoogleColab,
+  Vercel,
 };
 
 export function getIcon(name: string) {

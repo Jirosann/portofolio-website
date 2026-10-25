@@ -33,15 +33,17 @@
   },
   "skills": {
     "title": "Technology Stack",
-    "subtitle": "Grouped by area. Each entry links to the projects on this page that use it.",
+    "subtitle": "Grouped by area. Select a card to see which projects on this page use it.",
     "usedIn": "used in",
     "alsoWorkedWith": "Also worked with",
+    "projectCountOne": "{n} project",
+    "projectCountMany": "{n} projects",
+    "toolsTitle": "Tools I use",
     "columns": {
       "languages": "Languages",
       "web": "Web",
-      "backend": "Backend & data",
-      "ai": "AI & ML",
-      "tools": "Tools"
+      "backend": "Backend & infra",
+      "ai": "AI & ML"
     }
   },
   "projects": {

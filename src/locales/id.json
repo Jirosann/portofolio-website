@@ -33,15 +33,17 @@
   },
   "skills": {
     "title": "Stack Teknologi",
-    "subtitle": "Dikelompokkan per bidang. Setiap entri menautkan ke proyek di halaman ini yang memakainya.",
+    "subtitle": "Dikelompokkan per bidang. Pilih kartu untuk melihat proyek di halaman ini yang memakainya.",
     "usedIn": "dipakai di",
     "alsoWorkedWith": "Juga pernah memakai",
+    "projectCountOne": "{n} proyek",
+    "projectCountMany": "{n} proyek",
+    "toolsTitle": "Tools harian",
     "columns": {
       "languages": "Bahasa",
       "web": "Web",
-      "backend": "Backend & data",
-      "ai": "AI & ML",
-      "tools": "Tools"
+      "backend": "Backend & infrastruktur",
+      "ai": "AI & ML"
     }
   },
   "projects": {

@@ -108,11 +108,15 @@
   /* Tinggi area navigasi; dipakai scroll-margin-top anchor section */
   --nav-offset: 64px;
 
-  /* Kaca navigasi. Alpha dari uji kontras piksel teks pill sepanjang halaman (1440, en/id):
-     72% lolos dengan margin 0,08 (min 4,58); 80% memberi min 4,89 (terang) / 4,99 (gelap). */
-  --nav-glass-alpha: 80%;
+  /* Kaca navigasi bergradasi (redesign-v2 §13, playable-sesi-10.md): tepi pill tembus 58%; lapisan dalam 55% di belakang
+     teks logo dan deretan tautan. Uji kontras piksel (1440, en/id): 55% terendah yang lolos dengan margin (gelap 5,09;
+     50% hanya 4,66). Pil aktif opak, jadi kontrasnya tidak bergantung latar di balik kaca. */
+  --nav-glass-alpha: 58%;
+  --nav-inner-alpha: 55%;
   --nav-glass-border: color-mix(in oklab, var(--color-border) 80%, transparent);
-  --nav-glass-shadow: inset 0 1px 0 color-mix(in oklab, white 60%, transparent), 0 8px 24px rgb(23 21 25 / 0.10);
+  --nav-glass-shadow: inset 0 1px 0 color-mix(in oklab, white 90%, transparent), 0 8px 24px rgb(23 21 25 / 0.10);
+  --nav-active-bg: #fff;
+  --nav-active-shadow: 0 1px 3px rgb(23 21 25 / 0.12), inset 0 0 0 1px color-mix(in oklab, var(--color-border) 70%, transparent);
 
   /* Border chip status: opaque, kontras non-teks >= 3:1 terhadap latar terburuk (pusat glow terang ~rgb(218 200 197)). */
   --color-chip-border: var(--color-text-secondary);
@@ -121,9 +125,12 @@
   --color-badge-progress: color-mix(in srgb, var(--color-highlight) 70%, var(--color-text));
 }
 [data-theme="dark"] {
-  --nav-glass-alpha: 80%;
+  --nav-glass-alpha: 58%;
+  --nav-inner-alpha: 55%;
   --nav-glass-border: color-mix(in oklab, white 14%, transparent);
-  --nav-glass-shadow: inset 0 1px 0 color-mix(in oklab, white 12%, transparent), 0 8px 24px rgb(0 0 0 / 0.28);
+  --nav-glass-shadow: inset 0 1px 0 color-mix(in oklab, white 24%, transparent), 0 8px 24px rgb(0 0 0 / 0.28);
+  --nav-active-bg: color-mix(in srgb, white 12%, var(--color-surface));
+  --nav-active-shadow: 0 1px 3px rgb(0 0 0 / 0.3), inset 0 0 0 1px color-mix(in oklab, white 10%, transparent);
   --color-chip-border: color-mix(in srgb, var(--color-text-secondary) 55%, var(--color-border));
   --color-chip-live-border: color-mix(in srgb, var(--color-eyebrow) 75%, var(--color-border));
   --color-badge-progress: var(--color-highlight);
@@ -671,10 +678,39 @@ html {
   }
   .nav-pill {
     background: color-mix(in oklab, var(--color-surface) var(--nav-glass-alpha), transparent);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    backdrop-filter: blur(22px) saturate(180%);
     border: 1px solid var(--nav-glass-border);
     box-shadow: var(--nav-glass-shadow);
+  }
+  /* Lapisan dalam: kapsul di belakang teks logo dan di belakang tautan, bahasa, dan tema. Ditumpuk di atas kaca luar,
+     jadi kerapatan efektifnya 1 - (1 - luar)(1 - dalam). Tepinya memudar lewat bayangan berwarna sama (gradasi ke kaca luar). */
+  .nav-pill .nav-brand,
+  .nav-pill .nav-links {
+    --nav-inner: color-mix(in oklab, var(--color-surface) var(--nav-inner-alpha), transparent);
+    border-radius: 999px;
+    background: var(--nav-inner);
+    box-shadow: 0 0 10px 4px var(--nav-inner);
+  }
+  /* Item aktif: teks --color-text di atas pil terang opak (kontras tidak bergantung latar di balik kaca).
+     Aksen tembaga pindah ke garis pendek di bawah teks: indikator non-teks, bukan warna teks. */
+  .nav-pill .nav-link-normal.active,
+  .nav-pill .nav-link-normal.active:hover {
+    color: var(--color-text);
+    background: var(--nav-active-bg);
+    box-shadow: var(--nav-active-shadow);
+  }
+  .nav-pill .nav-link-normal.active::after {
+    left: 50%;
+    right: auto;
+    bottom: 5px;
+    width: 0.875rem;
+    translate: -50% 0;
+  }
+  /* Contact gelap: campuran opak dengan permukaan (warna sama seperti di atas permukaan solid),
+     supaya latar yang lewat di belakang kaca tidak menurunkan kontras teksnya. */
+  [data-theme="dark"] .nav-pill .nav-link-contact:not(:hover):not(:focus-visible):not(.active) {
+    background: color-mix(in srgb, var(--color-burgundy) 40%, var(--color-surface));
   }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .nav-pill { background: var(--color-surface); }
@@ -918,28 +954,19 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   color: var(--color-text-secondary);
 }
 
-/* Stack berbasis bukti (redesign-v2 §6.4): kolom hairline, nama sebagai teks, tautan ke model card.
-   Kelas pendek, alasan sama dengan .mc-*. */
-/* Mobile satu kolom; 768–1279 multi-column dua kolom (kelompok utuh mengalir dan menyeimbangkan tinggi;
-   tiga kolom terukur menyisakan > 300 px di kolom tengah); >= 1280 grid lima kolom. */
-.st-grid {
+/* Stack: kartu ikon yang bisa dibalik (redesign-v2 §13, menggantikan kolom teks §6.4). Kelas pendek, alasan sama dengan .mc-*.
+   Satu baris hairline per kategori: label mono di atas, atau di kiri pada >= 1024 (pola .xp-row). */
+.sc-group {
   display: grid;
-  gap: 2rem;
-}
-@media (min-width: 48rem) {
-  .st-grid { display: block; columns: 2; column-gap: 2.5rem; }
-  .st-col { break-inside: avoid; margin-bottom: 2rem; }
-}
-@media (min-width: 80rem) {
-  .st-grid { display: grid; columns: auto; grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  .st-col { align-self: start; margin-bottom: 0; }
-}
-.st-col {
+  gap: 0.75rem;
   border-top: var(--hairline);
-  padding-top: 1rem;
+  padding-block: 1.25rem;
 }
-.st-col-label {
-  margin-bottom: 0.25rem;
+@media (min-width: 64rem) {
+  .sc-group { grid-template-columns: 10rem minmax(0, 1fr); gap: 1.5rem; padding-block: 1.5rem; }
+}
+.sc-label {
+  padding-top: 0.25rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 600;
@@ -948,69 +975,284 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   text-transform: uppercase;
   color: var(--color-eyebrow);
 }
-.st-entry { padding-top: 0.5rem; }
-.st-entry + .st-entry { border-top: var(--hairline); }
-.st-name {
-  display: block;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.5rem;
-  color: var(--color-text);
+.sc-group--also .sc-label { color: var(--color-text-secondary); }
+
+/* HP 3 kolom, >= 480 empat kolom, >= 768 sebanyak yang muat. */
+.sc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
 }
-.st-used {
-  padding-bottom: 0.5rem;
-  font-size: 0.8125rem;
-  line-height: 1.5rem;
+@media (min-width: 30rem) {
+  .sc-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (min-width: 48rem) {
+  .sc-grid { grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); gap: 0.75rem; }
+}
+
+/* Kartu: dua sisi di sel grid yang sama, jadi tinggi kartu mengikuti sisi tertinggi tanpa tinggi tetap.
+   .sc tidak ikut berputar: cincin fokus dan kilau dipasang di sini agar tetap terlihat saat kartu terbalik. */
+.sc {
+  --sc-radius: 0.875rem;
+  --sc-glare: color-mix(in srgb, var(--color-highlight) 16%, transparent);
+  position: relative;
+  display: grid;
+  border-radius: var(--sc-radius);
+  perspective: 50rem;
+  transition: translate 200ms ease-out;
+}
+[data-theme="dark"] .sc { --sc-glare: color-mix(in srgb, white 11%, transparent); }
+.sc-inner {
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform 450ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sc[data-flipped] .sc-inner { transform: rotateY(180deg); }
+.sc-face {
+  grid-area: 1 / 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--sc-radius);
+  background: var(--color-surface);
+  padding: 0.875rem 0.5rem 0.75rem;
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: border-color 200ms ease-out;
+}
+/* Sisi belakang tersembunyi (juga dari pembaca layar dan Tab) sampai kartu dibalik; saat menutup, visibility
+   menunggu rotasi selesai. Tanpa JS, <noscript> di StackSection menampilkannya di bawah kartu. */
+.sc-back {
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 0.625rem 0.375rem;
+  transform: rotateY(180deg);
+  visibility: hidden;
+  transition: border-color 200ms ease-out, visibility 0s linear 450ms;
+}
+.sc[data-flipped] .sc-back {
+  visibility: visible;
+  transition: border-color 200ms ease-out, visibility 0s;
+}
+/* Sisi yang sedang membelakangi tidak menerima klik. */
+.sc:not([data-flipped]) .sc-back,
+.sc[data-flipped] .sc-front { pointer-events: none; }
+.sc-btn {
+  width: 100%;
+  font: inherit;
+  color: var(--color-text);
+  cursor: pointer;
+}
+/* Nonaktif hanya sebelum StackCards terpasang (atau tanpa JS): tampilan sama, tanpa kursor tangan. */
+.sc-btn:disabled { cursor: default; }
+.sc-btn:focus-visible { outline: 2px solid var(--color-link-text); outline-offset: 2px; }
+@supports selector(:has(*)) {
+  .sc-btn:focus-visible { outline: none; }
+  .sc:has(.sc-btn:focus-visible) { box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-link-text); }
+}
+.sc .stack-icon { width: 2rem; height: 2rem; flex-shrink: 0; }
+/* Nama tidak pernah dipotong: boleh pindah baris di spasi/tanda hubung; ukuran mengecil di 320 agar
+   nama satu kata terpanjang (InsightFace, TensorFlow) muat di kolom 3. */
+.sc-name {
+  max-width: 100%;
+  font-size: clamp(0.75rem, 0.55rem + 1.1vw, 0.875rem);
+  font-weight: 600;
+  line-height: 1.25;
+}
+.sc-count {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1rem;
   color: var(--color-text-secondary);
 }
-/* Terbungkus seperti teks biasa. inline-block setinggi line-height (24 px = target minimum WCAG 2.5.8)
-   dan judul proyek tidak terpotong di tengah saat baris dipecah. */
-.st-link {
-  display: inline-block;
+.sc-used {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-eyebrow);
+}
+.sc-back ul { display: grid; gap: 0.25rem; margin-top: 0.25rem; }
+/* Target 44 px (QA §10). Judul proyek boleh dua baris di kolom sempit. */
+.sc-link {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--color-text) 4%, transparent);
+  padding: 0.25rem;
+  font-size: clamp(0.75rem, 0.6rem + 0.8vw, 0.8125rem);
+  font-weight: 600;
+  line-height: 1.2;
   color: var(--color-text);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   text-decoration-color: var(--color-text-secondary);
 }
-.st-link:hover { text-decoration-color: var(--color-text); }
-.st-link:focus-visible {
+.sc-link:hover { text-decoration-color: var(--color-text); }
+.sc-link:focus-visible {
   outline: none;
-  border-radius: 2px;
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-link-text);
+  box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-link-text);
 }
-/* "Also worked with": satu baris redup (lebih kecil, warna sekunder; bukan opacity agar kontras AA tetap terjaga). */
-.st-also {
+/* Kilau kaca mengikuti kursor (posisi dari StackCards lewat --mx/--my). Tanpa backdrop-filter. */
+.sc::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(9rem circle at var(--mx, 50%) var(--my, 0%), var(--sc-glare), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .sc:hover { translate: 0 -3px; }
+  .sc:hover .sc-face { border-color: var(--color-text-secondary); }
+  .sc:hover::after { opacity: 1; }
+}
+/* Tanpa flip: cukup crossfade. */
+@media (prefers-reduced-motion: reduce) {
+  .sc, .sc-inner { transition: none; }
+  .sc:hover { translate: none; }
+  .sc[data-flipped] .sc-inner { transform: none; }
+  .sc-face {
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+    transition: opacity 150ms linear;
+  }
+  .sc-back { transform: none; opacity: 0; transition: opacity 150ms linear, visibility 0s linear 150ms; }
+  .sc[data-flipped] .sc-back { opacity: 1; transition: opacity 150ms linear, visibility 0s; }
+  .sc[data-flipped] .sc-front { opacity: 0; }
+}
+
+/* "Also worked with": kartu kecil redup tanpa interaksi. Teks warna sekunder (bukan opacity) agar kontras AA tetap. */
+.sc-also-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.25rem, 1fr));
+  gap: 0.375rem;
+}
+.sc-also {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.25rem 1rem;
-  margin-top: 2.5rem;
-  border-top: var(--hairline);
-  padding-top: 1rem;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  border-radius: 0.625rem;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.8125rem;
+  line-height: 1.25;
+  color: var(--color-text-secondary);
 }
-.st-also-label {
+.sc-also .stack-icon { width: 1.125rem; height: 1.125rem; flex-shrink: 0; opacity: 0.75; filter: saturate(0.6); }
+
+/* Logo monokrom (StackIcon MONO): hitam di berkasnya, dibalik menjadi terang di tema gelap. */
+[data-theme="dark"] .stack-icon--mono { filter: invert(1); }
+[data-theme="dark"] .sc-also .stack-icon--mono { filter: invert(1) saturate(0.6); }
+/* Ikon tanpa logo resmi: monogram mono dalam kotak hairline, ukuran sama dengan ikon. */
+.stack-monogram {
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+}
+
+/* Tools I use: kipas kartu bertumpuk. Satu baris pada container >= 30rem, dua baris berisi 4 di bawahnya.
+   Tumpang tindih dihitung dari lebar container (cqi), jadi lebar total tidak pernah melebihi container;
+   2.5rem dicadangkan untuk sudut kartu miring di kedua ujung. */
+.tl-wrap { container: tl / inline-size; min-width: 0; }
+.tl-fan {
+  --w: clamp(4rem, 13cqi, 5.5rem);
+  --m: min(-1rem, (100cqi - 2.5rem - 8 * var(--w)) / 7);
+  display: flex;
+  justify-content: center;
+  padding-block: 1rem 2.5rem;
+}
+.tl-fan > li { flex: none; width: var(--w); margin-inline-start: var(--m); }
+.tl-fan > li:first-child { margin-inline-start: 0; }
+@container tl (max-width: 30rem) {
+  .tl-fan {
+    --w: clamp(3.5rem, 21cqi, 4.75rem);
+    --m: -0.875rem;
+    flex-wrap: wrap;
+    row-gap: 2.75rem;
+    width: calc(4 * var(--w) + 3 * var(--m));
+    margin-inline: auto;
+  }
+  .tl-fan > li:nth-child(4n + 1) { margin-inline-start: 0; }
+}
+.tl-card {
+  --r: calc(var(--i) * 4deg);
+  --dy: calc(var(--y) * 1px);
+  position: relative;
+  display: grid;
+  aspect-ratio: 4 / 5;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 0.875rem;
+  background: #fff;
+  box-shadow: 0 6px 16px rgb(23 21 25 / 0.08);
+  rotate: var(--r);
+  translate: 0 var(--dy);
+  transform-origin: 50% 100%;
+  transition: rotate 200ms ease-out, translate 200ms ease-out;
+}
+@container tl (max-width: 30rem) {
+  .tl-card { --r: calc(var(--j) * 5deg); --dy: calc(var(--yj) * 1.5px); }
+}
+[data-theme="dark"] .tl-card { background: var(--color-surface); box-shadow: 0 6px 16px rgb(0 0 0 / 0.35); }
+.tl-card .stack-icon { width: 46%; height: auto; aspect-ratio: 1; }
+/* Nama selalu ada di DOM (nama aksesibel); hanya disembunyikan secara visual sampai kartu diangkat. */
+.tl-name {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  translate: -50% 0.25rem;
+  white-space: nowrap;
+  font-size: 0.8125rem;
   font-weight: 600;
   line-height: 1.25rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-out, translate 150ms ease-out;
 }
-.st-also ul {
-  display: flex;
-  flex: 1 1 20rem;
-  flex-wrap: wrap;
-  gap: 0 0.375rem;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  color: var(--color-text-secondary);
+/* Bukan tab stop (keputusan pemilik sesi 10). Terangkat saat hover (perangkat ber-hover) atau saat diketuk
+   (data-raised dari StackCards). Hover dibatasi ke (hover: hover) agar hover "lengket" di layar sentuh tidak
+   menahan kartu tetap terangkat setelah ketukan kedua. */
+.tl-card[data-raised] {
+  z-index: 1;
+  rotate: 0deg;
+  translate: 0 -0.75rem;
 }
-/* Koma di akhir item (bukan pemisah di awal), supaya baris yang terbungkus tidak dibuka dengan tanda baca. */
-.st-also li:not(:last-child)::after {
-  content: ",";
-  content: "," / "";
+.tl-card[data-raised] .tl-name { opacity: 1; translate: -50% 0; }
+@media (hover: hover) {
+  .tl-card:hover {
+    z-index: 1;
+    rotate: 0deg;
+    translate: 0 -0.75rem;
+  }
+  .tl-card:hover .tl-name { opacity: 1; translate: -50% 0; }
+}
+/* iOS hanya mengirim klik dari elemen non-interaktif yang ber-cursor pointer. */
+@media (hover: none) {
+  .tl-card { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl-card, .tl-name { transition: none; }
 }
 
 /* Contact penutup (redesign-v2 §6.5): email besar serif, lalu baris tautan teks kecil. Kelas pendek, alasan sama dengan .mc-*.
