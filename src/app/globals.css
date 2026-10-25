@@ -357,27 +357,27 @@ html {
    yang punya nilai en juga mengulang nilai id-nya. Keyword `auto` menyimpan tinggi asli setelah section pernah dirender.
    Ukur ulang bila isi section berubah. */
 #experience.content-visibility-auto { contain-intrinsic-size: auto 943px; }
-#skills.content-visibility-auto { contain-intrinsic-size: auto 2242px; }
-#contact.content-visibility-auto { contain-intrinsic-size: auto 403px; }
+#skills.content-visibility-auto { contain-intrinsic-size: auto 2227px; }
+#contact.content-visibility-auto { contain-intrinsic-size: auto 404px; }
 :root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 918px; }
-:root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 2271px; }
+:root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 2256px; }
 @media (min-width: 48rem) {
   #experience.content-visibility-auto { contain-intrinsic-size: auto 703px; }
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 1623px; }
-  #contact.content-visibility-auto { contain-intrinsic-size: auto 332px; }
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 1608px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 333px; }
   :root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 703px; }
-  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1652px; }
+  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1637px; }
 }
 @media (min-width: 64rem) {
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 1311px; }
-  #contact.content-visibility-auto { contain-intrinsic-size: auto 339px; }
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 1487px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 340px; }
   :root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 678px; }
-  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1341px; }
+  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1516px; }
 }
 @media (min-width: 80rem) {
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 1170px; }
-  #contact.content-visibility-auto { contain-intrinsic-size: auto 347px; }
-  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1199px; }
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 1189px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 348px; }
+  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1218px; }
 }
 
 /* Garis bawah yang meluncur dari kiri (sesi 12): ::after 1px di bawah baris teks, scaleX 0 -> 1 saat hover/fokus.
@@ -1176,23 +1176,29 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
 }
 
 /* Stack: kartu ikon yang bisa dibalik (redesign-v2 §13, menggantikan kolom teks §6.4). Kelas pendek, alasan sama dengan .mc-*.
-   Satu baris hairline per kategori: label mono di atas, atau di kiri pada >= 1024 (pola .xp-row). */
+   Satu sistem untuk semua blok di semua lebar: hairline di atas, label mono di atas konten, konten rata kiri.
+   Jarak garis -> label -> konten sama di setiap blok (padding-block + gap di sini; kipas Tools tanpa padding atas sendiri). */
 .sc-group {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
   gap: 0.75rem;
   border-top: var(--hairline);
   padding-block: 1.25rem;
 }
 @media (min-width: 64rem) {
-  .sc-group { grid-template-columns: 10rem minmax(0, 1fr); gap: 1.5rem; padding-block: 1.5rem; }
+  .sc-group { padding-block: 1.5rem; }
 }
-/* >= 1280: empat kelompok kartu 2x2 (Languages | Web, Backend & infra | AI & ML) agar kanan tidak kosong; label di
-   atas karena sel hanya ~560 px. "Also worked with" dan Tools I use tetap selebar penuh dengan label di kiri. */
+/* >= 1280: empat kelompok kartu 2x2 (Languages | Web, Backend & infra | AI & ML) agar kanan tidak kosong. Tanpa
+   column-gap: jarak antarkolom jadi padding di dalam sel, jadi border-top dua sel bersambung menjadi satu hairline
+   selebar konten. "Also worked with", Tools I use, dan kelompok ganjil terakhir (kolom kosong difilter di getStack)
+   selebar penuh. */
 @media (min-width: 80rem) {
-  .sc-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.5rem; }
-  .sc-groups > .sc-group { grid-template-columns: minmax(0, 1fr); align-content: start; gap: 0.75rem; }
-  .sc-groups > .sc-group--also,
-  .sc-groups > .tl { grid-column: 1 / -1; grid-template-columns: 10rem minmax(0, 1fr); gap: 1.5rem; }
+  .sc-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sc-groups > .sc-group:nth-child(odd) { padding-inline-end: 1.25rem; }
+  .sc-groups > .sc-group:nth-child(even) { padding-inline-start: 1.25rem; }
+  .sc-groups > .sc-group:is(.sc-group--also, .tl),
+  .sc-groups > .sc-group:nth-child(odd):is(:last-child, :has(+ :is(.sc-group--also, .tl))) { grid-column: 1 / -1; padding-inline: 0; }
 }
 .sc-label {
   padding-top: 0.25rem;
@@ -1204,7 +1210,6 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   text-transform: uppercase;
   color: var(--color-eyebrow);
 }
-.sc-group--also .sc-label { color: var(--color-text-secondary); }
 
 /* HP 3 kolom, >= 480 empat kolom, >= 768 sebanyak yang muat. */
 .sc-grid {
@@ -1429,31 +1434,37 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
 /* Tools I use: kipas kartu bertumpuk. Satu baris pada container >= 36rem, dua baris berisi --cols di bawahnya
    (--n dan --cols dari StackSection). Tumpang tindih dihitung dari lebar container (cqi), jadi lebar total tidak
    pernah melebihi container; 2.5rem dicadangkan untuk sudut kartu miring di kedua ujung. Strip kartu yang tidak
-   tertutup (--w + --m) tidak pernah < 2.75rem (44 px): max() membatasi tumpang tindih di kartu kecil. */
+   tertutup (--w + --m) tidak pernah < 2.75rem (44 px): max() membatasi tumpang tindih di kartu kecil.
+   Rata kiri seperti blok lain: --lead = tonjolan sudut atas kartu pertama yang miring (--tilt, poros di tengah bawah,
+   tinggi kartu 1,25 --w) melewati kotak li, jadi piksel terkiri kartu jatuh di tepi kiri konten. */
 .tl-wrap { container: tl / inline-size; min-width: 0; }
 .tl-fan {
   --w: clamp(3.4rem, 9.35cqi, 5.3rem);
   --m: max(2.75rem - var(--w), min(-1rem, (100cqi - 2.5rem - var(--n) * var(--w)) / (var(--n) - 1)));
+  --tilt: calc((var(--n) - 1) / 2 * 3deg);
+  --lead: calc(var(--w) * (1.25 * sin(var(--tilt)) - 0.5 * (1 - cos(var(--tilt)))));
   display: flex;
-  justify-content: center;
-  /* Bawah: kartu miring + lengkung turun ~0,5rem di bawah kotak li; sisa jaraknya ke akhir blok = padding kelompok
+  padding-inline-start: var(--lead);
+  /* Atas 1px: kartu tengah yang miring naik ~1 px di atas kotak li, jadi jarak label -> kartu = gap kelompok.
+     Bawah: kartu miring + lengkung turun ~0,5rem di bawah kotak li; sisa jaraknya ke akhir blok = padding kelompok
      lain (24 px desktop, 20 px HP, terukur). Label kartu terangkat boleh melewati ini (masih di padding section). */
-  padding-block: 1rem 1.55rem;
+  padding-block: 1px 1.55rem;
 }
 .tl-fan > li { flex: none; width: var(--w); margin-inline-start: var(--m); }
 .tl-fan > li:first-child { margin-inline-start: 0; }
 /* Dua baris: setiap li (termasuk awal baris) bermargin --m, dan padding kiri sebesar -m mengembalikannya,
-   jadi jumlah kartu per baris mengikuti --cols tanpa nth-child. +1px menahan pembulatan subpiksel. */
+   jadi jumlah kartu per baris mengikuti --cols tanpa nth-child. +1px menahan pembulatan subpiksel. --lead ikut
+   masuk ke lebar (border-box). */
 @container tl (max-width: 36rem) {
   .tl-fan {
     --w: clamp(2.75rem, 16.15cqi, 4.05rem);
     --m: max(2.75rem - var(--w), var(--w) * -0.16);
+    --tilt: calc((var(--cols) - 1) / 2 * 5deg);
     flex-wrap: wrap;
     row-gap: 3rem;
     padding-bottom: 0.7rem;
-    width: calc(var(--cols) * var(--w) + (var(--cols) - 1) * var(--m) + 1px);
-    margin-inline: auto;
-    padding-inline-start: calc(-1 * var(--m));
+    width: calc(var(--cols) * var(--w) + (var(--cols) - 1) * var(--m) + 1px + var(--lead));
+    padding-inline-start: calc(var(--lead) - var(--m));
   }
   .tl-fan > li:first-child { margin-inline-start: var(--m); }
 }

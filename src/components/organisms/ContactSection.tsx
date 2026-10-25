@@ -30,7 +30,7 @@ export async function ContactSection({ contacts }: ContactSectionProps) {
   const [emailUser, emailDomain] = email ? email.value.split('@') : [];
 
   return (
-    <section id="contact" className="section-y border-t border-border content-visibility-auto">
+    <section id="contact" className="section-y border-t border-[var(--color-hairline)] content-visibility-auto">
       <Container>
         <SectionHeading
           section="contact"
