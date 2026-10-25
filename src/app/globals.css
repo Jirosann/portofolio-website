@@ -186,21 +186,8 @@ html {
   }
 }
 
-@keyframes fade-in-up {
-  from {
-    transform: translateY(20px);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
 .animate-slide-down {
   animation: slide-down 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.animate-fade-in-up {
-  animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* =====================================================
@@ -216,508 +203,38 @@ html {
    Keyword `auto` tetap menyimpan tinggi asli setelah section pernah dirender. */
 #experience.content-visibility-auto { contain-intrinsic-size: auto 940px; }
 #skills.content-visibility-auto { contain-intrinsic-size: auto 1760px; }
-#contact.content-visibility-auto { contain-intrinsic-size: auto 860px; }
+#contact.content-visibility-auto { contain-intrinsic-size: auto 440px; }
 @media (min-width: 768px) {
   #experience.content-visibility-auto { contain-intrinsic-size: auto 700px; }
   #skills.content-visibility-auto { contain-intrinsic-size: auto 1010px; }
-  #contact.content-visibility-auto { contain-intrinsic-size: auto 616px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 340px; }
 }
 @media (min-width: 1280px) {
   #skills.content-visibility-auto { contain-intrinsic-size: auto 725px; }
 }
 
-/* Footer: area klik minimal 44 px tanpa mengubah tampilan (vertikal diperluas; horizontal hanya 6 px karena jarak antar tautan 16 px). */
-.footer-social-link,
+/* Footer: tautan teks kecil dengan target sentuh 44 px. */
 .footer-link {
-  position: relative;
-}
-.footer-social-link::after {
-  content: '';
-  position: absolute;
-  inset: -9px -6px;
-}
-/* Tautan sebaris di kalimat (tinggi 17 px) butuh perluasan vertikal lebih besar. */
-.footer-link::after {
-  content: '';
-  position: absolute;
-  inset: -14px -6px;
-}
-
-/* =====================================================
-   PROJECTS SECTION
-   ===================================================== */
-
-.projects-filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 32px;
-}
-
-.filter-pill {
-  padding: 8px 20px;
-  border-radius: 9999px;
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text-secondary);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.filter-pill:active {
-  transform: scale(0.95);
-}
-
-.filter-pill:hover {
-  border-color: var(--color-burgundy-accent);
-  color: var(--color-burgundy-accent);
-}
-
-.filter-pill--active {
-  background: var(--color-burgundy-accent);
-  border-color: var(--color-burgundy-accent);
-  color: white;
-}
-
-.filter-pill--active:hover {
-  background: var(--color-burgundy);
-  border-color: var(--color-burgundy);
-  color: white;
-}
-
-.projects-grid-layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-}
-
-@media (min-width: 768px) {
-  .projects-grid-layout {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .projects-grid-layout {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* =====================================================
-   PROJECT CARD (Section 18.2)
-   ===================================================== */
-
-.project-card {
-  background: color-mix(in srgb, var(--color-text) 2%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
-  border-radius: 16px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-}
-
-.project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px color-mix(in srgb, var(--color-highlight) 20%, transparent);
-  border-color: var(--color-highlight-text);
-}
-
-.project-card-thumbnail-wrapper {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
-  background: var(--color-border);
-}
-
-.project-card-thumbnail-link {
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.project-card-thumbnail {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform var(--transition-base);
-}
-
-.project-card:hover .project-card-thumbnail {
-  transform: scale(1.03);
-}
-
-.project-card-insight {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(13, 9, 10, 0.88);
-  padding: 12px 16px;
-  transform: translateY(100%);
-  transition: transform var(--transition-base);
-}
-
-.project-card-thumbnail-link:hover .project-card-insight,
-.project-card-thumbnail-link:focus-within .project-card-insight {
-  transform: translateY(0);
-}
-
-.project-card-insight-text {
-  font-size: 13px;
-  color: var(--color-border);
-  font-family: ui-monospace, Menlo, monospace;
-  line-height: 1.4;
-  margin: 0;
-}
-
-.project-card-body {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-}
-
-.project-card-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.project-card-title-link {
-  text-decoration: none;
-  color: inherit;
-}
-
-.project-card-title {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--color-text);
-  line-height: 1.3;
-  margin: 0;
-}
-
-.project-card-title-link:hover .project-card-title {
-  color: var(--color-burgundy-accent);
-}
-
-[data-theme="dark"] .project-card-title-link:hover .project-card-title {
-  color: var(--color-highlight-text);
-}
-
-.project-card-summary {
-  font-size: 14px;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin: 0;
-}
-
-.project-card-role {
-  font-size: 12px;
-  color: var(--color-text-secondary);
-  font-family: ui-monospace, Menlo, monospace;
-  margin: 0;
-}
-
-.project-card-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
-}
-
-.project-card-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: auto;
-  padding-top: 8px;
-}
-
-.project-card-link {
-  font-size: 13px;
-  font-weight: 600;
-  padding: 8px 16px;
-  border-radius: 9999px;
-  text-decoration: none;
-  transition: all var(--transition-fast);
-  border: 1px solid transparent;
-}
-
-.project-card-link:active {
-  transform: scale(0.95);
-}
-
-.project-card-link--primary {
-  background: var(--color-burgundy-accent);
-  color: white;
-}
-
-.project-card-link--primary:hover {
-  background: var(--color-burgundy);
-}
-
-[data-theme="dark"] .project-card-link--primary {
-  background: var(--color-highlight);
-  color: var(--color-bg);
-}
-
-[data-theme="dark"] .project-card-link--primary:hover {
-  background: var(--color-accent-hover);
-  color: var(--color-text);
-}
-
-.project-card-link--secondary {
-  border-color: var(--color-border);
-  color: var(--color-text-secondary);
-  background: transparent;
-}
-
-.project-card-link--secondary:hover {
-  border-color: var(--color-burgundy-accent);
-  color: var(--color-burgundy-accent);
-}
-
-[data-theme="dark"] .project-card-link--secondary:hover {
-  border-color: var(--color-highlight-text);
-  color: var(--color-highlight-text);
-}
-
-.project-card-private-badge {
-  font-size: 12px;
-  color: var(--color-text-secondary);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* =====================================================
-   CREATIVE WORK CARD
-   ===================================================== */
-
-.creative-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-}
-
-.creative-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  border-color: var(--color-highlight-text);
-}
-
-.creative-card-thumbnail-wrapper {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  background: var(--color-border);
-  overflow: hidden;
-}
-
-.creative-card-thumbnail {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform var(--transition-base);
-}
-
-.creative-card:hover .creative-card-thumbnail {
-  transform: scale(1.03);
-}
-
-.creative-card-type-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  font-size: 11px;
-  font-weight: 600;
-  font-family: ui-monospace, Menlo, monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 4px 10px;
-  background: rgba(13, 9, 10, 0.75);
-  color: var(--color-border);
-  border-radius: 6px;
-}
-
-.creative-card-body {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-}
-
-.creative-card-title {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 0;
-}
-
-.creative-card-brief {
-  font-size: 14px;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin: 0;
-}
-
-.creative-card-contribution {
-  font-size: 13px;
-  color: var(--color-text-secondary);
-  margin: 0;
-}
-
-.creative-card-tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
-}
-
-.creative-card-drive-link {
   display: inline-flex;
+  min-height: 2.75rem;
   align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-burgundy-accent);
-  text-decoration: none;
-  margin-top: auto;
-  padding-top: 8px;
-  transition: color var(--transition-fast);
-}
-
-[data-theme="dark"] .creative-card-drive-link {
-  color: var(--color-highlight-text);
-}
-
-.creative-card-drive-link:hover {
-  color: var(--color-highlight-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
   text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: transparent;
+  transition: color 150ms, text-decoration-color 150ms;
 }
-
-/* =====================================================
-   CONTACT SECTION
-   ===================================================== */
-
-.contact-email-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-burgundy-accent);
-  text-decoration: none;
-  padding: 14px 24px;
-  border: 2px solid var(--color-burgundy-accent);
-  border-radius: 9999px;
-  margin-bottom: 32px;
-  transition: all var(--transition-base);
-  max-width: 100%;
-  word-break: break-all;
-}
-
-[data-theme="dark"] .contact-email-cta {
-  color: var(--color-highlight-text);
-  border-color: var(--color-highlight-text);
-  border-width: 3px;
-}
-
-.contact-email-cta:active {
-  transform: scale(0.98);
-}
-
-.contact-email-cta:hover {
-  background: var(--color-burgundy-accent);
-  color: white;
-}
-
-[data-theme="dark"] .contact-email-cta:hover {
-  background: var(--color-highlight);
-  color: var(--color-bg);
-}
-
-.contact-email-cta-icon {
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.contact-links-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-@media (max-width: 480px) {
-  .contact-links-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 18px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  text-decoration: none;
-  transition: all var(--transition-base);
-}
-
-.contact-link:hover {
-  border-color: var(--color-highlight-text);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(74, 25, 24, 0.08);
-}
-
-[data-theme="dark"] .contact-link:hover {
-  box-shadow: 0 4px 12px rgba(195, 130, 104, 0.1);
-}
-
-.contact-link-icon {
-  font-size: 22px;
-  width: 36px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.contact-link-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.contact-link-type {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--color-text-secondary);
-  font-family: ui-monospace, Menlo, monospace;
-}
-
-.contact-link-value {
-  font-size: 14px;
-  font-weight: 500;
+.footer-link:hover {
   color: var(--color-text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-decoration-color: currentColor;
+}
+.footer-link:focus-visible {
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-link-text);
 }
 
 /* =====================================================
@@ -1476,13 +993,66 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   content: "," / "";
 }
 
-/* ScrollReveal: sekali jalan, hanya opacity + transform, tanpa will-change */
-.reveal-hidden {
-  opacity: 0;
-  transform: translateY(32px) scale(0.95);
+/* Contact penutup (redesign-v2 §6.5): email besar serif, lalu baris tautan teks kecil. Kelas pendek, alasan sama dengan .mc-*.
+   Serif lewat kelas `font-serif` di TSX: --font-serif ada di @theme inline, jadi tidak tersedia sebagai var() di sini. */
+.ct-email {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-size: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  text-decoration-color: var(--color-text-secondary);
+  transition: text-decoration-color 150ms;
 }
-.reveal-in {
-  opacity: 1;
-  transform: none;
-  transition: opacity 700ms ease-out, transform 700ms ease-out;
+.ct-email:hover { text-decoration-color: var(--color-eyebrow); }
+.ct-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 1.5rem;
+  margin-top: 2rem;
+  border-top: var(--hairline);
+  padding-top: 0.5rem;
+}
+.ct-channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.25rem;
+}
+.ct-link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: transparent;
+  transition: color 150ms, text-decoration-color 150ms;
+}
+.ct-link:hover {
+  color: var(--color-text);
+  text-decoration-color: currentColor;
+}
+.ct-link--cv {
+  color: var(--color-text);
+  text-decoration-color: var(--color-text-secondary);
+}
+.ct-email:focus-visible,
+.ct-link:focus-visible {
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-link-text);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ct-email, .ct-link, .footer-link { transition: none; }
 }

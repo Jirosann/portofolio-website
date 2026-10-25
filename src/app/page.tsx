@@ -7,7 +7,6 @@ import { ContactSection } from '@/components/organisms/ContactSection';
 import { Footer } from '@/components/organisms/Footer';
 import { ExperienceSection } from '@/components/organisms/ExperienceSection';
 import { getProfile } from '@/lib/content/profile';
-import { getSiteSettings } from '@/lib/content/site';
 import { getContacts } from '@/lib/content/contact';
 import { getFeaturedProjects } from '@/lib/content/projects';
 import { getExperience } from '@/lib/content/experience';
@@ -17,7 +16,6 @@ import { dictionaries, resolveLocale } from '@/lib/i18n';
 
 export default async function Home() {
   const profile = getProfile();
-  const settings = getSiteSettings();
   const contacts = getContacts();
   const featuredProjects = getFeaturedProjects();
   const experiences = getExperience();
@@ -47,7 +45,7 @@ export default async function Home() {
         <FeaturedProjects projects={featuredProjects} />
         <ContactSection contacts={contacts} />
       </main>
-      <Footer settings={settings} contacts={contacts} />
+      <Footer contacts={contacts} />
     </>
   );
 }
