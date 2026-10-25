@@ -6,7 +6,6 @@
     "projects": "Projects",
     "contact": "Contact",
     "changeLanguage": "Change language",
-    "toggleMenu": "Toggle navigation menu",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
@@ -19,67 +18,61 @@
     "position": "Software Engineering Student"
   },
   "about": {
-    "title": "About Me.",
-    "description": "I am an undergraduate Software Engineering student at BINUS University (Bekasi Campus), expected to graduate in 2028. My studies focus on software architecture, data science, and AI applications, and I enjoy turning machine learning ideas into software that people can actually use.\n\nOutside class, I attend workshops on Generative AI, data science, threat modelling, and Golang microservices, and I've built leadership and team coordination skills through BNEC.",
-    "technologies": "Technologies",
-    "expectedGraduation": "Expected Graduation"
+    "title": "About Me",
+    "description": "Three projects I worked on pair a trained model with a web app: chest X-ray TB detection, fake news classification and face-recognition attendance. Outside class I have attended sessions on Generative AI, threat modelling and Golang microservices at the School of Computer Science & DSAI.",
+    "facts": [
+      { "label": "Based in", "value": "Bekasi, West Java, Indonesia" },
+      { "label": "Study", "value": "Software Engineering, BINUS University Bekasi", "period": "2024 – 2028 (expected)" },
+      { "label": "Languages", "value": "Indonesian (native), English (professional working proficiency)" }
+    ]
   },
   "experience": {
-    "title": "Experience.",
-    "currentStatus": "Current Status",
-    "whatIBuild": "What I Build",
-    "education": "Education",
-    "projectsAndOrgs": "Projects & Organizations",
-    "workshops": "Workshops & Seminars",
-    "subtitle": "Highlighting my engineering journey, technical projects, and collaborative experiences.",
-    "currentStatusRole": "Software Engineering Student, BINUS University",
-    "built": "BUILT",
-    "completedProject": "Completed Project",
-    "completedProjects": "Completed Projects"
+    "title": "Experience",
+    "workshops": "Workshops & seminars",
+    "workshopsPeriod": "Sep 2024 – Jun 2026"
   },
   "skills": {
-    "title": "Technology Stack.",
-    "subtitle": "Languages, frameworks, and tools I have worked with. Hover or tap an icon to light it up.",
-    "techStack": "Tech Stack & Others",
-    "developmentTools": "DEVELOPMENT TOOLS",
-    "toolsSubtitle": "Tools I use for design, version control, testing, and deployment."
+    "title": "Technology Stack",
+    "subtitle": "Grouped by area. Each entry links to the projects on this page that use it.",
+    "usedIn": "used in",
+    "alsoWorkedWith": "Also worked with",
+    "columns": {
+      "languages": "Languages",
+      "web": "Web",
+      "backend": "Backend & data",
+      "ai": "AI & ML",
+      "tools": "Tools"
+    }
   },
   "projects": {
+    "sectionTitle": "Selected work",
     "title": "Featured Projects",
-    "subtitle": "A curated collection of software systems and interactive applications I have developed.",
-    "filterAll": "All",
-    "filterSoftware": "Software Engineering",
-    "filterCreative": "Creative Works",
+    "subtitle": "Two computer vision systems, one NLP classifier and one framework-free website, with the approach and stack behind each.",
     "liveDemo": "Live Demo",
     "viewCode": "View Code",
     "liveDemoFor": "Live Demo for {title}",
     "viewCodeFor": "View code for {title} on GitHub"
   },
-  "heatmap": {
-    "title": "GitHub Contributions",
-    "contributionsInYear": "contributions in the last year",
-    "viewGithub": "View GitHub →",
-    "less": "Less",
-    "more": "More",
-    "noContributions": "No contributions",
-    "contribution": "contribution",
-    "contributions": "contributions",
-    "on": "on",
-    "noContributionsOn": "No contributions on {date}",
-    "contributionOn": "{count} contribution on {date}",
-    "contributionsOn": "{count} contributions on {date}",
-    "errorMsg": "Contribution data is unavailable right now."
+  "modelCard": {
+    "fields": {
+      "data": "Data",
+      "approach": "Approach",
+      "result": "Result",
+      "role": "Role",
+      "stack": "Stack"
+    },
+    "chips": {
+      "live": "Live",
+      "completed": "Completed",
+      "in-progress": "In progress",
+      "coursework": "Coursework",
+      "concept": "Concept"
+    },
+    "fig": "Fig."
   },
   "contact": {
-    "title": "Let's Connect.",
-    "description": "Open to internships, junior roles, and full-time opportunities in software engineering and IT. Let's talk about projects, collaboration, or how I can contribute to your team.",
-    "downloadPdf": "Download PDF"
-  },
-  "footer": {
-    "handcraftedBy": "Handcrafted by",
-    "allRightsReserved": "All rights reserved.",
-    "backToTop": "Back to top",
-    "currentlyBuilding": "Currently contributing to:"
+    "title": "Let's Connect",
+    "description": "Open to internships, junior roles, and full-time opportunities in software engineering and IT. Let's talk about projects, collaboration, or how I can contribute to your team."
   },
   "projectDetail": {
     "backToProjects": "← Back to Projects",
@@ -90,8 +83,6 @@
     "repositoryFor": "Repository for",
     "liveDemoFor": "Live demo for",
     "opensInNewTab": "(opens in new tab)",
-    "liveDemo": "Live Demo",
-    "repository": "Repository",
     "plannedStackTbd": "Planned stack: to be decided"
   },
   "status": {

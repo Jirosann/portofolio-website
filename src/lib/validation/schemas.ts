@@ -7,6 +7,7 @@ export const ProfileSchema = z.object({
   focus: z.string().min(1, "Focus is required"),
   heroDescription: z.string().min(1, "Hero description is required"),
   about: z.string().min(80, "About must be at least 80 characters").max(1000, "About must be less than 1000 characters"),
+  aboutId: z.string().min(80).max(1000).optional(),   // Indonesian variant
   photo: z.string().optional(),
   photoAlt: z.string().optional(),
   cv: z.string().optional(),
@@ -30,8 +31,12 @@ export const ExperienceSchema = z.object({
   id: z.string(),
   type: z.enum(['organization', 'work', 'startup', 'academic', 'competition', 'other', 'ORGANIZATION', 'ACADEMIC PROJECT', 'WORKSHOP', 'SEMINAR']),
   role: z.string().min(1),
+  roleId: z.string().optional(),                   // Indonesian variant
   organization: z.string().min(1),
+  organizationId: z.string().optional(),           // Indonesian variant
   period: z.string().min(1),
+  periodId: z.string().optional(),                 // Indonesian variant
+  chip: z.enum(['concept']).optional(),            // label dari modelCard.chips
   description: z.string().max(300).optional(),
   descriptionId: z.string().max(300).optional(),   // Indonesian variant
   highlights: z.array(z.string().max(160)).max(5).default([]),
@@ -57,7 +62,6 @@ export const SkillSchema = z.object({
   description: z.string().optional(),
   status: z.enum(['used', 'learning']).optional(),
   primaryFocus: z.boolean().default(false),
-  relatedProjects: z.array(z.string()).default([]),
   order: z.number(),
   visible: z.boolean(),
 });
@@ -69,8 +73,9 @@ export const ProjectSoftwareSchema = z.object({
   title: z.string().min(1, "Title is required"),
   summary: z.string().max(200, "Summary must be 200 characters or less"),
   summaryId: z.string().max(200).optional(),   // Indonesian variant
-  thumbnail: z.string().min(1, "Thumbnail path is required"),
-  thumbnailAlt: z.string().min(1, "Thumbnail alt text is required"),
+  // Opsional: tanpa gambar asli, halaman detail tidak menampilkan kotak gambar
+  thumbnail: z.string().min(1).optional(),
+  thumbnailAlt: z.string().min(1).optional(),
   role: z.string().min(1, "Role is required"),
   roleId: z.string().optional(),               // Indonesian variant
   technologies: z.array(z.string()).default([]),
@@ -124,13 +129,6 @@ export const SiteSettingsSchema = z.object({
     enabled: z.boolean().default(false),
     provider: z.string().optional(),
   }).optional(),
-  currentlyBuilding: z.object({
-    enabled: z.boolean(),
-    projectName: z.string(),
-    projectSlug: z.string().optional(),
-    projectUrl: z.string().url().optional(),
-    updatedAt: z.string().optional(),
-  }).optional(),
 });
 
 // Export types
@@ -143,6 +141,51 @@ export type Contact = z.infer<typeof ContactSchema>;
 export type SiteSettings = z.infer<typeof SiteSettingsSchema>;
 export type Experience = z.infer<typeof ExperienceSchema>;
 
+// Model card (section Selected work). Setiap field teks wajib membawa `source`
+// (berkas:baris atau sel notebook di repo proyek); field tanpa sumber dihilangkan, tidak diisi "N/A".
+const LocalizedSchema = z.object({ en: z.string().min(1), id: z.string().min(1) });
+const SourcedTextSchema = LocalizedSchema.extend({ source: z.string().min(1) });
+
+export const ModelCardChipSchema = z.enum(['live', 'completed', 'in-progress', 'coursework', 'concept']);
+
+export const ModelCardSchema = z.object({
+  order: z.number().int().positive(),
+  featured: z.boolean().default(false),    // penuh lebar (gambar + spesifikasi berdampingan)
+  chips: z.array(ModelCardChipSchema).min(1),
+  problem: SourcedTextSchema.optional(),
+  data: SourcedTextSchema.optional(),
+  approach: SourcedTextSchema.optional(),
+  role: SourcedTextSchema.optional(),
+  result: z
+    .object({
+      value: LocalizedSchema,                 // contoh: { en: "98.58%", id: "98,58%" }
+      label: LocalizedSchema,                 // metrik, contoh: accuracy
+      context: LocalizedSchema,               // set data tempat angka diukur (wajib)
+      source: z.string().min(1),
+    })
+    .optional(),
+  stack: z
+    .object({
+      items: z.array(z.string().min(1)).min(1),
+      source: z.string().min(1),
+    })
+    .optional(),
+  image: z
+    .object({
+      src: z.string().startsWith('/'),        // tanpa ekstensi: <src>-<w>.avif / <src>-<w>.webp
+      widths: z.array(z.number().int().positive()).min(1),
+      width: z.number().int().positive(),     // ukuran intrinsik varian terbesar (16:10)
+      height: z.number().int().positive(),
+      alt: LocalizedSchema,
+      caption: LocalizedSchema,
+      source: z.string().min(1),              // cara gambar diambil
+    })
+    .optional(),
+});
+
+export type ModelCard = z.infer<typeof ModelCardSchema>;
+export type ModelCardChip = z.infer<typeof ModelCardChipSchema>;
+
 // New Project Schema for Featured Projects Update
 export const ProjectSchema = z
   .object({
@@ -154,18 +197,16 @@ export const ProjectSchema = z
     tags: z.array(z.string()).default([]),    // contoh: ["Python", "TensorFlow"]
     repoUrl: z.string().url(),                // wajib untuk semua status
     liveUrl: z.string().url().optional(),     // hanya boleh untuk completed
-    preview: z
-      .object({
-        src: z.string().startsWith("/"),      // path di /public, contoh /projects/tb-detector/preview.webp
-        alt: z.string().min(1),
-        width: z.number().int().positive(),
-        height: z.number().int().positive(),
-      })
-      .optional(),
+    demoAvailable: z.boolean().default(true), // false: URL disimpan, tautan demo tidak ditampilkan (mis. backend mati)
+    card: ModelCardSchema.optional(),
   })
   .refine((p) => !(p.status === "in-progress" && p.liveUrl), {
     message: "in-progress project must not have liveUrl",
     path: ["liveUrl"],
+  })
+  .refine((p) => !p.card || p.card.chips.includes('live') === (!!p.liveUrl && p.demoAvailable), {
+    message: "chip 'live' requires an available demo (liveUrl + demoAvailable), and an available demo requires chip 'live'",
+    path: ["card", "chips"],
   });
 
 export type Project = z.infer<typeof ProjectSchema>;

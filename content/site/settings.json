@@ -4,11 +4,5 @@
   "language": "en",
   "analytics": {
     "enabled": false
-  },
-  "currentlyBuilding": {
-    "enabled": true,
-    "projectName": "Face Attend",
-    "projectUrl": "https://github.com/ghanisiapfullstack/Face-Attend",
-    "updatedAt": "2026-10-04"
   }
 }

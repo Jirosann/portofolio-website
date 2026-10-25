@@ -2,7 +2,7 @@
   "id": "faceattend",
   "slug": "faceattend",
   "title": "Face Attend",
-  "summary": "Team project (3 members): face-recognition class attendance with React, FastAPI and InsightFace. My role: contributor, integrating multiple InsightFace models.",
+  "summary": "Team project (3 members): face-recognition class attendance with React, FastAPI and InsightFace. As a contributor, I handled InsightFace integration, the React frontend and API integration.",
   "role": "Contributor",
   "technologies": ["InsightFace (Buffalo_L)", "MediaPipe", "FastAPI", "React", "Supabase"],
   "projectStatus": "in-progress",
@@ -10,10 +10,8 @@
   "order": 1,
   "published": true,
   "techInsight": "Face recognition with InsightFace; smile triggers capture.",
-  "thumbnail": "/images/projects/ecommerce-api/thumbnail.webp",
-  "thumbnailAlt": "FaceAttend architecture",
   "roleId": "Kontributor",
-  "summaryId": "Proyek tim (3 orang): presensi kelas berbasis pengenalan wajah dengan React, FastAPI, dan InsightFace. Peran saya: kontributor, mengintegrasikan beberapa model InsightFace.",
+  "summaryId": "Proyek tim (3 orang): presensi kelas berbasis pengenalan wajah dengan React, FastAPI, dan InsightFace. Sebagai kontributor, saya mengerjakan integrasi InsightFace, frontend React, dan integrasi API.",
   "repoUrl": "https://github.com/ghanisiapfullstack/Face-Attend",
   "repoVisibility": "public"
 }

@@ -3,7 +3,7 @@ import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
 import { ContactIcon, quickContactTypes } from '@/components/atoms/ContactIcon';
 import { getContacts, getContactUrl } from '@/lib/content/contact';
-import { getFeaturedProjects } from '@/lib/content/projects';
+import { activeDemoUrl, getFeaturedProjects } from '@/lib/content/projects';
 import { dictionaries, resolveLocale } from '@/lib/i18n';
 import type { Profile } from '@/types';
 
@@ -34,14 +34,14 @@ export async function HeroSection({ profile }: HeroSectionProps) {
   // Bukti kerja: proyek selesai, yang punya live demo di depan (sort stabil, urutan file tetap).
   const proof = getFeaturedProjects()
     .filter((p) => p.status === 'completed')
-    .sort((a, b) => Number(!!b.liveUrl) - Number(!!a.liveUrl))
+    .sort((a, b) => Number(!!activeDemoUrl(b)) - Number(!!activeDemoUrl(a)))
     .slice(0, 3);
 
   // Kalimat pertama contact.description (teks yang sudah ada di locale), bukan salinan baru.
   const availability = t.contact.description.split(/(?<=\.)\s/)[0];
 
   return (
-    <Section className="pt-8 md:pt-14 pb-12 md:pb-16">
+    <Section className="pt-8 md:pt-14 lg:pt-10 pb-12 md:pb-16">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 md:gap-4">
           <div className={`${card} lg:col-span-8 p-6 md:p-10 lg:p-12`}>
@@ -121,14 +121,15 @@ export async function HeroSection({ profile }: HeroSectionProps) {
                       href={getContactUrl(contact)}
                       target={external ? '_blank' : undefined}
                       rel={external ? 'noopener noreferrer' : undefined}
-                      aria-label={`${label} ${contact.value}${external ? ` ${t.contactLabel.opensInNewTab}` : ''}`}
                       className={`group flex items-center justify-center lg:justify-start gap-3 w-11 h-11 lg:w-auto lg:h-auto lg:min-h-11 lg:px-3 lg:py-2 rounded-xl border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:border-[var(--color-eyebrow)] ${focusRing}`}
                     >
                       <ContactIcon type={contact.type} className="w-5 h-5 shrink-0 text-[var(--color-eyebrow)]" />
-                      <span className="hidden lg:flex lg:flex-col lg:min-w-0">
-                        <span className="text-sm font-semibold leading-tight">{label}</span>
+                      {/* Nama aksesibel dari isi: "Label nilai" (spasi nyata), di bawah lg tetap terbaca lewat sr-only */}
+                      <span className="sr-only lg:not-sr-only lg:flex lg:flex-col lg:min-w-0">
+                        <span className="text-sm font-semibold leading-tight">{label}</span>{' '}
                         <span className="text-sm leading-tight truncate" style={{ color: 'var(--color-text-secondary)' }}>{contact.value}</span>
                       </span>
+                      {external && <span className="sr-only"> {t.contactLabel.opensInNewTab}</span>}
                     </a>
                   </li>
                 );
@@ -144,14 +145,15 @@ export async function HeroSection({ profile }: HeroSectionProps) {
               {/* HP: satu proyek per baris (nama kiri, aksi kanan); md ke atas: 3 tile */}
               <ul aria-labelledby="hero-proof" className="flex flex-col gap-2 md:grid md:grid-cols-3 md:gap-4">
                 {proof.map((project) => {
-                  const href = project.liveUrl ?? project.repoUrl;
+                  const demoUrl = activeDemoUrl(project);
+                  const href = demoUrl ?? project.repoUrl;
                   return (
                     <li key={project.slug}>
                       <a
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`group flex items-center justify-between gap-3 min-h-11 rounded-xl md:rounded-2xl border bg-[var(--color-surface)] px-4 py-2.5 md:flex-col md:items-start md:justify-start md:h-full md:p-5 transition-colors hover:border-[var(--color-eyebrow)] ${project.liveUrl ? 'border-[var(--color-eyebrow)]' : 'border-[var(--color-border)]'} ${focusRing}`}
+                        className={`group flex items-center justify-between gap-3 min-h-11 rounded-xl md:rounded-2xl border bg-[var(--color-surface)] px-4 py-2.5 md:flex-col md:items-start md:justify-start md:h-full md:p-5 transition-colors hover:border-[var(--color-eyebrow)] ${demoUrl ? 'border-[var(--color-eyebrow)]' : 'border-[var(--color-border)]'} ${focusRing}`}
                       >
                         <span className="min-w-0">
                           <span className="block text-base md:text-lg font-bold leading-snug text-[var(--color-text)]">
@@ -162,7 +164,7 @@ export async function HeroSection({ profile }: HeroSectionProps) {
                           </span>
                         </span>
                         <span className="shrink-0 md:mt-auto md:pt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-eyebrow)] group-hover:underline">
-                          {project.liveUrl ? (
+                          {demoUrl ? (
                             <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                               <polyline points="15 3 21 3 21 9" />
@@ -171,7 +173,7 @@ export async function HeroSection({ profile }: HeroSectionProps) {
                           ) : (
                             <ContactIcon type="github" className="w-3.5 h-3.5 shrink-0" />
                           )}
-                          {project.liveUrl ? t.projects.liveDemo : t.projects.viewCode}
+                          {demoUrl ? t.projects.liveDemo : t.projects.viewCode}
                         </span>
                         <span className="sr-only">{t.contactLabel.opensInNewTab}</span>
                       </a>

@@ -6,7 +6,6 @@ import { Footer } from '@/components/organisms/Footer';
 import { TechTag } from '@/components/atoms/TechTag';
 import { StatusBadge } from '@/components/atoms/StatusBadge';
 import { getProjectBySlug, getAllProjectSlugs } from '@/lib/content/projects';
-import { getSiteSettings } from '@/lib/content/site';
 import { getContacts } from '@/lib/content/contact';
 import { getExperience } from '@/lib/content/experience';
 import { compileMDX } from '@/lib/mdx/compileMDX';
@@ -57,7 +56,6 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
     notFound();
   }
 
-  const settings = getSiteSettings();
   const contacts = getContacts();
   
   const cookieStore = await cookies();
@@ -83,9 +81,9 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
   const navLinks = [
     { href: '/#about', label: t.nav.about },
-    { href: '/#skills', label: t.nav.skills },
-    ...(hasExperience ? [{ href: '/#experience', label: t.nav.experience }] : []),
     { href: '/#projects', label: t.nav.projects },
+    ...(hasExperience ? [{ href: '/#experience', label: t.nav.experience }] : []),
+    { href: '/#skills', label: t.nav.skills },
     { href: '/#contact', label: t.nav.contact },
   ];
 
@@ -162,8 +160,8 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                 )}
               </div>
 
-              {/* Thumbnail */}
-              {project.thumbnail && (
+              {/* Thumbnail: hanya bila ada gambar asli beserta alt-nya */}
+              {project.thumbnail && project.thumbnailAlt && (
                 <div className="project-detail-thumbnail-wrapper">
                   <img
                     src={project.thumbnail}
@@ -186,7 +184,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
           </div>
         </article>
       </main>
-      <Footer settings={settings} contacts={contacts} />
+      <Footer contacts={contacts} />
     </>
   );
 }

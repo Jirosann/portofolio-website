@@ -7,29 +7,31 @@ interface StatusBadgeProps {
 }
 
 const statusConfig: Record<string, { label: string; bg: string; text: string; border: string }> = {
+  // Border netral memakai token chip halaman utama (.mc-chip): opaque, >= 3:1 di kedua tema
   'concept': {
     label: 'Concept',
     bg: 'var(--color-border)',
     text: 'var(--color-text-secondary)',
-    border: 'var(--color-border)',
+    border: 'var(--color-chip-border)',
   },
   'in-progress': {
     label: 'In Development',
     bg: 'color-mix(in srgb, var(--color-highlight) 12%, var(--color-bg))',
-    text: 'var(--color-highlight)',
-    border: 'color-mix(in srgb, var(--color-highlight) 25%, transparent)',
+    text: 'var(--color-badge-progress)',
+    border: 'var(--color-badge-progress)',
   },
   'completed': {
     label: 'Completed',
     bg: 'color-mix(in srgb, var(--color-burgundy-accent) 10%, var(--color-bg))',
-    text: 'var(--color-burgundy-accent)',
-    border: 'color-mix(in srgb, var(--color-burgundy-accent) 20%, transparent)',
+    // eyebrow: burgundy di terang, tembaga di gelap (burgundy-accent di atas latar gelap hanya ~1,8:1)
+    text: 'var(--color-eyebrow)',
+    border: 'var(--color-chip-live-border)',
   },
   'archived': {
     label: 'Archived',
     bg: 'var(--color-border)',
     text: 'var(--color-text-secondary)',
-    border: 'var(--color-border)',
+    border: 'var(--color-chip-border)',
   },
 };
 

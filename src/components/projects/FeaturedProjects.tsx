@@ -1,64 +1,54 @@
-'use client';
-
-import React from 'react';
-import type { Project } from '@/lib/validation/schemas';
-import { ProjectCard } from './ProjectCard';
-import { ScrollReveal } from '@/components/atoms/ScrollReveal';
-import { AnimatedUnderline } from '@/components/atoms/AnimatedUnderline';
-import { useTranslation } from '@/components/providers/LanguageProvider';
+import { cookies } from 'next/headers';
+import type { Project, ModelCard as ModelCardData } from '@/lib/validation/schemas';
+import { SectionHeading } from '@/components/molecules/SectionHeading';
+import { dictionaries, resolveLocale } from '@/lib/i18n';
+import { ModelCard } from './ModelCard';
 
 interface FeaturedProjectsProps {
   projects: Project[];
 }
 
-export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
-  const { t } = useTranslation();
+// Server component: teks dari cookie locale (pola HeroSection), tanpa JS client.
+export async function FeaturedProjects({ projects }: FeaturedProjectsProps) {
+  const cookieStore = await cookies();
+  const lang = resolveLocale(cookieStore.get('NEXT_LOCALE')?.value);
+  const t = dictionaries[lang];
 
-  const completedProjects = projects.filter(p => p.status === 'completed');
-  const inProgressProjects = projects.filter(p => p.status === 'in-progress');
+  // Hanya proyek dengan model card; urutan dari card.order, bukan urutan file (dipakai tile hero).
+  const cards = projects
+    .filter((p): p is Project & { card: ModelCardData } => !!p.card)
+    .sort((a, b) => a.card.order - b.card.order);
+
+  // Nomor "Fig. N" mengikuti urutan gambar yang tampil.
+  let fig = 0;
+  const items = cards.map((project, i) => ({
+    project,
+    index: i + 1,
+    figNumber: project.card.image ? ++fig : undefined,
+    // card.featured tampil penuh lebar; sisanya baris.
+    variant: project.card.featured ? ('featured' as const) : ('row' as const),
+  }));
+  const featured = items.filter((it) => it.variant === 'featured');
+  const rows = items.filter((it) => it.variant === 'row');
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 rounded-full scale-[2] opacity-10 dark:opacity-5 pointer-events-none" style={{ background: 'radial-gradient(ellipse closest-side at center, var(--color-burgundy) 0%, transparent 100%)' }} />
-      
-      <div className="max-w-content mx-auto px-5 relative z-10">
-        <ScrollReveal>
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-          <div>
-            <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter" style={{ color: 'var(--color-text)' }}>
-              {t.projects.title || 'Featured Projects'}
-            </h2>
-            <AnimatedUnderline className="w-16 h-1 rounded-full mb-6 bg-accent dark:bg-highlight" />
-            <p className="text-lg md:text-xl font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-              {t.projects.subtitle || 'Some of my recent work'}
-            </p>
-          </div>
-        </div>
-        </ScrollReveal>
+    <section id="projects" className="section-y">
+      <div className="max-w-content mx-auto px-5">
+        <SectionHeading section="projects" label={t.nav.projects} title={t.projects.sectionTitle} description={t.projects.subtitle} />
 
-        {completedProjects.length > 0 && (
-          <div className="mb-16">
-            <h3 className="text-2xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>{t.status.completed}</h3>
-            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {completedProjects.map((project) => (
-                <div key={project.slug} className="h-full">
-                  <ProjectCard project={project} />
-                </div>
-              ))}
-            </div>
+        {featured.length > 0 && (
+          <div className="flex flex-col gap-8">
+            {featured.map((it) => (
+              <ModelCard key={it.project.slug} {...it} lang={lang} t={t} />
+            ))}
           </div>
         )}
 
-        {inProgressProjects.length > 0 && (
-          <div>
-            <h3 className="text-2xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>{t.status.onProgress}</h3>
-            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {inProgressProjects.map((project) => (
-                <div key={project.slug} className="h-full">
-                  <ProjectCard project={project} />
-                </div>
-              ))}
-            </div>
+        {rows.length > 0 && (
+          <div className="mt-12 border-b border-[var(--color-hairline)] md:mt-16">
+            {rows.map((it) => (
+              <ModelCard key={it.project.slug} {...it} lang={lang} t={t} />
+            ))}
           </div>
         )}
       </div>

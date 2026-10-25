@@ -6,7 +6,6 @@
     "projects": "Proyek",
     "contact": "Kontak",
     "changeLanguage": "Ganti bahasa",
-    "toggleMenu": "Buka menu navigasi",
     "openMenu": "Buka menu",
     "closeMenu": "Tutup menu"
   },
@@ -19,67 +18,61 @@
     "position": "Mahasiswa Rekayasa Perangkat Lunak"
   },
   "about": {
-    "title": "Tentang Saya.",
-    "description": "Saya adalah mahasiswa S1 Rekayasa Perangkat Lunak di Universitas BINUS (Kampus Bekasi), dengan target lulus pada 2028. Studi saya berfokus pada arsitektur perangkat lunak, ilmu data, dan aplikasi AI, dan saya senang mewujudkan ide-ide machine learning menjadi perangkat lunak yang dapat digunakan oleh orang banyak.\n\nDi luar kelas, saya mengikuti workshop mengenai Generative AI, ilmu data, threat modelling, dan microservices Golang, serta telah membangun kemampuan kepemimpinan dan koordinasi tim melalui BNEC.",
-    "technologies": "Teknologi",
-    "expectedGraduation": "Target Lulus"
+    "title": "Tentang Saya",
+    "description": "Tiga proyek yang saya kerjakan memadukan model terlatih dengan aplikasi web: deteksi TB dari X-ray dada, klasifikasi berita palsu, dan presensi berbasis pengenalan wajah. Di luar kelas, saya mengikuti sesi Generative AI, threat modelling, dan microservices Golang di School of Computer Science & DSAI.",
+    "facts": [
+      { "label": "Domisili", "value": "Bekasi, Jawa Barat, Indonesia" },
+      { "label": "Studi", "value": "Rekayasa Perangkat Lunak, BINUS University Bekasi", "period": "2024 – 2028 (target)" },
+      { "label": "Bahasa", "value": "Indonesia (penutur asli), Inggris (kemampuan kerja profesional)" }
+    ]
   },
   "experience": {
-    "title": "Pengalaman.",
-    "currentStatus": "Status Saat Ini",
-    "whatIBuild": "Apa yang Saya Buat",
-    "education": "Pendidikan",
-    "projectsAndOrgs": "Proyek & Organisasi",
-    "workshops": "Workshop & Seminar",
-    "subtitle": "Perjalanan rekayasa perangkat lunak, proyek teknis, dan pengalaman kolaboratif saya.",
-    "currentStatusRole": "Mahasiswa Rekayasa Perangkat Lunak, BINUS University",
-    "built": "DIBUAT",
-    "completedProject": "Proyek Selesai",
-    "completedProjects": "Proyek Selesai"
+    "title": "Pengalaman",
+    "workshops": "Workshop & seminar",
+    "workshopsPeriod": "Sep 2024 – Jun 2026"
   },
   "skills": {
-    "title": "Tumpukan Teknologi.",
-    "subtitle": "Bahasa pemrograman, framework, dan tools yang pernah saya gunakan. Arahkan kursor atau ketuk ikon untuk menyalakannya.",
-    "techStack": "Tumpukan Teknologi & Lainnya",
-    "developmentTools": "TOOLS PENGEMBANGAN",
-    "toolsSubtitle": "Tools yang saya gunakan untuk desain, version control, pengujian, dan deployment."
+    "title": "Stack Teknologi",
+    "subtitle": "Dikelompokkan per bidang. Setiap entri menautkan ke proyek di halaman ini yang memakainya.",
+    "usedIn": "dipakai di",
+    "alsoWorkedWith": "Juga pernah memakai",
+    "columns": {
+      "languages": "Bahasa",
+      "web": "Web",
+      "backend": "Backend & data",
+      "ai": "AI & ML",
+      "tools": "Tools"
+    }
   },
   "projects": {
+    "sectionTitle": "Karya pilihan",
     "title": "Proyek Unggulan",
-    "subtitle": "Koleksi terpilih dari sistem perangkat lunak dan aplikasi interaktif yang telah saya kembangkan.",
-    "filterAll": "Semua",
-    "filterSoftware": "Rekayasa Perangkat Lunak",
-    "filterCreative": "Karya Kreatif",
+    "subtitle": "Dua sistem computer vision, satu pengklasifikasi NLP, dan satu situs tanpa framework, beserta pendekatan dan teknologi di balik masing-masing.",
     "liveDemo": "Demo Langsung",
     "viewCode": "Lihat Kode",
     "liveDemoFor": "Demo langsung {title}",
     "viewCodeFor": "Lihat kode {title} di GitHub"
   },
-  "heatmap": {
-    "title": "Kontribusi GitHub",
-    "contributionsInYear": "kontribusi dalam setahun terakhir",
-    "viewGithub": "Lihat GitHub →",
-    "less": "Lebih Sedikit",
-    "more": "Lebih Banyak",
-    "noContributions": "Tidak ada kontribusi",
-    "contribution": "kontribusi",
-    "contributions": "kontribusi",
-    "on": "pada",
-    "noContributionsOn": "Tidak ada kontribusi pada {date}",
-    "contributionOn": "{count} kontribusi pada {date}",
-    "contributionsOn": "{count} kontribusi pada {date}",
-    "errorMsg": "Data kontribusi sedang tidak tersedia."
+  "modelCard": {
+    "fields": {
+      "data": "Data",
+      "approach": "Pendekatan",
+      "result": "Hasil",
+      "role": "Peran",
+      "stack": "Teknologi"
+    },
+    "chips": {
+      "live": "Live",
+      "completed": "Selesai",
+      "in-progress": "Sedang berjalan",
+      "coursework": "Tugas kuliah",
+      "concept": "Konsep"
+    },
+    "fig": "Gbr."
   },
   "contact": {
-    "title": "Mari Terhubung.",
-    "description": "Terbuka untuk magang, posisi junior, maupun peran full-time di bidang software engineering dan IT. Mari berdiskusi tentang proyek, kolaborasi, atau bagaimana saya bisa berkontribusi di tim Anda.",
-    "downloadPdf": "Unduh PDF"
-  },
-  "footer": {
-    "handcraftedBy": "Dibuat dengan sepenuh hati oleh",
-    "allRightsReserved": "Hak cipta dilindungi.",
-    "backToTop": "Kembali ke atas",
-    "currentlyBuilding": "Sedang berkontribusi di:"
+    "title": "Mari Terhubung",
+    "description": "Terbuka untuk magang, posisi junior, maupun peran full-time di bidang software engineering dan IT. Mari berdiskusi tentang proyek, kolaborasi, atau bagaimana saya bisa berkontribusi di tim Anda."
   },
   "projectDetail": {
     "backToProjects": "← Kembali ke Proyek",
@@ -90,8 +83,6 @@
     "repositoryFor": "Repositori untuk",
     "liveDemoFor": "Demo langsung untuk",
     "opensInNewTab": "(buka di tab baru)",
-    "liveDemo": "Demo Langsung",
-    "repository": "Repositori",
     "plannedStackTbd": "Stack rencana: belum diputuskan"
   },
   "status": {
