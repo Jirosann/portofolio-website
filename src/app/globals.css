@@ -350,19 +350,34 @@ html {
   contain-intrinsic-size: auto 600px;
 }
 
-/* Estimasi tinggi per section (tinggi render asli dikurangi padding vertikal), supaya
-   placeholder content-visibility tidak jauh dari tinggi sebenarnya dan scroll ke anchor tidak meleset.
-   Keyword `auto` tetap menyimpan tinggi asli setelah section pernah dirender. */
-#experience.content-visibility-auto { contain-intrinsic-size: auto 940px; }
-#skills.content-visibility-auto { contain-intrinsic-size: auto 1760px; }
-#contact.content-visibility-auto { contain-intrinsic-size: auto 440px; }
-@media (min-width: 768px) {
-  #experience.content-visibility-auto { contain-intrinsic-size: auto 700px; }
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 1010px; }
-  #contact.content-visibility-auto { contain-intrinsic-size: auto 340px; }
+/* Tinggi isi per section (tinggi render asli dikurangi padding dan border vertikal), supaya placeholder
+   content-visibility sama dengan tinggi sebenarnya dan lompatan ke anchor dari atas tidak meleset (selisih di section
+   atas langsung menggeser target). Diukur di 390/768/1024/1280/1440 (1280 = 1440: lebar konten dibatasi); en sebagai
+   dasar, :lang(id) hanya di tempat teks Indonesia mengubah tinggi. Selektor id lebih spesifik, jadi setiap breakpoint
+   yang punya nilai en juga mengulang nilai id-nya. Keyword `auto` menyimpan tinggi asli setelah section pernah dirender.
+   Ukur ulang bila isi section berubah. */
+#experience.content-visibility-auto { contain-intrinsic-size: auto 943px; }
+#skills.content-visibility-auto { contain-intrinsic-size: auto 2242px; }
+#contact.content-visibility-auto { contain-intrinsic-size: auto 403px; }
+:root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 918px; }
+:root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 2271px; }
+@media (min-width: 48rem) {
+  #experience.content-visibility-auto { contain-intrinsic-size: auto 703px; }
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 1623px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 332px; }
+  :root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 703px; }
+  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1652px; }
 }
-@media (min-width: 1280px) {
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 725px; }
+@media (min-width: 64rem) {
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 1311px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 339px; }
+  :root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 678px; }
+  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1341px; }
+}
+@media (min-width: 80rem) {
+  #skills.content-visibility-auto { contain-intrinsic-size: auto 1170px; }
+  #contact.content-visibility-auto { contain-intrinsic-size: auto 347px; }
+  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1199px; }
 }
 
 /* Garis bawah yang meluncur dari kiri (sesi 12): ::after 1px di bawah baris teks, scaleX 0 -> 1 saat hover/fokus.
@@ -1414,14 +1429,16 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
 /* Tools I use: kipas kartu bertumpuk. Satu baris pada container >= 36rem, dua baris berisi --cols di bawahnya
    (--n dan --cols dari StackSection). Tumpang tindih dihitung dari lebar container (cqi), jadi lebar total tidak
    pernah melebihi container; 2.5rem dicadangkan untuk sudut kartu miring di kedua ujung. Strip kartu yang tidak
-   tertutup >= 44 px di 320. Bawah 3.5rem: label bisa dua baris (maker). */
+   tertutup (--w + --m) tidak pernah < 2.75rem (44 px): max() membatasi tumpang tindih di kartu kecil. */
 .tl-wrap { container: tl / inline-size; min-width: 0; }
 .tl-fan {
-  --w: clamp(4rem, 11cqi, 6.25rem);
-  --m: min(-1rem, (100cqi - 2.5rem - var(--n) * var(--w)) / (var(--n) - 1));
+  --w: clamp(3.4rem, 9.35cqi, 5.3rem);
+  --m: max(2.75rem - var(--w), min(-1rem, (100cqi - 2.5rem - var(--n) * var(--w)) / (var(--n) - 1)));
   display: flex;
   justify-content: center;
-  padding-block: 1rem 3.5rem;
+  /* Bawah: kartu miring + lengkung turun ~0,5rem di bawah kotak li; sisa jaraknya ke akhir blok = padding kelompok
+     lain (24 px desktop, 20 px HP, terukur). Label kartu terangkat boleh melewati ini (masih di padding section). */
+  padding-block: 1rem 1.55rem;
 }
 .tl-fan > li { flex: none; width: var(--w); margin-inline-start: var(--m); }
 .tl-fan > li:first-child { margin-inline-start: 0; }
@@ -1429,10 +1446,11 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
    jadi jumlah kartu per baris mengikuti --cols tanpa nth-child. +1px menahan pembulatan subpiksel. */
 @container tl (max-width: 36rem) {
   .tl-fan {
-    --w: clamp(3.25rem, 19cqi, 4.75rem);
-    --m: calc(var(--w) * -0.16);
+    --w: clamp(2.75rem, 16.15cqi, 4.05rem);
+    --m: max(2.75rem - var(--w), var(--w) * -0.16);
     flex-wrap: wrap;
-    row-gap: 3.5rem;
+    row-gap: 3rem;
+    padding-bottom: 0.7rem;
     width: calc(var(--cols) * var(--w) + (var(--cols) - 1) * var(--m) + 1px);
     margin-inline: auto;
     padding-inline-start: calc(-1 * var(--m));
@@ -1467,8 +1485,8 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
     color-mix(in srgb, var(--color-surface) 94%, white);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 24px rgb(0 0 0 / 0.45);
 }
-/* 63% lebar kartu (--w = lebar li = kartu, termasuk border), bukan % kotak konten yang mengecil di kartu sempit. */
-.tl-tile { display: grid; width: calc(var(--w) * 0.63); aspect-ratio: 1; place-items: center; }
+/* 55% lebar kartu (--w = lebar li = kartu, termasuk border), bukan % kotak konten yang mengecil di kartu sempit. */
+.tl-tile { display: grid; width: calc(var(--w) * 0.55); aspect-ratio: 1; place-items: center; }
 .tl-icon { width: 100%; height: auto; aspect-ratio: 1; }
 /* imageDark: satu <img> per tema; yang display:none (lazy) tidak diunduh. */
 .tl-icon--d,
