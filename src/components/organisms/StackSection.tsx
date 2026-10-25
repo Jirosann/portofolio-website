@@ -122,8 +122,17 @@ export async function StackSection({ projects }: StackSectionProps) {
                       {/* Bukan tab stop (tidak ada aksi). Hover atau ketukan mengangkat kartu; nama selalu ada
                           di DOM, tersembunyi secara visual sampai kartu terangkat, jadi tetap terbaca screen reader. */}
                       <span className="tl-card">
-                        {/* Ikon aplikasi resmi apa adanya (tanpa dibalik di tema gelap: kartu selalu porselen). */}
-                        <img src={tool.image} alt="" width={64} height={64} loading="lazy" decoding="async" className="tl-icon" />
+                        {/* Ikon aplikasi resmi apa adanya, tidak pernah dibalik. Di tema gelap ikon tanpa latar sendiri
+                            duduk di app tile berwarna latar aslinya (`tile`); imageDark = versi resmi untuk tema gelap. */}
+                        <span
+                          className={tool.tile ? 'tl-tile tl-tile--bg' : 'tl-tile'}
+                          style={tool.tile ? ({ '--tile': tool.tile } as CSSProperties) : undefined}
+                        >
+                          <img src={tool.image} alt="" width={64} height={64} loading="lazy" decoding="async" className={tool.imageDark ? 'tl-icon tl-icon--l' : 'tl-icon'} />
+                          {tool.imageDark && (
+                            <img src={tool.imageDark} alt="" width={64} height={64} loading="lazy" decoding="async" className="tl-icon tl-icon--d" />
+                          )}
+                        </span>
                         <span className="tl-name">
                           {tool.name}
                           {tool.maker && <span className="tl-by">{tool.maker}</span>}
