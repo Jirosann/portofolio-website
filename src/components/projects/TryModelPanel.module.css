@@ -1,0 +1,197 @@
+/* Panel "Try the model". Dimuat bersama chunk panel (lazy), jadi tidak menambah CSS awal.
+   Arah real/fake dibedakan warna DAN gaya garis (penuh/putus-putus), selalu disertai teks. */
+.panel {
+  --tm-real: var(--color-link-text);
+  --tm-fake: var(--color-highlight-text);
+  display: grid;
+  gap: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-surface);
+  padding: 1.25rem;
+}
+@media (min-width: 768px) {
+  .panel { padding: 2rem; }
+}
+
+.eyebrow,
+.samplesLabel,
+.subhead,
+.term {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.08em;
+}
+.eyebrow,
+.samplesLabel,
+.subhead {
+  text-transform: uppercase;
+  color: var(--color-eyebrow);
+}
+
+.form { display: grid; gap: 0.75rem; }
+.label { font-size: 0.9375rem; font-weight: 600; color: var(--color-text); }
+.hint,
+.legend,
+.message,
+.note {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+.message:empty { display: none; }
+
+/* Label ISOT contoh yang dimuat: chip mono kecil, netral (bukan warna arah real/fake). */
+.isot {
+  justify-self: start;
+  border: 1px solid var(--color-chip-border);
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 10rem;
+  resize: vertical;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-bg);
+  padding: 0.75rem 1rem;
+  font-size: 1rem; /* ≥ 16px: iOS tidak memperbesar saat fokus */
+  line-height: 1.5;
+  color: var(--color-text);
+}
+.textarea:focus-visible,
+.sample:focus-visible,
+.marked:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-link-text);
+}
+
+.samples { display: grid; gap: 0.5rem; }
+.sampleRow { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.sample {
+  min-height: 2.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding-inline: 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.sample:hover { border-color: var(--color-text-secondary); }
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.result {
+  display: grid;
+  gap: 1.5rem;
+  border-top: var(--hairline);
+  padding-top: 1.5rem;
+}
+@media (min-width: 768px) {
+  .result { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 2.5rem; }
+}
+
+.verdict { font-size: 1rem; font-weight: 600; color: var(--color-text); }
+.verdictValue {
+  /* --font-serif ada di @theme inline, bukan variabel runtime (sama dengan .xp-role) */
+  font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  font-size: 2.25rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.bar {
+  display: flex;
+  height: 0.5rem;
+  margin-top: 1rem;
+  overflow: hidden;
+  border-radius: 9999px;
+}
+.barReal { background: var(--tm-real); }
+.barFake { flex: 1; background: var(--tm-fake); }
+.barLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.subhead { margin-top: 1.5rem; margin-bottom: 0.5rem; }
+.result > div:last-child .subhead { margin-top: 0; }
+
+.terms { border-top: var(--hairline); }
+.terms li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: var(--hairline);
+  padding-block: 0.5rem;
+}
+.term {
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  text-decoration: underline 2px;
+  text-underline-offset: 4px;
+}
+.toward { font-size: 0.875rem; color: var(--color-text-secondary); }
+
+.legend { margin-bottom: 0.75rem; }
+.marked {
+  max-height: 18rem;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-bg);
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--color-text);
+}
+.marked mark {
+  border-radius: 0.25rem;
+  padding-inline: 0.125rem;
+  color: inherit;
+  text-decoration: underline 2px;
+  text-underline-offset: 4px;
+}
+
+[data-dir='real'] .term,
+.marked mark[data-dir='real'] {
+  text-decoration-color: var(--tm-real);
+  text-decoration-style: solid;
+}
+.marked mark[data-dir='real'] { background: color-mix(in srgb, var(--tm-real) 18%, transparent); }
+[data-dir='fake'] .term,
+.marked mark[data-dir='fake'] {
+  text-decoration-color: var(--tm-fake);
+  text-decoration-style: dashed;
+}
+.marked mark[data-dir='fake'] { background: color-mix(in srgb, var(--tm-fake) 18%, transparent); }
+
+.note {
+  display: grid;
+  gap: 0.25rem;
+  border-top: var(--hairline);
+  padding-top: 1rem;
+}

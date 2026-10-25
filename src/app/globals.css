@@ -1,4 +1,9 @@
 @import "tailwindcss";
+/* Bobot model, teks/contoh artikel, dan skrip ekspor tidak memakai kelas Tailwind; tanpa ini kata seperti
+   "table" atau "underline" di dalamnya ikut menghasilkan utilitas di CSS awal. */
+@source not "../../public/models";
+@source not "../lib/fake-news";
+@source not "../../scripts/*fake-news*";
 
 /* =====================================================
    DESIGN TOKENS — PRD v1.2 Section 2
