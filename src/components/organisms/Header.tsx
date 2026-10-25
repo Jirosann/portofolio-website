@@ -88,7 +88,7 @@ export function Header({ navLinks }: HeaderProps) {
   return (
     <header
       ref={headerRef}
-      className="sticky top-0 z-50 animate-slide-down lg:py-3 lg:pointer-events-none"
+      className="sticky top-0 z-50 lg:py-3 lg:pointer-events-none"
     >
       {/* < 1024: bar solid selebar layar. >= 1024: wrapper transparan, <nav> jadi pill kaca melayang. */}
       <div className="site-header border-b lg:border-b-0" style={{ borderColor: 'var(--color-border)' }}>
@@ -150,7 +150,7 @@ export function Header({ navLinks }: HeaderProps) {
             <button
               ref={toggleRef}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="nav-link-base nav-tool-btn p-2 rounded-full transition-colors duration-200"
+              className="nav-link-base nav-tool-btn p-2 rounded-full"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
               aria-label={mobileMenuOpen ? (t.nav.closeMenu || 'Close menu') : (t.nav.openMenu || 'Open menu')}
@@ -182,7 +182,7 @@ export function Header({ navLinks }: HeaderProps) {
                       onClick={() => setMobileMenuOpen(false)}
                       aria-current={active ? 'true' : undefined}
                       className={cn(
-                        'mobile-nav-contact rounded-full px-4 py-3 text-base font-bold text-center mx-auto w-full max-w-xs transition-colors',
+                        'mobile-nav-contact rounded-full px-4 py-3 text-base font-bold text-center mx-auto w-full max-w-xs press',
                         active && 'active'
                       )}
                     >

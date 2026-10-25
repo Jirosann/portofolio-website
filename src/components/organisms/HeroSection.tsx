@@ -2,6 +2,8 @@ import { cookies } from 'next/headers';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
 import { ContactIcon, quickContactTypes } from '@/components/atoms/ContactIcon';
+import { OpenToWorkBadge } from '@/components/delight/OpenToWorkBadge';
+import { delightCopy } from '@/lib/delight/copy';
 import { getContacts, getContactUrl } from '@/lib/content/contact';
 import { activeDemoUrl, getFeaturedProjects } from '@/lib/content/projects';
 import { dictionaries, resolveLocale } from '@/lib/i18n';
@@ -37,6 +39,8 @@ export async function HeroSection({ profile }: HeroSectionProps) {
     .sort((a, b) => Number(!!activeDemoUrl(b)) - Number(!!activeDemoUrl(a)))
     .slice(0, 3);
 
+  const email = contacts.find((c) => c.type === 'email');
+
   // Kalimat pertama contact.description (teks yang sudah ada di locale), bukan salinan baru.
   const availability = t.contact.description.split(/(?<=\.)\s/)[0];
 
@@ -62,10 +66,10 @@ export async function HeroSection({ profile }: HeroSectionProps) {
             <div className="flex flex-wrap items-center gap-4">
               <a
                 href="#projects"
-                className="group relative px-8 py-4 rounded-xl font-bold transition-all duration-200 ease-out motion-safe:hover:scale-[1.02] motion-safe:active:scale-95 motion-reduce:transition-none motion-reduce:transform-none bg-[var(--color-burgundy-accent)] text-[var(--color-on-primary)] hover:bg-[var(--color-burgundy)] dark:hover:bg-[color-mix(in_srgb,var(--color-burgundy-accent)_80%,var(--color-highlight)_20%)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-link-text)] flex items-center gap-2"
+                className="press group relative px-8 py-4 rounded-xl font-bold bg-[var(--color-burgundy-accent)] text-[var(--color-on-primary)] hover:bg-[var(--color-burgundy)] dark:hover:bg-[color-mix(in_srgb,var(--color-burgundy-accent)_80%,var(--color-highlight)_20%)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-link-text)] flex items-center gap-2"
               >
                 {t.hero.viewProjects}
-                <svg className="w-4 h-4 transition-transform duration-200 ease-out motion-safe:group-hover:translate-x-1 motion-reduce:transform-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <svg className="w-4 h-4 transition-transform duration-(--dur-base) ease-out motion-safe:group-hover:translate-x-1 motion-reduce:transform-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </a>
@@ -73,24 +77,24 @@ export async function HeroSection({ profile }: HeroSectionProps) {
               <a
                 href={profile.cv || '#'}
                 download={profile.cv ? "MUHAMMAD NABIL AL QADRI - CV.pdf" : undefined}
-                className="group px-8 py-4 rounded-xl font-bold transition-all duration-200 ease-out motion-safe:hover:scale-105 motion-safe:active:scale-95 motion-reduce:transition-none motion-reduce:transform-none flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-link-text)] border border-[color-mix(in_srgb,var(--color-text)_30%,transparent)] hover:border-[color-mix(in_srgb,var(--color-text)_50%,transparent)]"
+                className="press group px-8 py-4 rounded-xl font-bold flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-link-text)] border border-[color-mix(in_srgb,var(--color-text)_30%,transparent)] hover:border-[color-mix(in_srgb,var(--color-text)_50%,transparent)]"
                 style={{
                   background: 'transparent',
                   color: 'var(--color-text)',
                 }}
               >
                 {t.hero.downloadCV}
-                <svg className="w-4 h-4 transition-transform duration-200 ease-out motion-safe:group-hover:-translate-y-1 motion-reduce:transform-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <svg className="w-4 h-4 transition-transform duration-(--dur-base) ease-out motion-safe:group-hover:-translate-y-1 motion-reduce:transform-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
               </a>
 
               <a
                 href="#contact"
-                className="group px-4 py-4 font-bold transition-all duration-200 ease-out motion-reduce:transition-none text-[var(--color-eyebrow)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-link-text)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] flex items-center gap-2 flex-[1_0_100%] md:flex-none -ml-4 md:ml-0"
+                className="group px-4 py-4 font-bold transition-colors text-[var(--color-eyebrow)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-link-text)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] flex items-center gap-2 flex-[1_0_100%] md:flex-none -ml-4 md:ml-0"
               >
                 {t.hero.contactMe}
-                <svg className="w-4 h-4 transition-transform duration-200 ease-out motion-safe:group-hover:translate-x-1 motion-reduce:transform-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <svg className="w-4 h-4 transition-transform duration-(--dur-base) ease-out motion-safe:group-hover:translate-x-1 motion-reduce:transform-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </a>
@@ -100,12 +104,16 @@ export async function HeroSection({ profile }: HeroSectionProps) {
           {/* Status + kanal kontak: di bawah lg hanya ikon 44 px; di lg ikon + label + alamat, daftar rata bawah */}
           <div className={`${card} lg:col-span-4 p-5 md:p-6 flex flex-wrap items-center justify-between gap-3 md:flex-nowrap md:gap-6 lg:flex-col lg:items-stretch lg:gap-5`}>
             <div className="md:flex-1 md:min-w-0">
-              <p className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[color-mix(in_srgb,var(--color-text)_5%,transparent)]">
-                <span className="w-2 h-2 rounded-full motion-safe:animate-pulse" style={{ background: 'var(--color-highlight)' }} aria-hidden="true"></span>
-                <span className="text-sm font-semibold tracking-wide uppercase text-[var(--color-eyebrow)]">
-                  {t.hero.available}
-                </span>
-              </p>
+              {email ? (
+                <OpenToWorkBadge label={t.hero.available} sayHi={delightCopy[lang].sayHi} href={getContactUrl(email)} />
+              ) : (
+                <p className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[color-mix(in_srgb,var(--color-text)_5%,transparent)]">
+                  <span className="otw-dot" aria-hidden="true"></span>
+                  <span className="text-sm font-semibold tracking-wide uppercase text-[var(--color-eyebrow)]">
+                    {t.hero.available}
+                  </span>
+                </p>
+              )}
               <p className="hidden md:block mt-3 text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
                 {availability}
               </p>
@@ -121,7 +129,7 @@ export async function HeroSection({ profile }: HeroSectionProps) {
                       href={getContactUrl(contact)}
                       target={external ? '_blank' : undefined}
                       rel={external ? 'noopener noreferrer' : undefined}
-                      className={`group flex items-center justify-center lg:justify-start gap-3 w-11 h-11 lg:w-auto lg:h-auto lg:min-h-11 lg:px-3 lg:py-2 rounded-xl border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:border-[var(--color-eyebrow)] ${focusRing}`}
+                      className={`group flex items-center justify-center lg:justify-start gap-3 w-11 h-11 lg:w-auto lg:h-auto lg:min-h-11 lg:px-3 lg:py-2 rounded-xl border border-[var(--color-border)] text-[var(--color-text)] press hover:border-[var(--color-eyebrow)] ${focusRing}`}
                     >
                       <ContactIcon type={contact.type} className="w-5 h-5 shrink-0 text-[var(--color-eyebrow)]" />
                       {/* Nama aksesibel dari isi: "Label nilai" (spasi nyata), di bawah lg tetap terbaca lewat sr-only */}
@@ -153,7 +161,7 @@ export async function HeroSection({ profile }: HeroSectionProps) {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`group flex items-center justify-between gap-3 min-h-11 rounded-xl md:rounded-2xl border bg-[var(--color-surface)] px-4 py-2.5 md:flex-col md:items-start md:justify-start md:h-full md:p-5 transition-colors hover:border-[var(--color-eyebrow)] ${demoUrl ? 'border-[var(--color-eyebrow)]' : 'border-[var(--color-border)]'} ${focusRing}`}
+                        className={`group flex items-center justify-between gap-3 min-h-11 rounded-xl md:rounded-2xl border bg-[var(--color-surface)] px-4 py-2.5 md:flex-col md:items-start md:justify-start md:h-full md:p-5 press hover:border-[var(--color-eyebrow)] ${demoUrl ? 'border-[var(--color-eyebrow)]' : 'border-[var(--color-border)]'} ${focusRing}`}
                       >
                         <span className="min-w-0">
                           <span className="block text-base md:text-lg font-bold leading-snug text-[var(--color-text)]">

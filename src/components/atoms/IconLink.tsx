@@ -26,7 +26,7 @@ export function IconLink({ href, label, icon, external = false, className }: Ico
         'inline-flex items-center gap-2 px-4 py-2 rounded-lg',
         'bg-surface border border-border',
         'text-text hover:text-accent hover:border-accent',
-        'transition-colors duration-150',
+        'transition-colors',
         'focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2',
         className
       )}

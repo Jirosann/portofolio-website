@@ -4,6 +4,8 @@ import { getContacts, getContactUrl } from "@/lib/content/contact";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
 import { ScrollToTop } from "@/components/atoms/ScrollToTop";
+import { DelightRoot } from "@/components/delight/DelightRoot";
+import { delightCopy, siteRepoUrl } from "@/lib/delight/copy";
 import { dictionaries, resolveLocale } from "@/lib/i18n";
 import { getSiteUrl } from "@/lib/constants";
 import localFont from 'next/font/local';
@@ -102,6 +104,10 @@ export default async function RootLayout({
 }) {
   const cookieStore = await cookies();
   const lang = resolveLocale(cookieStore.get('NEXT_LOCALE')?.value);
+  const contacts = getContacts();
+  const email = contacts.find((c) => c.type === 'email')?.value;
+  const github = contacts.find((c) => c.type === 'github');
+  const dc = delightCopy[lang];
 
   return (
     <html lang={lang} suppressHydrationWarning>
@@ -111,6 +117,13 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(lang)).replace(/</g, '\\u003c') }}
         />
         <ScrollToTop />
+        {email && (
+          <DelightRoot
+            hire={{ email, copied: dc.hireCopied, fallback: dc.hireFallback }}
+            githubUrl={github ? getContactUrl(github) : undefined}
+            repoUrl={siteRepoUrl}
+          />
+        )}
         <LanguageProvider lang={lang}>
           <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false} storageKey="theme">
             {/* Ambient Glow Background - Cinematic Lighting Effect */}
