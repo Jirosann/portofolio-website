@@ -1,0 +1,97 @@
+/* Game 404 "Real or fake?" (FakeOrReal.tsx). Modul CSS agar tidak menambah CSS awal halaman lain.
+   Pola Lab Notebook: label mono, judul serif, hairline, <dl> seperti spesifikasi model card. */
+.game {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  border-top: var(--hairline);
+  padding-top: 1.5rem;
+}
+.progress,
+.question {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-eyebrow);
+}
+.headline {
+  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 1.875rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-text);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.headline:focus,
+.score:focus { outline: none; }
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.choices legend { float: left; width: 100%; margin-bottom: 0.25rem; }
+.choices :global(.mc-link) { min-width: 6.5rem; justify-content: center; }
+.reveal {
+  width: 100%;
+  border-top: var(--hairline);
+}
+.reveal > div {
+  display: grid;
+  gap: 0.25rem;
+  border-bottom: var(--hairline);
+  padding-block: 0.625rem;
+}
+@media (min-width: 40rem) {
+  .reveal > div { grid-template-columns: 7rem minmax(0, 1fr); gap: 1rem; }
+}
+.reveal dt {
+  padding-top: 0.125rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-eyebrow);
+}
+.reveal dd {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.625;
+  color: var(--color-text);
+}
+.right,
+.wrong,
+.p {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+.right { color: var(--color-text); }
+.score {
+  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-text);
+}
+.note,
+.muted {
+  max-width: 36rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

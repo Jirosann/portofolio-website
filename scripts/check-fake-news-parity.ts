@@ -4,6 +4,7 @@
 import fs from 'fs';
 import path from 'path';
 import { prepare, predict, cleanText, type FakeNewsModel } from '../src/lib/fake-news/infer';
+import { gameTitles } from '../src/lib/fake-news/game-titles';
 
 interface Fixture {
   text: string;
@@ -56,6 +57,25 @@ for (const s of samples) {
   samplesOk &&= pass;
   console.log(`  pos ${s.testPosition} ${s.label}: TS pReal ${out.pReal.toFixed(6)} Python ${s.pReal.toFixed(6)} |Δp| ${dp.toExponential(2)} label TS ${out.label} ${pass ? 'OK' : 'BEDA'}`);
 }
-const ok = parity.same >= 0.995 && parity.maxDp <= 0.001 && samplesOk;
+
+// Game 404 (export-fake-news-game.py): judul saja, persis seperti game memanggil predict(); judul di game-titles.ts
+// harus sama dengan fixture.
+interface GameMeta { label: 'real' | 'fake'; title: string; testPosition: number; pReal: number }
+let gameOk = true;
+const gamePath = path.join(dir, 'game.json');
+if (fs.existsSync(gamePath)) {
+  const game = JSON.parse(fs.readFileSync(gamePath, 'utf8')) as GameMeta[];
+  const sameTitles = JSON.stringify(game.map((g) => [g.label, g.title])) === JSON.stringify(gameTitles.map((g) => [g.label, g.title]));
+  gameOk = sameTitles;
+  console.log(`game 404 (judul saja): n=${game.length}, game-titles.ts sama dengan fixture: ${sameTitles}`);
+  for (const g of game) {
+    const out = predict(p, g.title);
+    const dp = Math.abs(out.pReal - g.pReal);
+    const pass = out.label === (g.pReal > 0.5 ? 'real' : 'fake') && dp <= 0.001;
+    gameOk &&= pass;
+    console.log(`  pos ${g.testPosition} ${g.label}: TS pReal ${out.pReal.toFixed(6)} Python ${g.pReal.toFixed(6)} |Δp| ${dp.toExponential(2)} label TS ${out.label} ${pass ? 'OK' : 'BEDA'}`);
+  }
+}
+const ok = parity.same >= 0.995 && parity.maxDp <= 0.001 && samplesOk && gameOk;
 console.log(ok ? 'LOLOS' : 'GAGAL');
 process.exit(ok ? 0 : 1);
