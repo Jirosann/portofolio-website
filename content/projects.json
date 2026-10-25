@@ -49,7 +49,12 @@
           "en": "Upload form of the web app, with a sample X-ray from the repo selected.",
           "id": "Formulir unggah aplikasi web, dengan contoh X-ray dari repo terpilih."
         },
-        "source": "Playwright 1440x900, project-ai-front-end.vercel.app, 2026-10-24; Sample Demo/Tuberculosis-560.png dipilih, tidak terkirim (API tidak ter-resolve)"
+        "source": "Playwright 1440x900, project-ai-front-end.vercel.app, 2026-10-24; Sample Demo/Tuberculosis-560.png dipilih, tidak terkirim (API tidak ter-resolve)",
+        "note": {
+          "text": { "en": "sample X-ray from repo", "id": "contoh X-ray dari repo" },
+          "label": { "x": 30, "y": 15, "anchor": "bl" },
+          "curve": [74, 30, 57.5, 56.5]
+        }
       }
     }
   },
@@ -95,7 +100,12 @@
           "en": "Home page, run locally from the repo's index.html.",
           "id": "Halaman beranda, dijalankan lokal dari index.html di repo."
         },
-        "source": "Playwright 1440x900, file:// clone Clash-Of-Bang/index.html, 2026-10-24"
+        "source": "Playwright 1440x900, file:// clone Clash-Of-Bang/index.html, 2026-10-24",
+        "note": {
+          "text": { "en": "fan-site hero card", "id": "kartu hero situs fan" },
+          "label": { "x": 44, "y": 80, "anchor": "tl" },
+          "curve": [40, 77, 38, 69.5]
+        }
       }
     }
   },
@@ -183,7 +193,12 @@
           "en": "Login screen of the team's React frontend, run locally from the main branch without the backend.",
           "id": "Layar masuk frontend React tim, dijalankan lokal dari branch main tanpa backend."
         },
-        "source": "Playwright 1440x900, vite dev frontend/ dari clone branch main, 2026-10-24; dipotong 1184x740 (x=140, y=0) agar baris avatar '+2k' tidak terlihat"
+        "source": "Playwright 1440x900, vite dev frontend/ dari clone branch main, 2026-10-24; dipotong 1184x740 (x=140, y=0) agar baris avatar '+2k' tidak terlihat",
+        "note": {
+          "text": { "en": "institution login form", "id": "form masuk institusi" },
+          "label": { "x": 42, "y": 21, "anchor": "bl" },
+          "curve": [44, 36, 36.5, 44]
+        }
       }
     }
   }

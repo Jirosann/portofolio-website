@@ -97,7 +97,7 @@ export function LanguageSwitcher() {
           else setIsOpen(true);
         }}
         onKeyDown={handleButtonKeyDown}
-        className="nav-link-base nav-tool-btn flex items-center gap-1.5 px-2 min-[360px]:px-3 py-2 rounded-full transition-all duration-200 ease-out"
+        className="nav-link-base nav-tool-btn flex items-center gap-1.5 px-2 min-[360px]:px-3 py-2 rounded-full"
         aria-expanded={isOpen}
         aria-haspopup="menu"
         aria-controls={menuId}
@@ -111,7 +111,7 @@ export function LanguageSwitcher() {
         </span>
         {/* Dropdown chevron; disembunyikan < 360 px agar tombol 44 px di bar mobile muat di 320 */}
         <svg
-          className={cn("w-3 h-3 max-[359px]:hidden transition-transform duration-300", isOpen && "rotate-180")}
+          className={cn("w-3 h-3 max-[359px]:hidden transition-transform duration-(--dur-base) ease-out", isOpen && "rotate-180")}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -132,7 +132,7 @@ export function LanguageSwitcher() {
           if (!dropdownRef.current?.contains(e.relatedTarget as Node)) setIsOpen(false);
         }}
         className={cn(
-          "absolute right-0 mt-2 w-40 rounded-xl shadow-lg border overflow-hidden transition-all duration-300 origin-top-right",
+          "absolute right-0 mt-2 w-40 rounded-xl shadow-lg border overflow-hidden transition-[opacity,scale,translate] duration-(--dur-base) ease-out origin-top-right",
           isOpen ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
         )}
         style={{

@@ -69,6 +69,10 @@
   --max-width-content: 1152px;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --color-hairline: color-mix(in srgb, var(--color-border) 70%, transparent);
+
+  /* Utilitas transition-* Tailwind tanpa duration-* eksplisit memakai token gerak (sesi 12). */
+  --default-transition-duration: var(--dur-fast);
+  --default-transition-timing-function: var(--ease-out);
 }
 
 /* inline: --font-newsreader baru ada di <body> (kelas next/font), jadi tidak bisa di-resolve di :root */
@@ -105,8 +109,15 @@
 }
 
 :root {
-  --transition-fast: 150ms ease;
-  --transition-base: 200ms ease;
+  /* Token gerak (sesi 12): 3 durasi, 2 easing. --ease-out juga dipakai utilitas Tailwind `ease-out`
+     (variabel tema dengan nama sama). Pegas: fallback cubic-bezier, versi linear() di @supports di bawah. */
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
+  /* Elemen yang bisa ditekan menambahkan ini ke daftar transition-nya (press state di bawah). */
+  --press-t: scale var(--dur-base) var(--ease-spring), translate var(--dur-base) var(--ease-out);
 
   --hairline: 1px solid var(--color-hairline);
   --space-section: 4rem;
@@ -139,6 +150,13 @@
   --color-chip-border: color-mix(in srgb, var(--color-text-secondary) 55%, var(--color-border));
   --color-chip-live-border: color-mix(in srgb, var(--color-eyebrow) 75%, var(--color-border));
   --color-badge-progress: var(--color-highlight);
+}
+/* Pegas ringan dari pegas teredam (redaman 0,72, lewat maksimal 3,8%, diam di 100%). */
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    --ease-spring: linear(0, 0.06 5%, 0.198 10%, 0.366 15%, 0.533 20%, 0.681 25%, 0.801 30%, 0.893 35%, 0.958 40%, 1 45%,
+      1.024 50%, 1.036 55%, 1.038 60%, 1.036 65%, 1.03 70%, 1.024 75%, 1.017 80%, 1.012 85%, 1.007 90%, 1.004 95%, 1);
+  }
 }
 @media (min-width: 768px) {
   :root { --space-section: 6rem; }
@@ -196,19 +214,132 @@ html {
 }
 
 /* =====================================================
-   CUSTOM ANIMATIONS
+   PRESS STATE (sesi 12 §2.7)
+   Tombol dan kartu yang bisa diklik mengecil ke 0,97 saat ditekan, lalu kembali dengan pegas.
+   Properti individual `scale`/`translate`, jadi tidak bentrok dengan `transform` (flip kartu stack).
+   Tiap elemen menambahkan var(--press-t) ke daftar transition-nya sendiri.
    ===================================================== */
-@keyframes slide-down {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: translateY(0);
-  }
+.press {
+  transition: color var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out), var(--press-t);
+}
+:is(.press, .mc-link, .nav-link-base, .project-detail-link, .sc, .tl-card, .otw-btn):active {
+  scale: 0.97;
+  transition-duration: var(--dur-fast);
+}
+@media (hover: hover) {
+  :is(.press, .mc-link, .project-detail-link):hover { translate: 0 -1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.press, .mc-link, .nav-link-base, .project-detail-link, .sc, .tl-card, .otw-btn):active { scale: none; }
+  :is(.press, .mc-link, .project-detail-link):hover { translate: none; }
 }
 
-.animate-slide-down {
-  animation: slide-down 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Badge "Open to Work" (OpenToWorkBadge, sesi 12). Titik diam; memantul sekali saat diklik (translate, tanpa geser tata letak).
+   Gelembung absolute di atas badge pada >= 768 (tidak menutupi kalimat ketersediaan di bawahnya), di bawah badge pada < 768.
+   Membukanya tidak menggeser isi kartu. */
+.otw { position: relative; display: inline-block; }
+.otw-btn {
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out), var(--press-t);
+}
+@media (hover: hover) {
+  .otw-btn:hover { background: color-mix(in srgb, var(--color-text) 9%, transparent); }
+}
+.otw-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: var(--color-highlight);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .otw-dot[data-bounce] { animation: otw-bounce calc(var(--dur-slow) * 2) var(--ease-out); }
+  .otw-bubble:not([hidden]) { animation: otw-pop var(--dur-base) var(--ease-spring); }
+}
+@keyframes otw-bounce {
+  0%, 100% { translate: 0 0; }
+  30% { translate: 0 -6px; }
+  55% { translate: 0 0; }
+  75% { translate: 0 -2px; }
+}
+@keyframes otw-pop { from { opacity: 0; translate: 0 4px; } }
+.otw-bubble {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 10;
+  border: 1px solid var(--color-border);
+  border-radius: 0.875rem;
+  background: var(--color-surface);
+  padding: 0.25rem;
+  box-shadow: 0 8px 24px rgb(23 21 25 / 0.12);
+}
+[data-theme="dark"] .otw-bubble { box-shadow: 0 8px 24px rgb(0 0 0 / 0.4); }
+/* Ekor gelembung ke arah titik (di bawah gelembung) */
+.otw-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -0.3125rem;
+  left: 1.125rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+  rotate: 45deg;
+}
+/* < 768: kalimat ketersediaan tidak tampil, dan di atas badge ada tautan "Contact me" kartu utama (terukur sesi 12),
+   jadi gelembung tetap di bawah badge. */
+@media (max-width: 47.98rem) {
+  .otw-bubble { top: calc(100% + 0.5rem); bottom: auto; }
+  .otw-bubble::before {
+    top: -0.3125rem;
+    bottom: auto;
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    border-left: 1px solid var(--color-border);
+  }
+}
+@media (max-width: 47.98rem) and (prefers-reduced-motion: no-preference) {
+  .otw-bubble:not([hidden]) { animation-name: otw-pop-down; }
+}
+@keyframes otw-pop-down { from { opacity: 0; translate: 0 -4px; } }
+.otw-link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.375rem;
+  white-space: nowrap;
+  border-radius: 0.625rem;
+  padding-inline: 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+.otw-link:hover { background: color-mix(in srgb, var(--color-text) 6%, transparent); }
+.otw-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-link-text);
+}
+
+/* Petunjuk easter egg di footer. Disembunyikan di layar sentuh tanpa pointer halus (tidak ada keyboard untuk mengetik). */
+.footer-hint {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-text-secondary);
+}
+@media (hover: none) and (pointer: coarse) {
+  .footer-hint { display: none; }
+}
+
+/* Saklar tema "lampu" (ThemeToggle): snapshot baru dibuka dengan clip-path dari JS, tanpa crossfade bawaan. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 /* =====================================================
@@ -234,6 +365,32 @@ html {
   #skills.content-visibility-auto { contain-intrinsic-size: auto 725px; }
 }
 
+/* Garis bawah yang meluncur dari kiri (sesi 12): ::after 1px di bawah baris teks, scaleX 0 -> 1 saat hover/fokus.
+   Hanya untuk tautan satu baris (footer, baris tautan Contact); tautan yang bisa pindah baris memakai text-decoration.
+   --ul-start menggeser awal garis melewati ikon. */
+.footer-link,
+.ct-link {
+  position: relative;
+  text-decoration: none;
+}
+.footer-link::after,
+.ct-link::after {
+  content: '';
+  position: absolute;
+  left: var(--ul-start, 0);
+  right: 0;
+  bottom: calc(50% - 0.85em);
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.footer-link:is(:hover, :focus-visible)::after,
+.ct-link:is(:hover, :focus-visible)::after {
+  transform: scaleX(1);
+}
+
 /* Footer: tautan teks kecil dengan target sentuh 44 px. */
 .footer-link {
   display: inline-flex;
@@ -242,15 +399,10 @@ html {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text-secondary);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-  text-decoration-color: transparent;
-  transition: color 150ms, text-decoration-color 150ms;
+  transition: color var(--dur-fast) var(--ease-out);
 }
 .footer-link:hover {
   color: var(--color-text);
-  text-decoration-color: currentColor;
 }
 .footer-link:focus-visible {
   outline: none;
@@ -271,7 +423,7 @@ html {
   color: var(--color-text-secondary);
   text-decoration: none;
   margin-bottom: 32px;
-  transition: color var(--transition-fast);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 .back-link:hover {
@@ -335,12 +487,9 @@ html {
   padding: 12px 24px;
   border-radius: 9999px;
   text-decoration: none;
-  transition: all var(--transition-fast);
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out), var(--press-t);
   border: 1px solid transparent;
-}
-
-.project-detail-link:active {
-  transform: scale(0.95);
 }
 
 .project-detail-link--primary {
@@ -495,7 +644,8 @@ html {
    ===================================================== */
 .nav-link-base {
   border: 1px solid transparent;
-  transition: background-color 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out, transform 200ms ease-out;
+  transition: background-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out), var(--press-t);
   position: relative;
 }
 
@@ -540,7 +690,7 @@ html {
   height: 2px;
   border-radius: 999px;
   background-color: transparent;
-  transition: background-color 200ms ease-out;
+  transition: background-color var(--dur-base) var(--ease-out);
 }
 
 .nav-link-normal:hover {
@@ -827,7 +977,7 @@ html {
   font-weight: 600;
   line-height: 1.25rem;
   color: var(--color-text);
-  transition: background-color 150ms, border-color 150ms;
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), var(--press-t);
 }
 .mc-link:hover { border-color: var(--color-text-secondary); }
 .mc-link:focus-visible {
@@ -848,7 +998,7 @@ html {
 /* Hover: bingkai gambar naik 2px dan border dipertegas, tanpa glow. Transform di bingkai,
    bukan di <figure>, agar tidak bentrok dengan animasi reveal. */
 .model-card-frame {
-  transition: translate 200ms ease-out, border-color 200ms ease-out;
+  transition: translate var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
 }
 @media (hover: hover) {
   .model-card:hover .model-card-frame {
@@ -860,6 +1010,57 @@ html {
   .model-card-frame { transition: none; }
   .model-card:hover .model-card-frame { translate: none; }
 }
+
+/* Catatan pinggir (sesi 12, FigureNote di ModelCard): panah tembaga + label mono di atas gambar.
+   Label berlatar permukaan solid, jadi kontrasnya tidak bergantung isi gambar. Gerak hanya stroke-dashoffset/opacity. */
+.model-card-frame { position: relative; }
+.mc-note { position: absolute; inset: 0; pointer-events: none; }
+.mc-note svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 1px var(--color-surface)) drop-shadow(0 0 1px var(--color-surface));
+}
+.mc-note path {
+  fill: none;
+  stroke: var(--color-highlight);
+  stroke-width: 0.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.mc-note-line { stroke-dasharray: 1; }
+.mc-note-label {
+  position: absolute;
+  white-space: nowrap;
+  border: 1px solid var(--color-highlight);
+  border-radius: 0.375rem;
+  background: var(--color-surface);
+  padding: 0 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  line-height: 1.125rem;
+  color: var(--color-text);
+}
+@media (min-width: 40rem) {
+  .mc-note-label { font-size: 0.6875rem; line-height: 1.25rem; }
+}
+.mc-note-label--bl { translate: 0 -100%; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-note-armed] .mc-note-line { stroke-dashoffset: 1; }
+  [data-note-armed] :is(.mc-note-head, .mc-note-label) { opacity: 0; }
+  [data-note-armed][data-seen] .mc-note-label { animation: note-in var(--dur-base) var(--ease-out) forwards; }
+  [data-note-armed][data-seen] .mc-note-line {
+    animation: note-draw calc(var(--dur-slow) * 2) var(--ease-out) var(--dur-base) forwards;
+  }
+  [data-note-armed][data-seen] .mc-note-head {
+    animation: note-in var(--dur-fast) var(--ease-out) calc(var(--dur-base) + var(--dur-slow) * 2) forwards;
+  }
+}
+@keyframes note-draw { to { stroke-dashoffset: 0; } }
+@keyframes note-in { to { opacity: 1; } }
 
 /* Experience: linimasa hairline (redesign-v2 §6.3). Tanggal mono di kiri (>= 768) atau di atas.
    Kelas pendek, alasan sama dengan .mc-*. */
@@ -933,7 +1134,7 @@ html {
 .xp-chevron {
   flex-shrink: 0;
   color: var(--color-text-secondary);
-  transition: rotate 200ms ease-out;
+  transition: rotate var(--dur-base) var(--ease-out);
 }
 details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
 @media (prefers-reduced-motion: reduce) {
@@ -1004,13 +1205,13 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   display: grid;
   border-radius: var(--sc-radius);
   perspective: 50rem;
-  transition: translate 200ms ease-out;
+  transition: var(--press-t);
 }
 [data-theme="dark"] .sc { --sc-glare: color-mix(in srgb, white 11%, transparent); }
 .sc-inner {
   display: grid;
   transform-style: preserve-3d;
-  transition: transform 450ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: transform var(--dur-slow) var(--ease-out);
 }
 .sc[data-flipped] .sc-inner { transform: rotateY(180deg); }
 .sc-face {
@@ -1028,7 +1229,7 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   text-align: center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  transition: border-color 200ms ease-out;
+  transition: border-color var(--dur-base) var(--ease-out);
 }
 /* Sisi belakang tersembunyi (juga dari pembaca layar dan Tab) sampai kartu dibalik; saat menutup, visibility
    menunggu rotasi selesai. Tanpa JS, <noscript> di StackSection menampilkannya di bawah kartu. */
@@ -1038,11 +1239,11 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   padding: 0.625rem 0.375rem;
   transform: rotateY(180deg);
   visibility: hidden;
-  transition: border-color 200ms ease-out, visibility 0s linear 450ms;
+  transition: border-color var(--dur-base) var(--ease-out), visibility 0s linear var(--dur-slow);
 }
 .sc[data-flipped] .sc-back {
   visibility: visible;
-  transition: border-color 200ms ease-out, visibility 0s;
+  transition: border-color var(--dur-base) var(--ease-out), visibility 0s;
 }
 /* Sisi yang sedang membelakangi tidak menerima klik. */
 .sc:not([data-flipped]) .sc-back,
@@ -1117,10 +1318,10 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   background: radial-gradient(9rem circle at var(--mx, 50%) var(--my, 0%), var(--sc-glare), transparent 70%);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 200ms ease-out;
+  transition: opacity var(--dur-base) var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
-  .sc:hover { translate: 0 -3px; }
+  .sc:hover { translate: 0 -2px; }
   .sc:hover .sc-face { border-color: var(--color-text-secondary); }
   .sc:hover::after { opacity: 1; }
 }
@@ -1132,10 +1333,10 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   .sc-face {
     -webkit-backface-visibility: visible;
     backface-visibility: visible;
-    transition: opacity 150ms linear;
+    transition: opacity var(--dur-fast) linear;
   }
-  .sc-back { transform: none; opacity: 0; transition: opacity 150ms linear, visibility 0s linear 150ms; }
-  .sc[data-flipped] .sc-back { opacity: 1; transition: opacity 150ms linear, visibility 0s; }
+  .sc-back { transform: none; opacity: 0; transition: opacity var(--dur-fast) linear, visibility 0s linear var(--dur-fast); }
+  .sc[data-flipped] .sc-back { opacity: 1; transition: opacity var(--dur-fast) linear, visibility 0s; }
   .sc[data-flipped] .sc-front { opacity: 0; }
 }
 
@@ -1213,7 +1414,8 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   rotate: var(--r);
   translate: 0 var(--dy);
   transform-origin: 50% 100%;
-  transition: rotate 200ms ease-out, translate 200ms ease-out;
+  transition: rotate var(--dur-base) var(--ease-out), translate var(--dur-base) var(--ease-out),
+    scale var(--dur-base) var(--ease-spring);
 }
 @container tl (max-width: 30rem) {
   .tl-card { --r: calc(var(--j) * 5deg); --dy: calc(var(--yj) * 1.5px); }
@@ -1233,7 +1435,7 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   color: var(--color-text);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 150ms ease-out, translate 150ms ease-out;
+  transition: opacity var(--dur-fast) var(--ease-out), translate var(--dur-fast) var(--ease-out);
 }
 /* Bukan tab stop (keputusan pemilik sesi 10). Terangkat saat hover (perangkat ber-hover) atau saat diketuk
    (data-raised dari StackCards). Hover dibatasi ke (hover: hover) agar hover "lengket" di layar sentuh tidak
@@ -1275,7 +1477,7 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
   text-decoration-color: var(--color-text-secondary);
-  transition: text-decoration-color 150ms;
+  transition: text-decoration-color var(--dur-fast) var(--ease-out);
 }
 .ct-email:hover { text-decoration-color: var(--color-eyebrow); }
 .ct-links {
@@ -1300,20 +1502,22 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text-secondary);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-  text-decoration-color: transparent;
-  transition: color 150ms, text-decoration-color 150ms;
+  /* Garis mulai setelah ikon (1rem) + gap (0.5rem) */
+  --ul-start: 1.5rem;
+  transition: color var(--dur-fast) var(--ease-out);
 }
 .ct-link:hover {
   color: var(--color-text);
-  text-decoration-color: currentColor;
 }
+/* CV: garis selalu terlihat (warna sekunder), menjadi warna teks saat hover. */
 .ct-link--cv {
   color: var(--color-text);
-  text-decoration-color: var(--color-text-secondary);
 }
+.ct-link--cv::after {
+  transform: none;
+  background: var(--color-text-secondary);
+}
+.ct-link--cv:is(:hover, :focus-visible)::after { background: currentColor; }
 .ct-email:focus-visible,
 .ct-link:focus-visible {
   outline: none;

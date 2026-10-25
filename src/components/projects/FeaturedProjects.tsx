@@ -2,13 +2,14 @@ import { cookies } from 'next/headers';
 import type { Project, ModelCard as ModelCardData } from '@/lib/validation/schemas';
 import { SectionHeading } from '@/components/molecules/SectionHeading';
 import { dictionaries, resolveLocale } from '@/lib/i18n';
+import { FigureNotes } from '@/components/delight/FigureNotes';
 import { ModelCard } from './ModelCard';
 
 interface FeaturedProjectsProps {
   projects: Project[];
 }
 
-// Server component: teks dari cookie locale (pola HeroSection), tanpa JS client.
+// Server component: teks dari cookie locale (pola HeroSection). Satu-satunya JS client: FigureNotes (catatan pinggir).
 export async function FeaturedProjects({ projects }: FeaturedProjectsProps) {
   const cookieStore = await cookies();
   const lang = resolveLocale(cookieStore.get('NEXT_LOCALE')?.value);
@@ -52,6 +53,7 @@ export async function FeaturedProjects({ projects }: FeaturedProjectsProps) {
           </div>
         )}
       </div>
+      <FigureNotes />
     </section>
   );
 }

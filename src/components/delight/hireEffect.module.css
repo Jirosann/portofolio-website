@@ -1,0 +1,83 @@
+/* Toast + konfeti easter egg "hire" (hireEffect.ts). Dimuat bersama chunk lazy, bukan di CSS awal.
+   Gerak hanya transform/opacity/stroke-dashoffset; toast dan konfeti position: fixed, jadi tanpa layout shift. */
+.region {
+  position: fixed;
+  inset-inline: 0;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  z-index: 60;
+  display: flex;
+  justify-content: center;
+  padding-inline: 1rem;
+  pointer-events: none;
+}
+@media (min-width: 48rem) {
+  .region { justify-content: flex-end; padding-inline: 1.5rem; }
+}
+.toast {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.875rem;
+  background: var(--color-surface);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  color: var(--color-text);
+  box-shadow: 0 8px 24px rgb(23 21 25 / 0.14);
+  pointer-events: auto;
+  animation: toast-in var(--dur-base) var(--ease-spring);
+}
+:global([data-theme="dark"]) .toast { box-shadow: 0 8px 24px rgb(0 0 0 / 0.45); }
+.toast[data-out] {
+  opacity: 0;
+  translate: 0 0.5rem;
+  transition: opacity var(--dur-base) var(--ease-out), translate var(--dur-base) var(--ease-out);
+}
+@keyframes toast-in { from { opacity: 0; translate: 0 0.5rem; } }
+.email {
+  font-family: var(--font-mono);
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  fill: none;
+  stroke: var(--color-eyebrow);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.copy { transition: opacity var(--dur-fast) var(--ease-out); }
+.check {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset var(--dur-slow) var(--ease-out);
+}
+.toast[data-done] .copy { opacity: 0; }
+.toast[data-done] .check { stroke-dashoffset: 0; }
+
+.confetti {
+  position: fixed;
+  z-index: 61;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.confetti i {
+  position: absolute;
+  width: 6px;
+  height: 10px;
+  border-radius: 1px;
+  background: var(--c);
+  animation: burst calc(var(--dur-slow) * 3) var(--ease-out) var(--d) both;
+}
+@keyframes burst {
+  0% { translate: 0 0; rotate: 0deg; opacity: 1; }
+  55% { translate: var(--x) var(--y); opacity: 1; }
+  100% { translate: calc(var(--x) * 1.15) calc(var(--y) + 90px); rotate: var(--r); opacity: 0; }
+}

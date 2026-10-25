@@ -32,6 +32,32 @@ function Chip({ chip, label }: { chip: ModelCardChip; label: string }) {
   return <span className={chip === 'live' ? 'mc-chip mc-chip--live' : 'mc-chip'}>{label}</span>;
 }
 
+type FigureNoteData = NonNullable<NonNullable<ModelCardData['image']>['note']>;
+
+// Catatan pinggir (sesi 12): panah tangan + label mono, aria-hidden (kapsi sudah menjelaskan gambar).
+// SVG viewBox 160x100 = bingkai 16:10, jadi koordinat % dikali 1,6 di sumbu x dan panah tidak terdistorsi.
+// Digambar saat terlihat lewat FigureNotes; tanpa JS atau dengan reduced motion tampil statis.
+function FigureNote({ note, lang }: { note: FigureNoteData; lang: Language }) {
+  const { x, y, anchor } = note.label;
+  const [cx, cy, ex, ey] = note.curve;
+  const k = 1.6;
+  const a = Math.atan2(ey - cy, (ex - cx) * k);
+  const head = [a + 2.6, a - 2.6]
+    .map((r) => `M${ex * k} ${ey}l${(Math.cos(r) * 4).toFixed(2)} ${(Math.sin(r) * 4).toFixed(2)}`)
+    .join('');
+  return (
+    <span className="mc-note" aria-hidden="true">
+      <svg viewBox="0 0 160 100">
+        <path className="mc-note-line" pathLength={1} d={`M${x * k} ${y}Q${cx * k} ${cy} ${ex * k} ${ey}`} />
+        <path className="mc-note-head" d={head} />
+      </svg>
+      <span className={`mc-note-label mc-note-label--${anchor}`} style={{ left: `${x}%`, top: `${y}%` }}>
+        {note.text[lang]}
+      </span>
+    </span>
+  );
+}
+
 function Figure({ project, variant, figNumber, lang, t }: Omit<ModelCardProps, 'index'>) {
   const image = project.card.image;
   if (!image) return null;
@@ -39,7 +65,7 @@ function Figure({ project, variant, figNumber, lang, t }: Omit<ModelCardProps, '
   const largest = Math.max(...image.widths);
 
   return (
-    <figure className="reveal">
+    <figure className="reveal" data-note={image.note ? '' : undefined}>
       <div className="model-card-frame overflow-hidden rounded-xl border border-[var(--color-hairline)]">
         <picture>
           <source type="image/avif" srcSet={srcSet('avif')} sizes={SIZES[variant]} />
@@ -54,6 +80,7 @@ function Figure({ project, variant, figNumber, lang, t }: Omit<ModelCardProps, '
             className="block h-auto w-full"
           />
         </picture>
+        {image.note && <FigureNote note={image.note} lang={lang} />}
       </div>
       <figcaption className="mt-3 font-mono text-xs leading-5 text-[var(--color-text-secondary)]">
         {t.modelCard.fig} {figNumber} — {image.caption[lang]}

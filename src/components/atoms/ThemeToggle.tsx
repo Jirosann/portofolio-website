@@ -1,7 +1,8 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
+import { flushSync } from 'react-dom';
 
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
@@ -18,10 +19,43 @@ export function ThemeToggle() {
 
   const isDark = resolvedTheme === 'dark';
 
+  // Saklar "lampu" (sesi 12): tema baru terungkap sebagai lingkaran yang memancar dari tombol (View Transitions).
+  // Tanpa dukungan atau dengan reduced motion: ganti instan seperti sebelumnya.
+  const toggle = (e: MouseEvent<HTMLButtonElement>) => {
+    const next = isDark ? 'light' : 'dark';
+    const root = document.documentElement;
+    if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setTheme(next);
+      return;
+    }
+    const b = e.currentTarget.getBoundingClientRect();
+    const x = b.left + b.width / 2;
+    const y = b.top + b.height / 2;
+    const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    // next-themes memasang data-theme di useEffect; flushSync + atribut langsung memastikan snapshot baru sudah bertema baru.
+    const vt = document.startViewTransition(() => {
+      flushSync(() => setTheme(next));
+      root.setAttribute('data-theme', next);
+      root.style.colorScheme = next;
+    });
+    vt.ready.then(() => {
+      // Durasi dan easing dari token gerak di globals.css (--dur-slow, --ease-out).
+      const css = getComputedStyle(root);
+      root.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
+        {
+          duration: parseFloat(css.getPropertyValue('--dur-slow')) || 320,
+          easing: css.getPropertyValue('--ease-out').trim() || 'ease-out',
+          pseudoElement: '::view-transition-new(root)',
+        }
+      );
+    }, () => {});
+  };
+
   return (
     <button
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="nav-link-base nav-tool-btn p-2 rounded-full transition-all duration-200 ease-out"
+      onClick={toggle}
+      className="nav-link-base nav-tool-btn p-2 rounded-full"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {isDark ? (

@@ -17,7 +17,7 @@ export function TechTag({ label, icon, className, role }: TechTagProps) {
       className={cn(
         'inline-flex items-center gap-1.5 px-3 py-1 rounded-full',
         'text-[13px] font-medium tracking-tight',
-        'transition-colors duration-200',
+        'transition-colors duration-(--dur-base)',
         className
       )}
       style={{

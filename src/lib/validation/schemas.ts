@@ -188,6 +188,16 @@ export const ModelCardSchema = z.object({
       alt: LocalizedSchema,
       caption: LocalizedSchema,
       source: z.string().min(1),              // cara gambar diambil
+      // Catatan pinggir (sesi 12): label mono ≤ 4 kata + panah tangan ke bagian gambar. Koordinat dalam % bingkai 16:10.
+      // label: titik sudut kiri label (anchor 'tl' = label tumbuh ke bawah, 'bl' = ke atas); panah berawal di titik ini.
+      // curve: [kontrol x, y, ujung x, y] kurva kuadratik; ujung = bagian gambar yang ditunjuk.
+      note: z
+        .object({
+          text: LocalizedSchema.refine((t) => [t.en, t.id].every((s) => s.trim().split(/\s+/).length <= 4), 'maks. 4 kata'),
+          label: z.object({ x: z.number().min(0).max(100), y: z.number().min(0).max(100), anchor: z.enum(['tl', 'bl']) }),
+          curve: z.array(z.number().min(0).max(100)).length(4),
+        })
+        .optional(),
     })
     .optional(),
   // Demo di browser dari bobot model asli (public/models/<nama>/), dimuat saat diklik. Hanya kartu baris tanpa gambar.

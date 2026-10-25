@@ -3,6 +3,7 @@ import type { Contact } from '@/types';
 import { getContactUrl } from '@/lib/content/contact';
 import { cookies } from 'next/headers';
 import { dictionaries, resolveLocale } from '@/lib/i18n';
+import { delightCopy } from '@/lib/delight/copy';
 
 interface FooterProps {
   contacts: Contact[];
@@ -52,6 +53,7 @@ export async function Footer({ contacts }: FooterProps) {
             </ul>
           )}
         </div>
+        <p className="footer-hint mt-3">{delightCopy[lang].footerHint}</p>
       </Container>
     </footer>
   );
