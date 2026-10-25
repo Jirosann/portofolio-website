@@ -14,7 +14,7 @@
   --color-navy: #333B53;
   --color-blue-accent: #59647F;
   --text-primary: #171519;
-  --text-secondary: #69656A;
+  --text-secondary: #4D494E;
   --color-highlight: #A65F49;
   --border-color: #DED6D1;
 }
@@ -40,7 +40,7 @@
   --color-navy: #333B53;
   --color-blue-accent: #59647F;
   --color-text: #171519;
-  --color-text-secondary: #69656A;
+  --color-text-secondary: #4D494E; /* sesi 9: dari #69656A, agar >= 4,5:1 juga di pusat glow terang */
   --color-highlight: #A65F49;
   --color-highlight-text: color-mix(in srgb, var(--color-highlight) 95%, var(--color-text));
   --color-eyebrow: var(--color-burgundy-accent);
@@ -113,11 +113,17 @@
   --nav-glass-alpha: 80%;
   --nav-glass-border: color-mix(in oklab, var(--color-border) 80%, transparent);
   --nav-glass-shadow: inset 0 1px 0 color-mix(in oklab, white 60%, transparent), 0 8px 24px rgb(23 21 25 / 0.10);
+
+  /* Border chip status: opaque, kontras non-teks >= 3:1 terhadap latar terburuk (pusat glow terang ~rgb(218 200 197)). */
+  --color-chip-border: var(--color-text-secondary);
+  --color-chip-live-border: color-mix(in srgb, var(--color-eyebrow) 75%, var(--color-border));
 }
 [data-theme="dark"] {
   --nav-glass-alpha: 80%;
   --nav-glass-border: color-mix(in oklab, white 14%, transparent);
   --nav-glass-shadow: inset 0 1px 0 color-mix(in oklab, white 12%, transparent), 0 8px 24px rgb(0 0 0 / 0.28);
+  --color-chip-border: color-mix(in srgb, var(--color-text-secondary) 55%, var(--color-border));
+  --color-chip-live-border: color-mix(in srgb, var(--color-eyebrow) 75%, var(--color-border));
 }
 @media (min-width: 768px) {
   :root { --space-section: 6rem; }
@@ -714,7 +720,7 @@ html {
 .mc-chip {
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-chip-border);
   border-radius: 9999px;
   padding: 0.125rem 0.625rem;
   font-family: var(--font-mono);
@@ -726,7 +732,7 @@ html {
   color: var(--color-text-secondary);
 }
 .mc-chip--live {
-  border-color: color-mix(in srgb, var(--color-eyebrow) 45%, transparent);
+  border-color: var(--color-chip-live-border);
   color: var(--color-eyebrow);
 }
 .mc-specs { border-top: var(--hairline); }
