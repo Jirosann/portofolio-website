@@ -25,7 +25,7 @@ export async function ExperienceSection({
   const workshops = visible.filter((exp) => FOLDED_TYPES.includes(exp.type));
 
   return (
-    <section id="experience" className="section-y content-visibility-auto">
+    <section id="experience" className="section-y">
       <Container>
         <SectionHeading section="experience" label={t.nav.experience} title={t.experience.title} />
 

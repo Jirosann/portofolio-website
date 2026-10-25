@@ -342,44 +342,6 @@ html {
   mix-blend-mode: normal;
 }
 
-/* =====================================================
-   PERFORMANCE OPTIMIZATION
-   ===================================================== */
-.content-visibility-auto {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 600px;
-}
-
-/* Tinggi isi per section (tinggi render asli dikurangi padding dan border vertikal), supaya placeholder
-   content-visibility sama dengan tinggi sebenarnya dan lompatan ke anchor dari atas tidak meleset (selisih di section
-   atas langsung menggeser target). Diukur di 390/768/1024/1280/1440 (1280 = 1440: lebar konten dibatasi); en sebagai
-   dasar, :lang(id) hanya di tempat teks Indonesia mengubah tinggi. Selektor id lebih spesifik, jadi setiap breakpoint
-   yang punya nilai en juga mengulang nilai id-nya. Keyword `auto` menyimpan tinggi asli setelah section pernah dirender.
-   Ukur ulang bila isi section berubah. */
-#experience.content-visibility-auto { contain-intrinsic-size: auto 943px; }
-#skills.content-visibility-auto { contain-intrinsic-size: auto 2227px; }
-#contact.content-visibility-auto { contain-intrinsic-size: auto 404px; }
-:root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 918px; }
-:root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 2256px; }
-@media (min-width: 48rem) {
-  #experience.content-visibility-auto { contain-intrinsic-size: auto 703px; }
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 1608px; }
-  #contact.content-visibility-auto { contain-intrinsic-size: auto 333px; }
-  :root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 703px; }
-  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1637px; }
-}
-@media (min-width: 64rem) {
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 1487px; }
-  #contact.content-visibility-auto { contain-intrinsic-size: auto 340px; }
-  :root:lang(id) #experience.content-visibility-auto { contain-intrinsic-size: auto 678px; }
-  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1516px; }
-}
-@media (min-width: 80rem) {
-  #skills.content-visibility-auto { contain-intrinsic-size: auto 1189px; }
-  #contact.content-visibility-auto { contain-intrinsic-size: auto 348px; }
-  :root:lang(id) #skills.content-visibility-auto { contain-intrinsic-size: auto 1218px; }
-}
-
 /* Garis bawah yang meluncur dari kiri (sesi 12): ::after 1px di bawah baris teks, scaleX 0 -> 1 saat hover/fokus.
    Hanya untuk tautan satu baris (footer, baris tautan Contact); tautan yang bisa pindah baris memakai text-decoration.
    --ul-start menggeser awal garis melewati ikon. */
