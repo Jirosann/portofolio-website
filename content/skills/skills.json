@@ -42,7 +42,7 @@
   {"id": "tensorflow", "name": "TensorFlow", "categoryId": "ai-ml", "icon": "TensorFlow", "status": "used", "primaryFocus": false, "order": 1, "visible": true},
   {"id": "scikit-learn", "name": "scikit-learn", "categoryId": "ai-ml", "icon": "Scikitlearn", "status": "used", "primaryFocus": false, "order": 2, "visible": true},
   {"id": "keras", "name": "Keras", "categoryId": "ai-ml", "icon": "Keras", "status": "used", "primaryFocus": false, "order": 3, "visible": true},
-  {"id": "nltk", "name": "NLTK", "categoryId": "ai-ml", "status": "used", "primaryFocus": false, "order": 4, "visible": true},
-  {"id": "insightface", "name": "InsightFace", "categoryId": "ai-ml", "status": "used", "primaryFocus": false, "order": 5, "visible": true},
-  {"id": "mediapipe", "name": "MediaPipe", "categoryId": "ai-ml", "status": "used", "primaryFocus": false, "order": 6, "visible": true}
+  {"id": "nltk", "name": "NLTK", "categoryId": "ai-ml", "icon": "FileText", "status": "used", "primaryFocus": false, "order": 4, "visible": true},
+  {"id": "insightface", "name": "InsightFace", "categoryId": "ai-ml", "icon": "InsightFace", "status": "used", "primaryFocus": false, "order": 5, "visible": true},
+  {"id": "mediapipe", "name": "MediaPipe", "categoryId": "ai-ml", "icon": "MediaPipe", "status": "used", "primaryFocus": false, "order": 6, "visible": true}
 ]

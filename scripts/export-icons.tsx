@@ -6,6 +6,7 @@ import path from 'path';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { getIcon } from '../src/icons';
+import { DARK, LIGHT } from '../src/icons/meta';
 
 const root = process.cwd();
 const readJson = (p: string) => JSON.parse(fs.readFileSync(path.join(root, p), 'utf-8'));
@@ -30,6 +31,19 @@ for (const key of keys) {
     // Berkas berdiri sendiri harus XML valid: xlink:href tanpa xmlns:xlink membuat <img> gagal dimuat (Go).
     .replace(/xlink:href=/g, 'href=')
     .replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ');
+  // Varian per tema (meta.ts): DARK mengganti warna di <kunci>-dark.svg, LIGHT di <kunci>.svg (-dark = warna asli).
+  write(file, recolor(svg, LIGHT[key]));
+  if (DARK[key] || LIGHT[key]) write(path.join(outDir, `${key.toLowerCase()}-dark.svg`), recolor(svg, DARK[key]));
+}
+
+function recolor(svg: string, map: Record<string, string> = {}) {
+  for (const [from, to] of Object.entries(map)) svg = svg.replace(new RegExp(`"${from}"`, 'gi'), `"${to}"`);
+  return svg;
+}
+
+// Berkas yang isinya sama (abaikan CRLF dari checkout Windows) tidak ditulis ulang, supaya diff tetap bersih.
+function write(file: string, svg: string) {
+  if (fs.existsSync(file) && fs.readFileSync(file, 'utf-8').replace(/\r\n/g, '\n') === svg + '\n') return;
   fs.writeFileSync(file, svg + '\n');
   console.log(`${path.relative(root, file)} ${Buffer.byteLength(svg)} B`);
 }

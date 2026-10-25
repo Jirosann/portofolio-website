@@ -1171,6 +1171,14 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
 @media (min-width: 64rem) {
   .sc-group { grid-template-columns: 10rem minmax(0, 1fr); gap: 1.5rem; padding-block: 1.5rem; }
 }
+/* >= 1280: empat kelompok kartu 2x2 (Languages | Web, Backend & infra | AI & ML) agar kanan tidak kosong; label di
+   atas karena sel hanya ~560 px. "Also worked with" dan Tools I use tetap selebar penuh dengan label di kiri. */
+@media (min-width: 80rem) {
+  .sc-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.5rem; }
+  .sc-groups > .sc-group { grid-template-columns: minmax(0, 1fr); align-content: start; gap: 0.75rem; }
+  .sc-groups > .sc-group--also,
+  .sc-groups > .tl { grid-column: 1 / -1; grid-template-columns: 10rem minmax(0, 1fr); gap: 1.5rem; }
+}
 .sc-label {
   padding-top: 0.25rem;
   font-family: var(--font-mono);
@@ -1270,11 +1278,19 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   font-weight: 600;
   line-height: 1.25;
 }
-.sc-count {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  line-height: 1rem;
-  color: var(--color-text-secondary);
+/* Satu titik per proyek; tinggi baris sama dengan teks hitungan sebelumnya (1rem), jadi tinggi kartu tetap. */
+.sc-dots {
+  display: flex;
+  height: 1rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+.sc-dots > i {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--color-eyebrow);
 }
 .sc-used {
   font-family: var(--font-mono);
@@ -1363,6 +1379,20 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
 /* Logo monokrom (StackIcon MONO): hitam di berkasnya, dibalik menjadi terang di tema gelap. */
 [data-theme="dark"] .stack-icon--mono { filter: invert(1); }
 [data-theme="dark"] .sc-also .stack-icon--mono { filter: invert(1) saturate(0.6); }
+/* Varian per tema (DARK di src/icons/meta.ts): satu <img> per tema, yang lain tidak dirender (dan tidak diunduh). */
+.stack-icon--d,
+[data-theme="dark"] .stack-icon--l { display: none; }
+[data-theme="dark"] .stack-icon--d { display: inline-block; }
+/* Tinta gelap yang bagian dari merek (HALO): garis tepi terang tipis di tema gelap. */
+[data-theme="dark"] .stack-icon--halo { filter: drop-shadow(0 0 1px rgb(255 255 255 / 0.55)); }
+[data-theme="dark"] .sc-also .stack-icon--halo { filter: drop-shadow(0 0 1px rgb(255 255 255 / 0.55)) saturate(0.6); }
+/* Glyph tanpa logo resmi (GLYPH): mask berwarna aksen, mengikuti tema. */
+.stack-glyph {
+  display: inline-block;
+  background: var(--color-eyebrow);
+  -webkit-mask: var(--glyph) center / contain no-repeat;
+  mask: var(--glyph) center / contain no-repeat;
+}
 /* Ikon tanpa logo resmi: monogram mono dalam kotak hairline, ukuran sama dengan ikon. */
 .stack-monogram {
   display: inline-grid;
@@ -1382,7 +1412,7 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
    tertutup >= 44 px di 320. Bawah 3.5rem: label bisa dua baris (maker). */
 .tl-wrap { container: tl / inline-size; min-width: 0; }
 .tl-fan {
-  --w: clamp(4rem, 9.5cqi, 5.5rem);
+  --w: clamp(4rem, 11cqi, 6.25rem);
   --m: min(-1rem, (100cqi - 2.5rem - var(--n) * var(--w)) / (var(--n) - 1));
   display: flex;
   justify-content: center;

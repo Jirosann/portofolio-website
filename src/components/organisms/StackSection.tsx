@@ -64,11 +64,17 @@ export async function StackSection({ projects }: StackSectionProps) {
                       <button type="button" className="sc-face sc-front sc-btn" aria-controls={`sc-back-${entry.id}`} disabled>
                         <StackIcon name={entry.name} icon={entry.icon} />
                         <span className="sc-name">{entry.name}</span>
-                        <span className="sc-count">
-                          {(entry.projects.length === 1 ? t.skills.projectCountOne : t.skills.projectCountMany).replace(
+                        {/* Satu titik per proyek; jumlahnya dibacakan lewat teks sr-only ("used in 2 projects"). */}
+                        <span className="sc-dots" aria-hidden="true">
+                          {entry.projects.map((p) => (
+                            <i key={p.slug} />
+                          ))}
+                        </span>
+                        <span className="sr-only">
+                          {`${t.skills.usedIn} ${(entry.projects.length === 1 ? t.skills.projectCountOne : t.skills.projectCountMany).replace(
                             '{n}',
                             String(entry.projects.length),
-                          )}
+                          )}`}
                         </span>
                       </button>
                       <div id={`sc-back-${entry.id}`} className="sc-face sc-back">
