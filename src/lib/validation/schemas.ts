@@ -73,8 +73,9 @@ export const ProjectSoftwareSchema = z.object({
   title: z.string().min(1, "Title is required"),
   summary: z.string().max(200, "Summary must be 200 characters or less"),
   summaryId: z.string().max(200).optional(),   // Indonesian variant
-  thumbnail: z.string().min(1, "Thumbnail path is required"),
-  thumbnailAlt: z.string().min(1, "Thumbnail alt text is required"),
+  // Opsional: tanpa gambar asli, halaman detail tidak menampilkan kotak gambar
+  thumbnail: z.string().min(1).optional(),
+  thumbnailAlt: z.string().min(1).optional(),
   role: z.string().min(1, "Role is required"),
   roleId: z.string().optional(),               // Indonesian variant
   technologies: z.array(z.string()).default([]),
@@ -127,13 +128,6 @@ export const SiteSettingsSchema = z.object({
   analytics: z.object({
     enabled: z.boolean().default(false),
     provider: z.string().optional(),
-  }).optional(),
-  currentlyBuilding: z.object({
-    enabled: z.boolean(),
-    projectName: z.string(),
-    projectSlug: z.string().optional(),
-    projectUrl: z.string().url().optional(),
-    updatedAt: z.string().optional(),
   }).optional(),
 });
 

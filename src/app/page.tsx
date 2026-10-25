@@ -28,9 +28,9 @@ export default async function Home() {
 
   const navLinks = [
     { href: '#about', label: t.nav.about },
+    { href: '#projects', label: t.nav.projects },
     ...(hasExperience ? [{ href: '#experience', label: t.nav.experience }] : []),
     { href: '#skills', label: t.nav.skills },
-    { href: '#projects', label: t.nav.projects },
     { href: '#contact', label: t.nav.contact },
   ];
 
@@ -40,9 +40,9 @@ export default async function Home() {
       <main className="flex-1">
         <HeroSection profile={profile} />
         <AboutSection profile={profile} />
+        <FeaturedProjects projects={featuredProjects} />
         {hasExperience && <ExperienceSection experiences={experiences} />}
         <StackSection projects={featuredProjects} />
-        <FeaturedProjects projects={featuredProjects} />
         <ContactSection contacts={contacts} />
       </main>
       <Footer contacts={contacts} />

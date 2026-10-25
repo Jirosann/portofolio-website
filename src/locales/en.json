@@ -6,7 +6,6 @@
     "projects": "Projects",
     "contact": "Contact",
     "changeLanguage": "Change language",
-    "toggleMenu": "Toggle navigation menu",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
@@ -49,9 +48,6 @@
     "sectionTitle": "Selected work",
     "title": "Featured Projects",
     "subtitle": "Two computer vision systems, one NLP classifier and one framework-free website, with the approach and stack behind each.",
-    "filterAll": "All",
-    "filterSoftware": "Software Engineering",
-    "filterCreative": "Creative Works",
     "liveDemo": "Live Demo",
     "viewCode": "View Code",
     "liveDemoFor": "Live Demo for {title}",
@@ -59,7 +55,6 @@
   },
   "modelCard": {
     "fields": {
-      "problem": "Problem",
       "data": "Data",
       "approach": "Approach",
       "result": "Result",
@@ -77,14 +72,7 @@
   },
   "contact": {
     "title": "Let's Connect",
-    "description": "Open to internships, junior roles, and full-time opportunities in software engineering and IT. Let's talk about projects, collaboration, or how I can contribute to your team.",
-    "downloadPdf": "Download PDF"
-  },
-  "footer": {
-    "handcraftedBy": "Handcrafted by",
-    "allRightsReserved": "All rights reserved.",
-    "backToTop": "Back to top",
-    "currentlyBuilding": "Currently contributing to:"
+    "description": "Open to internships, junior roles, and full-time opportunities in software engineering and IT. Let's talk about projects, collaboration, or how I can contribute to your team."
   },
   "projectDetail": {
     "backToProjects": "← Back to Projects",
@@ -95,8 +83,6 @@
     "repositoryFor": "Repository for",
     "liveDemoFor": "Live demo for",
     "opensInNewTab": "(opens in new tab)",
-    "liveDemo": "Live Demo",
-    "repository": "Repository",
     "plannedStackTbd": "Planned stack: to be decided"
   },
   "status": {

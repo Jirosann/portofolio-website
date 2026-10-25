@@ -22,8 +22,9 @@ const statusConfig: Record<string, { label: string; bg: string; text: string; bo
   'completed': {
     label: 'Completed',
     bg: 'color-mix(in srgb, var(--color-burgundy-accent) 10%, var(--color-bg))',
-    text: 'var(--color-burgundy-accent)',
-    border: 'color-mix(in srgb, var(--color-burgundy-accent) 20%, transparent)',
+    // eyebrow: burgundy di terang, tembaga di gelap (burgundy-accent di atas latar gelap hanya ~1,8:1)
+    text: 'var(--color-eyebrow)',
+    border: 'var(--color-chip-live-border)',
   },
   'archived': {
     label: 'Archived',

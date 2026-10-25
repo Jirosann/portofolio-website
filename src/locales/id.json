@@ -6,7 +6,6 @@
     "projects": "Proyek",
     "contact": "Kontak",
     "changeLanguage": "Ganti bahasa",
-    "toggleMenu": "Buka menu navigasi",
     "openMenu": "Buka menu",
     "closeMenu": "Tutup menu"
   },
@@ -49,9 +48,6 @@
     "sectionTitle": "Karya pilihan",
     "title": "Proyek Unggulan",
     "subtitle": "Dua sistem computer vision, satu pengklasifikasi NLP, dan satu situs tanpa framework, beserta pendekatan dan teknologi di balik masing-masing.",
-    "filterAll": "Semua",
-    "filterSoftware": "Rekayasa Perangkat Lunak",
-    "filterCreative": "Karya Kreatif",
     "liveDemo": "Demo Langsung",
     "viewCode": "Lihat Kode",
     "liveDemoFor": "Demo langsung {title}",
@@ -59,7 +55,6 @@
   },
   "modelCard": {
     "fields": {
-      "problem": "Masalah",
       "data": "Data",
       "approach": "Pendekatan",
       "result": "Hasil",
@@ -77,14 +72,7 @@
   },
   "contact": {
     "title": "Mari Terhubung",
-    "description": "Terbuka untuk magang, posisi junior, maupun peran full-time di bidang software engineering dan IT. Mari berdiskusi tentang proyek, kolaborasi, atau bagaimana saya bisa berkontribusi di tim Anda.",
-    "downloadPdf": "Unduh PDF"
-  },
-  "footer": {
-    "handcraftedBy": "Dibuat dengan sepenuh hati oleh",
-    "allRightsReserved": "Hak cipta dilindungi.",
-    "backToTop": "Kembali ke atas",
-    "currentlyBuilding": "Sedang berkontribusi di:"
+    "description": "Terbuka untuk magang, posisi junior, maupun peran full-time di bidang software engineering dan IT. Mari berdiskusi tentang proyek, kolaborasi, atau bagaimana saya bisa berkontribusi di tim Anda."
   },
   "projectDetail": {
     "backToProjects": "← Kembali ke Proyek",
@@ -95,8 +83,6 @@
     "repositoryFor": "Repositori untuk",
     "liveDemoFor": "Demo langsung untuk",
     "opensInNewTab": "(buka di tab baru)",
-    "liveDemo": "Demo Langsung",
-    "repository": "Repositori",
     "plannedStackTbd": "Stack rencana: belum diputuskan"
   },
   "status": {

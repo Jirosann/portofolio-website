@@ -628,6 +628,17 @@ html {
 .nav-tool-btn:focus-visible {
   box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-link-text);
 }
+/* Bar mobile (< 768: bahasa, tema, menu): kotak tombol sendiri 44x44 (target nyata). Bar tablet dan pill desktop
+   tetap ringkas (tautan section ikut di bar; 44 px membuat bar id meluap di 768) dan memakai perluasan ::after di bawah. */
+@media (max-width: 767.98px) {
+  .nav-tool-btn {
+    display: inline-flex;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+  }
+}
 /* Area sentuh minimal 44x44 tanpa mengubah ukuran/tata letak visual: perluasan hanya pada sisi yang kurang dari 44 px. */
 .nav-tool-btn::after {
   content: '';

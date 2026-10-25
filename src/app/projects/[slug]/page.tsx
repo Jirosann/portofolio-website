@@ -81,9 +81,9 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
   const navLinks = [
     { href: '/#about', label: t.nav.about },
-    { href: '/#skills', label: t.nav.skills },
-    ...(hasExperience ? [{ href: '/#experience', label: t.nav.experience }] : []),
     { href: '/#projects', label: t.nav.projects },
+    ...(hasExperience ? [{ href: '/#experience', label: t.nav.experience }] : []),
+    { href: '/#skills', label: t.nav.skills },
     { href: '/#contact', label: t.nav.contact },
   ];
 
@@ -160,8 +160,8 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                 )}
               </div>
 
-              {/* Thumbnail */}
-              {project.thumbnail && (
+              {/* Thumbnail: hanya bila ada gambar asli beserta alt-nya */}
+              {project.thumbnail && project.thumbnailAlt && (
                 <div className="project-detail-thumbnail-wrapper">
                   <img
                     src={project.thumbnail}

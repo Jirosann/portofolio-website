@@ -97,7 +97,7 @@ export function LanguageSwitcher() {
           else setIsOpen(true);
         }}
         onKeyDown={handleButtonKeyDown}
-        className="nav-link-base nav-tool-btn flex items-center gap-1.5 px-3 py-2 rounded-full transition-all duration-200 ease-out"
+        className="nav-link-base nav-tool-btn flex items-center gap-1.5 px-2 min-[360px]:px-3 py-2 rounded-full transition-all duration-200 ease-out"
         aria-expanded={isOpen}
         aria-haspopup="menu"
         aria-controls={menuId}
@@ -109,9 +109,9 @@ export function LanguageSwitcher() {
         <span className="text-xs font-bold font-mono tracking-wider">
           {lang.toUpperCase()}
         </span>
-        {/* Dropdown chevron */}
+        {/* Dropdown chevron; disembunyikan < 360 px agar tombol 44 px di bar mobile muat di 320 */}
         <svg
-          className={cn("w-3 h-3 transition-transform duration-300", isOpen && "rotate-180")}
+          className={cn("w-3 h-3 max-[359px]:hidden transition-transform duration-300", isOpen && "rotate-180")}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

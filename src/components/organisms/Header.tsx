@@ -143,7 +143,8 @@ export function Header({ navLinks }: HeaderProps) {
           </div>
           
           {/* Mobile: Theme Toggle + Menu Button */}
-          <div className="flex md:hidden items-center gap-2">
+          {/* < 360 px: jarak antartombol 4 px agar tiga tombol 44 px + logo muat di 320 */}
+          <div className="flex md:hidden items-center gap-1 min-[360px]:gap-2">
             <LanguageSwitcher />
             <ThemeToggle />
             <button

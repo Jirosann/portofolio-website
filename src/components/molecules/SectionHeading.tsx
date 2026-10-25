@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils/cn';
 
 // Urutan section di halaman utama (sama dengan page.tsx). Nomor label diturunkan dari sini;
 // bila urutan atau visibilitas section berubah, perbarui daftar ini.
-const SECTION_ORDER = ['about', 'experience', 'skills', 'projects', 'contact'] as const;
+const SECTION_ORDER = ['about', 'projects', 'experience', 'skills', 'contact'] as const;
 
 export type SectionId = (typeof SECTION_ORDER)[number];
 

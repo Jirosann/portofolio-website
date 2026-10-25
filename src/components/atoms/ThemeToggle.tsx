@@ -13,7 +13,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     // Placeholder to prevent layout shift
-    return <div className="w-9 h-9" aria-hidden="true" />;
+    return <div className="w-11 h-11 md:w-9 md:h-9" aria-hidden="true" />;
   }
 
   const isDark = resolvedTheme === 'dark';
