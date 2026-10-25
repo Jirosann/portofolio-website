@@ -136,7 +136,8 @@
       "stack": {
         "items": ["Python", "scikit-learn", "NLTK", "Flask", "Docker", "Tailwind CSS"],
         "source": "Readme.md:79-83"
-      }
+      },
+      "tryModel": "fake-news"
     }
   },
   {

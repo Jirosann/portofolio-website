@@ -3,6 +3,8 @@ import type { Project, ModelCard as ModelCardData, ModelCardChip } from '@/lib/v
 import type { Dictionary, Language } from '@/lib/i18n';
 import { cn } from '@/lib/utils/cn';
 import { activeDemoUrl } from '@/lib/content/projects';
+import { tryModelCopy } from '@/lib/fake-news/copy';
+import { TryModel } from './TryModel';
 
 type CardProject = Project & { card: ModelCardData };
 type Field = { key: string; label: string; value: ReactNode };
@@ -65,6 +67,7 @@ export function ModelCard({ project, variant, index, figNumber, lang, t }: Model
   const titleId = `project-${project.slug}-title`;
   const featured = variant === 'featured';
   const hasImage = !!card.image;
+  const tm = tryModelCopy[lang];
 
   const candidates: (Field | undefined)[] = [
     card.data && { key: 'data', label: t.modelCard.fields.data, value: card.data[lang] },
@@ -126,8 +129,8 @@ export function ModelCard({ project, variant, index, figNumber, lang, t }: Model
   );
 
   const demoUrl = activeDemoUrl(project);
-  const links = (
-    <div className="flex flex-wrap gap-3">
+  const linkItems = (
+    <>
       {demoUrl && (
         <a
           href={demoUrl}
@@ -150,8 +153,9 @@ export function ModelCard({ project, variant, index, figNumber, lang, t }: Model
         {t.projects.viewCode}
         <span aria-hidden="true">↗</span>
       </a>
-    </div>
+    </>
   );
+  const links = <div className="flex flex-wrap gap-3">{linkItems}</div>;
 
   const figure = <Figure project={project} variant={variant} figNumber={figNumber} lang={lang} t={t} />;
 
@@ -202,7 +206,14 @@ export function ModelCard({ project, variant, index, figNumber, lang, t }: Model
         <>
           <div className="md:col-span-5">{header}</div>
           <div className="md:col-span-7 md:col-start-6 md:row-span-2 md:row-start-1">{specs}</div>
-          <div className="md:col-span-5 md:self-start">{links}</div>
+          {card.tryModel ? (
+            // Tombol di baris tautan; panel (dimuat saat klik) selebar baris di bawahnya.
+            <TryModel lang={lang} labels={{ button: tm.button, loading: tm.loading, error: tm.error }}>
+              {linkItems}
+            </TryModel>
+          ) : (
+            <div className="md:col-span-5 md:self-start">{links}</div>
+          )}
         </>
       )}
     </article>

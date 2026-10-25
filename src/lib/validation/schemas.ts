@@ -190,6 +190,8 @@ export const ModelCardSchema = z.object({
       source: z.string().min(1),              // cara gambar diambil
     })
     .optional(),
+  // Demo di browser dari bobot model asli (public/models/<nama>/), dimuat saat diklik. Hanya kartu baris tanpa gambar.
+  tryModel: z.enum(['fake-news']).optional(),
 });
 
 export type ModelCard = z.infer<typeof ModelCardSchema>;
