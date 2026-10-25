@@ -11,7 +11,7 @@ import {
   OpenAPI, Figma,
   ReactIcon as React, TypeScript,
   Keras, Flask, Supabase,
-  VSCode, Postman, GoogleColab, Vercel
+  MediaPipe, InsightFace, FileText
 } from './TechIcons';
 
 export const icons: Record<string, React.ComponentType<{ className?: string, style?: React.CSSProperties }>> = {
@@ -64,18 +64,15 @@ export const icons: Record<string, React.ComponentType<{ className?: string, sty
   TensorFlow,
   Scikitlearn,
   Keras,
+  MediaPipe,
+  InsightFace,
+  FileText,
 
   // API & Security
   OpenAPI,
 
   // UI/UX
   Figma,
-
-  // Tools harian (content/tools/tools.json)
-  VSCode,
-  Postman,
-  GoogleColab,
-  Vercel,
 };
 
 export function getIcon(name: string) {

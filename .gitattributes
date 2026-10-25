@@ -1,0 +1,2 @@
+# Ikon aplikasi resmi disimpan byte demi byte seperti sumbernya (tanpa normalisasi akhir baris).
+public/icons/apps/* -text

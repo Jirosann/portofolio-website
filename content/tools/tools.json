@@ -1,10 +1,12 @@
 [
-  {"id": "vscode", "name": "VS Code", "icon": "VSCode", "order": 1},
-  {"id": "git", "name": "Git", "icon": "Git", "order": 2},
-  {"id": "github", "name": "GitHub", "icon": "GitHub", "order": 3},
-  {"id": "docker", "name": "Docker", "icon": "Docker", "order": 4},
-  {"id": "figma", "name": "Figma", "icon": "Figma", "order": 5},
-  {"id": "postman", "name": "Postman", "icon": "Postman", "order": 6},
-  {"id": "google-colab", "name": "Google Colab", "icon": "GoogleColab", "order": 7},
-  {"id": "vercel", "name": "Vercel", "icon": "Vercel", "order": 8}
+  {"id": "vscode", "name": "VS Code", "image": "/icons/apps/vscode.webp", "order": 1},
+  {"id": "git", "name": "Git", "image": "/icons/git.svg", "order": 2},
+  {"id": "github", "name": "GitHub", "image": "/icons/apps/github.webp", "imageDark": "/icons/apps/github-white.webp", "order": 3},
+  {"id": "docker", "name": "Docker", "image": "/icons/apps/docker.webp", "tile": "#ffffff", "order": 4},
+  {"id": "figma", "name": "Figma", "image": "/icons/apps/figma.webp", "tile": "#1e1e1e", "order": 5},
+  {"id": "postman", "name": "Postman", "image": "/icons/apps/postman.webp", "order": 6},
+  {"id": "capcut", "name": "CapCut", "image": "/icons/apps/capcut.webp", "order": 7},
+  {"id": "obsidian", "name": "Obsidian", "image": "/icons/apps/obsidian.svg", "tile": "#151515", "order": 8},
+  {"id": "hermes-agent", "name": "Hermes Agent", "maker": "Nous Research", "image": "/icons/apps/hermes-agent.webp", "order": 9},
+  {"id": "openclaw", "name": "OpenClaw", "image": "/icons/apps/openclaw.webp", "order": 10}
 ]

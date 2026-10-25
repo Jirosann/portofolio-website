@@ -12,6 +12,6 @@
   "techInsight": "Face recognition with InsightFace; smile triggers capture.",
   "roleId": "Kontributor",
   "summaryId": "Proyek tim (3 orang): presensi kelas berbasis pengenalan wajah dengan React, FastAPI, dan InsightFace. Sebagai kontributor, saya mengerjakan integrasi InsightFace, frontend React, dan integrasi API.",
-  "repoUrl": "https://github.com/ghanisiapfullstack/Face-Attend",
+  "repoUrl": "https://github.com/Jirosann/Face-Attend",
   "repoVisibility": "public"
 }

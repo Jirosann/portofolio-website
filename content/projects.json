@@ -156,7 +156,7 @@
     "status": "in-progress",
     "description": "Class-attendance system using face recognition (React, FastAPI, InsightFace), built by a team of 3. As a contributor, I handled InsightFace integration, the React frontend and API integration.",
     "tags": ["React", "FastAPI", "Supabase", "InsightFace", "ArcFace"],
-    "repoUrl": "https://github.com/ghanisiapfullstack/Face-Attend",
+    "repoUrl": "https://github.com/Jirosann/Face-Attend",
     "descriptionId": "Sistem presensi kelas berbasis pengenalan wajah (React, FastAPI, InsightFace) buatan tim 3 orang. Sebagai kontributor, saya mengerjakan integrasi InsightFace, frontend React, dan integrasi API.",
     "card": {
       "order": 3,

@@ -12,11 +12,13 @@ interface StackSectionProps {
   projects: Project[];
 }
 
-// Posisi kartu di kipas: --i/--y untuk satu baris, --j/--yj untuk dua baris berisi 4 (container sempit).
-// Jarak dari tengah dikuadratkan untuk lengkung; nilainya angka tanpa satuan, CSS yang memberi deg/px.
-function fanPosition(i: number, count: number): CSSProperties {
+// Posisi kartu di kipas: --i/--y untuk satu baris, --j/--yj untuk dua baris (container sempit, `cols` per baris;
+// baris terakhir bisa lebih pendek). Jarak dari tengah dikuadratkan untuk lengkung; nilainya angka tanpa satuan,
+// CSS yang memberi deg/px.
+function fanPosition(i: number, count: number, cols: number): CSSProperties {
   const i0 = i - (count - 1) / 2;
-  const j0 = (i % 4) - 1.5;
+  const rowLen = Math.min(cols, count - Math.floor(i / cols) * cols);
+  const j0 = (i % cols) - (rowLen - 1) / 2;
   return { '--i': i0, '--y': i0 * i0, '--j': j0, '--yj': j0 * j0 } as CSSProperties;
 }
 
@@ -37,16 +39,19 @@ export async function StackSection({ projects }: StackSectionProps) {
 
   const { columns, also } = getStack(projects);
   const tools = getTools();
+  const toolCols = Math.ceil(tools.length / 2);
   // Yang sudah tampil di Tools I use tidak diulang di "Also worked with" (data skill tetap).
   const toolKeys = new Set(tools.map((tool) => normalizeTech(tool.name)));
   const alsoShown = also.filter((entry) => !toolKeys.has(normalizeTech(entry.name)));
+  // Semua kartu setinggi sisi belakang terpanjang (proyek terbanyak), jadi tinggi kartu sama di setiap kelompok.
+  const maxProjects = Math.max(1, ...columns.flatMap((col) => col.entries.map((entry) => entry.projects.length)));
 
   return (
     <section id="skills" className="section-y content-visibility-auto">
       <noscript>
         <style>{NO_SCRIPT_CSS}</style>
       </noscript>
-      <div className="max-w-content mx-auto px-5">
+      <div className="max-w-content mx-auto px-5" style={{ '--sc-max': maxProjects } as CSSProperties}>
         <SectionHeading section="skills" label={t.nav.skills} title={t.skills.title} description={t.skills.subtitle} />
 
         <StackCards className="sc-groups">
@@ -61,11 +66,17 @@ export async function StackSection({ projects }: StackSectionProps) {
                       <button type="button" className="sc-face sc-front sc-btn" aria-controls={`sc-back-${entry.id}`} disabled>
                         <StackIcon name={entry.name} icon={entry.icon} />
                         <span className="sc-name">{entry.name}</span>
-                        <span className="sc-count">
-                          {(entry.projects.length === 1 ? t.skills.projectCountOne : t.skills.projectCountMany).replace(
+                        {/* Satu titik per proyek; jumlahnya dibacakan lewat teks sr-only ("used in 2 projects"). */}
+                        <span className="sc-dots" aria-hidden="true">
+                          {entry.projects.map((p) => (
+                            <i key={p.slug} />
+                          ))}
+                        </span>
+                        <span className="sr-only">
+                          {`${t.skills.usedIn} ${(entry.projects.length === 1 ? t.skills.projectCountOne : t.skills.projectCountMany).replace(
                             '{n}',
                             String(entry.projects.length),
-                          )}
+                          )}`}
                         </span>
                       </button>
                       <div id={`sc-back-${entry.id}`} className="sc-face sc-back">
@@ -105,14 +116,27 @@ export async function StackSection({ projects }: StackSectionProps) {
             <div className="sc-group tl">
               <h3 className="sc-label">{t.skills.toolsTitle}</h3>
               <div className="tl-wrap">
-                <ul className="tl-fan">
+                <ul className="tl-fan" style={{ '--n': tools.length, '--cols': toolCols } as CSSProperties}>
                   {tools.map((tool, i) => (
-                    <li key={tool.id} style={fanPosition(i, tools.length)}>
+                    <li key={tool.id} style={fanPosition(i, tools.length, toolCols)}>
                       {/* Bukan tab stop (tidak ada aksi). Hover atau ketukan mengangkat kartu; nama selalu ada
                           di DOM, tersembunyi secara visual sampai kartu terangkat, jadi tetap terbaca screen reader. */}
                       <span className="tl-card">
-                        <StackIcon name={tool.name} icon={tool.icon} />
-                        <span className="tl-name">{tool.name}</span>
+                        {/* Ikon aplikasi resmi apa adanya, tidak pernah dibalik. Di tema gelap ikon tanpa latar sendiri
+                            duduk di app tile berwarna latar aslinya (`tile`); imageDark = versi resmi untuk tema gelap. */}
+                        <span
+                          className={tool.tile ? 'tl-tile tl-tile--bg' : 'tl-tile'}
+                          style={tool.tile ? ({ '--tile': tool.tile } as CSSProperties) : undefined}
+                        >
+                          <img src={tool.image} alt="" width={64} height={64} loading="lazy" decoding="async" className={tool.imageDark ? 'tl-icon tl-icon--l' : 'tl-icon'} />
+                          {tool.imageDark && (
+                            <img src={tool.imageDark} alt="" width={64} height={64} loading="lazy" decoding="async" className="tl-icon tl-icon--d" />
+                          )}
+                        </span>
+                        <span className="tl-name">
+                          {tool.name}
+                          {tool.maker && <span className="tl-by">{tool.maker}</span>}
+                        </span>
                       </span>
                     </li>
                   ))}
