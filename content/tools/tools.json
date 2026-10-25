@@ -5,6 +5,8 @@
   {"id": "docker", "name": "Docker", "icon": "Docker", "order": 4},
   {"id": "figma", "name": "Figma", "icon": "Figma", "order": 5},
   {"id": "postman", "name": "Postman", "icon": "Postman", "order": 6},
-  {"id": "google-colab", "name": "Google Colab", "icon": "GoogleColab", "order": 7},
-  {"id": "vercel", "name": "Vercel", "icon": "Vercel", "order": 8}
+  {"id": "capcut", "name": "CapCut", "order": 7},
+  {"id": "obsidian", "name": "Obsidian", "icon": "Obsidian", "order": 8},
+  {"id": "hermes-agent", "name": "Hermes Agent", "maker": "Nous Research", "order": 9},
+  {"id": "openclaw", "name": "OpenClaw", "icon": "OpenClaw", "order": 10}
 ]

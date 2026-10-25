@@ -12,11 +12,13 @@ interface StackSectionProps {
   projects: Project[];
 }
 
-// Posisi kartu di kipas: --i/--y untuk satu baris, --j/--yj untuk dua baris berisi 4 (container sempit).
-// Jarak dari tengah dikuadratkan untuk lengkung; nilainya angka tanpa satuan, CSS yang memberi deg/px.
-function fanPosition(i: number, count: number): CSSProperties {
+// Posisi kartu di kipas: --i/--y untuk satu baris, --j/--yj untuk dua baris (container sempit, `cols` per baris;
+// baris terakhir bisa lebih pendek). Jarak dari tengah dikuadratkan untuk lengkung; nilainya angka tanpa satuan,
+// CSS yang memberi deg/px.
+function fanPosition(i: number, count: number, cols: number): CSSProperties {
   const i0 = i - (count - 1) / 2;
-  const j0 = (i % 4) - 1.5;
+  const rowLen = Math.min(cols, count - Math.floor(i / cols) * cols);
+  const j0 = (i % cols) - (rowLen - 1) / 2;
   return { '--i': i0, '--y': i0 * i0, '--j': j0, '--yj': j0 * j0 } as CSSProperties;
 }
 
@@ -37,6 +39,7 @@ export async function StackSection({ projects }: StackSectionProps) {
 
   const { columns, also } = getStack(projects);
   const tools = getTools();
+  const toolCols = Math.ceil(tools.length / 2);
   // Yang sudah tampil di Tools I use tidak diulang di "Also worked with" (data skill tetap).
   const toolKeys = new Set(tools.map((tool) => normalizeTech(tool.name)));
   const alsoShown = also.filter((entry) => !toolKeys.has(normalizeTech(entry.name)));
@@ -105,14 +108,17 @@ export async function StackSection({ projects }: StackSectionProps) {
             <div className="sc-group tl">
               <h3 className="sc-label">{t.skills.toolsTitle}</h3>
               <div className="tl-wrap">
-                <ul className="tl-fan">
+                <ul className="tl-fan" style={{ '--n': tools.length, '--cols': toolCols } as CSSProperties}>
                   {tools.map((tool, i) => (
-                    <li key={tool.id} style={fanPosition(i, tools.length)}>
+                    <li key={tool.id} style={fanPosition(i, tools.length, toolCols)}>
                       {/* Bukan tab stop (tidak ada aksi). Hover atau ketukan mengangkat kartu; nama selalu ada
                           di DOM, tersembunyi secara visual sampai kartu terangkat, jadi tetap terbaca screen reader. */}
                       <span className="tl-card">
                         <StackIcon name={tool.name} icon={tool.icon} />
-                        <span className="tl-name">{tool.name}</span>
+                        <span className="tl-name">
+                          {tool.name}
+                          {tool.maker && <span className="tl-by">{tool.maker}</span>}
+                        </span>
                       </span>
                     </li>
                   ))}

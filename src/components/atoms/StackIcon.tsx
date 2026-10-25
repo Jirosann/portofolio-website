@@ -7,7 +7,7 @@ interface StackIconProps {
 }
 
 // Logo monokrom (fill currentColor -> hitam di <img>): dibalik di tema gelap lewat CSS (.stack-icon--mono).
-const MONO = new Set(['GitHub', 'Flask', 'Vercel']);
+const MONO = new Set(['GitHub', 'Flask', 'Obsidian']);
 
 /** "InsightFace" -> "IF", "MediaPipe" -> "MP", "NLTK" -> "NL". */
 function monogram(name: string): string {

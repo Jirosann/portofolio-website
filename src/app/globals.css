@@ -1376,33 +1376,37 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   color: var(--color-text);
 }
 
-/* Tools I use: kipas kartu bertumpuk. Satu baris pada container >= 30rem, dua baris berisi 4 di bawahnya.
-   Tumpang tindih dihitung dari lebar container (cqi), jadi lebar total tidak pernah melebihi container;
-   2.5rem dicadangkan untuk sudut kartu miring di kedua ujung. */
+/* Tools I use: kipas kartu bertumpuk. Satu baris pada container >= 36rem, dua baris berisi --cols di bawahnya
+   (--n dan --cols dari StackSection). Tumpang tindih dihitung dari lebar container (cqi), jadi lebar total tidak
+   pernah melebihi container; 2.5rem dicadangkan untuk sudut kartu miring di kedua ujung. Strip kartu yang tidak
+   tertutup >= 44 px di 320. Bawah 3.5rem: label bisa dua baris (maker). */
 .tl-wrap { container: tl / inline-size; min-width: 0; }
 .tl-fan {
-  --w: clamp(4rem, 13cqi, 5.5rem);
-  --m: min(-1rem, (100cqi - 2.5rem - 8 * var(--w)) / 7);
+  --w: clamp(4rem, 9.5cqi, 5.5rem);
+  --m: min(-1rem, (100cqi - 2.5rem - var(--n) * var(--w)) / (var(--n) - 1));
   display: flex;
   justify-content: center;
-  padding-block: 1rem 2.5rem;
+  padding-block: 1rem 3.5rem;
 }
 .tl-fan > li { flex: none; width: var(--w); margin-inline-start: var(--m); }
 .tl-fan > li:first-child { margin-inline-start: 0; }
-@container tl (max-width: 30rem) {
+/* Dua baris: setiap li (termasuk awal baris) bermargin --m, dan padding kiri sebesar -m mengembalikannya,
+   jadi jumlah kartu per baris mengikuti --cols tanpa nth-child. +1px menahan pembulatan subpiksel. */
+@container tl (max-width: 36rem) {
   .tl-fan {
-    --w: clamp(3.5rem, 21cqi, 4.75rem);
-    --m: -0.875rem;
+    --w: clamp(3.25rem, 19cqi, 4.75rem);
+    --m: calc(var(--w) * -0.16);
     flex-wrap: wrap;
-    row-gap: 2.75rem;
-    width: calc(4 * var(--w) + 3 * var(--m));
+    row-gap: 3.5rem;
+    width: calc(var(--cols) * var(--w) + (var(--cols) - 1) * var(--m) + 1px);
     margin-inline: auto;
+    padding-inline-start: calc(-1 * var(--m));
   }
-  .tl-fan > li:nth-child(4n + 1) { margin-inline-start: 0; }
+  .tl-fan > li:first-child { margin-inline-start: var(--m); }
 }
 .tl-card {
-  --r: calc(var(--i) * 4deg);
-  --dy: calc(var(--y) * 1px);
+  --r: calc(var(--i) * 3deg);
+  --dy: calc(var(--y) * 0.75px);
   position: relative;
   display: grid;
   aspect-ratio: 4 / 5;
@@ -1417,11 +1421,12 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   transition: rotate var(--dur-base) var(--ease-out), translate var(--dur-base) var(--ease-out),
     scale var(--dur-base) var(--ease-spring);
 }
-@container tl (max-width: 30rem) {
+@container tl (max-width: 36rem) {
   .tl-card { --r: calc(var(--j) * 5deg); --dy: calc(var(--yj) * 1.5px); }
 }
 [data-theme="dark"] .tl-card { background: var(--color-surface); box-shadow: 0 6px 16px rgb(0 0 0 / 0.35); }
 .tl-card .stack-icon { width: 46%; height: auto; aspect-ratio: 1; }
+.tl-card .stack-monogram { font-size: calc(var(--w) * 0.18); border-radius: calc(var(--w) * 0.1); }
 /* Nama selalu ada di DOM (nama aksesibel); hanya disembunyikan secara visual sampai kartu diangkat. */
 .tl-name {
   position: absolute;
@@ -1429,6 +1434,7 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   left: 50%;
   translate: -50% 0.25rem;
   white-space: nowrap;
+  text-align: center;
   font-size: 0.8125rem;
   font-weight: 600;
   line-height: 1.25rem;
@@ -1436,6 +1442,13 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--dur-fast) var(--ease-out), translate var(--dur-fast) var(--ease-out);
+}
+.tl-by {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1rem;
+  color: var(--color-text-secondary);
 }
 /* Bukan tab stop (keputusan pemilik sesi 10). Terangkat saat hover (perangkat ber-hover) atau saat diketuk
    (data-raised dari StackCards). Hover dibatasi ke (hover: hover) agar hover "lengket" di layar sentuh tidak

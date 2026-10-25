@@ -351,21 +351,31 @@ export function Postman({ className, style }: { className?: string, style?: Reac
   );
 }
 
-export function GoogleColab({ className, style }: { className?: string, style?: React.CSSProperties }) {
+// Simple Icons 16.35.0 (CC0). Pedoman merek Obsidian: tanpa warna ulang, versi satu warna hitam/putih -> currentColor (MONO).
+export function Obsidian({ className, style }: { className?: string, style?: React.CSSProperties }) {
   return (
-    <svg aria-hidden="true" focusable="false" viewBox="0 0 128 128" className={className} style={style}>
-      <path fill="#ffb300" d="M90.437 26.434c-20.748 0-37.567 16.82-37.567 37.567 0 20.748 16.82 37.563 37.567 37.563C111.181 101.564 128 84.749 128 64s-16.82-37.567-37.563-37.567zm0 55.651c-9.992 0-18.088-8.096-18.088-18.084 0-9.992 8.096-18.088 18.088-18.088 9.988 0 18.084 8.096 18.084 18.088 0 9.988-8.096 18.084-18.084 18.084zm0 0"/>
-      <path fill="#ffb300" d="M50.477 76.664v-.008a18.022 18.022 0 0 1-12.91 5.43c-9.992 0-18.088-8.097-18.088-18.085 0-9.992 8.096-18.088 18.088-18.088 5.092 0 9.686 2.11 12.973 5.499l10.434-16.764c-6.423-5.127-14.551-8.214-23.407-8.214C16.819 26.434 0 43.254 0 64.001c0 20.748 16.82 37.563 37.567 37.563 8.801 0 16.882-3.051 23.286-8.12zm0 0"/>
-      <path fill="#f57a00" d="M19.479 64c0-4.974 2.01-9.474 5.256-12.745l-13.51-14.018C4.302 44.048 0 53.519 0 64c0 10.43 4.258 19.866 11.124 26.674L24.853 76.86A18.034 18.034 0 0 1 19.479 64Zm83.841-12.686a18.028 18.028 0 0 1 5.201 12.687c0 9.988-8.096 18.084-18.084 18.084-5.084 0-9.667-2.1-12.953-5.476L63.57 90.232c6.823 6.984 16.33 11.332 26.866 11.332C111.181 101.564 128 84.749 128 64c0-10.255-4.117-19.534-10.771-26.31zm0 0"/>
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" className={className} style={style}>
+      <path fill="currentColor" d="M19.355 18.538a68.967 68.959 0 0 0 1.858-2.954.81.81 0 0 0-.062-.9c-.516-.685-1.504-2.075-2.042-3.362-.553-1.321-.636-3.375-.64-4.377a1.707 1.707 0 0 0-.358-1.05l-3.198-4.064a3.744 3.744 0 0 1-.076.543c-.106.503-.307 1.004-.536 1.5-.134.29-.29.6-.446.914l-.31.626c-.516 1.068-.997 2.227-1.132 3.59-.124 1.26.046 2.73.815 4.481.128.011.257.025.386.044a6.363 6.363 0 0 1 3.326 1.505c.916.79 1.744 1.922 2.415 3.5zM8.199 22.569c.073.012.146.02.22.02.78.024 2.095.092 3.16.29.87.16 2.593.64 4.01 1.055 1.083.316 2.198-.548 2.355-1.664.114-.814.33-1.735.725-2.58l-.01.005c-.67-1.87-1.522-3.078-2.416-3.849a5.295 5.295 0 0 0-2.778-1.257c-1.54-.216-2.952.19-3.84.45.532 2.218.368 4.829-1.425 7.531zM5.533 9.938c-.023.1-.056.197-.098.29L2.82 16.059a1.602 1.602 0 0 0 .313 1.772l4.116 4.24c2.103-3.101 1.796-6.02.836-8.3-.728-1.73-1.832-3.081-2.55-3.831zM9.32 14.01c.615-.183 1.606-.465 2.745-.534-.683-1.725-.848-3.233-.716-4.577.154-1.552.7-2.847 1.235-3.95.113-.235.223-.454.328-.664.149-.297.288-.577.419-.86.217-.47.379-.885.46-1.27.08-.38.08-.72-.014-1.043-.095-.325-.297-.675-.68-1.06a1.6 1.6 0 0 0-1.475.36l-4.95 4.452a1.602 1.602 0 0 0-.513.952l-.427 2.83c.672.59 2.328 2.316 3.335 4.711.09.21.175.43.253.653z"/>
     </svg>
   );
 }
 
-// Segitiga Vercel monokrom: currentColor.
-export function Vercel({ className, style }: { className?: string, style?: React.CSSProperties }) {
+// Favicon lobster OpenClaw (openclaw/design-system caf6db9, preview/assets/openclaw-favicon.svg; MIT menurut RIGHTS.md).
+export function OpenClaw({ className, style }: { className?: string, style?: React.CSSProperties }) {
+  const id = React.useId();
+  const fill = `url(#OpenClaw-a-${id})`;
   return (
-    <svg aria-hidden="true" focusable="false" viewBox="0 0 128 128" className={className} style={style}>
-      <path fill="currentColor" d="M64.002 8.576 128 119.424H0Zm0 0"/>
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 120 120" fill="none" className={className} style={style}>
+      <defs><linearGradient id={`OpenClaw-a-${id}`} x1="0%" x2="100%" y1="0%" y2="100%"><stop offset="0%" stopColor="#ff4d4d"/><stop offset="100%" stopColor="#991b1b"/></linearGradient></defs>
+      <path fill={fill} d="M60 10 C30 10 15 35 15 55 C15 75 30 95 45 100 L45 110 L55 110 L55 100 C55 100 60 102 65 100 L65 110 L75 110 L75 100 C90 95 105 75 105 55 C105 35 90 10 60 10Z"/>
+      <path fill={fill} d="M20 45 C5 40 0 50 5 60 C10 70 20 65 25 55 C28 48 25 45 20 45Z"/>
+      <path fill={fill} d="M100 45 C115 40 120 50 115 60 C110 70 100 65 95 55 C92 48 95 45 100 45Z"/>
+      <path stroke="#ff4d4d" strokeLinecap="round" strokeWidth="3" d="M45 15 Q35 5 30 8"/>
+      <path stroke="#ff4d4d" strokeLinecap="round" strokeWidth="3" d="M75 15 Q85 5 90 8"/>
+      <circle cx="45" cy="35" r="6" fill="#050810"/>
+      <circle cx="75" cy="35" r="6" fill="#050810"/>
+      <circle cx="46" cy="34" r="2.5" fill="#00e5cc"/>
+      <circle cx="76" cy="34" r="2.5" fill="#00e5cc"/>
     </svg>
   );
 }

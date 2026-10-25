@@ -10,9 +10,9 @@ import { getIcon } from '../src/icons';
 const root = process.cwd();
 const readJson = (p: string) => JSON.parse(fs.readFileSync(path.join(root, p), 'utf-8'));
 const skills: { icon?: string; visible: boolean }[] = readJson('content/skills/skills.json');
-const tools: { icon: string }[] = fs.existsSync(path.join(root, 'content/tools/tools.json')) ? readJson('content/tools/tools.json') : [];
+const tools: { icon?: string }[] = fs.existsSync(path.join(root, 'content/tools/tools.json')) ? readJson('content/tools/tools.json') : [];
 
-const keys = [...new Set([...skills.filter((s) => s.visible && s.icon).map((s) => s.icon!), ...tools.map((t) => t.icon)])];
+const keys = [...new Set([...skills.filter((s) => s.visible && s.icon).map((s) => s.icon!), ...tools.flatMap((t) => (t.icon ? [t.icon] : []))])];
 const outDir = path.join(root, 'public/icons');
 
 for (const key of keys) {

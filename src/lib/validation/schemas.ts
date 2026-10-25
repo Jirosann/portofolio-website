@@ -66,11 +66,13 @@ export const SkillSchema = z.object({
   visible: z.boolean(),
 });
 
-// Tool Schema (Tools I use, content/tools/tools.json). `icon` wajib: kartu kipas hanya berisi ikon.
+// Tool Schema (Tools I use, content/tools/tools.json). Tanpa `icon` (logo tanpa lisensi jelas) kartu memakai monogram.
+// `maker` tampil sebagai baris kedua label (mis. "Nous Research").
 export const ToolSchema = z.object({
   id: z.string().min(1, "Tool ID is required"),
   name: z.string().min(1, "Tool name is required"),
-  icon: z.string().min(1, "Tool icon is required"),
+  icon: z.string().min(1).optional(),
+  maker: z.string().min(1).optional(),
   order: z.number(),
 });
 

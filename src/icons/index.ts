@@ -11,7 +11,7 @@ import {
   OpenAPI, Figma,
   ReactIcon as React, TypeScript,
   Keras, Flask, Supabase,
-  VSCode, Postman, GoogleColab, Vercel
+  VSCode, Postman, Obsidian, OpenClaw
 } from './TechIcons';
 
 export const icons: Record<string, React.ComponentType<{ className?: string, style?: React.CSSProperties }>> = {
@@ -74,8 +74,8 @@ export const icons: Record<string, React.ComponentType<{ className?: string, sty
   // Tools harian (content/tools/tools.json)
   VSCode,
   Postman,
-  GoogleColab,
-  Vercel,
+  Obsidian,
+  OpenClaw,
 };
 
 export function getIcon(name: string) {
