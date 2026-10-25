@@ -66,6 +66,14 @@ export const SkillSchema = z.object({
   visible: z.boolean(),
 });
 
+// Tool Schema (Tools I use, content/tools/tools.json). `icon` wajib: kartu kipas hanya berisi ikon.
+export const ToolSchema = z.object({
+  id: z.string().min(1, "Tool ID is required"),
+  name: z.string().min(1, "Tool name is required"),
+  icon: z.string().min(1, "Tool icon is required"),
+  order: z.number(),
+});
+
 // Project Software Schema
 export const ProjectSoftwareSchema = z.object({
   id: z.string().min(1, "Project ID is required"),
@@ -135,6 +143,7 @@ export const SiteSettingsSchema = z.object({
 export type Profile = z.infer<typeof ProfileSchema>;
 export type SkillCategory = z.infer<typeof SkillCategorySchema>;
 export type Skill = z.infer<typeof SkillSchema>;
+export type Tool = z.infer<typeof ToolSchema>;
 export type ProjectSoftware = z.infer<typeof ProjectSoftwareSchema>;
 export type CreativeWork = z.infer<typeof CreativeWorkSchema>;
 export type Contact = z.infer<typeof ContactSchema>;
