@@ -1,4 +1,5 @@
-// Ekspor ikon TechIcons yang dipakai #skills (skills.json yang visible + tools.json) ke public/icons/<kunci>.svg.
+// Ekspor ikon TechIcons yang dipakai #skills (skills.json yang visible) ke public/icons/<kunci>.svg. Tools I use memakai
+// ikon aplikasi resmi berupa berkas (field `image` di tools.json), tidak lewat skrip ini.
 // Ikon dimuat sebagai <img>/mask, bukan SVG inline: halaman dirender per request, jadi SVG inline ikut dua kali
 // (HTML + payload RSC). Jalankan ulang setelah menambah ikon: npx tsx scripts/export-icons.tsx
 import fs from 'fs';
@@ -11,9 +12,8 @@ import { DARK, LIGHT } from '../src/icons/meta';
 const root = process.cwd();
 const readJson = (p: string) => JSON.parse(fs.readFileSync(path.join(root, p), 'utf-8'));
 const skills: { icon?: string; visible: boolean }[] = readJson('content/skills/skills.json');
-const tools: { icon?: string }[] = fs.existsSync(path.join(root, 'content/tools/tools.json')) ? readJson('content/tools/tools.json') : [];
 
-const keys = [...new Set([...skills.filter((s) => s.visible && s.icon).map((s) => s.icon!), ...tools.flatMap((t) => (t.icon ? [t.icon] : []))])];
+const keys = [...new Set(skills.filter((s) => s.visible && s.icon).map((s) => s.icon!))];
 const outDir = path.join(root, 'public/icons');
 
 for (const key of keys) {

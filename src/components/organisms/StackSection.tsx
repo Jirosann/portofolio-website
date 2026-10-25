@@ -43,13 +43,15 @@ export async function StackSection({ projects }: StackSectionProps) {
   // Yang sudah tampil di Tools I use tidak diulang di "Also worked with" (data skill tetap).
   const toolKeys = new Set(tools.map((tool) => normalizeTech(tool.name)));
   const alsoShown = also.filter((entry) => !toolKeys.has(normalizeTech(entry.name)));
+  // Semua kartu setinggi sisi belakang terpanjang (proyek terbanyak), jadi tinggi kartu sama di setiap kelompok.
+  const maxProjects = Math.max(1, ...columns.flatMap((col) => col.entries.map((entry) => entry.projects.length)));
 
   return (
     <section id="skills" className="section-y content-visibility-auto">
       <noscript>
         <style>{NO_SCRIPT_CSS}</style>
       </noscript>
-      <div className="max-w-content mx-auto px-5">
+      <div className="max-w-content mx-auto px-5" style={{ '--sc-max': maxProjects } as CSSProperties}>
         <SectionHeading section="skills" label={t.nav.skills} title={t.skills.title} description={t.skills.subtitle} />
 
         <StackCards className="sc-groups">
@@ -120,7 +122,8 @@ export async function StackSection({ projects }: StackSectionProps) {
                       {/* Bukan tab stop (tidak ada aksi). Hover atau ketukan mengangkat kartu; nama selalu ada
                           di DOM, tersembunyi secara visual sampai kartu terangkat, jadi tetap terbaca screen reader. */}
                       <span className="tl-card">
-                        <StackIcon name={tool.name} icon={tool.icon} />
+                        {/* Ikon aplikasi resmi apa adanya (tanpa dibalik di tema gelap: kartu selalu porselen). */}
+                        <img src={tool.image} alt="" width={64} height={64} loading="lazy" decoding="async" className="tl-icon" />
                         <span className="tl-name">
                           {tool.name}
                           {tool.maker && <span className="tl-by">{tool.maker}</span>}

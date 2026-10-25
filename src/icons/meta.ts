@@ -1,7 +1,7 @@
 // Data tampilan ikon #skills, dipakai StackIcon dan scripts/export-icons.tsx. Kunci = kunci getIcon.
 
 /** Logo monokrom (fill currentColor/hitam di <img>): dibalik di tema gelap lewat CSS (.stack-icon--mono). */
-export const MONO = new Set(['GitHub', 'Flask', 'Obsidian', 'Nextjs']);
+export const MONO = new Set(['GitHub', 'Flask', 'Nextjs']);
 
 /** Ikon berwarna dengan bagian gelap yang tenggelam di kartu gelap: export-icons menulis <kunci>-dark.svg dengan
  *  warna ini diganti, dan StackIcon memasang kedua berkas (satu disembunyikan per tema). */
@@ -44,10 +44,8 @@ export const SCALE: Record<string, number> = {
   Sass: 1.1,
   Scikitlearn: 1.1,
   TailwindCSS: 1.1,
-  Obsidian: 1.05,
   Git: 0.95,
   JavaScript: 0.95,
-  Postman: 0.95,
   Supabase: 0.95,
   Swift: 0.95,
   TypeScript: 0.95,
@@ -60,5 +58,4 @@ export const SCALE: Record<string, number> = {
   Nextjs: 0.9,
   OpenAPI: 0.9,
   SpringBoot: 0.9,
-  VSCode: 0.9,
 };

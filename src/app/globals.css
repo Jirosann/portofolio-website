@@ -1216,8 +1216,11 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   transition: var(--press-t);
 }
 [data-theme="dark"] .sc { --sc-glare: color-mix(in srgb, white 11%, transparent); }
+/* Tinggi minimum = sisi belakang dengan --sc-max tautan (dari StackSection): padding, label, celah, dan tautan 44 px.
+   Semua kartu jadi setinggi itu, jadi kelompok bertetangga di grid 2x2 tidak berbeda tinggi. */
 .sc-inner {
   display: grid;
+  min-height: calc(2.875rem + 2px + var(--sc-max, 1) * 2.75rem + (var(--sc-max, 1) - 1) * 0.25rem);
   transform-style: preserve-3d;
   transition: transform var(--dur-slow) var(--ease-out);
 }
@@ -1374,7 +1377,9 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   line-height: 1.25;
   color: var(--color-text-secondary);
 }
-.sc-also .stack-icon { width: 1.125rem; height: 1.125rem; flex-shrink: 0; opacity: 0.75; filter: saturate(0.6); }
+.sc-also .stack-icon { width: 1.125rem; height: 1.125rem; flex-shrink: 0; }
+/* Redup hanya di tema gelap; di tema terang ikon bermerek terang (Go, Vitest) hilang bila ikut diredupkan. */
+[data-theme="dark"] .sc-also .stack-icon { opacity: 0.75; filter: saturate(0.6); }
 
 /* Logo monokrom (StackIcon MONO): hitam di berkasnya, dibalik menjadi terang di tema gelap. */
 [data-theme="dark"] .stack-icon--mono { filter: invert(1); }
@@ -1441,10 +1446,11 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   display: grid;
   aspect-ratio: 4 / 5;
   place-items: center;
-  border: 1px solid var(--color-border);
+  /* Kartu fisik: porselen hangat dengan bayangan lembut di kedua tema (ikon aplikasi tampil apa adanya). */
+  border: 1px solid rgb(120 96 84 / 0.14);
   border-radius: 0.875rem;
-  background: #fff;
-  box-shadow: 0 6px 16px rgb(23 21 25 / 0.08);
+  background: #fbf8f4;
+  box-shadow: 0 1px 2px rgb(60 40 30 / 0.08), 0 8px 20px rgb(60 40 30 / 0.1);
   rotate: var(--r);
   translate: 0 var(--dy);
   transform-origin: 50% 100%;
@@ -1454,9 +1460,9 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
 @container tl (max-width: 36rem) {
   .tl-card { --r: calc(var(--j) * 5deg); --dy: calc(var(--yj) * 1.5px); }
 }
-[data-theme="dark"] .tl-card { background: var(--color-surface); box-shadow: 0 6px 16px rgb(0 0 0 / 0.35); }
-.tl-card .stack-icon { width: 46%; height: auto; aspect-ratio: 1; }
-.tl-card .stack-monogram { font-size: calc(var(--w) * 0.18); border-radius: calc(var(--w) * 0.1); }
+[data-theme="dark"] .tl-card { box-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 24px rgb(0 0 0 / 0.45); }
+/* 63% lebar kartu (--w = lebar li = kartu, termasuk border), bukan % kotak konten yang mengecil di kartu sempit. */
+.tl-icon { width: calc(var(--w) * 0.63); height: auto; aspect-ratio: 1; }
 /* Nama selalu ada di DOM (nama aksesibel); hanya disembunyikan secara visual sampai kartu diangkat. */
 .tl-name {
   position: absolute;

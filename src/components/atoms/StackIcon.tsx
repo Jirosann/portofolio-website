@@ -8,7 +8,7 @@ interface StackIconProps {
   className?: string;
 }
 
-/** "CapCut" -> "CC", "Hermes Agent" -> "HA". Hanya untuk tool tanpa logo berlisensi jelas. */
+/** Cadangan untuk skill tanpa ikon: "Hermes Agent" -> "HA", "CapCut" -> "CC". Saat ini tidak ada yang memakainya. */
 function monogram(name: string): string {
   const caps = name.replace(/[^A-Z]/g, '');
   return (caps.length >= 2 && caps !== name.replace(/\s/g, '') ? caps : name).slice(0, 2).toUpperCase();

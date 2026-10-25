@@ -129,6 +129,8 @@ function validate() {
                 message: issue.message,
               });
             });
+          } else if (!fs.existsSync(path.join('public', result.data.image))) {
+            errors.push({ file: toolsPath, field: `[${idx}].image`, message: `File not found: public${result.data.image}` });
           }
         });
       }

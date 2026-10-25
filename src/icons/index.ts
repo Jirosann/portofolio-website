@@ -11,7 +11,6 @@ import {
   OpenAPI, Figma,
   ReactIcon as React, TypeScript,
   Keras, Flask, Supabase,
-  VSCode, Postman, Obsidian, OpenClaw,
   MediaPipe, InsightFace, FileText
 } from './TechIcons';
 
@@ -74,12 +73,6 @@ export const icons: Record<string, React.ComponentType<{ className?: string, sty
 
   // UI/UX
   Figma,
-
-  // Tools harian (content/tools/tools.json)
-  VSCode,
-  Postman,
-  Obsidian,
-  OpenClaw,
 };
 
 export function getIcon(name: string) {

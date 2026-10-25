@@ -66,12 +66,12 @@ export const SkillSchema = z.object({
   visible: z.boolean(),
 });
 
-// Tool Schema (Tools I use, content/tools/tools.json). Tanpa `icon` (logo tanpa lisensi jelas) kartu memakai monogram.
-// `maker` tampil sebagai baris kedua label (mis. "Nous Research").
+// Tool Schema (Tools I use, content/tools/tools.json). `image`: ikon aplikasi resmi di public (bukan kunci TechIcons),
+// ditampilkan apa adanya di kartu porselen pada kedua tema. `maker` tampil sebagai baris kedua label (mis. "Nous Research").
 export const ToolSchema = z.object({
   id: z.string().min(1, "Tool ID is required"),
   name: z.string().min(1, "Tool name is required"),
-  icon: z.string().min(1).optional(),
+  image: z.string().regex(/^\/icons\/.+\.(webp|svg|png)$/, "Tool image must be a file under /icons"),
   maker: z.string().min(1).optional(),
   order: z.number(),
 });
