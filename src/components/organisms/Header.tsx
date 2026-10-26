@@ -1,12 +1,13 @@
 'use client';
 import { useTranslation } from '@/components/providers/LanguageProvider';
 
-import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useCallback, type MouseEvent as ReactMouseEvent } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils/cn';
 import { Container } from '@/components/layout/Container';
 import { ThemeToggle } from '@/components/atoms/ThemeToggle';
 import { LanguageSwitcher } from '@/components/molecules/LanguageSwitcher';
+import { HASH_JUMP_END } from '@/components/atoms/ScrollToTop';
 
 export interface NavLink {
   href: string;
@@ -43,16 +44,17 @@ export function Header({ navLinks }: HeaderProps) {
   // Penempatan pertama tanpa transisi (indikator tidak meluncur dari kiri saat halaman dimuat).
   const [indicatorReady, setIndicatorReady] = useState(false);
 
-  /** Section terakhir (urutan dokumen) yang memotong pita scroll-spy; null bila tidak ada. */
-  const sectionInBand = useCallback(() => {
+  /** Section terakhir (urutan dokumen) yang memotong pita scroll-spy pada posisi scroll `at`; null bila tidak ada. */
+  const sectionInBand = useCallback((at = window.scrollY) => {
     const top = window.innerHeight * SPY_TOP;
     const bottom = window.innerHeight * SPY_BOTTOM;
+    const shift = window.scrollY - at;
     let found: string | null = null;
     for (const link of navLinks) {
       const el = document.getElementById(link.href.substring(1));
       if (!el) continue;
       const r = el.getBoundingClientRect();
-      if (r.top < bottom && r.bottom > top) found = link.href;
+      if (r.top + shift < bottom && r.bottom + shift > top) found = link.href;
     }
     return found;
   }, [navLinks]);
@@ -100,6 +102,40 @@ export function Header({ navLinks }: HeaderProps) {
   );
 
   useEffect(() => () => lockRef.current?.release(), []);
+
+  // Muat penuh dengan hash menu (mis. menu dari halaman proyek): ScrollToTop melompat ke section, sorotan
+  // diperlakukan seperti klik menu. ScrollToTop melompat dua kali (lihat di sana), jadi scroll-spy ditahan sampai
+  // HASH_JUMP_END, baru kemudian dikunci seperti biasa sampai scroll terakhir selesai.
+  useEffect(() => {
+    const hash = location.hash;
+    if (!hash || !navLinks.some((link) => link.href === hash)) return;
+    setActiveSection(hash);
+    const done = () => lockTo(hash);
+    const cap = window.setTimeout(done, 4000);
+    const hold = {
+      release() {
+        window.clearTimeout(cap);
+        window.removeEventListener(HASH_JUMP_END, done);
+        if (lockRef.current === hold) lockRef.current = null;
+      },
+    };
+    lockRef.current = hold;
+    window.addEventListener(HASH_JUMP_END, done, { once: true });
+    // Hanya saat mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /** Logo di beranda: kembali ke atas dan hapus hash. Dari halaman lain Link bernavigasi seperti biasa. */
+  const onBrandClick = (e: ReactMouseEvent<HTMLAnchorElement>) => {
+    if (location.pathname !== '/' || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (location.hash) history.pushState(null, '', location.pathname + location.search);
+    // Sorotan langsung ke keadaan di posisi atas (seperti saat halaman dimuat), dikunci selama naik.
+    lockTo(sectionInBand(0) ?? '');
+    window.scrollTo({ top: 0, behavior: reduced ? 'instant' : 'smooth' });
+  };
 
   useEffect(() => {
     // Close mobile menu on Escape key
@@ -207,6 +243,7 @@ export function Header({ navLinks }: HeaderProps) {
           {/* Logo / Name */}
           <Link
             href="/"
+            onClick={onBrandClick}
             className="nav-brand flex items-center gap-2.5 min-h-11 transition-opacity hover:opacity-80"
             aria-label="Al-Qadri"
           >
