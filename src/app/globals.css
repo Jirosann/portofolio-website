@@ -165,12 +165,21 @@
   :root { --nav-offset: 80px; }
 }
 
-main section[id] {
-  scroll-margin-top: var(--nav-offset);
+/* Lompatan menu: tepi atas section mendarat --nav-clearance di bawah area navigasi, jadi hairline di tepi itu
+   (mis. #contact) terlihat jelas di bawah bar atau pill, bukan di belakangnya: 15 px di bawah bar (< 1024), 20 px di
+   bawah pill (>= 1024; --nav-offset sudah 12 px di bawah pill). Hairline terakhir section sebelumnya tetap di luar
+   layar di desktop (-9 px; header di sekitar pill transparan) dan di belakang bar opak di HP. Terukur di
+   docs/audit/evidence/nav-motion. */
+:root { --nav-clearance: 1rem; }
+@media (min-width: 1024px) {
+  :root { --nav-clearance: 0.5rem; }
 }
-/* Target tautan "used in" di section Stack (#project-<slug>); jarak ekstra agar metadata P-NN tidak menempel di nav. */
+main section[id] {
+  scroll-margin-top: calc(var(--nav-offset) + var(--nav-clearance));
+}
+/* Target tautan "used in" di section Stack (#project-<slug>); jarak sama agar metadata P-NN tidak menempel di nav. */
 .model-card {
-  scroll-margin-top: calc(var(--nav-offset) + 16px);
+  scroll-margin-top: calc(var(--nav-offset) + var(--nav-clearance));
 }
 
 /* =====================================================
@@ -657,19 +666,6 @@ html {
   display: block;
 }
 
-/* Indicator line */
-.nav-link-normal::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 1rem;
-  right: 1rem;
-  height: 2px;
-  border-radius: 999px;
-  background-color: transparent;
-  transition: background-color var(--dur-base) var(--ease-out);
-}
-
 .nav-link-normal:hover {
   color: var(--color-text);
   background: color-mix(in srgb, var(--color-text) 4%, transparent);
@@ -678,9 +674,6 @@ html {
   color: var(--color-highlight-text);
   background: transparent;
   font-weight: 600;
-}
-.nav-link-normal.active::after {
-  background-color: var(--color-highlight);
 }
 .nav-link-normal.active:hover {
   /* Hover lebih lemah dari aktif */
@@ -704,12 +697,38 @@ html {
   border-color: var(--color-accent-hover);
 }
 
-/* Tablet (md sampai sebelum lg): garis indikator mengikuti padding link yang lebih rapat */
-@media (min-width: 768px) and (max-width: 1023.98px) {
-  .nav-link-normal::after {
-    left: 0.625rem;
-    right: 0.625rem;
-  }
+/* Indikator aktif (Header, satu elemen untuk semua tautan desktop): meluncur dari item lama ke item baru lewat
+   transform (posisi dan ukuran dari tautan aktif, inline style), pegas ringan --dur-slow. Di belakang teks tautan.
+   768–1023: garis tembaga selebar teks (padding tautan 0.625rem). >= 1024: pil terang opak + garis pendek (di blok
+   Liquid Glass). Memudar di Contact (gaya aktif sendiri) atau bila tidak ada item aktif. Penempatan pertama tanpa
+   transisi (data-ready baru dipasang setelah frame pertama); reduced motion: pindah instan. */
+.nav-links { position: relative; }
+.nav-links > a { z-index: 1; }
+.nav-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+}
+.nav-indicator[data-on] { opacity: 1; }
+.nav-indicator[data-ready] {
+  transition: transform var(--dur-slow) var(--ease-spring), width var(--dur-slow) var(--ease-spring),
+    height var(--dur-slow) var(--ease-spring), opacity var(--dur-base) var(--ease-out);
+}
+.nav-indicator::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0.625rem;
+  right: 0.625rem;
+  height: 2px;
+  border-radius: 999px;
+  background-color: var(--color-highlight);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-indicator[data-ready] { transition: none; }
 }
 
 /* Mobile Nav Contact */
@@ -824,15 +843,16 @@ html {
     background: var(--nav-inner);
     box-shadow: 0 0 10px 4px var(--nav-inner);
   }
-  /* Item aktif: teks --color-text di atas pil terang opak (kontras tidak bergantung latar di balik kaca).
-     Aksen tembaga pindah ke garis pendek di bawah teks: indikator non-teks, bukan warna teks. */
-  .nav-pill .nav-link-normal.active,
-  .nav-pill .nav-link-normal.active:hover {
+  /* Item aktif: teks --color-text di atas pil terang opak (.nav-indicator; kontras tidak bergantung latar di balik
+     kaca). Aksen tembaga pindah ke garis pendek di bawah teks: indikator non-teks, bukan warna teks. */
+  .nav-pill .nav-link-normal.active {
     color: var(--color-text);
+  }
+  .nav-pill .nav-indicator {
     background: var(--nav-active-bg);
     box-shadow: var(--nav-active-shadow);
   }
-  .nav-pill .nav-link-normal.active::after {
+  .nav-pill .nav-indicator::after {
     left: 50%;
     right: auto;
     bottom: 5px;
