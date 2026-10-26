@@ -1138,8 +1138,9 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
 }
 
 /* Stack: kartu ikon yang bisa dibalik (redesign-v2 §13, menggantikan kolom teks §6.4). Kelas pendek, alasan sama dengan .mc-*.
-   Satu sistem untuk semua blok di semua lebar: hairline di atas, label mono di atas konten, konten rata kiri.
-   Jarak garis -> label -> konten sama di setiap blok (padding-block + gap di sini; kipas Tools tanpa padding atas sendiri). */
+   Satu sistem untuk semua blok di semua lebar: hairline di atas, label mono di atas konten, konten rata kiri, jarak
+   garis -> label -> konten sama (padding-block + gap di sini). Pengecualian: Tools I use, penutup section yang
+   ditengahkan dengan ruang lebih lega (.sc-group.tl di bawah). */
 .sc-group {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -1393,40 +1394,51 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   color: var(--color-text);
 }
 
-/* Tools I use: kipas kartu bertumpuk. Satu baris pada container >= 36rem, dua baris berisi --cols di bawahnya
-   (--n dan --cols dari StackSection). Tumpang tindih dihitung dari lebar container (cqi), jadi lebar total tidak
-   pernah melebihi container; 2.5rem dicadangkan untuk sudut kartu miring di kedua ujung. Strip kartu yang tidak
-   tertutup (--w + --m) tidak pernah < 2.75rem (44 px): max() membatasi tumpang tindih di kartu kecil.
-   Rata kiri seperti blok lain: --lead = tonjolan sudut atas kartu pertama yang miring (--tilt, poros di tengah bawah,
-   tinggi kartu 1,25 --w) melewati kotak li, jadi piksel terkiri kartu jatuh di tepi kiri konten. */
+/* Tools I use: penutup #skills yang berdiri sendiri, satu-satunya blok yang ditengahkan (label + kipas); hairline di
+   atasnya tetap selebar konten (border-top .sc-group). Ruang lega di sekitar kipas: garis -> label, label -> kartu,
+   dan kartu -> akhir blok (nilai di .sc-group.tl, terukur dari tepi visual kartu yang miring). */
+.sc-group.tl { justify-items: center; gap: 2rem; padding-block: 2rem; }
+@media (min-width: 64rem) {
+  .sc-group.tl { gap: 3rem; padding-block: 3rem 3.5rem; }
+}
+.tl > .tl-wrap { justify-self: stretch; }
+
+/* Kipas kartu bertumpuk. Satu baris pada container >= 36rem, dua baris berisi --cols di bawahnya (--n dan --cols
+   dari StackSection). Kartu setara kartu stack (116 px di >= 1024). --lead = tonjolan sudut atas kartu terluar yang
+   miring (--tilt, poros di tengah bawah, tinggi kartu 1,25 --w) melewati kotak li; dicadangkan di kedua sisi, jadi
+   kipas tetap di tengah dan lebar totalnya tidak pernah melebihi container (tumpang tindih dihitung dari 100cqi).
+   Strip kartu yang tidak tertutup (--w + --m) tidak pernah < 2.75rem (44 px): max() membatasi tumpang tindih. */
 .tl-wrap { container: tl / inline-size; min-width: 0; }
 .tl-fan {
-  --w: clamp(3.4rem, 9.35cqi, 5.3rem);
-  --m: max(2.75rem - var(--w), min(-1rem, (100cqi - 2.5rem - var(--n) * var(--w)) / (var(--n) - 1)));
+  --w: clamp(3.4rem, 11.8cqi, 7.25rem);
   --tilt: calc((var(--n) - 1) / 2 * 3deg);
   --lead: calc(var(--w) * (1.25 * sin(var(--tilt)) - 0.5 * (1 - cos(var(--tilt)))));
+  --m: max(2.75rem - var(--w), min(-1.5rem, (100cqi - 2 * var(--lead) - 2px - var(--n) * var(--w)) / (var(--n) - 1)));
   display: flex;
-  padding-inline-start: var(--lead);
-  /* Atas 1px: kartu tengah yang miring naik ~1 px di atas kotak li, jadi jarak label -> kartu = gap kelompok.
-     Bawah: kartu miring + lengkung turun ~0,5rem di bawah kotak li; sisa jaraknya ke akhir blok = padding kelompok
-     lain (24 px desktop, 20 px HP, terukur). Label kartu terangkat boleh melewati ini (masih di padding section). */
+  justify-content: center;
+  padding-inline: var(--lead);
+  /* Atas 1px: kartu tengah yang miring naik ~1 px di atas kotak li. Bawah: kartu miring + lengkung turun di bawah
+     kotak li; label kartu terangkat (nama + pembuat) muat di sini dan di padding bawah kelompok. */
   padding-block: 1px 1.55rem;
 }
 .tl-fan > li { flex: none; width: var(--w); margin-inline-start: var(--m); }
 .tl-fan > li:first-child { margin-inline-start: 0; }
-/* Dua baris: setiap li (termasuk awal baris) bermargin --m, dan padding kiri sebesar -m mengembalikannya,
-   jadi jumlah kartu per baris mengikuti --cols tanpa nth-child. +1px menahan pembulatan subpiksel. --lead ikut
-   masuk ke lebar (border-box). */
+/* Dua baris (HP): setiap li (termasuk awal baris) bermargin --m, dan padding kiri sebesar -m mengembalikannya, jadi
+   jumlah kartu per baris mengikuti --cols tanpa nth-child. Lebar (border-box) = baris kartu + --lead di kedua sisi,
+   ditengahkan dengan margin auto. +1px menahan pembulatan subpiksel. 20.5cqi = kartu terbesar yang masih muat
+   lima per baris di 320 dan 390. */
 @container tl (max-width: 36rem) {
   .tl-fan {
-    --w: clamp(2.75rem, 16.15cqi, 4.05rem);
+    --w: clamp(2.75rem, 20.5cqi, 5rem);
     --m: max(2.75rem - var(--w), var(--w) * -0.16);
     --tilt: calc((var(--cols) - 1) / 2 * 5deg);
     flex-wrap: wrap;
+    justify-content: flex-start;
     row-gap: 3rem;
     padding-bottom: 0.7rem;
-    width: calc(var(--cols) * var(--w) + (var(--cols) - 1) * var(--m) + 1px + var(--lead));
-    padding-inline-start: calc(var(--lead) - var(--m));
+    width: calc(var(--cols) * var(--w) + (var(--cols) - 1) * var(--m) + 1px + 2 * var(--lead));
+    margin-inline: auto;
+    padding-inline: calc(var(--lead) - var(--m)) var(--lead);
   }
   .tl-fan > li:first-child { margin-inline-start: var(--m); }
 }
@@ -1458,8 +1470,8 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
     color-mix(in srgb, var(--color-surface) 94%, white);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 24px rgb(0 0 0 / 0.45);
 }
-/* 55% lebar kartu (--w = lebar li = kartu, termasuk border), bukan % kotak konten yang mengecil di kartu sempit. */
-.tl-tile { display: grid; width: calc(var(--w) * 0.55); aspect-ratio: 1; place-items: center; }
+/* 60% lebar kartu (--w = lebar li = kartu, termasuk border), bukan % kotak konten yang mengecil di kartu sempit. */
+.tl-tile { display: grid; width: calc(var(--w) * 0.6); aspect-ratio: 1; place-items: center; }
 .tl-icon { width: 100%; height: auto; aspect-ratio: 1; }
 /* imageDark: satu <img> per tema; yang display:none (lazy) tidak diunduh. */
 .tl-icon--d,
