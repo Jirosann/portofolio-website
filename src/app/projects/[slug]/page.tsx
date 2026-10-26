@@ -11,6 +11,7 @@ import { getExperience } from '@/lib/content/experience';
 import { compileMDX } from '@/lib/mdx/compileMDX';
 import { cookies } from 'next/headers';
 import { dictionaries, resolveLocale } from '@/lib/i18n';
+import { notFoundMetadata } from '@/lib/not-found-metadata';
 
 interface ProjectDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
   const project = getProjectBySlug(slug);
 
   if (!project) {
-    return { title: 'Project Not Found' };
+    return notFoundMetadata();
   }
 
   const metaLang = resolveLocale((await cookies()).get('NEXT_LOCALE')?.value);
