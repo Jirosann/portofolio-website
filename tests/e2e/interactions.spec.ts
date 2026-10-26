@@ -79,6 +79,136 @@ test.describe('lompatan menu', () => {
   });
 });
 
+/** Tunggu muat penuh beranda: hidrasi, font, lompatan awal, lalu lepas kunci sorotan dan IntersectionObserver. */
+async function settleHome(page: Page) {
+  await page.waitForLoadState('load');
+  await expect(page.locator('button.sc-btn').first()).toBeEnabled();
+  await page.evaluate(() => document.fonts.ready);
+  await waitForScrollEnd(page);
+  await page.waitForTimeout(500);
+}
+
+async function expectLanded(page: Page, id: string, width: number) {
+  const pos = await landing(page, id);
+  const margin = scrollMarginFor(width);
+  if (!pos.atBottom) expect(Math.abs(pos.top - margin), `#${id} top=${pos.top}`).toBeLessThanOrEqual(4);
+  else expect(pos.top).toBeGreaterThanOrEqual(margin - 4);
+}
+
+/** href tautan menu yang disorot (desktop: deretan tautan; < 768: dibaca dari menu mobile lalu ditutup lagi). */
+async function activeHref(page: Page, width: number) {
+  const read = async (selector: string) => {
+    const current = page.locator(selector);
+    return (await current.count()) ? current.getAttribute('href') : null;
+  };
+  if (width >= 768) return read('.nav-links a[aria-current="true"]');
+  await page.locator('button[aria-controls="mobile-menu"]').click();
+  await expect(page.locator('#mobile-menu')).toBeVisible();
+  const href = await read('#mobile-menu a[aria-current="true"]');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#mobile-menu')).toBeHidden();
+  return href;
+}
+
+test.describe('lompatan hash saat muat penuh', () => {
+  for (const lang of ['en', 'id'] as const) {
+    for (const width of [390, 1440]) {
+      test(`${lang} ${width}px: menu dari halaman proyek dan hash dibuka langsung`, async ({ page, setup }) => {
+        test.slow();
+        await setup({ width, height: width < 768 ? 844 : 900, lang });
+
+        // Menu di halaman proyek adalah <a href="/#…"> biasa: selalu muat penuh.
+        for (const id of SECTIONS) {
+          await page.goto('/projects/faceattend');
+          await page.waitForLoadState('load');
+          if (width < 768) {
+            await page.locator('button[aria-controls="mobile-menu"]').click();
+            await page.locator(`#mobile-menu a[href="/#${id}"]`).click();
+          } else {
+            await page.locator(`.nav-links a[href="/#${id}"]`).click();
+          }
+          await page.waitForURL(`**/#${id}`);
+          await settleHome(page);
+          await expectLanded(page, id, width);
+          expect(await activeHref(page, width), `sorotan setelah menu ${id}`).toBe(`#${id}`);
+        }
+
+        // Tautan yang dibagikan, dibuka di tab baru; model card berada di dalam #projects.
+        for (const [id, section] of [...SECTIONS.map((s) => [s, s]), ['project-fakenews-detector', 'projects']]) {
+          await page.goto('about:blank');
+          await page.goto(`/#${id}`);
+          await settleHome(page);
+          await expectLanded(page, id, width);
+          expect(await activeHref(page, width), `sorotan setelah membuka /#${id}`).toBe(`#${section}`);
+        }
+      });
+    }
+  }
+});
+
+test.describe('logo', () => {
+  for (const width of [390, 1440]) {
+    test(`${width}px: kembali ke atas dengan smooth, hash hilang, sorotan seperti awal`, async ({ page, setup, baseURL }) => {
+      await setup({ width, height: width < 768 ? 844 : 900 });
+      await gotoHome(page);
+      await waitForScrollEnd(page);
+      const initial = await activeHref(page, width);
+      const logo = page.locator('a.nav-brand');
+
+      /** Klik logo sambil merekam scrollY setiap frame sampai berhenti. */
+      const clickLogo = async () => {
+        const start = await page.evaluate(() => {
+          const w = window as unknown as { __ys: number[] };
+          w.__ys = [];
+          const tick = () => {
+            w.__ys.push(window.scrollY);
+            if (w.__ys.length < 240) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          return window.scrollY;
+        });
+        await logo.click();
+        await waitForScrollEnd(page);
+        await page.waitForTimeout(500);
+        const ys = await page.evaluate(() => (window as unknown as { __ys: number[] }).__ys);
+        expect(ys.some((y) => y > 0 && y < start - 1), 'ada posisi antara (smooth)').toBe(true);
+        expect(await page.evaluate(() => window.scrollY)).toBe(0);
+        expect(page.url()).toBe(`${baseURL}/`);
+        expect(await activeHref(page, width)).toBe(initial);
+      };
+
+      // A: digulir tanpa hash.
+      await page.evaluate(() => window.scrollTo({ top: 3000, behavior: 'instant' }));
+      await waitForScrollEnd(page);
+      await page.waitForTimeout(500);
+      await clickLogo();
+
+      // B: lewat menu Contact (URL ber-hash), lalu logo.
+      if (width < 768) {
+        await page.locator('button[aria-controls="mobile-menu"]').click();
+        await page.locator('#mobile-menu a[href="#contact"]').click();
+      } else {
+        await page.locator('.nav-links a[href="#contact"]').click();
+      }
+      await waitForScrollEnd(page);
+      await page.waitForTimeout(500);
+      expect(page.url()).toBe(`${baseURL}/#contact`);
+      await clickLogo();
+    });
+  }
+
+  test('reduced motion: langsung di atas', async ({ page, setup, baseURL }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await setup({ width: 1440 });
+    await page.goto('/#contact');
+    await settleHome(page);
+    expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(1000);
+    await page.locator('a.nav-brand').click();
+    expect(await page.evaluate(() => window.scrollY)).toBe(0);
+    expect(page.url()).toBe(`${baseURL}/`);
+  });
+});
+
 test.describe('tile proyek hero', () => {
   // Tiga proyek teratas Selected work (card.order), menuju model card di halaman, bukan ke GitHub.
   const EXPECTED = ['tb-detector', 'fakenews-detector', 'face-attend'];
@@ -196,6 +326,17 @@ test.describe('Tools I use', () => {
       await setup({ width: 390, height: 844 });
       await gotoHome(page);
       await run(page, 'tap');
+    });
+
+    test('kartu terangkat turun saat halaman digulir', async ({ page, setup }) => {
+      await setup({ width: 390, height: 844 });
+      await gotoHome(page);
+      const card = page.locator('.tl-fan > li').nth(2);
+      await card.scrollIntoViewIfNeeded();
+      await card.tap();
+      await expect(card).toHaveAttribute('data-raised');
+      await page.evaluate(() => window.scrollBy({ top: 200, behavior: 'instant' }));
+      await expect(page.locator('.tl-fan > li[data-raised]')).toHaveCount(0);
     });
   });
 
@@ -376,6 +517,37 @@ test.describe('Try the model', () => {
     await panel(page).getByRole('button', { name: 'Palsu 1', exact: true }).click();
     await expect(panel(page).locator('[aria-live="polite"]')).toHaveText(/^Prediksi: Palsu, probabilitas /);
   });
+
+  // Judul daftar kata mengikuti jumlah kata yang tampil (kosakata model < 5 kata: daftar lebih pendek).
+  const HEADINGS = {
+    en: { button: /Try the model/, run: 'Run the model', sample: 'Real 1', one: 'The word that moved the score most', n: (n: number) => `The ${n} words that moved the score most` },
+    id: { button: /Coba modelnya/, run: 'Jalankan model', sample: 'Asli 1', one: 'Kata yang paling menggeser skor', n: (n: number) => `${n} kata yang paling menggeser skor` },
+  };
+  for (const [lang, width] of [['en', 1440], ['id', 390]] as const) {
+    test(`judul daftar kata mengikuti jumlah kata (${lang} ${width}px)`, async ({ page, setup }) => {
+      const h = HEADINGS[lang];
+      await setup({ width, lang });
+      await gotoHome(page);
+      await open(page, h.button);
+      const terms = panel(page).locator('li[data-dir]');
+      const run = async (text: string) => {
+        await panel(page).getByRole('textbox').fill(text);
+        await panel(page).getByRole('button', { name: h.run }).click();
+      };
+
+      await run('president');
+      await expect(terms).toHaveCount(1);
+      await expect(panel(page).getByRole('heading', { name: h.one, exact: true })).toBeVisible();
+
+      await run('president senate');
+      await expect(terms).toHaveCount(2);
+      await expect(panel(page).getByRole('heading', { name: h.n(2), exact: true })).toBeVisible();
+
+      await panel(page).getByRole('button', { name: h.sample, exact: true }).click();
+      await expect(terms).toHaveCount(5);
+      await expect(panel(page).getByRole('heading', { name: h.n(5), exact: true })).toBeVisible();
+    });
+  }
 });
 
 test.describe('easter egg hire', () => {
@@ -396,6 +568,29 @@ test.describe('easter egg hire', () => {
     await page.keyboard.type('hire');
     await expect(page.getByText(/Email tersalin — mari ngobrol|Tekan Ctrl\+C untuk menyalin email/)).toBeVisible();
   });
+
+  // Konfeti: div aria-hidden berisi <i> yang ditempel ke body (hireEffect.ts), dihapus setelah ±2 detik.
+  const confetti = (page: Page) => page.locator('body > div[aria-hidden="true"]:has(> i)');
+  for (const ok of [true, false]) {
+    test(`konfeti hanya bila email tersalin (${ok ? 'berhasil' : 'gagal'})`, async ({ page, setup }) => {
+      await page.addInitScript((ok) => {
+        const writeText = () => (ok ? Promise.resolve() : Promise.reject(new DOMException('denied', 'NotAllowedError')));
+        Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+      }, ok);
+      await setup({ width: 1440 });
+      await gotoHome(page);
+      await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+      await page.keyboard.type('hire');
+      if (ok) {
+        await expect(page.getByText("Email copied — let's talk")).toBeVisible();
+        await expect(confetti(page)).toHaveCount(1);
+      } else {
+        await expect(page.getByText(/Press Ctrl\+C to copy the email/)).toBeVisible();
+        await page.waitForTimeout(500);
+        await expect(confetti(page)).toHaveCount(0);
+      }
+    });
+  }
 
   test('tidak terpicu saat mengetik di textarea', async ({ page, setup }) => {
     await setup({ width: 1440 });
@@ -427,6 +622,62 @@ test.describe('easter egg hire', () => {
       await expect(page.locator('.footer-hint')).toBeHidden();
     });
   });
+});
+
+test.describe('badge Open to Work < 768', () => {
+  test.use({ hasTouch: true, isMobile: true });
+
+  for (const [width, lang] of [[320, 'en'], [390, 'en'], [390, 'id'], [600, 'en']] as const) {
+    test(`${width}px ${lang}: gelembung tidak menutupi tautan, CLS 0, ketukan di luar menutup`, async ({ page, setup }) => {
+      await setup({ width, height: 844, lang });
+      await gotoHome(page);
+      // Pergeseran tata letak tanpa input pengguna sejak titik ini (hadRecentInput = pergeseran ≤ 500 ms setelah input).
+      await page.evaluate(() => {
+        const w = window as unknown as { __cls: number };
+        w.__cls = 0;
+        new PerformanceObserver((list) => {
+          for (const e of list.getEntries() as unknown as { value: number; hadRecentInput: boolean }[])
+            if (!e.hadRecentInput) w.__cls += e.value;
+        }).observe({ type: 'layout-shift' });
+      });
+      const cls = () => page.evaluate(() => (window as unknown as { __cls: number }).__cls);
+
+      const badge = page.locator('.otw-btn');
+      const bubble = page.locator('.otw-bubble');
+      await badge.scrollIntoViewIfNeeded();
+      await badge.tap();
+      await expect(bubble).toBeVisible();
+      await page.waitForTimeout(400); // transisi baris selesai
+
+      const card = badge.locator('xpath=ancestor::div[contains(@class, "col-span-4")]');
+      const targets = [
+        badge,
+        ...(await card.locator('ul a').all()),
+        page.locator('a[href="#contact"]').filter({ hasText: lang === 'id' ? 'Hubungi saya' : 'Contact me' }),
+      ];
+      expect(targets.length).toBe(6); // badge, Email, LinkedIn, GitHub, WhatsApp, Contact me
+      for (const target of targets) {
+        await target.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
+        const hit = await target.evaluate((el) => {
+          const b = document.querySelector('.otw-bubble')!.getBoundingClientRect();
+          const r = el.getBoundingClientRect();
+          const overlap = r.left < b.right && r.right > b.left && r.top < b.bottom && r.bottom > b.top;
+          const top = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+          return { overlap, ownHit: !!top && el.contains(top), name: el.textContent?.trim() || el.getAttribute('href') };
+        });
+        expect(hit.overlap, `gelembung beririsan dengan ${hit.name}`).toBe(false);
+        expect(hit.ownHit, `titik tengah ${hit.name} tertutup`).toBe(true);
+      }
+
+      // Mode baris tidak menutup sendiri (penutupan tanpa input akan menggeser isi di bawah kartu).
+      await page.waitForTimeout(6000);
+      await expect(bubble).toBeVisible();
+      await page.locator('#hero-proof').tap();
+      await expect(bubble).toBeHidden();
+      await page.waitForTimeout(600);
+      expect(await cls()).toBe(0);
+    });
+  }
 });
 
 test.describe('game 404', () => {
