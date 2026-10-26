@@ -1,9 +1,13 @@
 import path from 'node:path';
 import { test, expect, THEMES, scrollThrough, gotoHome } from './fixtures';
 
-// Baseline hanya valid di Linux (font dan rendering berbeda per OS). Buat dan jalankan lewat
-// `npm run test:e2e:update` / `npm run test:e2e:docker`, image yang sama dengan CI.
-test.skip(process.platform !== 'linux', 'regresi visual hanya di Linux (pakai npm run test:e2e:docker)');
+// Baseline hanya valid di Linux (font dan rendering berbeda per OS). Perbarui lewat workflow
+// "Update visual baselines" (.github/workflows/update-snapshots.yml), atau lokal lewat
+// `npm run test:e2e:update` / `npm run test:e2e:docker`. Ketiganya memakai image yang sama dengan CI.
+test.skip(
+  process.platform !== 'linux',
+  'regresi visual hanya di Linux (workflow Update visual baselines atau npm run test:e2e:docker)',
+);
 
 // Matikan animasi scroll (.reveal) dan transisi agar tangkapan deterministik.
 test.use({ reducedMotion: 'reduce' });
