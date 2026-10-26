@@ -1097,8 +1097,9 @@ html {
   text-wrap: pretty;
 }
 /* HP sempit: sedikit lebih kecil agar "Staff, Human Resources Development" muat satu baris di 390 (lebar alami 370 px
-   pada 22 px, kolom 350 px; 20,5 px di 390). Batas bawah 19 px; di 320 judul tetap membungkus tanpa scroll horizontal. */
-@media (max-width: 400px) {
+   pada 22 px, kolom 350 px; 20,5 px di 390). Batas bawah 19 px; di 320 judul tetap membungkus tanpa scroll horizontal.
+   Batas 418 px = titik clamp mencapai 22 px, jadi tidak ada lompatan ukuran dan 412 (Android umum) ikut muat. */
+@media (max-width: 418px) {
   .xp-role { font-size: clamp(1.1875rem, 5.25vw, 1.375rem); }
 }
 .xp-org {
