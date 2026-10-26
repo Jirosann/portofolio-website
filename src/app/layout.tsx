@@ -48,6 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
         template: "%s | Muhammad Nabil Al Qadri"
       },
       description: meta.description,
+      url: '/',
       locale: meta.ogLocale,
       type: 'website',
     },
