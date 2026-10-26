@@ -26,7 +26,8 @@
       { "label": "Based in", "value": "Bekasi, West Java, Indonesia" },
       { "label": "Study", "value": "Software Engineering, BINUS University Bekasi", "period": "2024 – 2028 (expected)" },
       { "label": "Languages", "value": "Indonesian (native), English (professional working proficiency)" }
-    ]
+    ],
+    "photo": { "alt": "Muhammad Nabil Al Qadri", "caption": "Bekasi, 2026" }
   },
   "experience": {
     "title": "Experience",
