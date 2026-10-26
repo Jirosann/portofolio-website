@@ -100,7 +100,8 @@ export async function HeroSection({ profile }: HeroSectionProps) {
 
           {/* Status + kanal kontak: di bawah lg hanya ikon 44 px; di lg ikon + label + alamat, daftar rata bawah */}
           <div className={`${card} lg:col-span-4 p-5 md:p-6 flex flex-wrap items-center justify-between gap-3 md:flex-nowrap md:gap-6 lg:flex-col lg:items-stretch lg:gap-5`}>
-            <div className="md:flex-1 md:min-w-0">
+            {/* < 768: contents, supaya gelembung "Say hi" bisa menjadi baris terakhir kartu (globals.css, .otw) */}
+            <div className="max-md:contents md:flex-1 md:min-w-0">
               {email ? (
                 <OpenToWorkBadge label={t.hero.available} sayHi={delightCopy[lang].sayHi} href={getContactUrl(email)} />
               ) : (
