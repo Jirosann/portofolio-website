@@ -43,14 +43,29 @@ export function StackCards({ children, className }: StackCardsProps) {
     };
 
     let raised: HTMLElement | null = null;
+    // Kartu yang terangkat turun lagi begitu halaman digulir (tidak ada "hover lengket" di layar sentuh).
+    let raisedAt = 0;
+    const onScroll = () => {
+      if (Math.abs(window.scrollY - raisedAt) > 8) setRaised(null);
+    };
+    const setRaised = (tool: HTMLElement | null) => {
+      raised?.removeAttribute('data-raised');
+      raised = tool;
+      if (tool) {
+        tool.setAttribute('data-raised', '');
+        raisedAt = window.scrollY;
+        window.addEventListener('scroll', onScroll, { passive: true });
+      } else {
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
     const onClick = (e: MouseEvent) => {
       const target = e.target as Element;
       // Tools I use: ketukan mengangkat kartu (pengganti hover di layar sentuh); ketukan lagi menurunkannya.
       // Target klik = li (area statis); kartunya pointer-events: none.
       const tool = target.closest<HTMLElement>('.tl-fan > li');
       if (tool) {
-        if (raised && raised !== tool) raised.removeAttribute('data-raised');
-        raised = tool.toggleAttribute('data-raised') ? tool : null;
+        setRaised(raised === tool ? null : tool);
         return;
       }
       const card = target.closest<HTMLElement>('.sc');
@@ -91,6 +106,7 @@ export function StackCards({ children, className }: StackCardsProps) {
       root.removeEventListener('click', onClick);
       root.removeEventListener('pointermove', onMove);
       document.removeEventListener('keydown', onKey);
+      window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(frame);
     };
   }, []);
