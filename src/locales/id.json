@@ -26,7 +26,8 @@
       { "label": "Domisili", "value": "Bekasi, Jawa Barat, Indonesia" },
       { "label": "Studi", "value": "Software Engineering, BINUS University Bekasi", "period": "2024 – 2028 (target)" },
       { "label": "Bahasa", "value": "Indonesia (penutur asli), Inggris (kemampuan kerja profesional)" }
-    ]
+    ],
+    "photo": { "alt": "Muhammad Nabil Al Qadri", "caption": "Bekasi, 2026" }
   },
   "experience": {
     "title": "Pengalaman",
