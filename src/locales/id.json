@@ -15,14 +15,14 @@
     "contactMe": "Hubungi saya",
     "downloadCV": "Unduh CV",
     "description": "Mahasiswa S1 BINUS University dengan fokus pada arsitektur perangkat lunak, data science, dan aplikasi AI.",
-    "position": "Mahasiswa Rekayasa Perangkat Lunak"
+    "position": "Mahasiswa Software Engineering"
   },
   "about": {
     "title": "Tentang Saya",
     "description": "Tiga proyek yang saya kerjakan memadukan model terlatih dengan aplikasi web: deteksi TB dari X-ray dada, klasifikasi berita palsu, dan presensi berbasis pengenalan wajah. Di luar kelas, saya mengikuti sesi Generative AI, threat modelling, dan microservices Golang di School of Computer Science & DSAI.",
     "facts": [
       { "label": "Domisili", "value": "Bekasi, Jawa Barat, Indonesia" },
-      { "label": "Studi", "value": "Rekayasa Perangkat Lunak, BINUS University Bekasi", "period": "2024 – 2028 (target)" },
+      { "label": "Studi", "value": "Software Engineering, BINUS University Bekasi", "period": "2024 – 2028 (target)" },
       { "label": "Bahasa", "value": "Indonesia (penutur asli), Inggris (kemampuan kerja profesional)" }
     ]
   },
@@ -102,7 +102,7 @@
   },
   "meta": {
     "title": "Muhammad Nabil Al Qadri | Software Engineering Student",
-    "description": "Mahasiswa Rekayasa Perangkat Lunak BINUS University yang membangun proyek full-stack, data, dan AI. Terbuka untuk magang, junior, dan full-time.",
+    "description": "Mahasiswa Software Engineering BINUS University yang membangun proyek full-stack, data, dan AI. Terbuka untuk magang, junior, dan full-time.",
     "ogLocale": "id_ID"
   }
 }
