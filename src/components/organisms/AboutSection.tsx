@@ -24,7 +24,8 @@ export async function AboutSection({ profile }: AboutSectionProps) {
         <SectionHeading section="about" label={t.nav.about} title={t.about.title} className="mb-8" />
 
         {/* Potret 4:5 di kiri teks (≥768), di atas paragraf di HP. Bingkai mengikuti kartu (radius, border, tanpa bayangan).
-            Lazy dan di bawah hero, jadi bukan kandidat LCP. */}
+            Lazy dan di bawah hero, jadi bukan kandidat LCP. aspect-[4/5] berlaku ke border box (rasio dari atribut width/height
+            hanya ke content box), jadi tingginya bulat 200/240 px dan section di bawahnya tidak bergeser setengah piksel. */}
         <div className="grid max-w-4xl gap-8 md:grid-cols-[10rem_minmax(0,1fr)] lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-10">
           <figure className="w-40 md:w-auto md:self-start">
             <picture>
@@ -37,7 +38,7 @@ export async function AboutSection({ profile }: AboutSectionProps) {
                 alt={t.about.photo.alt}
                 loading="lazy"
                 decoding="async"
-                className="block h-auto w-full rounded-[var(--radius-card)] border border-[var(--color-border)]"
+                className="block aspect-[4/5] h-auto w-full rounded-[var(--radius-card)] border border-[var(--color-border)] object-cover"
               />
             </picture>
             <figcaption className="mt-3 font-mono text-xs leading-5 text-[var(--color-text-secondary)]">
