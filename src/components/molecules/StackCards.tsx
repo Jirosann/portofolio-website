@@ -46,7 +46,8 @@ export function StackCards({ children, className }: StackCardsProps) {
     const onClick = (e: MouseEvent) => {
       const target = e.target as Element;
       // Tools I use: ketukan mengangkat kartu (pengganti hover di layar sentuh); ketukan lagi menurunkannya.
-      const tool = target.closest<HTMLElement>('.tl-card');
+      // Target klik = li (area statis); kartunya pointer-events: none.
+      const tool = target.closest<HTMLElement>('.tl-fan > li');
       if (tool) {
         if (raised && raised !== tool) raised.removeAttribute('data-raised');
         raised = tool.toggleAttribute('data-raised') ? tool : null;

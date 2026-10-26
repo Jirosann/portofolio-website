@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { test, expect, SECTIONS, scrollMarginFor, waitForScrollEnd, gotoHome, visible } from './fixtures';
+import { test, expect, SECTIONS, THEMES, scrollMarginFor, waitForScrollEnd, gotoHome, visible } from './fixtures';
 
 const NAV_LABELS = { about: 'About', projects: 'Projects', experience: 'Experience', skills: 'Skills', contact: 'Contact' };
 
@@ -172,7 +172,8 @@ test.describe('kartu stack', () => {
 
 test.describe('Tools I use', () => {
   const run = async (page: Page, act: 'click' | 'tap') => {
-    const cards = page.locator('.tl-card');
+    // Target klik/ketuk = li (area statis); kartu di dalamnya pointer-events: none.
+    const cards = page.locator('.tl-fan > li');
     await expect(cards).toHaveCount(11);
     await cards.nth(2).scrollIntoViewIfNeeded();
     await cards.nth(2)[act]();
@@ -180,7 +181,7 @@ test.describe('Tools I use', () => {
     await expect(cards.nth(2).locator('.tl-name')).toHaveCSS('opacity', '1');
     await cards.nth(6)[act]();
     await expect(cards.nth(6)).toHaveAttribute('data-raised');
-    await expect(page.locator('.tl-card[data-raised]')).toHaveCount(1);
+    await expect(page.locator('.tl-fan > li[data-raised]')).toHaveCount(1);
   };
 
   test('klik mengangkat satu kartu dan memunculkan nama', async ({ page, setup }) => {
@@ -207,6 +208,116 @@ test.describe('Tools I use', () => {
   });
 
   // Kipas muat tanpa scroll horizontal dan strip setiap kartu yang tertimpa tetap >= 44 px (HP 4-4-3, desktop satu baris).
+  // Kursor tepat di dalam tepi kartu diam (3,5 px), lalu diam 1 detik: kartu terangkat sekali dan tetap terangkat
+  // (dulu kartu naik meninggalkan kursor, turun lagi, berulang). Titik di tengah strip yang terlihat, sepanjang sumbu
+  // kartu yang miring; dari samping = tepi kiri setiap kartu dan tepi kanan kartu terakhir.
+  for (const theme of THEMES)
+    for (const width of [1024, 1440])
+      for (const from of ['bawah', 'atas', 'samping'] as const)
+        test(`hover dari ${from} stabil, ${theme} ${width}px`, async ({ page, setup }) => {
+          await setup({ width, theme });
+          await gotoHome(page);
+          await page.locator('.tl-fan').evaluate((ul) => ul.scrollIntoView({ block: 'center', behavior: 'instant' }));
+          await waitForScrollEnd(page);
+          await page.mouse.move(2, 2);
+          await page.waitForTimeout(300);
+
+          // Geometri kartu diam: kotak li (tidak pernah di-transform) + rotate/translate terhitung kartu.
+          const cards = await page.locator('.tl-fan > li').evaluateAll((lis) =>
+            lis.map((li, i) => {
+              const box = li.getBoundingClientRect();
+              const next = lis[i + 1]?.getBoundingClientRect();
+              const cs = getComputedStyle(li.querySelector('.tl-card')!);
+              const r = cs.rotate === 'none' ? 0 : parseFloat(cs.rotate);
+              const dy = cs.translate === 'none' ? 0 : parseFloat(cs.translate.split(' ')[1] ?? '0');
+              return { left: box.left, top: box.top, w: box.width, h: box.height, strip: next ? next.left - box.left : box.width, r, dy };
+            }),
+          );
+          expect(cards).toHaveLength(11);
+
+          type Card = (typeof cards)[number];
+          // (u, v) di bidang kartu: u dari tengah ke kanan, v dari tepi bawah ke atas; poros rotasi di tengah bawah.
+          const at = (c: Card, u: number, v: number) => {
+            const a = (c.r * Math.PI) / 180;
+            return { x: c.left + c.w / 2 + u * Math.cos(a) + v * Math.sin(a), y: c.top + c.h + c.dy + u * Math.sin(a) - v * Math.cos(a) };
+          };
+          const IN = 3.5;
+          const OUT = 30;
+          const paths = cards.flatMap((c, i) => {
+            const u = i === cards.length - 1 ? 0 : (c.strip - c.w) / 2;
+            if (from === 'bawah') return [{ i, start: at(c, u, -OUT), end: at(c, u, IN) }];
+            if (from === 'atas') return [{ i, start: at(c, u, c.h + OUT), end: at(c, u, c.h - IN) }];
+            const side = [{ i, start: at(c, -c.w / 2 - OUT, c.h / 2), end: at(c, -c.w / 2 + IN, c.h / 2) }];
+            if (i === cards.length - 1) side.push({ i, start: at(c, c.w / 2 + OUT, c.h / 2), end: at(c, c.w / 2 - IN, c.h / 2) });
+            return side;
+          });
+
+          for (const { i, start, end } of paths) {
+            const label = `kartu ${i} dari ${from} (${Math.round(end.x)}, ${Math.round(end.y)})`;
+            // Titik target memang milik kartu ini saat semua kartu diam (strip terlihat).
+            await page.mouse.move(2, 2);
+            await page.waitForTimeout(250);
+            const owner = await page.evaluate(({ x, y }) => {
+              const hit = document.elementFromPoint(x, y);
+              return [...document.querySelectorAll('.tl-fan > li')].findIndex((li) => li.contains(hit));
+            }, end);
+            expect(owner, label).toBe(i);
+
+            await page.mouse.move(start.x, start.y);
+            await page.mouse.move(end.x, end.y, { steps: 8 });
+            const sampling = page.evaluate(
+              (i) =>
+                new Promise<{ hover: boolean; hovered: number; ty: number; op: number }[]>((resolve) => {
+                  const li = document.querySelectorAll('.tl-fan > li')[i];
+                  const card = li.querySelector('.tl-card')!;
+                  const name = li.querySelector('.tl-name')!;
+                  const out: { hover: boolean; hovered: number; ty: number; op: number }[] = [];
+                  const t0 = performance.now();
+                  const tick = () => {
+                    const tr = getComputedStyle(card).translate;
+                    out.push({
+                      hover: li.matches(':hover'),
+                      hovered: document.querySelectorAll('.tl-fan > li:hover').length,
+                      ty: tr === 'none' ? 0 : parseFloat(tr.split(' ')[1] ?? '0'),
+                      op: parseFloat(getComputedStyle(name).opacity),
+                    });
+                    if (performance.now() - t0 < 1000) requestAnimationFrame(tick);
+                    else resolve(out);
+                  };
+                  requestAnimationFrame(tick);
+                }),
+              i,
+            );
+            // Kursor sungguhan tidak pernah benar-benar diam: geser subpiksel berkala supaya browser menilai ulang
+            // hover (tanpa event mouse, Chromium headless tidak selalu menilai ulang setelah kartu bergerak).
+            for (let k = 1; k <= 8; k++) {
+              await page.waitForTimeout(110);
+              await page.mouse.move(end.x + (k % 2) * 0.5, end.y);
+            }
+            const samples = await sampling;
+
+            expect(samples.every((s) => s.hover && s.hovered === 1), `${label}: hover lepas`).toBe(true);
+            // Hanya bergerak naik (translate-y tidak pernah bertambah lagi), berakhir terangkat penuh.
+            const drops = samples.filter((s, k) => k > 0 && s.ty > samples[k - 1].ty + 0.05);
+            expect(drops, `${label}: kartu turun lagi`).toEqual([]);
+            expect(samples.at(-1)!.ty, label).toBeCloseTo(-12, 1);
+            // Label tampil dan tidak meredup lagi setelah tampil penuh.
+            const shown = samples.findIndex((s) => s.op === 1);
+            expect(shown, `${label}: label tidak tampil`).toBeGreaterThanOrEqual(0);
+            expect(samples.slice(shown).every((s) => s.op === 1), `${label}: label berkedip`).toBe(true);
+          }
+        });
+
+  // Kartu Tools bukan tab stop (keputusan sesi 10): Tab dari kartu stack terakhir melewati kipas.
+  test('keyboard: Tab melewati kipas', async ({ page, setup }) => {
+    await setup({ width: 1440 });
+    await gotoHome(page);
+    await page.locator('button.sc-btn').last().focus();
+    await page.keyboard.press('Tab');
+    expect(await page.evaluate(() => !!document.activeElement?.closest('.tl-fan'))).toBe(false);
+    expect(await page.evaluate(() => document.activeElement === document.body)).toBe(false);
+  });
+
   for (const width of [320, 390, 1024, 1280, 1440]) {
     test(`kipas muat di ${width}px`, async ({ page, setup }) => {
       await setup({ width });

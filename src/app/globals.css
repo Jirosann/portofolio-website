@@ -246,7 +246,8 @@ html {
   transition: color var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out),
     border-color var(--dur-base) var(--ease-out), var(--press-t);
 }
-:is(.press, .mc-link, .nav-link-base, .project-detail-link, .sc, .tl-card, .otw-btn):active {
+/* Kartu Tools: :active ada di li (area hover statis), aturannya di blok Tools I use. */
+:is(.press, .mc-link, .nav-link-base, .project-detail-link, .sc, .otw-btn):active {
   scale: 0.97;
   transition-duration: var(--dur-fast);
 }
@@ -254,7 +255,7 @@ html {
   :is(.press, .mc-link, .project-detail-link):hover { translate: 0 -1px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  :is(.press, .mc-link, .nav-link-base, .project-detail-link, .sc, .tl-card, .otw-btn):active { scale: none; }
+  :is(.press, .mc-link, .nav-link-base, .project-detail-link, .sc, .otw-btn):active { scale: none; }
   :is(.press, .mc-link, .project-detail-link):hover { translate: none; }
 }
 
@@ -1468,8 +1469,41 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   /* Atas 1px: kartu tengah yang miring naik ~1 px di atas kotak li. Bawah: kartu miring + lengkung turun di bawah
      kotak li; label kartu terangkat (nama + pembuat) muat di sini dan di padding bawah kelompok. */
   padding-block: 1px 1.55rem;
+  /* Stacking context sendiri: layer z-index -1 area hover (li::after) tetap di dalam kipas. */
+  isolation: isolate;
 }
-.tl-fan > li { flex: none; width: var(--w); margin-inline-start: var(--m); }
+.tl-fan > li {
+  --r: calc(var(--i) * 3deg);
+  --dy: calc(var(--y) * 0.75px);
+  position: relative;
+  flex: none;
+  width: var(--w);
+  margin-inline-start: var(--m);
+  /* Area hover/ketuk = dua pseudo statis di bawah, bukan kartu yang bergerak. Kalau kartu sendiri yang jadi area,
+     kursor di dekat tepi bawah tertinggal saat kartu naik, hover lepas, kartu turun, lalu naik lagi (berkedip). */
+  pointer-events: none;
+}
+.tl-fan > li::before,
+.tl-fan > li::after {
+  content: "";
+  position: absolute;
+  pointer-events: auto;
+}
+/* Bentuk kartu saat diam (rotate/translate yang sama). Tidak berubah saat hover, jadi strip yang terlihat selalu
+   milik kartu itu dan urutan tumpuknya = urutan DOM, sama dengan kartu. */
+.tl-fan > li::before {
+  inset: 0;
+  rotate: var(--r);
+  translate: 0 var(--dy);
+  transform-origin: 50% 100%;
+}
+/* Posisi kartu saat terangkat (kotak li naik setinggi angkat). Di bawah semua ::before, jadi hanya mengisi ruang
+   yang tidak tertutup kartu diam mana pun: kursor di atas kartu yang terangkat tetap menahannya, tanpa merebut strip
+   tetangga. */
+.tl-fan > li::after {
+  inset: -0.75rem 0 0.75rem;
+  z-index: -1;
+}
 .tl-fan > li:first-child { margin-inline-start: 0; }
 /* Beberapa baris (HP): setiap li (termasuk awal baris) bermargin --m, dan padding kiri sebesar -m mengembalikannya,
    jadi jumlah kartu per baris mengikuti --cols tanpa nth-child. Lebar (border-box) = baris kartu + --lead di kedua
@@ -1492,10 +1526,10 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   }
   .tl-fan > li:first-child { margin-inline-start: var(--m); }
 }
+/* Hanya visual: pointer-events none (diwarisi ikon dan nama), event jatuh ke area statis li. */
 .tl-card {
-  --r: calc(var(--i) * 3deg);
-  --dy: calc(var(--y) * 0.75px);
   position: relative;
+  pointer-events: none;
   display: grid;
   aspect-ratio: 4 / 5;
   place-items: center;
@@ -1511,7 +1545,7 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
     scale var(--dur-base) var(--ease-spring);
 }
 @container tl (max-width: 36rem) {
-  .tl-card { --r: calc(var(--j) * 5deg); --dy: calc(var(--yj) * 1.5px); }
+  .tl-fan > li { --r: calc(var(--j) * 5deg); --dy: calc(var(--yj) * 1.5px); }
 }
 /* Tema gelap: grafit hangat sedikit lebih terang dari latar, border dan kilau tepi atas senada dengan kartu stack. */
 [data-theme="dark"] .tl-card {
@@ -1558,29 +1592,31 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   line-height: 1rem;
   color: var(--color-text-secondary);
 }
-/* Bukan tab stop (keputusan pemilik sesi 10). Terangkat saat hover (perangkat ber-hover) atau saat diketuk
-   (data-raised dari StackCards). Hover dibatasi ke (hover: hover) agar hover "lengket" di layar sentuh tidak
-   menahan kartu tetap terangkat setelah ketukan kedua. */
-.tl-card[data-raised] {
+/* Bukan tab stop (keputusan pemilik sesi 10). Terangkat saat li di-hover (perangkat ber-hover) atau saat diketuk
+   (data-raised di li dari StackCards); :focus-within berlaku bila nanti ada isi yang bisa difokus. Hover dibatasi ke
+   (hover: hover) agar hover "lengket" di layar sentuh tidak menahan kartu tetap terangkat setelah ketukan kedua. */
+.tl-fan > li:is([data-raised], :focus-within) > .tl-card {
   z-index: 1;
   rotate: 0deg;
   translate: 0 -0.75rem;
 }
-.tl-card[data-raised] .tl-name { opacity: 1; translate: -50% 0; }
+.tl-fan > li:is([data-raised], :focus-within) .tl-name { opacity: 1; translate: -50% 0; }
 @media (hover: hover) {
-  .tl-card:hover {
+  .tl-fan > li:hover > .tl-card {
     z-index: 1;
     rotate: 0deg;
     translate: 0 -0.75rem;
   }
-  .tl-card:hover .tl-name { opacity: 1; translate: -50% 0; }
+  .tl-fan > li:hover .tl-name { opacity: 1; translate: -50% 0; }
 }
-/* iOS hanya mengirim klik dari elemen non-interaktif yang ber-cursor pointer. */
+.tl-fan > li:active > .tl-card { scale: 0.97; transition-duration: var(--dur-fast); }
+/* iOS hanya mengirim klik dari elemen non-interaktif yang ber-cursor pointer (target klik = li). */
 @media (hover: none) {
-  .tl-card { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .tl-fan > li { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tl-card, .tl-name { transition: none; }
+  .tl-fan > li:active > .tl-card { scale: none; }
 }
 
 /* Contact penutup (redesign-v2 §6.5): email besar serif, lalu baris tautan teks kecil. Kelas pendek, alasan sama dengan .mc-*.
