@@ -334,14 +334,18 @@ html {
 }
 
 /* Petunjuk easter egg di footer. Disembunyikan di layar sentuh tanpa pointer halus (tidak ada keyboard untuk mengetik). */
+/* Easter egg "hire" hanya bisa diketik dengan keyboard fisik: petunjuk tersembunyi secara default dan tampil hanya di
+   pointer halus (kueri sama dengan StackCards). Default tersembunyi lebih aman daripada menyembunyikan di
+   (hover: none), karena sebagian browser Android salah melaporkan hover. */
 .footer-hint {
+  display: none;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1rem;
   color: var(--color-text-secondary);
 }
-@media (hover: none) and (pointer: coarse) {
-  .footer-hint { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .footer-hint { display: block; }
 }
 
 /* Saklar tema "lampu" (ThemeToggle): snapshot baru dibuka dengan clip-path dari JS, tanpa crossfade bawaan. */
