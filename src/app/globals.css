@@ -19,7 +19,7 @@
   --color-navy: #333B53;
   --color-blue-accent: #59647F;
   --text-primary: #171519;
-  --text-secondary: #4D494E;
+  --text-secondary: #5B575C;
   --color-highlight: #A65F49;
   --border-color: #DED6D1;
 }
@@ -45,7 +45,9 @@
   --color-navy: #333B53;
   --color-blue-accent: #59647F;
   --color-text: #171519;
-  --color-text-secondary: #4D494E; /* sesi 9: dari #69656A, agar >= 4,5:1 juga di pusat glow terang */
+  /* Sesi 16: titik tengah #4D494E (sesi 9) dan #69656A. #69656A lolos di halaman tanpa glow (>= 4,58), tetapi tautan
+     pill kaca di atas gambar proyek hanya 3,96. Ini 4,91 di titik terburuk itu (docs/audit/tema-terang-sesi-16.md). */
+  --color-text-secondary: #5B575C;
   --color-highlight: #A65F49;
   --color-highlight-text: color-mix(in srgb, var(--color-highlight) 95%, var(--color-text));
   --color-eyebrow: var(--color-burgundy-accent);
@@ -134,7 +136,7 @@
   --nav-active-bg: #fff;
   --nav-active-shadow: 0 1px 3px rgb(23 21 25 / 0.12), inset 0 0 0 1px color-mix(in oklab, var(--color-border) 70%, transparent);
 
-  /* Border chip status: opaque, kontras non-teks >= 3:1 terhadap latar terburuk (pusat glow terang ~rgb(218 200 197)). */
+  /* Border chip status: opaque, kontras non-teks >= 3:1 terhadap latar terburuk (sapuan peach, ~rgb(244 227 215)). */
   --color-chip-border: var(--color-text-secondary);
   --color-chip-live-border: color-mix(in srgb, var(--color-eyebrow) 75%, var(--color-border));
   /* StatusBadge "In Development" (halaman detail): teks + border; tembaga murni di latar terang hanya ~3,8:1 */
