@@ -334,14 +334,18 @@ html {
 }
 
 /* Petunjuk easter egg di footer. Disembunyikan di layar sentuh tanpa pointer halus (tidak ada keyboard untuk mengetik). */
+/* Easter egg "hire" hanya bisa diketik dengan keyboard fisik: petunjuk tersembunyi secara default dan tampil hanya di
+   pointer halus (kueri sama dengan StackCards). Default tersembunyi lebih aman daripada menyembunyikan di
+   (hover: none), karena sebagian browser Android salah melaporkan hover. */
 .footer-hint {
+  display: none;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1rem;
   color: var(--color-text-secondary);
 }
-@media (hover: none) and (pointer: coarse) {
-  .footer-hint { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .footer-hint { display: block; }
 }
 
 /* Saklar tema "lampu" (ThemeToggle): snapshot baru dibuka dengan clip-path dari JS, tanpa crossfade bawaan. */
@@ -957,10 +961,12 @@ html {
   text-transform: uppercase;
   color: var(--color-eyebrow);
 }
+/* pretty: nilai pendek tidak menyisakan satu kata ("/ Docker", "(semester / 3).") di baris terakhir. */
 .mc-specs dd {
   font-size: 15px;
   line-height: 1.625;
   color: var(--color-text);
+  text-wrap: pretty;
 }
 .mc-link {
   display: inline-flex;
@@ -1087,7 +1093,14 @@ html {
   font-weight: 600;
   line-height: 1.3;
   color: var(--color-text);
-  text-wrap: balance;
+  /* pretty, bukan balance: balance memecah "Human / Resources" di 390 (qa-sesi-14 D5). */
+  text-wrap: pretty;
+}
+/* HP sempit: sedikit lebih kecil agar "Staff, Human Resources Development" muat satu baris di 390 (lebar alami 370 px
+   pada 22 px, kolom 350 px; 20,5 px di 390). Batas bawah 19 px; di 320 judul tetap membungkus tanpa scroll horizontal.
+   Batas 418 px = titik clamp mencapai 22 px, jadi tidak ada lompatan ukuran dan 412 (Android umum) ikut muat. */
+@media (max-width: 418px) {
+  .xp-role { font-size: clamp(1.1875rem, 5.25vw, 1.375rem); }
 }
 .xp-org {
   margin-top: 0.25rem;
@@ -1150,6 +1163,7 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   font-weight: 600;
   line-height: 1.5;
   color: var(--color-text);
+  text-wrap: pretty;
 }
 .xp-sub-meta {
   font-size: 0.875rem;

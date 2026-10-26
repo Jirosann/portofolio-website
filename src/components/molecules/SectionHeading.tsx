@@ -22,7 +22,7 @@ export function SectionHeading({ section, label, title, description, className }
         {title}
       </h2>
       {description && (
-        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-text-secondary)]">
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-text-secondary)] [text-wrap:pretty]">
           {description}
         </p>
       )}

@@ -5,13 +5,18 @@ import { dictionaries, resolveLocale } from '@/lib/i18n';
 import { gameCopy } from '@/lib/fake-news/game-copy';
 import { PlayFakeOrReal } from '@/components/notfound/PlayFakeOrReal';
 
-// Status 404 dan <meta name="robots" content="noindex"> dipasang Next untuk not-found (diverifikasi di sesi 12).
+// Status 404 dan <meta name="robots" content="noindex"> dipasang Next untuk not-found (diverifikasi sesi 12 dan 15);
+// robots sendiri tidak ditulis karena menghasilkan tag kedua. Metadata digabung dangkal: openGraph dan alternates di sini menimpa milik layout, jadi pratinjau tautan tidak
+// tampil sebagai beranda dan tidak ada canonical ke "/".
 export async function generateMetadata(): Promise<Metadata> {
   const cookieStore = await cookies();
   const t = dictionaries[resolveLocale(cookieStore.get('NEXT_LOCALE')?.value)];
+  const title = `404 — ${t.notFound.title.replace(/\.$/, '')}`;
   return {
-    title: `404 — ${t.notFound.title}`,
+    title,
     description: t.notFound.description,
+    openGraph: { title, description: t.notFound.description },
+    alternates: { canonical: null },
   };
 }
 

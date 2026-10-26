@@ -79,6 +79,32 @@ test.describe('lompatan menu', () => {
   });
 });
 
+test.describe('tile proyek hero', () => {
+  // Tiga proyek teratas Selected work (card.order), menuju model card di halaman, bukan ke GitHub.
+  const EXPECTED = ['tb-detector', 'fakenews-detector', 'face-attend'];
+
+  for (const width of [390, 1024, 1440]) {
+    test(`${width}px: urutan sama dengan Selected work dan mendarat di bawah navbar`, async ({ page, setup }) => {
+      await setup({ width, height: width < 768 ? 844 : 900 });
+      await gotoHome(page);
+      const tiles = page.locator('ul[aria-labelledby="hero-proof"] a');
+      await expect(tiles).toHaveCount(3);
+      expect(await tiles.evaluateAll((as) => as.map((a) => a.getAttribute('href')))).toEqual(EXPECTED.map((s) => `#project-${s}`));
+      for (const tile of await tiles.all()) await expect(tile).not.toHaveAttribute('target');
+
+      const margin = scrollMarginFor(width);
+      for (const [i, slug] of EXPECTED.entries()) {
+        await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+        await tiles.nth(i).click();
+        await waitForScrollEnd(page);
+        const pos = await landing(page, `project-${slug}`);
+        if (!pos.atBottom) expect(Math.abs(pos.top - margin), `#project-${slug} top=${pos.top}`).toBeLessThanOrEqual(4);
+        else expect(pos.top).toBeGreaterThanOrEqual(margin - 4);
+      }
+    });
+  }
+});
+
 test.describe('kartu stack', () => {
   const flipped = (page: Page) => page.locator('li.sc[data-flipped]');
 
@@ -242,6 +268,23 @@ test.describe('easter egg hire', () => {
     await expect(textarea).toHaveValue('hire');
     await page.waitForTimeout(500);
     await expect(toast(page)).toHaveCount(0);
+  });
+
+  // Petunjuk "psst: type hire" hanya untuk pointer halus; di perangkat sentuh tidak ada keyboard untuk mengetik.
+  test('petunjuk tampil di desktop', async ({ page, setup }) => {
+    await setup({ width: 1440 });
+    await gotoHome(page);
+    await expect(page.locator('.footer-hint')).toBeVisible();
+  });
+
+  test.describe('sentuh', () => {
+    test.use({ hasTouch: true, isMobile: true });
+    test('petunjuk tersembunyi', async ({ page, setup }) => {
+      await setup({ width: 390, height: 844 });
+      await gotoHome(page);
+      expect(await page.evaluate(() => matchMedia('(hover: hover) and (pointer: fine)').matches)).toBe(false);
+      await expect(page.locator('.footer-hint')).toBeHidden();
+    });
   });
 });
 

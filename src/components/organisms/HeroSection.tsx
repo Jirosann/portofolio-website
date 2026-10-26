@@ -5,7 +5,7 @@ import { ContactIcon, quickContactTypes } from '@/components/atoms/ContactIcon';
 import { OpenToWorkBadge } from '@/components/delight/OpenToWorkBadge';
 import { delightCopy } from '@/lib/delight/copy';
 import { getContacts, getContactUrl } from '@/lib/content/contact';
-import { activeDemoUrl, getFeaturedProjects } from '@/lib/content/projects';
+import { getFeaturedProjects, getSelectedWork } from '@/lib/content/projects';
 import { dictionaries, resolveLocale } from '@/lib/i18n';
 import type { Profile } from '@/types';
 
@@ -33,11 +33,8 @@ export async function HeroSection({ profile }: HeroSectionProps) {
       (quickContactTypes as readonly string[]).includes(c.type)
   );
 
-  // Bukti kerja: proyek selesai, yang punya live demo di depan (sort stabil, urutan file tetap).
-  const proof = getFeaturedProjects()
-    .filter((p) => p.status === 'completed')
-    .sort((a, b) => Number(!!activeDemoUrl(b)) - Number(!!activeDemoUrl(a)))
-    .slice(0, 3);
+  // Tiga proyek teratas Selected work, urutan dan nomor P-NN sama dengan model card yang dituju.
+  const proof = getSelectedWork(getFeaturedProjects()).slice(0, 3);
 
   const email = contacts.find((c) => c.type === 'email');
 
@@ -150,44 +147,32 @@ export async function HeroSection({ profile }: HeroSectionProps) {
               <p id="hero-proof" className="text-sm font-semibold tracking-wide uppercase mb-3 text-[var(--color-eyebrow)]">
                 {t.projects.title}
               </p>
-              {/* HP: satu proyek per baris (nama kiri, aksi kanan); md ke atas: 3 tile */}
+              {/* HP: satu proyek per baris (nama kiri, panah kanan); md ke atas: 3 tile. Tautan menuju model card
+                  di halaman (scroll-margin .model-card, sama dengan lompatan menu); nama aksesibel = judul proyek. */}
               <ul aria-labelledby="hero-proof" className="flex flex-col gap-2 md:grid md:grid-cols-3 md:gap-4">
-                {proof.map((project) => {
-                  const demoUrl = activeDemoUrl(project);
-                  const href = demoUrl ?? project.repoUrl;
-                  return (
-                    <li key={project.slug}>
-                      <a
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`group flex items-center justify-between gap-3 min-h-11 rounded-xl md:rounded-2xl border bg-[var(--color-surface)] px-4 py-2.5 md:flex-col md:items-start md:justify-start md:h-full md:p-5 press hover:border-[var(--color-eyebrow)] ${demoUrl ? 'border-[var(--color-eyebrow)]' : 'border-[var(--color-border)]'} ${focusRing}`}
-                      >
-                        <span className="min-w-0">
-                          <span className="block text-base md:text-lg font-bold leading-snug text-[var(--color-text)]">
-                            {project.title}
-                          </span>
-                          <span className="hidden md:block mt-1 text-sm" style={{ color: 'var(--color-text-secondary)' }} aria-hidden="true">
-                            {project.tags.slice(0, 3).join(' · ')}
-                          </span>
+                {proof.map((project, i) => (
+                  <li key={project.slug}>
+                    <a
+                      href={`#project-${project.slug}`}
+                      className={`group flex items-center justify-between gap-3 min-h-11 rounded-xl md:rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2.5 md:flex-col md:items-start md:justify-start md:h-full md:p-5 press hover:border-[var(--color-eyebrow)] ${focusRing}`}
+                    >
+                      <span className="min-w-0">
+                        <span className="mc-id" aria-hidden="true">P-{String(i + 1).padStart(2, '0')}</span>
+                        <span className="block md:mt-1 text-base md:text-lg font-bold leading-snug text-[var(--color-text)]">
+                          {project.title}
                         </span>
-                        <span className="shrink-0 md:mt-auto md:pt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-eyebrow)] group-hover:underline">
-                          {demoUrl ? (
-                            <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                              <polyline points="15 3 21 3 21 9" />
-                              <line x1="10" y1="14" x2="21" y2="3" />
-                            </svg>
-                          ) : (
-                            <ContactIcon type="github" className="w-3.5 h-3.5 shrink-0" />
-                          )}
-                          {demoUrl ? t.projects.liveDemo : t.projects.viewCode}
+                        <span className="hidden md:block mt-1 text-sm" style={{ color: 'var(--color-text-secondary)' }} aria-hidden="true">
+                          {project.tags.slice(0, 3).join(' · ')}
                         </span>
-                        <span className="sr-only">{t.contactLabel.opensInNewTab}</span>
-                      </a>
-                    </li>
-                  );
-                })}
+                      </span>
+                      <span className="shrink-0 md:mt-auto md:pt-4 text-[var(--color-eyebrow)]" aria-hidden="true">
+                        <svg className="block w-4 h-4 transition-transform duration-(--dur-base) ease-out motion-safe:group-hover:translate-y-0.5 motion-reduce:transform-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v14m0 0l-6-6m6 6l6-6" />
+                        </svg>
+                      </span>
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           )}

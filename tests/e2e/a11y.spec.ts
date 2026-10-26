@@ -13,11 +13,9 @@ type AxePage = ConstructorParameters<typeof AxeBuilder>[0]['page'];
  * Dikecualikan per halaman + rule + target, jadi pelanggaran baru tetap gagal. Begitu diperbaiki,
  * tes gagal dengan pesan "hapus dari KNOWN_ISSUES" supaya daftar ini tidak basi.
  */
-const KNOWN_ISSUES = [
-  // aria-label "Repository for <judul> (opens in new tab)" tidak memuat teks terlihat "View Repository" (WCAG 2.5.3).
-  { path: '/projects/clash-of-bang', rule: 'label-content-name-mismatch', target: '#project-repo-link' },
-  { path: '/projects/faceattend', rule: 'label-content-name-mismatch', target: '#project-repo-link' },
-];
+// Kosong sejak sesi 15 (nama aksesibel tautan repo di halaman proyek diperbaiki). Format entri:
+// { path: '/projects/<slug>', rule: '<axe rule id>', target: '<selector>' }
+const KNOWN_ISSUES: { path: string; rule: string; target: string }[] = [];
 
 async function expectNoSeriousViolations(page: Page, testInfo: TestInfo, include?: string) {
   let builder = new AxeBuilder({ page: page as unknown as AxePage }).withTags(TAGS);

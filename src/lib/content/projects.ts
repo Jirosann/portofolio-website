@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { z } from 'zod';
-import { ProjectSoftwareSchema, CreativeWorkSchema, ProjectSchema, type ProjectSoftware, type CreativeWork, type Project } from '@/lib/validation/schemas';
+import { ProjectSoftwareSchema, CreativeWorkSchema, ProjectSchema, type ProjectSoftware, type CreativeWork, type Project, type ModelCard } from '@/lib/validation/schemas';
 
 export type ProjectWithMDX = ProjectSoftware & {
   mdxPath: string;
@@ -104,6 +104,14 @@ export function getFeaturedProjects(): Project[] {
   }
   
   return result.data;
+}
+
+// Urutan Selected work: hanya proyek ber-model card, urut card.order. Dipakai section proyek dan tile hero,
+// jadi nomor P-NN dan urutannya sama di kedua tempat.
+export function getSelectedWork(projects: Project[]): (Project & { card: ModelCard })[] {
+  return projects
+    .filter((p): p is Project & { card: ModelCard } => !!p.card)
+    .sort((a, b) => a.card.order - b.card.order);
 }
 
 // URL demo yang boleh ditautkan: ada liveUrl dan demo tidak dinonaktifkan lewat demoAvailable.

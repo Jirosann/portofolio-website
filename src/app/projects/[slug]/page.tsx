@@ -135,10 +135,11 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                     target="_blank"
                     rel="noopener noreferrer"
                     className="project-detail-link project-detail-link--primary focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
-                    aria-label={`${t.projectDetail.liveDemoFor} ${project.title} ${t.projectDetail.opensInNewTab}`}
                     id="project-demo-link"
                   >
+                    {/* Nama aksesibel dari isi, diawali teks terlihat (WCAG 2.5.3): "View Live Demo <judul> (opens in new tab)" */}
                     {t.projectDetail.viewLiveDemo}
+                    <span className="sr-only"> {project.title} {t.projectDetail.opensInNewTab}</span>
                   </a>
                 )}
                 {showRepoLink && (
@@ -147,10 +148,10 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                     target="_blank"
                     rel="noopener noreferrer"
                     className="project-detail-link project-detail-link--secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
-                    aria-label={`${t.projectDetail.repositoryFor} ${project.title} ${t.projectDetail.opensInNewTab}`}
                     id="project-repo-link"
                   >
                     {t.projectDetail.viewRepository}
+                    <span className="sr-only"> {project.title} {t.projectDetail.opensInNewTab}</span>
                   </a>
                 )}
                 {isPrivateRepo && (

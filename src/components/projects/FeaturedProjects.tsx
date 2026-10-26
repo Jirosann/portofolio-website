@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
-import type { Project, ModelCard as ModelCardData } from '@/lib/validation/schemas';
+import type { Project } from '@/lib/validation/schemas';
 import { SectionHeading } from '@/components/molecules/SectionHeading';
+import { getSelectedWork } from '@/lib/content/projects';
 import { dictionaries, resolveLocale } from '@/lib/i18n';
 import { FigureNotes } from '@/components/delight/FigureNotes';
 import { ModelCard } from './ModelCard';
@@ -15,10 +16,8 @@ export async function FeaturedProjects({ projects }: FeaturedProjectsProps) {
   const lang = resolveLocale(cookieStore.get('NEXT_LOCALE')?.value);
   const t = dictionaries[lang];
 
-  // Hanya proyek dengan model card; urutan dari card.order, bukan urutan file (dipakai tile hero).
-  const cards = projects
-    .filter((p): p is Project & { card: ModelCardData } => !!p.card)
-    .sort((a, b) => a.card.order - b.card.order);
+  // Hanya proyek dengan model card; urutan dari card.order, bukan urutan file (sama dengan tile hero).
+  const cards = getSelectedWork(projects);
 
   // Nomor "Fig. N" mengikuti urutan gambar yang tampil.
   let fig = 0;
