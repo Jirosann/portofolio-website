@@ -24,9 +24,10 @@ export async function AboutSection({ profile }: AboutSectionProps) {
         <SectionHeading section="about" label={t.nav.about} title={t.about.title} className="mb-8" />
 
         {/* Potret 4:5 di kiri teks (≥768), di atas paragraf di HP. Bingkai mengikuti kartu (radius, border, tanpa bayangan).
+            max-w-5xl: kolom teks lebar 792 px, setara max-w-3xl sebelum ada potret, jadi paragraf tidak bertambah baris.
             Lazy dan di bawah hero, jadi bukan kandidat LCP. aspect-[4/5] berlaku ke border box (rasio dari atribut width/height
             hanya ke content box), jadi tingginya bulat 200/240 px dan section di bawahnya tidak bergeser setengah piksel. */}
-        <div className="grid max-w-4xl gap-8 md:grid-cols-[10rem_minmax(0,1fr)] lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-10">
+        <div className="grid max-w-5xl gap-8 md:grid-cols-[10rem_minmax(0,1fr)] lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-10">
           <figure className="w-40 md:w-auto md:self-start">
             <picture>
               <source type="image/avif" srcSet={portraitSrcSet('avif')} sizes={PORTRAIT_SIZES} />
