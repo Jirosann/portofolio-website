@@ -1,0 +1,33 @@
+{
+  "folderUrl": "https://drive.google.com/drive/folders/1ABAPyVUJXcJx26f-Cyzgb7NocVgoy8V7?usp=sharing",
+  "videos": [
+    {
+      "id": "bnec-promo-1",
+      "kind": "editing",
+      "title": "BNEC promotional video",
+      "titleId": "Video promosi BNEC",
+      "context": "Video editing for UKM BNEC, BINUS University",
+      "contextId": "Editing video untuk UKM BNEC, BINUS University",
+      "role": "Editor",
+      "tools": [],
+      "driveUrl": "https://drive.google.com/file/d/REPLACE_WITH_FILE_ID/view",
+      "poster": null,
+      "published": false
+    },
+    {
+      "id": "guitar-cover-1",
+      "kind": "music",
+      "title": "Guitar cover",
+      "titleId": "Cover gitar",
+      "context": "Posted on TikTok",
+      "contextId": "Diunggah di TikTok",
+      "role": "Guitar",
+      "roleId": "Gitar",
+      "tools": [],
+      "driveUrl": "https://drive.google.com/file/d/REPLACE_WITH_FILE_ID/view",
+      "tiktokUrl": null,
+      "poster": null,
+      "published": false
+    }
+  ]
+}

@@ -122,6 +122,37 @@ export const CreativeWorkSchema = z.object({
   published: z.boolean(),
 });
 
+// Video Creation (sesi 13): content/creative/videos.json. Item draf memakai placeholder REPLACE_WITH_FILE_ID dan
+// tidak dirender; published: true dengan placeholder ditolak saat validasi (build gagal lewat prebuild).
+export const DRIVE_PLACEHOLDER = 'REPLACE_WITH';
+export const VideoSchema = z
+  .object({
+    id: z.string().min(1, "Video ID is required"),
+    kind: z.enum(['editing', 'music']),
+    title: z.string().min(1, "Title is required"),
+    titleId: z.string().min(1).optional(),
+    context: z.string().min(1).optional(),
+    contextId: z.string().min(1).optional(),
+    role: z.string().min(1).optional(),
+    roleId: z.string().min(1).optional(),
+    tools: z.array(z.string().min(1)).default([]),
+    driveUrl: z
+      .string()
+      .regex(/^https:\/\/drive\.google\.com\/file\/d\/[^/?#]+\/view/, "driveUrl must be a Google Drive file link (https://drive.google.com/file/d/<ID>/view)"),
+    tiktokUrl: z.string().regex(/^https:\/\/(www\.|vm\.)?tiktok\.com\//, "tiktokUrl must be a TikTok link").nullable().optional(),
+    // Poster 16:9 di public/ (tanpa poster: tile berlatar solid dengan judul, bukan thumbnail Drive).
+    poster: z.string().regex(/^\/.+\.(avif|webp|jpg|jpeg|png)$/, "poster must be an image path under public/").nullable().optional(),
+    published: z.boolean(),
+  })
+  .refine((v) => !(v.published && v.driveUrl.includes(DRIVE_PLACEHOLDER)), {
+    message: 'driveUrl masih placeholder (REPLACE_WITH_FILE_ID): isi ID file Google Drive atau set published: false',
+    path: ['driveUrl'],
+  });
+export const VideosFileSchema = z.object({
+  folderUrl: z.string().regex(/^https:\/\/drive\.google\.com\/drive\/folders\/[^/?#]+/, "folderUrl must be a Google Drive folder link"),
+  videos: z.array(VideoSchema),
+});
+
 // Contact Schema
 export const ContactSchema = z.object({
   type: z.enum(['email', 'linkedin', 'github', 'instagram', 'whatsapp', 'resume']),
@@ -152,6 +183,7 @@ export type Skill = z.infer<typeof SkillSchema>;
 export type Tool = z.infer<typeof ToolSchema>;
 export type ProjectSoftware = z.infer<typeof ProjectSoftwareSchema>;
 export type CreativeWork = z.infer<typeof CreativeWorkSchema>;
+export type Video = z.infer<typeof VideoSchema>;
 export type Contact = z.infer<typeof ContactSchema>;
 export type SiteSettings = z.infer<typeof SiteSettingsSchema>;
 export type Experience = z.infer<typeof ExperienceSchema>;

@@ -6,10 +6,14 @@ import { FeaturedProjects } from '@/components/projects/FeaturedProjects';
 import { ContactSection } from '@/components/organisms/ContactSection';
 import { Footer } from '@/components/organisms/Footer';
 import { ExperienceSection } from '@/components/organisms/ExperienceSection';
+import { VideoSection } from '@/components/organisms/VideoSection';
 import { getProfile } from '@/lib/content/profile';
 import { getContacts } from '@/lib/content/contact';
 import { getFeaturedProjects } from '@/lib/content/projects';
 import { getExperience } from '@/lib/content/experience';
+import { getVideoSection } from '@/lib/content/videos';
+import { getVisibleSections } from '@/lib/content/sections';
+import { videoCopy } from '@/lib/videos/copy';
 
 import { cookies } from 'next/headers';
 import { dictionaries, resolveLocale } from '@/lib/i18n';
@@ -19,20 +23,15 @@ export default async function Home() {
   const contacts = getContacts();
   const featuredProjects = getFeaturedProjects();
   const experiences = getExperience();
+  const videoSection = getVideoSection();
 
   const cookieStore = await cookies();
   const lang = resolveLocale(cookieStore.get('NEXT_LOCALE')?.value);
   const t = dictionaries[lang];
-  
-  const hasExperience = experiences.some(exp => exp.visible);
 
-  const navLinks = [
-    { href: '#about', label: t.nav.about },
-    { href: '#projects', label: t.nav.projects },
-    ...(hasExperience ? [{ href: '#experience', label: t.nav.experience }] : []),
-    { href: '#skills', label: t.nav.skills },
-    { href: '#contact', label: t.nav.contact },
-  ];
+  // Section opsional (Experience, Video Creation) hanya ada di daftar ini bila dirender; nav dan nomor label ikut.
+  const sections = getVisibleSections();
+  const navLinks = sections.map((id) => ({ href: `#${id}`, label: id === 'videos' ? videoCopy[lang].nav : t.nav[id] }));
 
   return (
     <>
@@ -41,7 +40,8 @@ export default async function Home() {
         <HeroSection profile={profile} />
         <AboutSection profile={profile} />
         <FeaturedProjects projects={featuredProjects} />
-        {hasExperience && <ExperienceSection experiences={experiences} />}
+        {sections.includes('experience') && <ExperienceSection experiences={experiences} />}
+        {videoSection && <VideoSection data={videoSection} />}
         <StackSection projects={featuredProjects} />
         <ContactSection contacts={contacts} />
       </main>
