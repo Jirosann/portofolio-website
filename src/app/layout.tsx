@@ -126,8 +126,8 @@ export default async function RootLayout({
         )}
         <LanguageProvider lang={lang}>
           <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false} storageKey="theme">
-            {/* Ambient Glow Background - Cinematic Lighting Effect */}
-            <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden" aria-hidden="true">
+            {/* Ambient Glow Background - Cinematic Lighting Effect (tema gelap saja; tema terang: latar body di globals.css) */}
+            <div className="ambient-glow fixed inset-0 z-[-1] pointer-events-none overflow-hidden" aria-hidden="true">
               {/* Massive center glow, matching the picture's lighting behind the hero */}
               <div className="absolute top-[5%] left-1/2 -translate-x-1/2 w-[80vw] h-[800px] rounded-[100%] scale-[1.75] opacity-[0.14] md:scale-125 md:opacity-[0.29]" 
                    style={{ 

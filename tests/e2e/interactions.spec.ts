@@ -173,7 +173,7 @@ test.describe('kartu stack', () => {
 test.describe('Tools I use', () => {
   const run = async (page: Page, act: 'click' | 'tap') => {
     const cards = page.locator('.tl-card');
-    await expect(cards).toHaveCount(10);
+    await expect(cards).toHaveCount(11);
     await cards.nth(2).scrollIntoViewIfNeeded();
     await cards.nth(2)[act]();
     await expect(cards.nth(2)).toHaveAttribute('data-raised');
@@ -197,6 +197,36 @@ test.describe('Tools I use', () => {
       await run(page, 'tap');
     });
   });
+
+  test('Claude Code setelah OpenClaw, tidak diulang di Also worked with', async ({ page, setup }) => {
+    await setup({ width: 1440 });
+    await gotoHome(page);
+    const names = await page.locator('.tl-name').evaluateAll((els) => els.map((el) => el.firstChild?.textContent));
+    expect(names.slice(-2)).toEqual(['OpenClaw', 'Claude Code']);
+    await expect(page.locator('.sc-also', { hasText: /claude/i })).toHaveCount(0);
+  });
+
+  // Kipas muat tanpa scroll horizontal dan strip setiap kartu yang tertimpa tetap >= 44 px (HP 4-4-3, desktop satu baris).
+  for (const width of [320, 390, 1024, 1280, 1440]) {
+    test(`kipas muat di ${width}px`, async ({ page, setup }) => {
+      await setup({ width });
+      await gotoHome(page);
+      const fan = await page.locator('.tl-fan').evaluate((ul) => {
+        const boxes = [...ul.children].map((li) => li.getBoundingClientRect());
+        const rows = new Map<number, number[]>();
+        for (const b of boxes) rows.set(Math.round(b.top), [...(rows.get(Math.round(b.top)) ?? []), b.left]);
+        const strips = [...rows.values()].flatMap((lefts) => lefts.slice(1).map((left, i) => left - lefts[i]));
+        return {
+          overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+          minStrip: Math.min(...strips),
+          rows: [...rows.values()].map((lefts) => lefts.length),
+        };
+      });
+      expect(fan.overflow).toBe(0);
+      expect(fan.minStrip).toBeGreaterThanOrEqual(44);
+      expect(fan.rows).toEqual(width < 768 ? [4, 4, 3] : [11]);
+    });
+  }
 });
 
 test.describe('Try the model', () => {

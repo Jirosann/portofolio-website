@@ -39,7 +39,9 @@ export async function StackSection({ projects }: StackSectionProps) {
 
   const { columns, also } = getStack(projects);
   const tools = getTools();
-  const toolCols = Math.ceil(tools.length / 2);
+  // Kartu per baris di container sempit (HP): maksimal 4, jadi 11 tools = 4-4-3. Enam per baris tidak muat di 320
+  // dengan strip terlihat >= 44 px.
+  const toolCols = Math.min(4, tools.length);
   // Yang sudah tampil di Tools I use tidak diulang di "Also worked with" (data skill tetap).
   const toolKeys = new Set(tools.map((tool) => normalizeTech(tool.name)));
   const alsoShown = also.filter((entry) => !toolKeys.has(normalizeTech(entry.name)));

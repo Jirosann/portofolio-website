@@ -23,7 +23,7 @@ Hal-hal di bawah tidak bisa diuji otomatis secara andal di CI (Chromium headless
 
 ## HP fisik (Android dan iPhone, jaringan seluler)
 - [ ] Target sentuh ≥ 44 px terasa nyaman (nav, chip bahasa, tombol tema, tautan kontak).
-- [ ] Kipas Tools I use: dua baris lima, ditengahkan, tidak ada scroll horizontal.
+- [ ] Kipas Tools I use: tiga baris 4-4-3, ditengahkan, tidak ada scroll horizontal.
 - [ ] Footer: petunjuk "psst: type hire" tidak tampil (Chrome Android, Samsung Internet, Safari iOS). Tablet dengan mouse/trackpad boleh menampilkannya.
 - [ ] Tile proyek di hero: ketukan mendarat di model card tepat di bawah bar navigasi.
 - [ ] Gulir terasa mulus; tidak ada lompatan tata letak saat gambar dan font termuat.

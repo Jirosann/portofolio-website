@@ -19,7 +19,7 @@
   --color-navy: #333B53;
   --color-blue-accent: #59647F;
   --text-primary: #171519;
-  --text-secondary: #4D494E;
+  --text-secondary: #5B575C;
   --color-highlight: #A65F49;
   --border-color: #DED6D1;
 }
@@ -45,7 +45,9 @@
   --color-navy: #333B53;
   --color-blue-accent: #59647F;
   --color-text: #171519;
-  --color-text-secondary: #4D494E; /* sesi 9: dari #69656A, agar >= 4,5:1 juga di pusat glow terang */
+  /* Sesi 16: titik tengah #4D494E (sesi 9) dan #69656A. #69656A lolos di halaman tanpa glow (>= 4,58), tetapi tautan
+     pill kaca di atas gambar proyek hanya 3,96. Ini 4,91 di titik terburuk itu (docs/audit/tema-terang-sesi-16.md). */
+  --color-text-secondary: #5B575C;
   --color-highlight: #A65F49;
   --color-highlight-text: color-mix(in srgb, var(--color-highlight) 95%, var(--color-text));
   --color-eyebrow: var(--color-burgundy-accent);
@@ -120,7 +122,8 @@
   --press-t: scale var(--dur-base) var(--ease-spring), translate var(--dur-base) var(--ease-out);
 
   --hairline: 1px solid var(--color-hairline);
-  --space-section: 4rem;
+  /* Sesi 16: dirapatkan ±17-19% (4rem -> 3.25rem, 6rem -> 5rem). */
+  --space-section: 3.25rem;
   /* Tinggi area navigasi; dipakai scroll-margin-top anchor section */
   --nav-offset: 64px;
 
@@ -134,7 +137,7 @@
   --nav-active-bg: #fff;
   --nav-active-shadow: 0 1px 3px rgb(23 21 25 / 0.12), inset 0 0 0 1px color-mix(in oklab, var(--color-border) 70%, transparent);
 
-  /* Border chip status: opaque, kontras non-teks >= 3:1 terhadap latar terburuk (pusat glow terang ~rgb(218 200 197)). */
+  /* Border chip status: opaque, kontras non-teks >= 3:1 terhadap latar terburuk (sapuan peach, ~rgb(244 227 215)). */
   --color-chip-border: var(--color-text-secondary);
   --color-chip-live-border: color-mix(in srgb, var(--color-eyebrow) 75%, var(--color-border));
   /* StatusBadge "In Development" (halaman detail): teks + border; tembaga murni di latar terang hanya ~3,8:1 */
@@ -159,7 +162,7 @@
   }
 }
 @media (min-width: 768px) {
-  :root { --space-section: 6rem; }
+  :root { --space-section: 5rem; }
 }
 @media (min-width: 1024px) {
   :root { --nav-offset: 80px; }
@@ -200,6 +203,17 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tema terang (sesi 16): glow fixed (layout.tsx) hanya untuk tema gelap. Di tema terang latar body (dirambatkan ke
+   kanvas, ikut menggulir; tanpa background-attachment: fixed) membawa sapuan peach tipis di atas dokumen (hero) dan
+   yang lebih samar di pojok kanan bawah (Contact/footer), jauh dari blok teks. */
+:root:not([data-theme="dark"]) .ambient-glow { display: none; }
+:root:not([data-theme="dark"]) body {
+  background-image:
+    radial-gradient(ellipse 60rem 38rem at 50% 14rem, rgb(240 178 140 / 0.22), transparent 70%),
+    radial-gradient(ellipse 42rem 26rem at 100% 100%, rgb(240 178 140 / 0.12), transparent 70%);
+  background-repeat: no-repeat;
 }
 
 /* Smooth anchor scrolling */
@@ -1457,17 +1471,19 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
 }
 .tl-fan > li { flex: none; width: var(--w); margin-inline-start: var(--m); }
 .tl-fan > li:first-child { margin-inline-start: 0; }
-/* Dua baris (HP): setiap li (termasuk awal baris) bermargin --m, dan padding kiri sebesar -m mengembalikannya, jadi
-   jumlah kartu per baris mengikuti --cols tanpa nth-child. Lebar (border-box) = baris kartu + --lead di kedua sisi,
-   ditengahkan dengan margin auto. +1px menahan pembulatan subpiksel. 20.5cqi = kartu terbesar yang masih muat
-   lima per baris di 320 dan 390. */
+/* Beberapa baris (HP): setiap li (termasuk awal baris) bermargin --m, dan padding kiri sebesar -m mengembalikannya,
+   jadi jumlah kartu per baris mengikuti --cols tanpa nth-child. Lebar (border-box) = baris kartu + --lead di kedua
+   sisi, ditengahkan dengan margin auto. +1px menahan pembulatan subpiksel. --w = kartu terbesar yang masih muat
+   --cols per baris: cols·w + (cols−1)·m + 2·lead + 1px <= 100cqi, dengan m = −0,16w dan lead = --k·w (rumus --lead).
+   Baris terakhir yang lebih pendek ditengahkan (justify-content); pusatnya sama dengan baris penuh. */
 @container tl (max-width: 36rem) {
   .tl-fan {
-    --w: clamp(2.75rem, 20.5cqi, 5rem);
-    --m: max(2.75rem - var(--w), var(--w) * -0.16);
     --tilt: calc((var(--cols) - 1) / 2 * 5deg);
+    --k: calc(1.25 * sin(var(--tilt)) - 0.5 * (1 - cos(var(--tilt))));
+    --w: clamp(2.75rem, (100cqi - 1px) / (0.84 * var(--cols) + 0.16 + 2 * var(--k)), 5rem);
+    --m: max(2.75rem - var(--w), var(--w) * -0.16);
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     row-gap: 3rem;
     padding-bottom: 0.7rem;
     width: calc(var(--cols) * var(--w) + (var(--cols) - 1) * var(--m) + 1px + 2 * var(--lead));
