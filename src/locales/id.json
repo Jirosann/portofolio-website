@@ -7,7 +7,9 @@
     "contact": "Kontak",
     "changeLanguage": "Ganti bahasa",
     "openMenu": "Buka menu",
-    "closeMenu": "Tutup menu"
+    "closeMenu": "Tutup menu",
+    "themeToLight": "Ganti ke mode terang",
+    "themeToDark": "Ganti ke mode gelap"
   },
   "hero": {
     "available": "Terbuka untuk Peluang Kerja",

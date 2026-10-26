@@ -1,6 +1,7 @@
 // Efek easter egg "hire" (sesi 12), dimuat malas oleh DelightRoot saat kata cocok.
 // Salin email -> toast (ikon salin berubah menjadi centang yang tergambar, kembali setelah 1,5 detik) -> semburan konfeti.
-// Clipboard gagal: toast menampilkan email yang sudah terseleksi. Reduced motion: toast saja, tanpa konfeti.
+// Clipboard gagal: toast menampilkan email yang sudah terseleksi, tanpa konfeti (belum ada yang tersalin).
+// Reduced motion: toast saja, tanpa konfeti.
 import styles from './hireEffect.module.css';
 
 export interface HireCopy {
@@ -94,7 +95,7 @@ export async function celebrate({ email, copied, fallback }: HireCopy) {
     } else if (emailEl) {
       getSelection()?.selectAllChildren(emailEl);
     }
-    if (!reduced) confetti(toast);
+    if (ok && !reduced) confetti(toast);
     hideTimer = window.setTimeout(() => {
       toast.setAttribute('data-out', '');
       setTimeout(() => toast.remove(), 250);

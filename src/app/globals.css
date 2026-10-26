@@ -260,8 +260,8 @@ html {
 }
 
 /* Badge "Open to Work" (OpenToWorkBadge, sesi 12). Titik diam; memantul sekali saat diklik (translate, tanpa geser tata letak).
-   Gelembung absolute di atas badge pada >= 768 (tidak menutupi kalimat ketersediaan di bawahnya), di bawah badge pada < 768.
-   Membukanya tidak menggeser isi kartu. */
+   Gelembung absolute di atas badge pada >= 768 (tidak menutupi kalimat ketersediaan di bawahnya; di bawah badge bila
+   tertutup navbar), baris di dalam kartu pada < 768. */
 .otw { position: relative; display: inline-block; }
 .otw-btn {
   cursor: pointer;
@@ -313,22 +313,48 @@ html {
   background: var(--color-surface);
   rotate: 45deg;
 }
-/* < 768: kalimat ketersediaan tidak tampil, dan di atas badge ada tautan "Contact me" kartu utama (terukur sesi 12),
-   jadi gelembung tetap di bawah badge. */
-@media (max-width: 47.98rem) {
-  .otw-bubble { top: calc(100% + 0.5rem); bottom: auto; }
-  .otw-bubble::before {
-    top: -0.3125rem;
-    bottom: auto;
-    border: 0;
-    border-top: 1px solid var(--color-border);
-    border-left: 1px solid var(--color-border);
-  }
+/* Ruang di atas badge tertutup navbar (OpenToWorkBadge mengukur saat dibuka dan saat scroll): gelembung di bawah badge. */
+.otw-bubble[data-below] { top: calc(100% + 0.5rem); bottom: auto; }
+.otw-bubble[data-below]::before {
+  top: -0.3125rem;
+  bottom: auto;
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
 }
-@media (max-width: 47.98rem) and (prefers-reduced-motion: no-preference) {
-  .otw-bubble:not([hidden]) { animation-name: otw-pop-down; }
+@media (prefers-reduced-motion: no-preference) {
+  .otw-bubble[data-below]:not([hidden]) { animation-name: otw-pop-down; }
 }
 @keyframes otw-pop-down { from { opacity: 0; translate: 0 -4px; } }
+/* < 768: di atas badge ada "Contact me" kartu utama dan di bawah/sampingnya ikon kontak (sesi 17, 320-767 en/id), jadi
+   tidak ada tempat melayang yang tidak menutupi tautan. Gelembung menjadi baris terakhir kartu: .otw dan pembungkus
+   kiri (HeroSection, max-md:contents) membuka diri sehingga badge, gelembung dan daftar ikon jadi item flex kartu.
+   Ikon kontak tidak bergeser; tinggi baris tumbuh dari 0 (margin negatif menetralkan gap kartu) selama --dur-base
+   setelah ketukan, jadi tidak dihitung CLS. */
+@media (max-width: 47.98rem) {
+  .otw { display: contents; }
+  .otw > .otw-bubble {
+    position: static;
+    order: 1;
+    flex-basis: 100%;
+    display: grid;
+    grid-template-rows: 1fr;
+    border: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    animation: none;
+    transition: grid-template-rows var(--dur-base) var(--ease-out), margin-top var(--dur-base) var(--ease-out),
+      opacity var(--dur-base) var(--ease-out), display var(--dur-base) allow-discrete;
+  }
+  .otw > .otw-bubble[hidden] { display: none; grid-template-rows: 0fr; margin-top: -0.75rem; opacity: 0; }
+  @starting-style {
+    .otw > .otw-bubble:not([hidden]) { grid-template-rows: 0fr; margin-top: -0.75rem; opacity: 0; }
+  }
+  .otw > .otw-bubble::before { display: none; }
+  .otw-bubble-inner { min-height: 0; overflow: hidden; }
+  .otw-bubble .otw-link { border: 1px solid var(--color-border); }
+}
 .otw-link {
   display: inline-flex;
   min-height: 2.75rem;
