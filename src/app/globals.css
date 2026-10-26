@@ -202,6 +202,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Tema terang (sesi 16): glow fixed (layout.tsx) hanya untuk tema gelap. Di tema terang latar body (dirambatkan ke
+   kanvas, ikut menggulir; tanpa background-attachment: fixed) membawa sapuan peach tipis di atas dokumen (hero) dan
+   yang lebih samar di pojok kanan bawah (Contact/footer), jauh dari blok teks. */
+:root:not([data-theme="dark"]) .ambient-glow { display: none; }
+:root:not([data-theme="dark"]) body {
+  background-image:
+    radial-gradient(ellipse 60rem 38rem at 50% 14rem, rgb(240 178 140 / 0.22), transparent 70%),
+    radial-gradient(ellipse 42rem 26rem at 100% 100%, rgb(240 178 140 / 0.12), transparent 70%);
+  background-repeat: no-repeat;
+}
+
 /* Smooth anchor scrolling */
 html {
   scroll-behavior: smooth;
