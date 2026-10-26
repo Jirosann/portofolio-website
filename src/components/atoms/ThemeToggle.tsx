@@ -3,10 +3,12 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState, type MouseEvent } from 'react';
 import { flushSync } from 'react-dom';
+import { useTranslation } from '@/components/providers/LanguageProvider';
 
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setMounted(true);
@@ -56,7 +58,7 @@ export function ThemeToggle() {
     <button
       onClick={toggle}
       className="nav-link-base nav-tool-btn p-2 rounded-full"
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label={isDark ? t.nav.themeToLight : t.nav.themeToDark}
     >
       {isDark ? (
         /* Sun icon */
