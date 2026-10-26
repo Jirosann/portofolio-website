@@ -20,6 +20,24 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Testing (e2e)
+
+The Playwright suite in `tests/e2e/` runs against a local production build on port 3100 (port 3000 stays free for `npm run dev`). It covers smoke checks across widths, themes and languages, internal and external links, axe accessibility, interactions, and visual regression.
+
+```bash
+npx playwright install chromium   # once
+npm run build
+npm run test:e2e                  # starts `next start -p 3100` automatically
+npm run test:e2e -- interactions  # one spec file
+npx playwright show-report        # open the HTML report
+```
+
+- **Visual regression** baselines live in `tests/e2e/__screenshots__/`. They are Linux-only and are skipped on Windows and macOS. To run them, use Docker with the same image as CI: `npm run test:e2e:docker`. After an intended visual change, refresh the baselines with `npm run test:e2e:update` and commit the PNGs.
+- **External links** are skipped when offline or when `E2E_SKIP_EXTERNAL=1` is set. LinkedIn blocks bots (status 999), so it is reported as a warning, not a failure.
+- **Known issues** that have been reported but not fixed yet are listed in `KNOWN_ISSUES` in `tests/e2e/a11y.spec.ts`. When one is fixed, the test fails and asks you to remove that entry.
+- **CI**: `.github/workflows/e2e.yml` runs tsc, ESLint, the build and the suite on every PR to `main`. It uploads the HTML report, plus the screenshots, diffs and traces of failed tests.
+- **Manual checks** for things automation can't cover: [`tests/e2e/MANUAL-CHECKLIST.md`](tests/e2e/MANUAL-CHECKLIST.md).
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

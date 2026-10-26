@@ -1,0 +1,4 @@
+/* Disuntikkan saat tangkapan visual. Hanya header situs (sticky); model card juga punya <header>. */
+header.sticky {
+  visibility: hidden !important;
+}

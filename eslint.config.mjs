@@ -24,6 +24,13 @@ const eslintConfig = defineConfig([
       "react-hooks/set-state-in-effect": "off",
       "react-hooks/static-components": "off"
     }
+  },
+  {
+    // Fixture Playwright memakai parameter `use`, bukan React hook.
+    files: ["tests/e2e/**"],
+    rules: {
+      "react-hooks/rules-of-hooks": "off"
+    }
   }
 ]);
 
