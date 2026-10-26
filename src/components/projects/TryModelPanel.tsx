@@ -157,7 +157,9 @@ function Result({
           <span>{t.label.fake} {pct(1 - pred.pReal)}</span>
         </p>
 
-        <h4 className={s.subhead}>{t.top}</h4>
+        <h4 className={s.subhead}>
+          {pred.top.length === 1 ? t.top.one : t.top.other.replace('{n}', String(pred.top.length))}
+        </h4>
         <ol className={s.terms}>
           {pred.top.map((term) => (
             <li key={term.term} data-dir={term.dir}>
