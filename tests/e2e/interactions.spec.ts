@@ -209,6 +209,118 @@ test.describe('logo', () => {
   });
 });
 
+/** Rekam scrollY tiap frame (1,5 s pertama) dan setiap perubahan sorotan menu sejak dokumen dibuat, di setiap muat penuh. */
+async function recordLoads(page: Page) {
+  await page.addInitScript(() => {
+    const w = window as unknown as { __ys: number[]; __active: (string | null)[] };
+    w.__ys = [];
+    w.__active = [];
+    const t0 = performance.now();
+    const tick = () => {
+      w.__ys.push(window.scrollY);
+      if (performance.now() - t0 < 1500) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    new MutationObserver(() => {
+      const cur = document.querySelector('.nav-links a[aria-current="true"]');
+      const href = cur ? cur.getAttribute('href') : null;
+      if (w.__active.at(-1) !== href) w.__active.push(href);
+    }).observe(document, { subtree: true, attributes: true, attributeFilter: ['aria-current'] });
+  });
+}
+
+const loadLog = (page: Page) =>
+  page.evaluate(() => {
+    const w = window as unknown as { __ys: number[]; __active: (string | null)[] };
+    return { ys: w.__ys, active: w.__active, y: window.scrollY };
+  });
+
+/** Gulir ke tengah section Projects; kembalikan scrollY. */
+async function scrollToMidProjects(page: Page) {
+  const y = await page.evaluate(() => {
+    const el = document.getElementById('projects')!;
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: Math.round(top + el.offsetHeight / 2 - window.innerHeight / 2), behavior: 'instant' });
+    return window.scrollY;
+  });
+  await waitForScrollEnd(page);
+  await page.waitForTimeout(500);
+  return y;
+}
+
+/** Posisi dipulihkan sekaligus (tidak dianimasikan dari atas) dan sorotan langsung ke Projects tanpa singgah. */
+async function expectRestored(page: Page, y: number, width: number, label: string) {
+  const log = await loadLog(page);
+  expect(Math.abs(log.y - y), `${label}: scrollY ${log.y}, semula ${y}`).toBeLessThanOrEqual(4);
+  // Paling banyak frame di 0 sebelum restorasi; tidak ada posisi antara.
+  expect(log.ys.filter((v) => v > 4 && Math.abs(v - y) > 4), `${label}: posisi antara`).toEqual([]);
+  expect(log.active.filter(Boolean), `${label}: urutan sorotan`).toEqual(['#projects']);
+  expect(await activeHref(page, width), `${label}: sorotan`).toBe('#projects');
+}
+
+test.describe('posisi scroll saat muat penuh', () => {
+  for (const lang of ['en', 'id'] as const) {
+    for (const width of [390, 1440]) {
+      test(`${lang} ${width}px: reload dan Back memulihkan posisi; kunjungan baru, hash, dan logo`, async ({ page, setup, baseURL }) => {
+        test.slow();
+        await setup({ width, height: width < 768 ? 844 : 900, lang });
+        await recordLoads(page);
+
+        // Kunjungan baru mulai dari atas, juga setelah halaman pernah digulir di kunjungan sebelumnya.
+        await gotoHome(page);
+        await scrollToMidProjects(page);
+        await page.goto('about:blank');
+        await page.goto('/');
+        await settleHome(page);
+        let log = await loadLog(page);
+        expect(log.y, 'kunjungan baru').toBe(0);
+        expect(log.ys.every((v) => v === 0), 'kunjungan baru: tanpa gerak').toBe(true);
+        expect(await page.evaluate(() => history.scrollRestoration)).toBe('auto');
+
+        // Reload di tengah Projects.
+        const mid = await scrollToMidProjects(page);
+        expect(await activeHref(page, width)).toBe('#projects');
+        await page.reload();
+        await settleHome(page);
+        await expectRestored(page, mid, width, 'reload');
+
+        // Back dari halaman proyek (muat penuh).
+        await page.goto('/projects/faceattend');
+        await page.waitForLoadState('load');
+        await page.goBack();
+        await settleHome(page);
+        expect(page.url()).toBe(`${baseURL}/`);
+        await expectRestored(page, mid, width, 'Back');
+
+        // Hash dari kunjungan baru tetap mendarat di section-nya (F1); reload setelah digulir memulihkan posisi,
+        // bukan melompat lagi ke hash.
+        await page.goto('about:blank');
+        await page.goto('/#skills');
+        await settleHome(page);
+        await expectLanded(page, 'skills', width);
+        expect(await activeHref(page, width)).toBe('#skills');
+        const midFromHash = await scrollToMidProjects(page);
+        await page.reload();
+        await settleHome(page);
+        expect(page.url()).toBe(`${baseURL}/#skills`);
+        await expectRestored(page, midFromHash, width, 'reload ber-hash');
+
+        // Logo kembali ke atas dan menghapus hash (F2); reload sesudahnya tetap di atas.
+        await page.locator('a.nav-brand').click();
+        await waitForScrollEnd(page);
+        await page.waitForTimeout(500);
+        expect(await page.evaluate(() => window.scrollY)).toBe(0);
+        expect(page.url()).toBe(`${baseURL}/`);
+        await page.reload();
+        await settleHome(page);
+        log = await loadLog(page);
+        expect(log.y, 'reload setelah logo').toBe(0);
+        expect(log.ys.every((v) => v === 0), 'reload setelah logo: tanpa gerak').toBe(true);
+      });
+    }
+  }
+});
+
 test.describe('tile proyek hero', () => {
   // Tiga proyek teratas Selected work (card.order), menuju model card di halaman, bukan ke GitHub.
   const EXPECTED = ['tb-detector', 'fakenews-detector', 'face-attend'];

@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils/cn';
 import { Container } from '@/components/layout/Container';
 import { ThemeToggle } from '@/components/atoms/ThemeToggle';
 import { LanguageSwitcher } from '@/components/molecules/LanguageSwitcher';
-import { HASH_JUMP_END } from '@/components/atoms/ScrollToTop';
+import { HASH_JUMP_END, isFreshLoad } from '@/components/atoms/ScrollToTop';
 
 export interface NavLink {
   href: string;
@@ -103,12 +103,13 @@ export function Header({ navLinks }: HeaderProps) {
 
   useEffect(() => () => lockRef.current?.release(), []);
 
-  // Muat penuh dengan hash menu (mis. menu dari halaman proyek): ScrollToTop melompat ke section, sorotan
+  // Kunjungan baru dengan hash menu (mis. menu dari halaman proyek): ScrollToTop melompat ke section, sorotan
   // diperlakukan seperti klik menu. ScrollToTop melompat dua kali (lihat di sana), jadi scroll-spy ditahan sampai
-  // HASH_JUMP_END, baru kemudian dikunci seperti biasa sampai scroll terakhir selesai.
+  // HASH_JUMP_END, baru kemudian dikunci seperti biasa sampai scroll terakhir selesai. Reload dan Back/Forward tidak
+  // melompat ke hash (browser memulihkan posisi), jadi sorotan langsung mengikuti scroll-spy.
   useEffect(() => {
     const hash = location.hash;
-    if (!hash || !navLinks.some((link) => link.href === hash)) return;
+    if (!hash || !isFreshLoad() || !navLinks.some((link) => link.href === hash)) return;
     setActiveSection(hash);
     const done = () => lockTo(hash);
     const cap = window.setTimeout(done, 4000);

@@ -216,14 +216,15 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Smooth anchor scrolling */
-html {
+/* Smooth anchor scrolling, aktif setelah load (atribut dipasang ScrollToTop). Sebelumnya restorasi scroll browser
+   saat reload/Back ikut dianimasikan dari atas (terukur, tidak menentu antar-run). */
+html[data-smooth-scroll] {
   scroll-behavior: smooth;
 }
 
 /* Reduced motion — preserves color transitions, removes transforms/animations */
 @media (prefers-reduced-motion: reduce) {
-  html {
+  html[data-smooth-scroll] {
     scroll-behavior: auto;
   }
   *,
