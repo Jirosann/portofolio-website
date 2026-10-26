@@ -122,7 +122,8 @@
   --press-t: scale var(--dur-base) var(--ease-spring), translate var(--dur-base) var(--ease-out);
 
   --hairline: 1px solid var(--color-hairline);
-  --space-section: 4rem;
+  /* Sesi 16: dirapatkan ±17-19% (4rem -> 3.25rem, 6rem -> 5rem). */
+  --space-section: 3.25rem;
   /* Tinggi area navigasi; dipakai scroll-margin-top anchor section */
   --nav-offset: 64px;
 
@@ -161,7 +162,7 @@
   }
 }
 @media (min-width: 768px) {
-  :root { --space-section: 6rem; }
+  :root { --space-section: 5rem; }
 }
 @media (min-width: 1024px) {
   :root { --nav-offset: 80px; }
