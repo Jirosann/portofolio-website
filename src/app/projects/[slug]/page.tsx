@@ -40,6 +40,7 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
     openGraph: {
       title: project.title,
       description: summary,
+      url: `/projects/${slug}`,
       type: 'article',
     },
     alternates: {
