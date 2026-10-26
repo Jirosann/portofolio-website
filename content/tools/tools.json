@@ -8,5 +8,6 @@
   {"id": "capcut", "name": "CapCut", "image": "/icons/apps/capcut.webp", "order": 7},
   {"id": "obsidian", "name": "Obsidian", "image": "/icons/apps/obsidian.svg", "tile": "#151515", "order": 8},
   {"id": "hermes-agent", "name": "Hermes Agent", "maker": "Nous Research", "image": "/icons/apps/hermes-agent.webp", "order": 9},
-  {"id": "openclaw", "name": "OpenClaw", "image": "/icons/apps/openclaw.webp", "order": 10}
+  {"id": "openclaw", "name": "OpenClaw", "image": "/icons/apps/openclaw.webp", "order": 10},
+  {"id": "claude-code", "name": "Claude Code", "image": "/icons/apps/claude.svg", "order": 11}
 ]

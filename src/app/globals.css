@@ -1471,17 +1471,19 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
 }
 .tl-fan > li { flex: none; width: var(--w); margin-inline-start: var(--m); }
 .tl-fan > li:first-child { margin-inline-start: 0; }
-/* Dua baris (HP): setiap li (termasuk awal baris) bermargin --m, dan padding kiri sebesar -m mengembalikannya, jadi
-   jumlah kartu per baris mengikuti --cols tanpa nth-child. Lebar (border-box) = baris kartu + --lead di kedua sisi,
-   ditengahkan dengan margin auto. +1px menahan pembulatan subpiksel. 20.5cqi = kartu terbesar yang masih muat
-   lima per baris di 320 dan 390. */
+/* Beberapa baris (HP): setiap li (termasuk awal baris) bermargin --m, dan padding kiri sebesar -m mengembalikannya,
+   jadi jumlah kartu per baris mengikuti --cols tanpa nth-child. Lebar (border-box) = baris kartu + --lead di kedua
+   sisi, ditengahkan dengan margin auto. +1px menahan pembulatan subpiksel. --w = kartu terbesar yang masih muat
+   --cols per baris: cols·w + (cols−1)·m + 2·lead + 1px <= 100cqi, dengan m = −0,16w dan lead = --k·w (rumus --lead).
+   Baris terakhir yang lebih pendek ditengahkan (justify-content); pusatnya sama dengan baris penuh. */
 @container tl (max-width: 36rem) {
   .tl-fan {
-    --w: clamp(2.75rem, 20.5cqi, 5rem);
-    --m: max(2.75rem - var(--w), var(--w) * -0.16);
     --tilt: calc((var(--cols) - 1) / 2 * 5deg);
+    --k: calc(1.25 * sin(var(--tilt)) - 0.5 * (1 - cos(var(--tilt))));
+    --w: clamp(2.75rem, (100cqi - 1px) / (0.84 * var(--cols) + 0.16 + 2 * var(--k)), 5rem);
+    --m: max(2.75rem - var(--w), var(--w) * -0.16);
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     row-gap: 3rem;
     padding-bottom: 0.7rem;
     width: calc(var(--cols) * var(--w) + (var(--cols) - 1) * var(--m) + 1px + 2 * var(--lead));
