@@ -10,6 +10,7 @@ import {
   ContactSchema,
   SiteSettingsSchema,
   ExperienceSchema,
+  VideosFileSchema,
 } from '../src/lib/validation/schemas';
 
 type ValidationError = {
@@ -229,6 +230,33 @@ function validate() {
     });
   }
   
+  // Validate videos (opsional: section Video Creation tidak dirender bila berkas tidak ada atau semua item draf)
+  const videosPath = 'content/creative/videos.json';
+  if (fs.existsSync(videosPath)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(videosPath, 'utf-8'));
+      const result = VideosFileSchema.safeParse(data);
+      if (!result.success) {
+        result.error.issues.forEach(issue => {
+          errors.push({ file: videosPath, field: issue.path.join('.'), message: issue.message });
+        });
+      } else {
+        const ids = new Set<string>();
+        result.data.videos.forEach((video, idx) => {
+          if (ids.has(video.id)) {
+            errors.push({ file: videosPath, field: `videos.${idx}.id`, message: `Duplicate ID "${video.id}"` });
+          }
+          ids.add(video.id);
+          if (video.poster && !fs.existsSync(path.join('public', video.poster))) {
+            errors.push({ file: videosPath, field: `videos.${idx}.poster`, message: `File not found: public${video.poster}` });
+          }
+        });
+      }
+    } catch (err: any) {
+      errors.push({ file: videosPath, message: `Parse error: ${err.message}` });
+    }
+  }
+
   // Validate contacts
   const contactsPath = 'content/contact/contacts.json';
   if (fs.existsSync(contactsPath)) {

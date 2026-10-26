@@ -28,6 +28,26 @@ const OVERRIDES: Record<string, StackColumnId> = {
   'react-native': 'web',
 };
 
+// Urutan tetap "Also worked with" (redesign-v2 §13): per kelompok, lalu urutan data (kategori.order, skill.order) di
+// dalam kelompok. Kelompok mengikuti kolom kartu; kolom "Backend & infra" dipecah per kategori data. Teknologi baru
+// otomatis masuk ke kelompoknya. OpenAPI (api-security) di Tools/DevOps, posisinya sejak awal (setelah Jenkins).
+// AI & ML tidak ada di daftar pemilik; ditaruh paling akhir (saat ini kosong).
+const ALSO_GROUPS = ['languages', 'web', 'backend-data', 'testing', 'tools-devops', 'ai'] as const;
+type AlsoGroup = (typeof ALSO_GROUPS)[number];
+const BACKEND_COLUMN_GROUP: Record<string, AlsoGroup> = {
+  backend: 'backend-data',
+  database: 'backend-data',
+  testing: 'testing',
+  devops: 'tools-devops',
+  'version-control': 'tools-devops',
+  'ui-ux': 'tools-devops',
+  'api-security': 'tools-devops',
+};
+function alsoGroup(column: StackColumnId, categoryId: string): AlsoGroup {
+  if (column !== 'backend') return column;
+  return BACKEND_COLUMN_GROUP[categoryId] ?? 'backend-data';
+}
+
 // Penulisan lain yang tidak tertangkap norm() (mis. singkatan).
 const ALIASES: Record<string, string> = {
   sklearn: 'scikitlearn',
@@ -93,14 +113,17 @@ export function getStack(projects: Project[]) {
     }
   }
 
-  // Satu entri per nama per kolom (Java dan Java mobile digabung).
+  // Satu entri per nama per kolom (Java dan Java mobile digabung). Kelompok "Also worked with" dari skill pertama.
   const byColumn = new Map<StackColumnId, StackEntry[]>(STACK_COLUMNS.map((id) => [id, []]));
+  const groupOf = new Map<StackEntry, AlsoGroup>();
   for (const s of skills) {
     const column = OVERRIDES[s.id] ?? CATEGORY_COLUMN[s.categoryId] ?? 'backend';
     const entries = byColumn.get(column)!;
     const k = normalizeTech(s.name);
     if (entries.some((e) => normalizeTech(e.name) === k)) continue;
-    entries.push({ id: s.id, name: s.name, icon: s.icon, projects: usedBy.get(k) ?? [] });
+    const entry = { id: s.id, name: s.name, icon: s.icon, projects: usedBy.get(k) ?? [] };
+    entries.push(entry);
+    groupOf.set(entry, alsoGroup(column, s.categoryId));
   }
 
   // Bukti terbanyak dulu; sort stabil, jadi seri tetap mengikuti urutan data.
@@ -111,7 +134,10 @@ export function getStack(projects: Project[]) {
       .filter((e) => e.projects.length > 0)
       .sort((a, b) => b.projects.length - a.projects.length),
   })).filter((c) => c.entries.length > 0);
-  const also = STACK_COLUMNS.flatMap((id) => byColumn.get(id)!.filter((e) => e.projects.length === 0));
+  // Sort stabil per kelompok: urutan data di dalam kelompok tetap.
+  const also = STACK_COLUMNS.flatMap((id) => byColumn.get(id)!.filter((e) => e.projects.length === 0)).sort(
+    (a, b) => ALSO_GROUPS.indexOf(groupOf.get(a)!) - ALSO_GROUPS.indexOf(groupOf.get(b)!),
+  );
 
   return { columns, also, matches };
 }

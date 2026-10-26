@@ -20,7 +20,7 @@ export async function Footer({ contacts }: FooterProps) {
   const links = contacts.filter((c) => footerTypes.includes(c.type));
 
   return (
-    <footer className="py-8 border-t border-border">
+    <footer className="py-8 border-t border-[var(--color-hairline)]">
       <Container>
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-6">
           <p className="text-sm text-[var(--color-text-secondary)]">

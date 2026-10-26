@@ -1,0 +1,139 @@
+/* Video Creation (sesi 13). Tidak di-import: VideoSection membacanya dan menyisipkannya sebagai <style> di dalam
+   section, jadi hanya terkirim bila section dirender (data draf: nol byte CSS) dan tanpa request/preload tambahan. Token warna/gerak dari globals.css. Tile 16:9 dengan facade,
+   judul serif, metadata mono. Bingkai seperti .model-card-frame: hairline, naik 2px saat hover; ditekan mengecil. */
+.vd-grid {
+  display: grid;
+  gap: 2.5rem 2rem;
+}
+@media (min-width: 48rem) {
+  .vd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.vd-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--color-hairline);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+  transition: border-color var(--dur-base) var(--ease-out), var(--press-t);
+}
+@media (hover: hover) {
+  .vd-tile:hover .vd-frame { translate: 0 -2px; border-color: var(--color-text-secondary); }
+}
+.vd-frame:has(> .vd-facade:active) { scale: 0.97; transition-duration: var(--dur-fast); }
+.vd-facade,
+.vd-frame > iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.vd-facade {
+  position: relative;
+  cursor: pointer;
+  color: var(--color-text);
+}
+/* Setelah klik: iframe dimasukkan video-facade.js ke .vd-frame dan tombol disembunyikan (DOM milik React tidak diubah). */
+.vd-frame[data-playing] > .vd-facade { display: none; }
+.vd-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Tanpa poster: latar solid (bukan thumbnail Drive) dengan judul dan tombol putar bertumpuk, rata kiri, di tengah
+   vertikal, jadi tidak ada ruang kosong besar di dalam bingkai. */
+.vd-facade--solid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+}
+.vd-facade--solid .vd-play { position: static; }
+.vd-solid {
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.15;
+  text-align: left;
+  text-wrap: balance;
+}
+.vd-play {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-burgundy-accent);
+  color: #fff;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.25);
+}
+[data-theme="dark"] .vd-play { color: #F1ECE8; }
+.vd-facade:focus-visible { outline: 2px solid var(--color-link-text); outline-offset: -4px; }
+@supports selector(:has(*)) {
+  .vd-facade:focus-visible { outline: none; }
+  .vd-frame:has(> .vd-facade:focus-visible) { box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-link-text); }
+}
+.vd-frame > iframe:focus-visible { outline: 2px solid var(--color-link-text); outline-offset: -2px; }
+.vd-title {
+  margin-top: 1rem;
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+.vd-meta {
+  margin-top: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+}
+/* Tautan satu baris dengan garis bawah meluncur (pola .ct-link sesi 12), target 44 px. */
+.vd-link {
+  position: relative;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.vd-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(50% - 0.85em);
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.vd-link:is(:hover, :focus-visible) { color: var(--color-text); }
+.vd-link:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+.vd-link:focus-visible {
+  outline: none;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-link-text);
+}
+.vd-folder {
+  margin-top: 2.5rem;
+  border-top: var(--hairline);
+  padding-top: 0.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vd-frame, .vd-link::after { transition: none; }
+  .vd-tile:hover .vd-frame { translate: none; }
+  .vd-frame:has(> .vd-facade:active) { scale: none; }
+}

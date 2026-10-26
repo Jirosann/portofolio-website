@@ -1,10 +1,5 @@
 import { cn } from '@/lib/utils/cn';
-
-// Urutan section di halaman utama (sama dengan page.tsx). Nomor label diturunkan dari sini;
-// bila urutan atau visibilitas section berubah, perbarui daftar ini.
-const SECTION_ORDER = ['about', 'projects', 'experience', 'skills', 'contact'] as const;
-
-export type SectionId = (typeof SECTION_ORDER)[number];
+import { getVisibleSections, type SectionId } from '@/lib/content/sections';
 
 interface SectionHeadingProps {
   section: SectionId;
@@ -14,8 +9,9 @@ interface SectionHeadingProps {
   className?: string;
 }
 
+// Nomor label = posisi di antara section yang benar-benar dirender (getVisibleSections, sumber yang sama dengan nav).
 export function SectionHeading({ section, label, title, description, className }: SectionHeadingProps) {
-  const number = String(SECTION_ORDER.indexOf(section) + 1).padStart(2, '0');
+  const number = String(getVisibleSections().indexOf(section) + 1).padStart(2, '0');
 
   return (
     <hgroup className={cn('mb-10 md:mb-12', className)}>

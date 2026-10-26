@@ -47,7 +47,7 @@ export async function StackSection({ projects }: StackSectionProps) {
   const maxProjects = Math.max(1, ...columns.flatMap((col) => col.entries.map((entry) => entry.projects.length)));
 
   return (
-    <section id="skills" className="section-y content-visibility-auto">
+    <section id="skills" className="section-y">
       <noscript>
         <style>{NO_SCRIPT_CSS}</style>
       </noscript>
