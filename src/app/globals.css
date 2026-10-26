@@ -961,10 +961,12 @@ html {
   text-transform: uppercase;
   color: var(--color-eyebrow);
 }
+/* pretty: nilai pendek tidak menyisakan satu kata ("/ Docker", "(semester / 3).") di baris terakhir. */
 .mc-specs dd {
   font-size: 15px;
   line-height: 1.625;
   color: var(--color-text);
+  text-wrap: pretty;
 }
 .mc-link {
   display: inline-flex;
@@ -1091,7 +1093,8 @@ html {
   font-weight: 600;
   line-height: 1.3;
   color: var(--color-text);
-  text-wrap: balance;
+  /* pretty, bukan balance: balance memecah "Human / Resources" di 390 (qa-sesi-14 D5). */
+  text-wrap: pretty;
 }
 .xp-org {
   margin-top: 0.25rem;
@@ -1154,6 +1157,7 @@ details[open] > .xp-summary .xp-chevron { rotate: 180deg; }
   font-weight: 600;
   line-height: 1.5;
   color: var(--color-text);
+  text-wrap: pretty;
 }
 .xp-sub-meta {
   font-size: 0.875rem;
