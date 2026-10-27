@@ -18,9 +18,8 @@ interface HeaderProps {
   navLinks: NavLink[];
 }
 
-// Pita scroll-spy: section aktif = section yang memotong 20%–60% tinggi viewport (sama dengan rootMargin observer).
-const SPY_TOP = 0.2;
-const SPY_BOTTOM = 0.6;
+// Tombol yang menggulir halaman: menekannya selama lompatan menu membatalkan kunci sorotan.
+const SCROLL_KEYS = new Set(['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' ']);
 
 interface Indicator {
   x: number;
@@ -28,7 +27,10 @@ interface Indicator {
   w: number;
   h: number;
   on: boolean; // false: tidak ada item aktif, atau Contact (punya gaya aktif sendiri)
+  appear: boolean; // menyala dari keadaan tanpa item aktif: muncul di tempat, tidak meluncur
 }
+
+const INDICATOR_OFF: Indicator = { x: 0, y: 0, w: 0, h: 0, on: false, appear: false };
 
 export function Header({ navLinks }: HeaderProps) {
   const { t } = useTranslation();
@@ -37,71 +39,116 @@ export function Header({ navLinks }: HeaderProps) {
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
-  // Kunci selama lompatan dari klik menu: scroll-spy diam sampai smooth scroll selesai, jadi section yang dilewati
+  // Kunci selama lompatan dari tautan hash: scroll-spy diam sampai smooth scroll selesai, jadi section yang dilewati
   // tidak sempat menyala. release() membuka kunci (dan membersihkan listener).
   const lockRef = useRef<{ release: () => void } | null>(null);
-  const [indicator, setIndicator] = useState<Indicator | null>(null);
-  // Penempatan pertama tanpa transisi (indikator tidak meluncur dari kiri saat halaman dimuat).
-  const [indicatorReady, setIndicatorReady] = useState(false);
+  // Satu elemen, selalu dirender (padam) agar kemunculan pertama setelah hidrasi juga dianimasikan.
+  const [indicator, setIndicator] = useState<Indicator>(INDICATOR_OFF);
+  const prevActiveRef = useRef('');
 
-  /** Section terakhir (urutan dokumen) yang memotong pita scroll-spy pada posisi scroll `at`; null bila tidak ada. */
-  const sectionInBand = useCallback((at = window.scrollY) => {
-    const top = window.innerHeight * SPY_TOP;
-    const bottom = window.innerHeight * SPY_BOTTOM;
-    const shift = window.scrollY - at;
-    let found: string | null = null;
+  /** Item aktif dari posisi scroll: section terakhir yang tepi atasnya sudah mencapai garis aktif (scroll-margin-top,
+   *  titik pendaratan lompatan menu). Di dasar halaman item terakhir, karena Contact terlalu pendek untuk mencapai
+   *  garis. Di hero tidak ada. */
+  const computeActive = useCallback(() => {
+    const root = document.documentElement;
+    if (navLinks.length && window.scrollY > 0 && window.scrollY >= root.scrollHeight - window.innerHeight - 1) {
+      return navLinks[navLinks.length - 1].href;
+    }
+    let found = '';
     for (const link of navLinks) {
       const el = document.getElementById(link.href.substring(1));
       if (!el) continue;
-      const r = el.getBoundingClientRect();
-      if (r.top + shift < bottom && r.bottom + shift > top) found = link.href;
+      const line = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+      if (el.getBoundingClientRect().top - line <= 1) found = link.href;
     }
     return found;
   }, [navLinks]);
 
-  /** Klik tautan menu: sorotan langsung pindah ke tujuan dan dikunci sampai lompatan selesai. */
+  /** Lompatan ke `href` (tautan menu, tile, logo dengan ''): sorotan langsung pindah ke tujuan dan dikunci sampai
+   *  lompatan selesai. Pengguna yang ikut menggulir membatalkan kunci saat itu juga. */
   const lockTo = useCallback(
     (href: string) => {
       lockRef.current?.release();
       setActiveSection(href);
 
-      let manual = false; // pengguna ikut menggulir selama lompatan: hitung ulang saat kunci dibuka
-      const onManual = () => (manual = true);
       const hasScrollEnd = 'onscrollend' in window;
       // Tanpa scroll sama sekali (sudah di tujuan) tidak ada scrollend: buka setelah 300 ms. Browser tanpa
-      // scrollend: buka setelah 150 ms tanpa event scroll. Batas keras 4 s.
+      // scrollend: buka setelah 150 ms tanpa event scroll. Batas keras 4 s. Selesai normal: sorotan tetap di tujuan
+      // (section yang tertahan di dasar halaman tetap tersorot), scroll berikutnya menghitung ulang.
       let idle = window.setTimeout(release, 300);
       const cap = window.setTimeout(release, 4000);
       function onScroll() {
         window.clearTimeout(idle);
         if (!hasScrollEnd) idle = window.setTimeout(release, 150);
       }
+      function onInput(e: Event) {
+        if (e.type === 'keydown' && !SCROLL_KEYS.has((e as KeyboardEvent).key)) return;
+        release();
+        setActiveSection(computeActive());
+      }
       function release() {
         window.clearTimeout(idle);
         window.clearTimeout(cap);
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('scrollend', release);
-        window.removeEventListener('wheel', onManual);
-        window.removeEventListener('touchstart', onManual);
-        window.removeEventListener('keydown', onManual);
+        window.removeEventListener('wheel', onInput);
+        window.removeEventListener('touchstart', onInput);
+        window.removeEventListener('keydown', onInput);
         if (lockRef.current === lock) lockRef.current = null;
-        if (manual) {
-          const current = sectionInBand();
-          if (current) setActiveSection(current);
-        }
       }
       const lock = { release };
       lockRef.current = lock;
       window.addEventListener('scroll', onScroll, { passive: true });
       if (hasScrollEnd) window.addEventListener('scrollend', release);
-      window.addEventListener('wheel', onManual, { passive: true });
-      window.addEventListener('touchstart', onManual, { passive: true });
-      window.addEventListener('keydown', onManual);
+      window.addEventListener('wheel', onInput, { passive: true });
+      window.addEventListener('touchstart', onInput, { passive: true });
+      window.addEventListener('keydown', onInput);
     },
-    [sectionInBand]
+    [computeActive]
   );
 
   useEffect(() => () => lockRef.current?.release(), []);
+
+  // Semua tautan hash di halaman ini (menu desktop dan mobile, tile proyek di hero, View Projects, "used in" di Stack)
+  // lewat jalur yang sama: tujuan dipetakan ke section menu yang memuatnya, lalu dikunci selama lompatan.
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const href = (e.target as Element | null)?.closest?.('a[href^="#"]')?.getAttribute('href');
+      if (!href) return;
+      let target: HTMLElement | null = null;
+      try {
+        target = document.getElementById(decodeURIComponent(href.slice(1)));
+      } catch {} // hash dengan % tidak valid
+      const section = target?.closest('main section[id]');
+      if (section && navLinks.some((link) => link.href === `#${section.id}`)) lockTo(`#${section.id}`);
+    }
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, [navLinks, lockTo]);
+
+  // Scroll-spy: dihitung dari posisi scroll, paling banyak sekali per frame. Juga saat mount (setelah restorasi
+  // scroll), resize, load, pageshow (bfcache), dan saat tinggi konten berubah (gambar, font).
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (!lockRef.current) setActiveSection(computeActive());
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    const events = ['scroll', 'resize', 'load', 'pageshow'] as const;
+    events.forEach((e) => window.addEventListener(e, schedule, { passive: true }));
+    const ro = new ResizeObserver(schedule);
+    ro.observe(document.body);
+    schedule();
+    return () => {
+      cancelAnimationFrame(frame);
+      events.forEach((e) => window.removeEventListener(e, schedule));
+      ro.disconnect();
+    };
+  }, [computeActive]);
 
   // Kunjungan baru dengan hash menu (mis. menu dari halaman proyek): ScrollToTop melompat ke section, sorotan
   // diperlakukan seperti klik menu. ScrollToTop melompat dua kali (lihat di sana), jadi scroll-spy ditahan sampai
@@ -133,8 +180,8 @@ export function Header({ navLinks }: HeaderProps) {
     setMobileMenuOpen(false);
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (location.hash) history.pushState(null, '', location.pathname + location.search);
-    // Sorotan langsung ke keadaan di posisi atas (seperti saat halaman dimuat), dikunci selama naik.
-    lockTo(sectionInBand(0) ?? '');
+    // Hero tidak punya item menu: sorotan langsung padam, dikunci selama naik.
+    lockTo('');
     window.scrollTo({ top: 0, behavior: reduced ? 'instant' : 'smooth' });
   };
 
@@ -172,43 +219,19 @@ export function Header({ navLinks }: HeaderProps) {
     };
   }, [mobileMenuOpen]);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (lockRef.current) return; // lompatan dari menu sedang berjalan
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(`#${entry.target.id}`);
-          }
-        });
-      },
-      {
-        rootMargin: '-20% 0px -40% 0px',
-      }
-    );
-
-    navLinks.forEach((link) => {
-      const id = link.href.substring(1);
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
-      }
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [navLinks]);
-
   // Indikator aktif (satu elemen untuk semua tautan desktop): diukur dari tautan aktif, diukur ulang saat lebar
-  // tautan berubah (font, bahasa, breakpoint). Contact punya gaya aktif sendiri, jadi indikator memudar di sana.
+  // tautan berubah (font, bahasa, breakpoint). Contact punya gaya aktif sendiri, jadi indikator memudar di sana
+  // (posisinya tetap diukur, jadi dari Contact ke item lain tetap meluncur). Dari keadaan tanpa item aktif
+  // (hero, muat penuh) indikator muncul di tempat.
   useLayoutEffect(() => {
     const wrap = linksRef.current;
     if (!wrap) return;
+    const appear = !prevActiveRef.current;
+    prevActiveRef.current = activeSection;
     const measure = () => {
       const link = activeSection ? wrap.querySelector<HTMLAnchorElement>(`a[href="${activeSection}"]`) : null;
       if (!link || link.offsetParent === null) {
-        setIndicator((prev) => (prev ? { ...prev, on: false } : null));
+        setIndicator((prev) => ({ ...prev, on: false, appear: false }));
         return;
       }
       setIndicator({
@@ -217,6 +240,7 @@ export function Header({ navLinks }: HeaderProps) {
         w: link.offsetWidth,
         h: link.offsetHeight,
         on: !link.classList.contains('nav-link-contact'),
+        appear,
       });
     };
     measure();
@@ -224,12 +248,6 @@ export function Header({ navLinks }: HeaderProps) {
     ro.observe(wrap);
     return () => ro.disconnect();
   }, [activeSection, navLinks]);
-
-  useEffect(() => {
-    if (!indicator || indicatorReady) return;
-    const id = requestAnimationFrame(() => setIndicatorReady(true));
-    return () => cancelAnimationFrame(id);
-  }, [indicator, indicatorReady]);
 
   return (
     <header
@@ -267,26 +285,23 @@ export function Header({ navLinks }: HeaderProps) {
           {/* Desktop Navigation */}
           <div ref={linksRef} className="nav-links hidden md:flex items-center gap-2">
             {/* Satu indikator yang meluncur antar-tautan (transform), di belakang teks tautan. */}
-            {indicator && (
-              <span
-                aria-hidden="true"
-                className="nav-indicator"
-                data-on={indicator.on ? '' : undefined}
-                data-ready={indicatorReady ? '' : undefined}
-                style={{
-                  transform: `translate(${indicator.x}px, ${indicator.y}px)`,
-                  width: indicator.w,
-                  height: indicator.h,
-                }}
-              />
-            )}
+            <span
+              aria-hidden="true"
+              className="nav-indicator"
+              data-on={indicator.on ? '' : undefined}
+              data-appear={indicator.appear ? '' : undefined}
+              style={{
+                transform: `translate(${indicator.x}px, ${indicator.y}px)`,
+                width: indicator.w,
+                height: indicator.h,
+              }}
+            />
             {navLinks.map((link) => {
               const active = activeSection === link.href;
               return (
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => lockTo(link.href)}
                   aria-current={active ? 'true' : undefined}
                   data-text={link.label}
                   className={cn(
@@ -341,7 +356,7 @@ export function Header({ navLinks }: HeaderProps) {
                     <a
                       key={link.href}
                       href={link.href}
-                      onClick={() => { lockTo(link.href); setMobileMenuOpen(false); }}
+                      onClick={() => setMobileMenuOpen(false)}
                       aria-current={active ? 'true' : undefined}
                       className={cn(
                         'mobile-nav-contact rounded-full px-4 py-3 text-base font-bold text-center mx-auto w-full max-w-xs press',
@@ -356,7 +371,7 @@ export function Header({ navLinks }: HeaderProps) {
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={() => { lockTo(link.href); setMobileMenuOpen(false); }}
+                    onClick={() => setMobileMenuOpen(false)}
                     aria-current={active ? 'true' : undefined}
                     className={cn(
                       'mobile-nav-normal min-h-11 rounded-full px-4 py-2 text-base font-medium text-center',

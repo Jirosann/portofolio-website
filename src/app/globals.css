@@ -746,8 +746,9 @@ html[data-smooth-scroll] {
 /* Indikator aktif (Header, satu elemen untuk semua tautan desktop): meluncur dari item lama ke item baru lewat
    transform (posisi dan ukuran dari tautan aktif, inline style), pegas ringan --dur-slow. Di belakang teks tautan.
    768–1023: garis tembaga selebar teks (padding tautan 0.625rem). >= 1024: pil terang opak + garis pendek (di blok
-   Liquid Glass). Memudar di Contact (gaya aktif sendiri) atau bila tidak ada item aktif. Penempatan pertama tanpa
-   transisi (data-ready baru dipasang setelah frame pertama); reduced motion: pindah instan. */
+   Liquid Glass). Memudar di Contact (gaya aktif sendiri) atau bila tidak ada item aktif (hero). Dari keadaan tanpa
+   item aktif (data-appear) muncul di tempat dengan fade/scale: posisi dan ukuran langsung, tanpa meluncur dari item
+   lama. Reduced motion: pindah instan. */
 .nav-links { position: relative; }
 .nav-links > a { z-index: 1; }
 .nav-indicator {
@@ -756,12 +757,15 @@ html[data-smooth-scroll] {
   left: 0;
   border-radius: 999px;
   opacity: 0;
+  scale: 0.92;
   pointer-events: none;
-}
-.nav-indicator[data-on] { opacity: 1; }
-.nav-indicator[data-ready] {
   transition: transform var(--dur-slow) var(--ease-spring), width var(--dur-slow) var(--ease-spring),
-    height var(--dur-slow) var(--ease-spring), opacity var(--dur-base) var(--ease-out);
+    height var(--dur-slow) var(--ease-spring), opacity var(--dur-base) var(--ease-out),
+    scale var(--dur-base) var(--ease-out);
+}
+.nav-indicator[data-on] { opacity: 1; scale: 1; }
+.nav-indicator[data-appear] {
+  transition: opacity var(--dur-base) var(--ease-out), scale var(--dur-base) var(--ease-out);
 }
 .nav-indicator::after {
   content: '';
@@ -774,7 +778,8 @@ html[data-smooth-scroll] {
   background-color: var(--color-highlight);
 }
 @media (prefers-reduced-motion: reduce) {
-  .nav-indicator[data-ready] { transition: none; }
+  .nav-indicator,
+  .nav-indicator[data-appear] { transition: none; }
 }
 
 /* Mobile Nav Contact */
