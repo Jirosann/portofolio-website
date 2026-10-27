@@ -209,13 +209,29 @@ test.describe('logo', () => {
   });
 });
 
-/** Rekam scrollY tiap frame (1,5 s pertama) dan setiap perubahan sorotan menu sejak dokumen dibuat, di setiap muat penuh.
- *  rAF tidak berjalan selama render ditahan, jadi entri pertama adalah frame pertama yang dilukis. */
+/** Rekam scrollY tiap frame (1,5 s pertama), setiap perubahan sorotan menu, dan setiap perubahan indikator sejak
+ *  dokumen dibuat, di setiap muat penuh. rAF tidak berjalan selama render ditahan, jadi entri pertama adalah frame
+ *  pertama yang dilukis. Indikator: menyala atau tidak, plus properti transisi yang berjalan saat itu. */
 async function recordLoads(page: Page) {
   await page.addInitScript(() => {
-    const w = window as unknown as { __ys: number[]; __active: (string | null)[] };
+    const w = window as unknown as { __ys: number[]; __active: (string | null)[]; __ind: IndicatorEntry[] };
     w.__ys = [];
     w.__active = [];
+    w.__ind = [];
+    const logIndicator = (el: Element) =>
+      w.__ind.push({
+        on: el.hasAttribute('data-on'),
+        props: el.getAnimations().map((a) => (a as CSSTransition).transitionProperty ?? 'animation'),
+      });
+    new MutationObserver((records) => {
+      for (const r of records) {
+        const el = r.target as Element;
+        if (r.type === 'attributes' && el.classList.contains('nav-indicator')) logIndicator(el);
+        r.addedNodes.forEach((n) => {
+          if (n instanceof Element && n.classList.contains('nav-indicator')) logIndicator(n);
+        });
+      }
+    }).observe(document, { subtree: true, childList: true, attributes: true, attributeFilter: ['data-on', 'style'] });
     let t0 = 0;
     const tick = (t: number) => {
       t0 ||= t;
@@ -231,11 +247,20 @@ async function recordLoads(page: Page) {
   });
 }
 
+type IndicatorEntry = { on: boolean; props: string[] };
+
 const loadLog = (page: Page) =>
   page.evaluate(() => {
-    const w = window as unknown as { __ys: number[]; __active: (string | null)[] };
-    return { ys: w.__ys, active: w.__active, y: window.scrollY };
+    const w = window as unknown as { __ys: number[]; __active: (string | null)[]; __ind: IndicatorEntry[] };
+    return { ys: w.__ys, active: w.__active, ind: w.__ind, y: window.scrollY };
   });
+
+/** Indikator menyala dari padam di tempat (fade/scale), bukan meluncur dari item lain: tidak ada transisi transform. */
+function expectAppearedInPlace(ind: IndicatorEntry[], label: string) {
+  const on = ind.filter((e) => e.on);
+  expect(on.length, `${label}: indikator menyala`).toBeGreaterThan(0);
+  expect(on.flatMap((e) => e.props), `${label}: indikator meluncur`).not.toContain('transform');
+}
 
 /** Gulir ke tengah section Projects; kembalikan scrollY. */
 async function scrollToMidProjects(page: Page) {
@@ -257,6 +282,7 @@ async function expectRestored(page: Page, y: number, width: number, label: strin
   expect(Math.abs(log.y - y), `${label}: scrollY ${log.y}, semula ${y}`).toBeLessThanOrEqual(4);
   expect(log.ys.filter((v) => Math.abs(v - y) > 4), `${label}: frame di luar posisi terakhir`).toEqual([]);
   expect(log.active.filter(Boolean), `${label}: urutan sorotan`).toEqual(['#projects']);
+  if (width >= 768) expectAppearedInPlace(log.ind, label);
   expect(await activeHref(page, width), `${label}: sorotan`).toBe('#projects');
 }
 
@@ -351,6 +377,185 @@ test.describe('posisi scroll saat muat penuh', () => {
       });
     }
   }
+});
+
+/** Item yang seharusnya aktif: section terakhir yang tepi atasnya sudah mencapai garis aktif (scroll-margin-top, titik
+ *  pendaratan lompatan menu); di dasar halaman item terakhir; di hero tidak ada. */
+const expectedActive = (page: Page) =>
+  page.evaluate(() => {
+    const hrefs = [...document.querySelectorAll('.nav-links a[href^="#"]')].map((a) => a.getAttribute('href')!);
+    if (window.scrollY >= document.documentElement.scrollHeight - window.innerHeight - 1) return hrefs.at(-1)!;
+    let found: string | null = null;
+    for (const href of hrefs) {
+      const el = document.getElementById(href.slice(1));
+      if (el && el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).scrollMarginTop) <= 1) found = href;
+    }
+    return found;
+  });
+
+/** Sorotan desktop: href aktif dan apakah indikator menyala. */
+const navState = (page: Page) =>
+  page.evaluate(() => ({
+    active: document.querySelector('.nav-links a[aria-current="true"]')?.getAttribute('href') ?? null,
+    on: document.querySelector('.nav-indicator')?.hasAttribute('data-on') ?? false,
+  }));
+
+/** Tunggu scroll berhenti, lalu scroll-spy dan kunci lompatan selesai. */
+async function settle(page: Page) {
+  await waitForScrollEnd(page);
+  await page.waitForTimeout(500);
+}
+
+/** Mulai ulang rekaman sorotan dan indikator (log dari recordLoads). */
+const resetLog = (page: Page) =>
+  page.evaluate(() => {
+    const w = window as unknown as { __active: (string | null)[]; __ind: IndicatorEntry[] };
+    w.__active = [];
+    w.__ind = [];
+  });
+
+async function expectFollows(page: Page, label: string) {
+  const expected = await expectedActive(page);
+  const y = await page.evaluate(() => window.scrollY);
+  expect((await navState(page)).active, `${label} (scrollY ${y})`).toBe(expected);
+}
+
+test.describe('sorotan navbar', () => {
+  for (const lang of ['en', 'id'] as const) {
+    test(`${lang} 1440px: di hero tidak ada item aktif; hero -> About muncul di tempat`, async ({ page, setup }) => {
+      await setup({ width: 1440, lang });
+      await recordLoads(page);
+      await gotoHome(page);
+      await page.mouse.move(720, 450);
+      expect(await navState(page), 'muat di atas').toEqual({ active: null, on: false });
+
+      // Pelan ke Projects, lalu Home.
+      for (let i = 0; i < 25; i++) {
+        await page.mouse.wheel(0, 100);
+        await page.waitForTimeout(40);
+      }
+      await settle(page);
+      await expectFollows(page, 'wheel pelan');
+      await page.keyboard.press('Home');
+      await settle(page);
+      expect(await navState(page), 'setelah Home').toEqual({ active: null, on: false });
+
+      // Cepat ke bawah lalu cepat kembali ke atas.
+      await page.mouse.wheel(0, 2500);
+      await settle(page);
+      for (let i = 0; i < 6; i++) await page.mouse.wheel(0, -600);
+      await settle(page);
+      expect(await page.evaluate(() => window.scrollY)).toBe(0);
+      expect(await navState(page), 'setelah wheel cepat ke atas').toEqual({ active: null, on: false });
+
+      // Hero -> About: indikator muncul di About, tidak meluncur dari item lain.
+      await resetLog(page);
+      for (let i = 0; i < 30 && (await expectedActive(page)) !== '#about'; i++) {
+        await page.mouse.wheel(0, 100);
+        await waitForScrollEnd(page);
+      }
+      await settle(page);
+      expect(await navState(page), 'hero -> About').toEqual({ active: '#about', on: true });
+      const log = await loadLog(page);
+      expect(log.active, 'hero -> About: urutan sorotan').toEqual(['#about']);
+      expectAppearedInPlace(log.ind, 'hero -> About');
+    });
+
+    test(`${lang} 1440px: scroll pelan dan cepat, sorotan mengikuti posisi akhir; dasar halaman Contact`, async ({ page, setup }) => {
+      await setup({ width: 1440, lang });
+      await gotoHome(page);
+      await page.mouse.move(720, 450);
+      for (let i = 0; i < 70; i++) {
+        await page.mouse.wheel(0, 100);
+        await page.waitForTimeout(40);
+        if (i % 10 === 9) {
+          await settle(page);
+          await expectFollows(page, `wheel pelan ${i + 1}`);
+        }
+      }
+      for (const dy of [1500, 2500, 1200, 3000, -2000, 800, -3500, 2600, -900, -5000]) {
+        await page.mouse.wheel(0, dy);
+        await settle(page);
+        await expectFollows(page, `wheel ${dy}`);
+      }
+      await page.keyboard.press('End');
+      await settle(page);
+      expect((await navState(page)).active, 'dasar halaman').toBe('#contact');
+    });
+
+    test(`${lang} 1440px: klik menu, tile hero, logo, lalu scroll manual`, async ({ page, setup }) => {
+      await setup({ width: 1440, lang });
+      await recordLoads(page);
+      await gotoHome(page);
+      await page.mouse.move(720, 450);
+      const history = async () => (await loadLog(page)).active;
+
+      await resetLog(page);
+      await page.locator('.nav-links a[href="#experience"]').click();
+      await settle(page);
+      expect(new Set(await history()), 'menu Experience').toEqual(new Set(['#experience']));
+      await page.mouse.wheel(0, -700);
+      await settle(page);
+      await expectFollows(page, 'scroll manual setelah menu');
+
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+      await settle(page);
+      await resetLog(page);
+      await page.locator('ul[aria-labelledby="hero-proof"] a').first().click();
+      await settle(page);
+      expect(new Set(await history()), 'tile hero').toEqual(new Set(['#projects']));
+      await page.mouse.wheel(0, 1600);
+      await settle(page);
+      await expectFollows(page, 'scroll manual setelah tile');
+
+      await resetLog(page);
+      await page.locator('a.nav-brand').click();
+      await settle(page);
+      expect(await history(), 'logo').toEqual([null]);
+      expect(await navState(page), 'logo').toEqual({ active: null, on: false });
+      await page.mouse.wheel(0, 1200);
+      await settle(page);
+      await expectFollows(page, 'scroll manual setelah logo');
+
+      // Wheel di tengah lompatan: kunci batal, sorotan mengikuti posisi.
+      await page.locator('.nav-links a[href="#contact"]').click();
+      await page.waitForTimeout(120);
+      await page.mouse.wheel(0, -300);
+      await settle(page);
+      await expectFollows(page, 'wheel di tengah lompatan');
+    });
+  }
+
+  test('390px: menu mobile tanpa item aktif di hero dan mengikuti posisi', async ({ page, setup }) => {
+    await setup({ width: 390, height: 844 });
+    await gotoHome(page);
+    expect(await activeHref(page, 390), 'muat di atas').toBe(null);
+    await scrollToMidProjects(page);
+    expect(await activeHref(page, 390), 'Projects').toBe('#projects');
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+    await settle(page);
+    expect(await activeHref(page, 390), 'kembali ke atas').toBe(null);
+    await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
+    await settle(page);
+    expect(await activeHref(page, 390), 'dasar halaman').toBe('#contact');
+  });
+
+  test('reduced motion: indikator berpindah tanpa animasi', async ({ page, setup }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await setup({ width: 1440 });
+    await recordLoads(page);
+    await gotoHome(page);
+    for (const id of ['about', 'projects', 'experience']) {
+      await page.evaluate((id) => document.getElementById(id)!.scrollIntoView({ behavior: 'instant' }), id);
+      await settle(page);
+      expect((await navState(page)).active).toBe(`#${id}`);
+    }
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+    await settle(page);
+    const log = await loadLog(page);
+    expect(log.ind.length).toBeGreaterThan(0);
+    expect(log.ind.flatMap((e) => e.props), 'animasi indikator').toEqual([]);
+  });
 });
 
 test.describe('tile proyek hero', () => {
