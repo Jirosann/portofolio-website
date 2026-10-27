@@ -209,16 +209,18 @@ test.describe('logo', () => {
   });
 });
 
-/** Rekam scrollY tiap frame (1,5 s pertama) dan setiap perubahan sorotan menu sejak dokumen dibuat, di setiap muat penuh. */
+/** Rekam scrollY tiap frame (1,5 s pertama) dan setiap perubahan sorotan menu sejak dokumen dibuat, di setiap muat penuh.
+ *  rAF tidak berjalan selama render ditahan, jadi entri pertama adalah frame pertama yang dilukis. */
 async function recordLoads(page: Page) {
   await page.addInitScript(() => {
     const w = window as unknown as { __ys: number[]; __active: (string | null)[] };
     w.__ys = [];
     w.__active = [];
-    const t0 = performance.now();
-    const tick = () => {
+    let t0 = 0;
+    const tick = (t: number) => {
+      t0 ||= t;
       w.__ys.push(window.scrollY);
-      if (performance.now() - t0 < 1500) requestAnimationFrame(tick);
+      if (t - t0 < 1500) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
     new MutationObserver(() => {
@@ -248,12 +250,12 @@ async function scrollToMidProjects(page: Page) {
   return y;
 }
 
-/** Posisi dipulihkan sekaligus (tidak dianimasikan dari atas) dan sorotan langsung ke Projects tanpa singgah. */
+/** Frame pertama sudah di posisi terakhir (hero tidak sempat tampil), tanpa posisi antara, dan sorotan langsung ke
+ *  Projects tanpa singgah. */
 async function expectRestored(page: Page, y: number, width: number, label: string) {
   const log = await loadLog(page);
   expect(Math.abs(log.y - y), `${label}: scrollY ${log.y}, semula ${y}`).toBeLessThanOrEqual(4);
-  // Paling banyak frame di 0 sebelum restorasi; tidak ada posisi antara.
-  expect(log.ys.filter((v) => v > 4 && Math.abs(v - y) > 4), `${label}: posisi antara`).toEqual([]);
+  expect(log.ys.filter((v) => Math.abs(v - y) > 4), `${label}: frame di luar posisi terakhir`).toEqual([]);
   expect(log.active.filter(Boolean), `${label}: urutan sorotan`).toEqual(['#projects']);
   expect(await activeHref(page, width), `${label}: sorotan`).toBe('#projects');
 }
@@ -316,6 +318,36 @@ test.describe('posisi scroll saat muat penuh', () => {
         log = await loadLog(page);
         expect(log.y, 'reload setelah logo').toBe(0);
         expect(log.ys.every((v) => v === 0), 'reload setelah logo: tanpa gerak').toBe(true);
+      });
+
+      // HTML datang bertahap: Chrome melukis selagi parser masih di hero, sebelum dokumen cukup tinggi untuk dipulihkan.
+      test(`${lang} ${width}px: reload dan Back di jaringan lambat tidak menampilkan hero dulu`, async ({ page, setup, problems }) => {
+        test.slow();
+        await setup({ width, height: width < 768 ? 844 : 900, lang });
+        await recordLoads(page);
+        await gotoHome(page);
+        expect(await page.locator('link[rel="expect"]').count(), 'kunjungan baru: render tidak ditahan').toBe(0);
+        const mid = await scrollToMidProjects(page);
+
+        const cdp = await page.context().newCDPSession(page);
+        await cdp.send('Network.enable');
+        await cdp.send('Network.emulateNetworkConditions', {
+          offline: false,
+          latency: 40,
+          downloadThroughput: 200 * 1024,
+          uploadThroughput: 200 * 1024,
+        });
+
+        await page.reload();
+        await settleHome(page);
+        await expectRestored(page, mid, width, 'reload lambat');
+
+        await page.goto('/projects/faceattend');
+        await page.waitForLoadState('load');
+        await page.goBack();
+        await settleHome(page);
+        await expectRestored(page, mid, width, 'Back lambat');
+        expect(problems.console).toEqual([]);
       });
     }
   }

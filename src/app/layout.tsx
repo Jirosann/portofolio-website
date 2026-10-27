@@ -8,6 +8,7 @@ import { DelightRoot } from "@/components/delight/DelightRoot";
 import { delightCopy, siteRepoUrl } from "@/lib/delight/copy";
 import { dictionaries, resolveLocale } from "@/lib/i18n";
 import { getSiteUrl } from "@/lib/constants";
+import { PAGE_END_ID, holdRenderScript } from "@/lib/scroll-restore";
 import localFont from 'next/font/local';
 import { Newsreader } from 'next/font/google';
 import "./globals.css";
@@ -112,6 +113,10 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} suppressHydrationWarning>
+      <head>
+        {/* Reload/Back: tahan render sampai #page-end di-parse agar frame pertama sudah di posisi scroll terakhir. */}
+        <script dangerouslySetInnerHTML={{ __html: holdRenderScript }} />
+      </head>
       <body className={`min-h-screen flex flex-col font-sans ${inter.variable} ${newsreader.variable}`} suppressHydrationWarning>
         <script
           type="application/ld+json"
@@ -144,6 +149,7 @@ export default async function RootLayout({
             </div>
           </ThemeProvider>
         </LanguageProvider>
+        <div id={PAGE_END_ID} hidden />
       </body>
     </html>
   );
