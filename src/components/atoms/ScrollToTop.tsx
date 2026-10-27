@@ -3,8 +3,10 @@
 import { useEffect } from 'react';
 
 // Posisi scroll saat muat penuh. Reload dan Back/Forward: restorasi bawaan browser (scrollRestoration "auto") yang
-// mengembalikan posisi terakhir, termasuk bila URL ber-hash. Restorasi terjadi sekitar event load dan ikut dianimasikan
-// bila scroll-behavior: smooth sudah aktif, jadi smooth scroll (html[data-smooth-scroll]) baru dipasang setelah load.
+// mengembalikan posisi terakhir, termasuk bila URL ber-hash. Restorasi terjadi begitu dokumen cukup tinggi; agar hero
+// tidak sempat dilukis lebih dulu, skrip di <head> menahan render sampai markup selesai di-parse (lib/scroll-restore).
+// Restorasi ikut dianimasikan bila scroll-behavior: smooth sudah aktif, jadi smooth scroll (html[data-smooth-scroll])
+// baru dipasang setelah load.
 // Kunjungan baru tanpa hash: browser sudah mulai dari atas, jadi tidak ada scrollTo(0, 0) yang bisa menarik pengguna
 // yang sudah menggulir sebelum hidrasi. Kunjungan baru dengan hash (tautan dibagikan, menu navbar dari halaman
 // proyek): lompat langsung ke target. Posisi dihitung sendiri dari scroll-margin-top dan dilompati dengan `instant`,
