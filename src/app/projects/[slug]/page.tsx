@@ -21,6 +21,8 @@ export async function generateStaticParams() {
   const slugs = getAllProjectSlugs();
   return slugs.map((slug) => ({ slug }));
 }
+// Slug di luar daftar langsung 404 tanpa merender halaman.
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }: ProjectDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
